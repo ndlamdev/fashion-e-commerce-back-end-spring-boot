@@ -1,0 +1,77 @@
+spring:
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:fashion_e_commerce}
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:root}
+    driver-class-name: ${MYSQL_DRIVER:com.mysql.cj.jdbc.Driver}
+    hikari:
+      auto-commit: ${MYSQL_AUT_COMMIT:on}
+      maximum-pool-size: ${MYSQL_MAXIMUM_POOL_SIZE:8}
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      database: ${REDIS_DATABASE:13}
+      port: ${REDIS_PORT:6379}
+      username: ${REDIS_USERNAME:root}
+      timeout: ${REDIS_TIMEOUT:60000}
+      lettuce:
+        pool:
+          max-active: ${REDIS_MAX_POOL_ACTIVE:8}
+          max-idle: ${REDIS_MAX_POOL_IDLE:8}
+          min-idle: ${REDIS_MIN_POOL_IDLE:0}
+          max-wait: ${REDIS_MAX_POOL_WAIT:-1ms}
+application:
+  BCrypt-length: ${BCRYPT_LENGTH:16}
+  login-path: ${LOGIN_PATH:/v1/auth/login}
+  jwt:
+    iss: ${JWT_ISS:https://kimi-fashion-e-commerce.com}
+    secret-key: ${JWT_SECRET-KEY:TwCzI8DFFBQQOctVeXbVsDbLAUbqtztbUMhaFhnU6VM=}
+    claim: ${JWT_CLAIM:payload}
+  prefix:
+    role: ${PREFIX_ROLE:ROLE_}
+    permission: ${PREFIX_PERMISSION:SCOPE_}
+  token:
+    blacklist: BLACKLIST
+    access:
+      key: ${ACCESS_TOKEN_KEY:ACCESS_TOKEN}
+      default-token: ${ACCESS_TOKEN_DEFAULT_VALUE:default}
+      expire: ${ACCESS_TOKEN_EXPIRE:1800}
+      blacklist: ${application.token.blacklist}_${application.token.access.key}
+    refresh:
+      key: ${REFRESH_TOKEN_KEY:REFRESH_TOKEN}
+      default-token: ${REFRESH_TOKEN_DEFAULT_VALUE:default}
+      expire: ${REFRESH_TOKEN_EXPIRE:86400}
+      blacklist: ${application.token.blacklist}_${application.token.refresh.key}
+
+    otp:
+      verity_account:
+        length: 6
+        key: ${OTP_VERITY_ACCOUNT:VERITY_ACCOUNT}
+        expire: ${OTP_VERIFY_ACCOUNT_EXPIRE:10}
+        total_try:
+          key: ${application.token.otp.verity_account.key}_${application.token.otp.total_try}
+          value: ${OTP_VERIFY_ACCOUNT_TOTAL_TRY:5}
+        total_resend:
+          key: ${application.token.otp.verity_account.key}_${application.token.otp.total_resend}
+          value: ${OTP_VERIFY_ACCOUNT_TOTAL_RESEND:5}
+          expire: ${OTP_VERIFY_ACCOUNT_RESEND_EXPIRE:60}
+      reset_password:
+        key: ${OTP_RESET_PASSWORD:RESET_PASSWORD}
+        expire: ${OTP_RESET_PASSWORD_EXPIRE:10}
+        total_try:
+          key: ${application.token.otp.reset_password.key}_${application.token.otp.total_try}
+          value: ${OTP_RESET_PASSWORD_TOTAL_TRY:5}
+        total_resend:
+          key: ${application.token.otp.reset_password.key}_${application.token.otp.total_resend}
+          value: ${OTP_RESET_PASSWORD_TOTAL_RESEND:5}
+          expire: ${OTP_RESET_PASSWORD_RESEND_EXPIRE:60}
+      total_try: ${OTP_TOTAL_TRY:TOTAL_TRY}
+      total_resend: ${OTP_TOTAL_RESEND:TOTAL_RESEND}
+logging:
+  level:
+    org.springframework.security: trace
+
+brevo:
+  api-key: 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
+  email: kiminonawa1305@gmail.com
+  name: Kimi Fashion

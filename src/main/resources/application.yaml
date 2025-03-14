@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: server
+  profiles:
+    active: dev
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: ${SHOW_SQL:true}
+    properties:
+      hibernate:
+        format_sql: ${HIBERNATE_FORMAT_SQL:true}
+  jackson:
+    mapper:
+      sort-properties-alphabetically: false
+
+application:
+  white-list:
+    - /v1/auth/login
+    - /v1/auth/register
+    - /v1/auth/logout
+    - /v1/auth/verify
+    - /v1/auth/resend-verify
+
+server:
+  servlet:
+    context-path: /fashion-e-commerce
