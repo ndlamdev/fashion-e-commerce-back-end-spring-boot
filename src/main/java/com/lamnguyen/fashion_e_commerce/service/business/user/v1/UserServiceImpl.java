@@ -25,8 +25,8 @@ public class UserServiceImpl implements IUserService {
     UserRepository userRepository;
 
     @Override
-    public User findUser(String email) {
-        return userRepository.findByEmail(email).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_EXIST));
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND));
     }
 
     @Override
@@ -37,5 +37,10 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User save(User user) {
         return userRepository.save(user);
+    }
+
+    @Override
+    public User findById(long userId) {
+        return userRepository.findById(userId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND));
     }
 }

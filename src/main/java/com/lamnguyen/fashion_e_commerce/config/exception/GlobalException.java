@@ -12,8 +12,11 @@ package com.lamnguyen.fashion_e_commerce.config.exception;
 import com.lamnguyen.fashion_e_commerce.domain.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -44,6 +47,36 @@ public class GlobalException {
                 .code(HttpStatus.UNAVAILABLE_FOR_LEGAL_REASONS.value())
                 .message(exception.getMessageError())
                 .error(exception.getMessage())
+                .trace(exception.getStackTrace())
+                .build());
+    }
+
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public ResponseEntity<ApiResponse<Object>> handleMissingServletRequestParameterException(MissingServletRequestParameterException exception) {
+        return ResponseEntity.badRequest().body(ApiResponse.builder()
+                .code(HttpStatus.PAYMENT_REQUIRED.value())
+                .error(HttpStatus.PAYMENT_REQUIRED.name())
+                .message(exception.getMessage())
+                .trace(exception.getStackTrace())
+                .build());
+    }
+
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public ResponseEntity<ApiResponse<Object>> handleMissingServletRequestParameterException(AuthorizationDeniedException exception) {
+        return ResponseEntity.badRequest().body(ApiResponse.builder()
+                .code(HttpStatus.UNAUTHORIZED.value())
+                .error(HttpStatus.UNAUTHORIZED.name())
+                .message(exception.getMessage())
+                .trace(exception.getStackTrace())
+                .build());
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ApiResponse<Object>> handleMissingServletRequestParameterException(HttpMessageNotReadableException exception) {
+        return ResponseEntity.badRequest().body(ApiResponse.builder()
+                .code(HttpStatus.PAYMENT_REQUIRED.value())
+                .error(HttpStatus.PAYMENT_REQUIRED.name())
+                .message(exception.getMessage())
                 .trace(exception.getStackTrace())
                 .build());
     }

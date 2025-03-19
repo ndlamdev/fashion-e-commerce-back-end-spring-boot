@@ -10,6 +10,8 @@ package com.lamnguyen.fashion_e_commerce.service.authentication;
 
 import com.lamnguyen.fashion_e_commerce.domain.reponse.RegisterResponse;
 import com.lamnguyen.fashion_e_commerce.domain.request.RegisterAccountRequest;
+import com.lamnguyen.fashion_e_commerce.domain.request.SetNewPasswordRequest;
+import org.springframework.security.oauth2.jwt.Jwt;
 
 public interface IAuthenticationService {
     RegisterResponse register(RegisterAccountRequest request);
@@ -18,7 +20,15 @@ public interface IAuthenticationService {
 
     void resendVerifyAccountCode(String email);
 
-    void login(String accessToken, String refreshToken);
+    void login(String accessToken);
 
-    void logout(String accessToken, String refreshToken);
+    void logout(String accessToken);
+
+    void sendResetPasswordCode(String email);
+
+    Jwt verifyResetPasswordCode(String email, String code);
+
+    void setNewPassword(SetNewPasswordRequest request);
+
+    Jwt renewAccessToken(String refreshToken);
 }

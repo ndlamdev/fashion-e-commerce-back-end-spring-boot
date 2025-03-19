@@ -11,8 +11,10 @@ package com.lamnguyen.fashion_e_commerce.service.business.user;
 import com.lamnguyen.fashion_e_commerce.model.User;
 
 public interface IUserService {
-    User findUser(String email);
+    User findUserByEmail(String email);
     boolean existsUserByEmail(String email);
 
     User save(User user);
+
+    User findById(long userId);
 }

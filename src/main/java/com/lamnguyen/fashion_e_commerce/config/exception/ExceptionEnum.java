@@ -24,7 +24,10 @@ public enum ExceptionEnum {
     VERIFY_ACCOUNT_FAILED(HttpStatus.FAILED_DEPENDENCY.value(), "Verify account failed"),
     LOGOUT_FAILED(HttpStatus.UNAUTHORIZED.value(), "Logout failed"),
     VERIFICATION_CODE_SENT(HttpStatus.CONFLICT.value(), "Code has been sent!"),
-    ACTIVATED(HttpStatus.FORBIDDEN.value(), "Account is active!");
+    ACTIVATED(HttpStatus.FORBIDDEN.value(), "Account is active!"),
+    ROLE_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "Role not found!"),
+    ROLE_EXIST(HttpStatus.CONFLICT.value(), "Role is exist!"),
+    TOKEN_NOT_VALID(HttpStatus.UNAVAILABLE_FOR_LEGAL_REASONS.value(), "Token not valid");
 
     int code;
     String message;

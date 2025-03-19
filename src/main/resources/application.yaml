@@ -21,6 +21,8 @@ application:
     - /v1/auth/logout
     - /v1/auth/verify
     - /v1/auth/resend-verify
+    - /v1/auth/reset-password/**
+    - /v1/auth/renew-access-token
 
 server:
   servlet:

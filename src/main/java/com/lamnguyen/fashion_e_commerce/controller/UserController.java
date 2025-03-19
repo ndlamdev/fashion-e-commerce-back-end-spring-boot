@@ -28,6 +28,6 @@ public class UserController {
     @GetMapping
     @ApiMessageResponse("Get info user!")
     public User getUser() {
-        return userService.findUser("kimionawa1305@gmail.com");
+        return userService.findUserByEmail("kimionawa1305@gmail.com");
     }
 }

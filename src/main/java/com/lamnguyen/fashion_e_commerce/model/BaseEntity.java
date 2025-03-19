@@ -35,7 +35,7 @@ public class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
-    @Column(name = "is_lock")
+    @Column(name = "is_lock", columnDefinition = "bit default false")
     boolean lock;
 
     @CreatedBy

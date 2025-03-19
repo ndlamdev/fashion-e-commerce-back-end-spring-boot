@@ -33,7 +33,9 @@ public class RemoveBearerTokenAuthorizationFilter extends OncePerRequestFilter {
         var requestWrapper = new HttpServletRequestWrapper(request) {
             @Override
             public String getHeader(String name) {
-                if (name.equals("Authorization")) return super.getHeader(name).substring("Bearer ".length());
+                if ("authorization".equalsIgnoreCase(name) && super.getHeader(name) != null && super.getHeader(name).startsWith("Bearer")) {
+                    return super.getHeader(name).substring("Bearer ".length());
+                }
                 return super.getHeader(name);
             }
         };

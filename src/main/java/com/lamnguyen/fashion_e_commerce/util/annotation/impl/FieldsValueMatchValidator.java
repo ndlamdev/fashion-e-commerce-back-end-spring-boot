@@ -24,7 +24,6 @@ public class FieldsValueMatchValidator implements ConstraintValidator<FieldsValu
         var bean = new BeanWrapperImpl(value);
         var value1 = bean.getPropertyValue(field);
         var value2 = bean.getPropertyValue(fieldMatch);
-        System.out.println(Objects.equals(value1, value2));
         return Objects.equals(value1, value2);
     }
 

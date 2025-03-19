@@ -37,7 +37,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var user = userRepository.findByEmail(username).orElseThrow(() -> new AuthenticationServiceException("User not found!"));
         var authorities = user.getRoles().stream().map(it -> new SimpleGrantedAuthority(applicationProperty.getRolePrefix() + it.getName())).collect(Collectors.toCollection(ArrayList::new));
-        authorities.addAll(user.getScopes().stream().map(it -> new SimpleGrantedAuthority(applicationProperty.getPermissionPrefix() + it.getName())).toList());
         return new User(username, user.getPassword(), user.isActive(), true, true, !user.isLock(), authorities);
     }
 }

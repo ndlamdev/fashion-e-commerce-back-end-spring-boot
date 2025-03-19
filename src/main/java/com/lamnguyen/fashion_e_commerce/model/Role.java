@@ -19,7 +19,8 @@ import lombok.experimental.SuperBuilder;
 import java.util.List;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "roles", uniqueConstraints =
+@UniqueConstraint(columnNames = {"name"}))
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
@@ -29,7 +30,7 @@ public class Role extends BaseEntity {
     String name;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
-    List<Scope> scopes;
+    List<Permission> permissions;
 
     @ManyToMany
     @JoinTable(

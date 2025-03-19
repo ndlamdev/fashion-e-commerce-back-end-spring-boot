@@ -24,7 +24,7 @@ public class OtpProperty {
     public static class AccountVerification {
         @Value("${application.token.otp.verity_account.key}")
         String Key;
-        @Value("${application.token.otp.verity_account.length}")
+        @Value("${application.token.otp.length}")
         int length;
         @Value("${application.token.otp.verity_account.expire}")
         int expire;
@@ -59,5 +59,7 @@ public class OtpProperty {
         int totalResendValue;
         @Value("${application.token.otp.reset_password.total_resend.expire}")
         int totalResendExpire;
+        @Value("${application.token.otp.length}")
+        int length;
     }
 }

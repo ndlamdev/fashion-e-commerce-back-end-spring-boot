@@ -21,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,14 +32,24 @@ import java.util.Map;
 public class SendMailServiceImpl implements ISendMailService{
     TransactionalEmailsApi transactionalEmailsApi;
     SendSmtpEmailSender sender;
+
     @Override
-    public void sendMailVerity(String to, String opt) {
+    @Async
+    public void sendMailVerifyAccountCode(String to, String opt) {
         var map = new HashMap<String, Object>();
         map.put("code", opt);
         sent(to, map, BrevoTemplate.VERITY);
     }
 
+    @Override
     @Async
+    public void sendMailResetPasswordCode(String to, String opt) {
+        var map = new HashMap<String, Object>();
+        map.put("code", opt);
+        sent(to, map, BrevoTemplate.RESET_PASSWORD);
+    }
+
+
     public void sent(String to, Map<String, Object> params, BrevoTemplate template) {
         SendSmtpEmail sendSmtpEmail = new SendSmtpEmail();
         SendSmtpEmailTo recipient = new SendSmtpEmailTo();
