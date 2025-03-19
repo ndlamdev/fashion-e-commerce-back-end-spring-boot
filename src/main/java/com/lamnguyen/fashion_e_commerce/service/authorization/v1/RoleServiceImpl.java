@@ -16,6 +16,7 @@ import com.lamnguyen.fashion_e_commerce.mapper.PermissionMapper;
 import com.lamnguyen.fashion_e_commerce.mapper.RoleMapper;
 import com.lamnguyen.fashion_e_commerce.model.Permission;
 import com.lamnguyen.fashion_e_commerce.model.Role;
+import com.lamnguyen.fashion_e_commerce.model.User;
 import com.lamnguyen.fashion_e_commerce.repository.mysql.PermissionRepository;
 import com.lamnguyen.fashion_e_commerce.repository.mysql.RoleRepository;
 import com.lamnguyen.fashion_e_commerce.service.authorization.IRoleService;

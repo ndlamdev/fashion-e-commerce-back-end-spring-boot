@@ -52,39 +52,39 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     @ApiMessageResponse("Register success")
-    public ResponseEntity<RegisterResponse> register(@Valid @RequestBody RegisterAccountRequest request) {
-        return ResponseEntity.ok(authenticationService.register(request));
+    public RegisterResponse register(@Valid @RequestBody RegisterAccountRequest request) {
+        return authenticationService.register(request);
     }
 
     @PostMapping("/verify")
     @ApiMessageResponse("Verify success")
-    public ResponseEntity<Void> verify(@Valid @RequestBody VerifyAccountRequest request) {
+    public Void verify(@Valid @RequestBody VerifyAccountRequest request) {
         authenticationService.verifyAccount(request.email(), request.code());
-        return ResponseEntity.ok(null);
+        return null;
     }
 
     @PostMapping("/resend-verify")
     @ApiMessageResponse("Resend code verify account success")
-    public ResponseEntity<Void> resendVerify(@RequestBody EmailRequest request) {
+    public Void resendVerify(@RequestBody EmailRequest request) {
         authenticationService.resendVerifyAccountCode(request.email());
-        return ResponseEntity.ok(null);
+        return null;
     }
 
     @PostMapping("/logout")
     @ApiMessageResponse(value = "Logout success!")
-    public ResponseEntity<Void> logout(@RequestHeader("Authorization") String accessToken) {
+    public Void logout(@RequestHeader("Authorization") String accessToken) {
         authenticationService.logout(accessToken);
-        return ResponseEntity.ok(null);
+        return null;
     }
 
     @PostMapping("/renew-access-token")
     @ApiMessageResponse(value = "Refresh token success!")
-    public ResponseEntity<TokenResponse> renewAccessToken(@RequestHeader("Refresh-Token") String refreshToken) {
-        return ResponseEntity.ok(TokenResponse.builder()
+    public TokenResponse renewAccessToken(@RequestHeader("Refresh-Token") String refreshToken) {
+        return TokenResponse.builder()
                 .token(authenticationService
                         .renewAccessToken(refreshToken)
                         .getTokenValue())
-                .build());
+                .build();
     }
 
     @GetMapping
@@ -96,22 +96,22 @@ public class AuthenticationController {
 
     @PostMapping("/reset-password")
     @ApiMessageResponse("Reset password success")
-    public ResponseEntity<Void> resetPassword(@Valid @RequestBody EmailRequest request) {
+    public Void resetPassword(@Valid @RequestBody EmailRequest request) {
         authenticationService.sendResetPasswordCode(request.email());
-        return ResponseEntity.ok(null);
+        return null;
     }
 
     @PostMapping("/reset-password/verify")
     @ApiMessageResponse("Verify reset password code success")
-    public ResponseEntity<TokenResponse> verifyResetPassword(@Valid @RequestBody VerifyAccountRequest request) {
+    public TokenResponse verifyResetPassword(@Valid @RequestBody VerifyAccountRequest request) {
         var token = authenticationService.verifyResetPasswordCode(request.email(), request.code());
-        return ResponseEntity.ok(TokenResponse.builder().token(token.getTokenValue()).build());
+        return TokenResponse.builder().token(token.getTokenValue()).build();
     }
 
     @PostMapping("/reset-password/set-new-password")
     @ApiMessageResponse("Set new password success")
-    public ResponseEntity<Void> setNewPassword(@Valid @RequestBody SetNewPasswordRequest request) {
+    public Void setNewPassword(@Valid @RequestBody SetNewPasswordRequest request) {
         authenticationService.setNewPassword(request);
-        return ResponseEntity.ok(null);
+        return null;
     }
 }

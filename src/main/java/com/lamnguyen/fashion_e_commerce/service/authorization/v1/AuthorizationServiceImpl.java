@@ -55,7 +55,7 @@ public class AuthorizationServiceImpl implements IAuthorizationService {
     }
 
     @Override
-    public List<RoleDto> getAllRoleByUserContains(long userId) {
+    public List<RoleDto> getAllRoleByUserContain(long userId) {
         return roleRepository.findAllByUsersContains(User.builder().id(userId).build()).stream().map(roleMapper::toRoleDto).toList();
     }
 }

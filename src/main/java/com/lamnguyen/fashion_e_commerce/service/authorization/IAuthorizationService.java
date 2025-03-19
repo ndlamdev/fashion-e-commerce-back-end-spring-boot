@@ -17,7 +17,7 @@ public interface IAuthorizationService {
 
     void assignRole(long userId, List<Long> roleIds);
 
-    List<RoleDto> getAllRoleByUserContains(long userId);
+    List<RoleDto> getAllRoleByUserContain(long userId);
 
     List<RoleDto> getAllRoleByUserNotContain(long userId);
 }
