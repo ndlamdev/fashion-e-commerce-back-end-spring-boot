@@ -27,7 +27,10 @@ public enum ExceptionEnum {
     ACTIVATED(HttpStatus.FORBIDDEN.value(), "Account is active!"),
     ROLE_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "Role not found!"),
     ROLE_EXIST(HttpStatus.CONFLICT.value(), "Role is exist!"),
-    TOKEN_NOT_VALID(HttpStatus.UNAVAILABLE_FOR_LEGAL_REASONS.value(), "Token not valid");
+    TOKEN_NOT_VALID(HttpStatus.UNAVAILABLE_FOR_LEGAL_REASONS.value(), "Token not valid"),
+    ADMIN_CAN_REMOVE_ROLE_MYSELF(HttpStatus.UNAUTHORIZED.value(), "Admin can not remove any role for myself!"),
+    ADMIN_CAN_ADD_ROLE_FOR_MYSELF(HttpStatus.UNAUTHORIZED.value(), "Admin can not remove any role for myself!"),
+    ;
 
     int code;
     String message;

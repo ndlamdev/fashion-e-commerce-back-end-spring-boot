@@ -13,9 +13,9 @@ import com.lamnguyen.fashion_e_commerce.domain.dto.RoleDto;
 import java.util.List;
 
 public interface IAuthorizationService {
-    void removeRole(long userId, List<Long> roleIds);
+    List<RoleDto> removeRole(long userId, List<Long> roleIds);
 
-    void assignRole(long userId, List<Long> roleIds);
+    List<RoleDto> assignRole(long userId, List<Long> roleIds);
 
     List<RoleDto> getAllRoleByUserContain(long userId);
 

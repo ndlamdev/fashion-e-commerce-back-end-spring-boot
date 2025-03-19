@@ -9,6 +9,7 @@
 package com.lamnguyen.fashion_e_commerce.repository.mysql;
 
 import com.lamnguyen.fashion_e_commerce.model.Role;
+import com.lamnguyen.fashion_e_commerce.model.RoleOfUser;
 import com.lamnguyen.fashion_e_commerce.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -18,15 +19,15 @@ import java.util.Optional;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
-    Optional<Role> findByNameAndUsersContains(String name, User user);
+    Optional<Role> findByNameAndUserContains(String name, RoleOfUser user);
 
     boolean existsByName(String name);
 
-    List<Role> findAllByUsersContains(User user);
+    List<Role> findAllByUserContains(RoleOfUser user);
 
-    List<Role> findAllByUsersNotContains(User user);
+    List<Role> findAllByUserNotContains(RoleOfUser user);
 
     Optional<Role> findByName(String roleName);
 
-    List<Role> findAllByUsersContainsAndIdNotIn(User users, List<Long> ids);
+    List<Role> findAllByUserContainsAndIdNotIn(RoleOfUser users, List<Long> ids);
 }

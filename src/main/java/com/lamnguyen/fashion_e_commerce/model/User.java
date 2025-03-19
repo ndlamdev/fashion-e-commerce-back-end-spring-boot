@@ -17,6 +17,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
@@ -36,8 +37,8 @@ public class User extends BaseEntity {
     @OneToOne(mappedBy = "user")
     UserDetail userDetail;
 
-    @ManyToMany(mappedBy = "users")
-    List<Role> roles;
+    @OneToMany(mappedBy = "user")
+    Set<RoleOfUser> roles;
 
     @OneToMany(mappedBy = "user")
     List<Review> reviews;

@@ -38,7 +38,7 @@ public class JWTPayload extends SimplePayload{
                 .refreshTokenId(refreshTokenId)
                 .email(user.getEmail())
                 .type(JwtType.ACCESS_TOKEN)
-                .roles(user.getRoles().stream().map(it -> "ROLE_" + it.getName()).collect(Collectors.toSet()))
+                .roles(user.getRoles().stream().map(it -> "ROLE_" + it.getRole().getName()).collect(Collectors.toSet()))
                 .build();
     }
 }

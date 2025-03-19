@@ -9,16 +9,15 @@
 package com.lamnguyen.fashion_e_commerce.controller;
 
 import com.lamnguyen.fashion_e_commerce.domain.dto.RoleDto;
+import com.lamnguyen.fashion_e_commerce.domain.request.ListRoleIdRequest;
 import com.lamnguyen.fashion_e_commerce.service.authorization.IAuthorizationService;
 import com.lamnguyen.fashion_e_commerce.util.annotation.ApiMessageResponse;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,5 +40,19 @@ public class AuthorizationController {
     @PreAuthorize("hasAnyAuthority('GET_ALL_ROLE')")
     public List<RoleDto> getAllRoleNotContains(@PathVariable("user-id") long userId) {
         return iAuthorizationService.getAllRoleByUserNotContain(userId);
+    }
+
+    @PostMapping("/add/{user-id}")
+    @ApiMessageResponse("Get all role by user not contain success!")
+    @PreAuthorize("hasAnyAuthority('ADD_ROLE_FOR_USER')")
+    public List<RoleDto> addRoleForUser(@PathVariable("user-id") long userId, @Valid @RequestBody ListRoleIdRequest request) {
+        return iAuthorizationService.assignRole(userId, request.roleIds());
+    }
+
+    @DeleteMapping("/{user-id}")
+    @ApiMessageResponse("Get all role by user not contain success!")
+    @PreAuthorize("hasAnyAuthority('REMOVE_ROLE_OF_USER')")
+    public List<RoleDto> removeRoleOfUser(@PathVariable("user-id") long userId, @Valid @RequestBody ListRoleIdRequest request) {
+        return iAuthorizationService.removeRole(userId, request.roleIds());
     }
 }

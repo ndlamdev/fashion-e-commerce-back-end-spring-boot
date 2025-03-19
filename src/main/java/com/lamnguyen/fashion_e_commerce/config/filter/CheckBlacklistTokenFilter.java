@@ -11,7 +11,6 @@ package com.lamnguyen.fashion_e_commerce.config.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lamnguyen.fashion_e_commerce.domain.ApiResponse;
 import com.lamnguyen.fashion_e_commerce.service.authentication.IRedisManager;
-import com.lamnguyen.fashion_e_commerce.service.business.user.IUserService;
 import com.lamnguyen.fashion_e_commerce.util.JwtTokenUtil;
 import com.lamnguyen.fashion_e_commerce.util.property.ApplicationProperty;
 import jakarta.servlet.FilterChain;

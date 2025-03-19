@@ -17,6 +17,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "roles", uniqueConstraints =
@@ -32,11 +33,13 @@ public class Role extends BaseEntity {
     @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
     List<Permission> permissions;
 
-    @ManyToMany
-    @JoinTable(
-            name = "role_of_user",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    List<User> users;
+    @OneToMany(mappedBy = "role")
+    List<RoleOfUser> user;
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Role role = (Role) o;
+        return Objects.equals(id, role.id);
+    }
 }
