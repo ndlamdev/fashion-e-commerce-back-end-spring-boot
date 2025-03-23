@@ -42,6 +42,7 @@ dependencies {
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
 	implementation 'redis.clients:jedis:5.2.0'
 	implementation 'com.brevo:brevo:1.0.0'
+	implementation 'com.auth0:java-jwt:4.5.0'
 }
 
 tasks.named('test') {

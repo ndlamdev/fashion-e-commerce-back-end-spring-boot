@@ -34,6 +34,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
 
 @Service
 @RequiredArgsConstructor
@@ -114,9 +117,9 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
     @Override
     public void logout(String accessToken) {
         accessToken = accessToken.substring("Bearer ".length());
-        var jwtAccessToken = jwtTokenUtil.decodeToken(accessToken);
-        var payload = jwtTokenUtil.getPayload(jwtAccessToken);
-        var userId = jwtTokenUtil.getPayload(jwtTokenUtil.decodeToken(accessToken)).getUserId();
+        var jwtAccessToken = jwtTokenUtil.decodeTokenNotVerify(accessToken);
+        var payload = jwtTokenUtil.getPayloadNotVerify(jwtAccessToken);
+        var userId = payload.getUserId();
         if (!tokenManager.existAccessTokenId(userId, jwtAccessToken.getId()))
             throw ApplicationException.createException(ExceptionEnum.LOGOUT_FAILED);
         tokenManager.addAccessTokenIdInBlackList(userId, jwtAccessToken.getId());
@@ -167,13 +170,16 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         user.setPassword(passwordEncoder.encode(request.password()));
         userService.save(user);
         tokenManager.addTokenResetPasswordInBlacklist(simplePayload.getUserId(), jwt.getId());
+        tokenManager.setDateTimeChangePassword(simplePayload.getUserId(), LocalDateTime.now());
     }
 
     @Override
     public Jwt renewAccessToken(String refreshToken) {
-        var jwt = jwtTokenUtil.decodeToken(refreshToken);
-        var simplePayload = jwtTokenUtil.getSimplePayload(jwt);
+        var jwt = jwtTokenUtil.decodeTokenNotVerify(refreshToken);
+        var simplePayload = jwtTokenUtil.getSimplePayloadNotVerify(jwt);
         if (simplePayload.getType() != JwtType.REFRESH_TOKEN)
+            throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
+        if (tokenManager.existRefreshInBlacklist(simplePayload.getUserId(), jwt.getId()))
             throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
         var user = userService.findById(simplePayload.getUserId());
         return jwtTokenUtil.generateAccessToken(user, JWTPayload.generateForAccessToken(user, jwt.getId()));

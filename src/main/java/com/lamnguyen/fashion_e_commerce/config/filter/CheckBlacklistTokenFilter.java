@@ -44,8 +44,11 @@ public class CheckBlacklistTokenFilter extends OncePerRequestFilter {
             return;
         }
         token = token.substring("Bearer ".length());
-        var jwt = jwtTokenUtil.decodeToken(token);
-        if (!manager.existAccessTokenIdInBlacklist(jwtTokenUtil.getPayload(jwt).getUserId(), jwt.getId())) {
+        var jwt = jwtTokenUtil.decodeTokenNotVerify(token);
+        var userId = jwtTokenUtil.getPayloadNotVerify(jwt).getUserId();
+        var dateTimeChangePassword = manager.getDateTimeChangePassword(userId);
+        var issueDateTime = jwt.getIssuedAt().toInstant().getEpochSecond();
+        if ((dateTimeChangePassword == null || dateTimeChangePassword < issueDateTime) && !manager.existAccessTokenIdInBlacklist(userId, jwt.getId())) {
             filterChain.doFilter(request, response);
             return;
         }

@@ -20,6 +20,7 @@ spring:
           max-idle: ${REDIS_MAX_POOL_IDLE:8}
           min-idle: ${REDIS_MIN_POOL_IDLE:0}
           max-wait: ${REDIS_MAX_POOL_WAIT:-1ms}
+      connect-timeout: ${REDIS_CONNECT_TIMEOUT:60000}
 application:
   BCrypt-length: ${BCRYPT_LENGTH:16}
   login-path: ${LOGIN_PATH:/v1/auth/login}
@@ -37,6 +38,7 @@ application:
       default-token: ${ACCESS_TOKEN_DEFAULT_VALUE:default}
       expire: ${ACCESS_TOKEN_EXPIRE:10}
       blacklist: ${application.token.blacklist}:${application.token.reset-password.key}
+      change: ${CHANGE_PASSWORD:CHANGE_PASSWORD}
     access:
       key: ${ACCESS_TOKEN_KEY:ACCESS_TOKEN}
       default-token: ${ACCESS_TOKEN_DEFAULT_VALUE:default}

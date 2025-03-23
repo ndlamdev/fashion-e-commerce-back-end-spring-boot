@@ -8,7 +8,8 @@
 
 package com.lamnguyen.fashion_e_commerce.util;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.lamnguyen.fashion_e_commerce.model.JWTPayload;
 import com.lamnguyen.fashion_e_commerce.model.SimplePayload;
 import com.lamnguyen.fashion_e_commerce.model.User;
@@ -23,6 +24,9 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.UUID;
 
 @Component
@@ -39,15 +43,37 @@ public class JwtTokenUtil {
     }
 
     public JWTPayload getPayload(Jwt token) {
-        return new ObjectMapper().convertValue(token.getClaim(applicationProperty.getJwtClaim()), JWTPayload.class);
+        return getPayload(token.<Map<String, Object>>getClaim(applicationProperty.getJwtClaim()));
     }
 
     public SimplePayload getSimplePayload(Jwt token) {
-        return new ObjectMapper().convertValue(token.getClaim(applicationProperty.getJwtClaim()), SimplePayload.class);
+        return getPayload(token.<Map<String, Object>>getClaim(applicationProperty.getJwtClaim()));
+    }
+
+    public DecodedJWT decodeTokenNotVerify(String token) {
+        return JWT.decode(token);
+    }
+
+    public JWTPayload getPayloadNotVerify(DecodedJWT token) {
+        return getPayload(token.getClaim(applicationProperty.getJwtClaim()).asMap());
+    }
+
+    public SimplePayload getSimplePayloadNotVerify(DecodedJWT token) {
+        return getPayload(token.getClaim(applicationProperty.getJwtClaim()).asMap());
     }
 
     public Jwt generateRefreshToken(User user) {
         return generateTokenSimplePayLoad(user, JwtType.REFRESH_TOKEN);
+    }
+
+    private JWTPayload getPayload(Map<String, Object> data) {
+        return JWTPayload.builder()
+                .userId(((Number) data.getOrDefault("userId", 0L)).longValue())
+                .email((String) data.getOrDefault("email", null))
+                .refreshTokenId((String) data.getOrDefault("refreshTokenId", null))
+                .type(JwtType.getEnum(data.getOrDefault("type", null)))
+                .roles(new HashSet<>((ArrayList<String>) data.getOrDefault("roles", new ArrayList<String>())))
+                .build();
     }
 
     private Jwt generateTokenSimplePayLoad(User user, JwtType jwtType) {

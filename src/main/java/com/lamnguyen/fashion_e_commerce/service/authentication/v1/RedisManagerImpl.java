@@ -17,6 +17,8 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -164,11 +166,23 @@ public class RedisManagerImpl implements IRedisManager {
 
     @Override
     public boolean existTokenResetPasswordInBlacklist(long userId, String tokenId) {
-        return Objects.equals(redisTemplate.opsForValue().get(generateKey(applicationProperty.getKeyRefreshToken(), userId, tokenId)), 1);
+        return Objects.equals(redisTemplate.opsForValue().get(generateKey(applicationProperty.getKeyResetPasswordTokenBlacklist(), userId, tokenId)), 1);
     }
 
     @Override
     public void addTokenResetPasswordInBlacklist(long userId, String tokenId) {
-        redisTemplate.opsForValue().set(generateKey(applicationProperty.getKeyResetPasswordTokenBlacklist(), userId, tokenId), 1, applicationProperty.getExpireResetPasswordToken());
+        redisTemplate.opsForValue().set(generateKey(applicationProperty.getKeyResetPasswordTokenBlacklist(), userId, tokenId), 1, applicationProperty.getExpireResetPasswordToken(), TimeUnit.MINUTES);
+    }
+
+    @Override
+    public Long getDateTimeChangePassword(long userId) {
+        var number = (Number) redisTemplate.opsForValue().get(generateKey(applicationProperty.getKeyDateTimeChangePassword(), userId));
+        if (number == null) return null;
+        return number.longValue();
+    }
+
+    @Override
+    public void setDateTimeChangePassword(long userId, LocalDateTime dateTime) {
+        redisTemplate.opsForValue().set(generateKey(applicationProperty.getKeyDateTimeChangePassword(), userId), LocalDateTime.now().toEpochSecond(ZoneOffset.UTC), applicationProperty.getExpireAccessToken(), TimeUnit.MINUTES);
     }
 }

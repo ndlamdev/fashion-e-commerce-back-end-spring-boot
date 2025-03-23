@@ -73,4 +73,6 @@ public class ApplicationProperty {
     int expireResetPasswordToken;
     @Value("${application.token.reset-password.blacklist}")
     String keyResetPasswordTokenBlacklist;
+    @Value("${application.token.reset-password.change}")
+    String keyDateTimeChangePassword;
 }

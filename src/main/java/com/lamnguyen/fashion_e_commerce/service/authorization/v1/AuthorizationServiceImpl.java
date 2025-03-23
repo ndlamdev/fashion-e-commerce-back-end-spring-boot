@@ -13,7 +13,6 @@ import com.lamnguyen.fashion_e_commerce.config.exception.ExceptionEnum;
 import com.lamnguyen.fashion_e_commerce.domain.dto.RoleDto;
 import com.lamnguyen.fashion_e_commerce.mapper.RoleMapper;
 import com.lamnguyen.fashion_e_commerce.model.RoleOfUser;
-import com.lamnguyen.fashion_e_commerce.model.User;
 import com.lamnguyen.fashion_e_commerce.repository.mysql.RoleOfUserRepository;
 import com.lamnguyen.fashion_e_commerce.repository.mysql.RoleRepository;
 import com.lamnguyen.fashion_e_commerce.repository.mysql.UserRepository;
