@@ -27,3 +27,4 @@ application:
 server:
   servlet:
     context-path: /fashion-e-commerce
+  port: 8080

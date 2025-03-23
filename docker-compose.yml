@@ -1,0 +1,59 @@
+version: "v1.0.0"
+name: authentication
+
+services:
+  server:
+    build: .
+    restart: on-failure
+    container_name: authentication_server
+    networks:
+      - fashion_e_commerce
+    ports:
+      - "8081:8080"
+    image: "fashion-e-commerce:v1.0.0"
+    depends_on:
+      - server_mysql
+      - server_redis
+    environment:
+      MYSQL_HOST: server_mysql
+      MYSQL_USERNAME: fashion_e_commerce
+      MYSQL_PASSWORD: doan_xem
+      REDIS_HOST: server_redis
+      REDIS_PORT: 6379
+    volumes:
+      - authentication_server_volume_data:/data
+
+  server_mysql:
+    image: mysql
+    container_name: authentication_mysql
+    networks:
+      - fashion_e_commerce
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_USER: fashion_e_commerce
+      MYSQL_PASSWORD: doan_xem
+      MYSQL_DATABASE: fashion_e_commerce
+      MYSQL_ROOT_PASSWORD: 123456@Lam
+    volumes:
+      - authentication_mysql_volume_data:/data
+
+  server_redis:
+    image: redis:7.0.15
+    container_name: authentication_redis
+    networks:
+      - fashion_e_commerce
+    ports:
+      - "6380:6379"
+    restart: always
+    volumes:
+      - authentication_redis_volume_data:/data
+
+networks:
+  fashion_e_commerce:
+    driver: bridge
+
+volumes:
+  authentication_redis_volume_data:
+  authentication_server_volume_data:
+  authentication_mysql_volume_data:

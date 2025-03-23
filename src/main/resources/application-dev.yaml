@@ -12,15 +12,16 @@ spring:
       host: ${REDIS_HOST:localhost}
       database: ${REDIS_DATABASE:13}
       port: ${REDIS_PORT:6379}
-      username: ${REDIS_USERNAME:root}
+      username: ${REDIS_USERNAME:}
+      password: ${REDIS_PASSWORD:}
       timeout: ${REDIS_TIMEOUT:60000}
+      connect-timeout: ${REDIS_CONNECT_TIMEOUT:60000}
       lettuce:
         pool:
           max-active: ${REDIS_MAX_POOL_ACTIVE:8}
           max-idle: ${REDIS_MAX_POOL_IDLE:8}
           min-idle: ${REDIS_MIN_POOL_IDLE:0}
-          max-wait: ${REDIS_MAX_POOL_WAIT:-1ms}
-      connect-timeout: ${REDIS_CONNECT_TIMEOUT:60000}
+          max-wait: ${REDIS_MAX_POOL_WAIT:-1}
 application:
   BCrypt-length: ${BCRYPT_LENGTH:16}
   login-path: ${LOGIN_PATH:/v1/auth/login}
