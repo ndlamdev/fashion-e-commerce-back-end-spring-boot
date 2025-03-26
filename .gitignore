@@ -37,3 +37,4 @@ out/
 /.idea/
 /gradle/
 /authentication_service.iml
+/src/main/resources/application-local.yaml

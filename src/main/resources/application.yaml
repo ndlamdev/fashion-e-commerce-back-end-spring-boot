@@ -2,7 +2,7 @@ spring:
   application:
     name: server
   profiles:
-    active: dev
+    active: local
   jpa:
     hibernate:
       ddl-auto: update
