@@ -16,8 +16,11 @@ import com.lamnguyen.fashion_e_commerce.domain.request.SetNewPasswordRequest;
 import com.lamnguyen.fashion_e_commerce.mapper.UserDetailMapper;
 import com.lamnguyen.fashion_e_commerce.mapper.UserMapper;
 import com.lamnguyen.fashion_e_commerce.model.JWTPayload;
+import com.lamnguyen.fashion_e_commerce.model.Role;
+import com.lamnguyen.fashion_e_commerce.model.RoleOfUser;
 import com.lamnguyen.fashion_e_commerce.model.User;
-import com.lamnguyen.fashion_e_commerce.repository.mysql.UserDetailRepository;
+import com.lamnguyen.fashion_e_commerce.repository.mysql.IRoleOfUserRepository;
+import com.lamnguyen.fashion_e_commerce.repository.mysql.IUserDetailRepository;
 import com.lamnguyen.fashion_e_commerce.service.authentication.IAuthenticationService;
 import com.lamnguyen.fashion_e_commerce.service.authentication.IRedisManager;
 import com.lamnguyen.fashion_e_commerce.service.business.user.IUserService;
@@ -29,13 +32,11 @@ import com.lamnguyen.fashion_e_commerce.util.property.OtpProperty;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 
 
 @Service
@@ -45,10 +46,11 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
     IUserService userService;
     PasswordEncoder passwordEncoder;
     UserMapper userMapper;
-    UserDetailRepository userDetailRepository;
+    IUserDetailRepository userDetailRepository;
     UserDetailMapper userDetailMapper;
     ISendMailService iSendMailService;
     IRedisManager tokenManager;
+    IRoleOfUserRepository roleOfUserRepository;
     JwtTokenUtil jwtTokenUtil;
     OtpProperty.AccountVerification accountVerification;
     OtpProperty.ResetPasswordVerification resetPasswordVerification;
@@ -57,20 +59,29 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
     @Override
     public RegisterResponse register(RegisterAccountRequest request) {
         var user = userMapper.toUser(request);
-        user.setPassword(passwordEncoder.encode(request.password()));
-        User userSaved;
+        User oldUser = null;
         try {
-            userSaved = userService.save(user);
-        } catch (DataIntegrityViolationException e) {
-            throw ApplicationException.createException(ExceptionEnum.USER_EXIST);
+            oldUser = userService.findUserByEmail(user.getEmail());
+        } catch (Exception ignored) {
         }
+        if (oldUser != null) {
+            if (oldUser.isActive())
+                throw ApplicationException.createException(ExceptionEnum.USER_EXIST);
+            else throw ApplicationException.createException(ExceptionEnum.NOT_ACTIVE);
+        }
+
+        user.setPassword(passwordEncoder.encode(request.password()));
+        User userSaved = userService.save(user);
         var userDetail = userDetailMapper.toUserDetail(request);
         userDetail.setUser(userSaved);
         userDetailRepository.save(userDetail);
         var userId = userSaved.getId();
         String opt = OtpUtil.generate(6);
-        tokenManager.setVerifyAccountCode(userId, opt);
+        tokenManager.setRegisterCode(userId, opt);
         iSendMailService.sendMailVerifyAccountCode(request.email(), opt);
+        // this code use for test
+        roleOfUserRepository.save(RoleOfUser.builder().user(userSaved).role(Role.builder().id(2).build()).build());
+        //this code use for test
         return RegisterResponse.builder().email(request.email()).build();
     }
 
@@ -78,14 +89,14 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
     public void verifyAccount(String email, String code) {
         var user = userService.findUserByEmail(email);
         var userId = user.getId();
-        var optional = tokenManager.getVerifyAccountCode(userId);
+        var optional = tokenManager.getRegisterCode(userId);
         if (optional.isEmpty()) throw ApplicationException.createException(ExceptionEnum.CODE_NOT_FOUND);
         var total = tokenManager.increaseTotalTryVerifyAccount(userId);
-        if (total > accountVerification.getTotalTryValue())
+        if (total > accountVerification.getMaxTry())
             throw ApplicationException.createException(ExceptionEnum.VERIFY_EXCEEDED_NUMBER);
         if (!code.equals(optional.get()))
-            throw ApplicationException.createException(ExceptionEnum.VERIFY_ACCOUNT_FAILED, "The remaining number of authentication attempts is: " + (accountVerification.getTotalTryValue() - total));
-        tokenManager.removeVerifyAccountCode(userId);
+            throw ApplicationException.createException(ExceptionEnum.VERIFY_ACCOUNT_FAILED, "The remaining number of authentication attempts is: " + (accountVerification.getMaxTry() - total));
+        tokenManager.removeVerifyRegisterCode(userId);
         user.setActive(true);
         userService.save(user);
     }
@@ -95,13 +106,13 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         var user = userService.findUserByEmail(email);
         if (user.isActive()) throw ApplicationException.createException(ExceptionEnum.ACTIVATED);
         var userId = user.getId();
-        var optional = tokenManager.getVerifyAccountCode(userId);
+        var optional = tokenManager.getRegisterCode(userId);
         if (optional.isPresent()) throw ApplicationException.createException(ExceptionEnum.VERIFICATION_CODE_SENT);
-        var total = tokenManager.getTotalResendResetPasswordCode(userId);
-        if (total > accountVerification.getTotalResendValue())
+        var total = tokenManager.getTotalResendRegisterCode(userId);
+        if (total > accountVerification.getMaxResend())
             throw ApplicationException.createException(ExceptionEnum.VERIFY_EXCEEDED_NUMBER);
         String opt = OtpUtil.generate(accountVerification.getLength());
-        tokenManager.setVerifyAccountCode(userId, opt);
+        tokenManager.setRegisterCode(userId, opt);
         iSendMailService.sendMailVerifyAccountCode(email, opt);
     }
 
@@ -131,11 +142,14 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
     @Override
     public void sendResetPasswordCode(String email) {
         var user = userService.findUserByEmail(email);
+        if (!user.isActive()) {
+            throw ApplicationException.createException(ExceptionEnum.NOT_ACTIVE);
+        }
         var userId = user.getId();
         var optional = tokenManager.getResetPasswordCode(userId);
         if (optional.isPresent()) throw ApplicationException.createException(ExceptionEnum.VERIFICATION_CODE_SENT);
         var total = tokenManager.getTotalResendResetPasswordCode(userId);
-        if (1 + total > resetPasswordVerification.getTotalResendValue())
+        if (1 + total > resetPasswordVerification.getMaxResend())
             throw ApplicationException.createException(ExceptionEnum.VERIFY_EXCEEDED_NUMBER);
 
         String opt = OtpUtil.generate(resetPasswordVerification.getLength());
@@ -150,10 +164,10 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         var optional = tokenManager.getResetPasswordCode(userId);
         if (optional.isEmpty()) throw ApplicationException.createException(ExceptionEnum.CODE_NOT_FOUND);
         var total = tokenManager.increaseTotalTryResetPassword(userId);
-        if (total > resetPasswordVerification.getTotalTryValue())
+        if (total > resetPasswordVerification.getMaxTry())
             throw ApplicationException.createException(ExceptionEnum.VERIFY_EXCEEDED_NUMBER);
         if (!code.equals(optional.get()))
-            throw ApplicationException.createException(ExceptionEnum.VERIFY_ACCOUNT_FAILED, "The remaining number of authentication attempts is: " + (accountVerification.getTotalTryValue() - total));
+            throw ApplicationException.createException(ExceptionEnum.VERIFY_ACCOUNT_FAILED, "The remaining number of authentication attempts is: " + (accountVerification.getMaxTry() - total));
         tokenManager.removeResetPasswordCode(userId);
         return jwtTokenUtil.generateTokenResetPassword(user);
     }

@@ -58,10 +58,10 @@ public class SendMailServiceImpl implements ISendMailService{
         sendSmtpEmail.setTo(List.of(recipient));
         sendSmtpEmail.setTemplateId(template.getId());
         sendSmtpEmail.setParams(params);
-        try {
-            transactionalEmailsApi.sendTransacEmail(sendSmtpEmail);
-        } catch (ApiException e) {
-            log.error("Error sending email", e);
-        }
+//        try {
+//            transactionalEmailsApi.sendTransacEmail(sendSmtpEmail);
+//        } catch (ApiException e) {
+//            log.error("Error sending email", e);
+//        }
     }
 }

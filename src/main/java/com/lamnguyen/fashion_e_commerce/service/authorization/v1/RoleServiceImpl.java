@@ -16,9 +16,8 @@ import com.lamnguyen.fashion_e_commerce.mapper.PermissionMapper;
 import com.lamnguyen.fashion_e_commerce.mapper.RoleMapper;
 import com.lamnguyen.fashion_e_commerce.model.Permission;
 import com.lamnguyen.fashion_e_commerce.model.Role;
-import com.lamnguyen.fashion_e_commerce.model.User;
-import com.lamnguyen.fashion_e_commerce.repository.mysql.PermissionRepository;
-import com.lamnguyen.fashion_e_commerce.repository.mysql.RoleRepository;
+import com.lamnguyen.fashion_e_commerce.repository.mysql.IPermissionRepository;
+import com.lamnguyen.fashion_e_commerce.repository.mysql.IRoleRepository;
 import com.lamnguyen.fashion_e_commerce.service.authorization.IRoleService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -32,10 +31,10 @@ import java.util.List;
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class RoleServiceImpl implements IRoleService {
-    RoleRepository roleRepository;
+    IRoleRepository roleRepository;
     RoleMapper roleMapper;
     PermissionMapper permissionMapper;
-    PermissionRepository permissionRepository;
+    IPermissionRepository permissionRepository;
 
     @Override
     public List<RoleDto> getAllRole() {
@@ -78,7 +77,7 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     @Override
-    public Role getByName(String roleName) {
-        return roleRepository.findByName(roleName).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ROLE_NOT_FOUND));
+    public Role getByName(String role) {
+        return roleRepository.findByName(role).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ROLE_NOT_FOUND));
     }
 }

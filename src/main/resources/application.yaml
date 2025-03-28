@@ -10,6 +10,13 @@ spring:
     properties:
       hibernate:
         format_sql: ${HIBERNATE_FORMAT_SQL:true}
+
+  flyway:
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    schemas: ${MYSQL_DATABASE:fashion_e_commerce}
+    url: ${spring.datasource.url}
+    locations: classpath:db/migration
   jackson:
     mapper:
       sort-properties-alphabetically: false
@@ -23,7 +30,7 @@ application:
     - /v1/auth/resend-verify
     - /v1/auth/reset-password/**
     - /v1/auth/renew-access-token
-
+    - /greeting
 server:
   servlet:
     context-path: /fashion-e-commerce

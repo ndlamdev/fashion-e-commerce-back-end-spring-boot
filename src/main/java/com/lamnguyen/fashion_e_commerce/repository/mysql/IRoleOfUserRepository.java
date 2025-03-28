@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface RoleOfUserRepository extends JpaRepository<RoleOfUser, Long> {
+public interface IRoleOfUserRepository extends JpaRepository<RoleOfUser, Long> {
 	void removeAllByUser_IdAndRole_IdIn(long userId, List<Long> roleIds);
 
 	List<RoleOfUser> findAllByUser_Id(long userId);

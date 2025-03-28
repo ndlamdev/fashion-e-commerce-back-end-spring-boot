@@ -75,4 +75,9 @@ public class ApplicationProperty {
     String keyResetPasswordTokenBlacklist;
     @Value("${application.token.reset-password.change}")
     String keyDateTimeChangePassword;
+
+    @Value("${application.admin.email}")
+    String emailAdmin;
+    @Value("${application.admin.password}")
+    String passwordAdmin;
 }

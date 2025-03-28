@@ -22,21 +22,21 @@ public class OtpProperty {
     @Getter
     @Setter
     public static class AccountVerification {
-        @Value("${application.token.otp.verity_account.key}")
+        @Value("${application.token.otp.verify_account.code}")
         String Key;
         @Value("${application.token.otp.length}")
         int length;
-        @Value("${application.token.otp.verity_account.expire}")
+        @Value("${application.token.otp.verify_account.expire}")
         int expire;
-        @Value("${application.token.otp.verity_account.total_try.key}")
+        @Value("${application.token.otp.verify_account.total_try.key}")
         String totalTryKey;
-        @Value("${application.token.otp.verity_account.total_try.value}")
-        int totalTryValue;
-        @Value("${application.token.otp.verity_account.total_resend.key}")
+        @Value("${application.token.otp.verify_account.total_try.max_try}")
+        int maxTry;
+        @Value("${application.token.otp.verify_account.total_resend.key}")
         String totalResendKey;
-        @Value("${application.token.otp.verity_account.total_resend.value}")
-        int totalResendValue;
-        @Value("${application.token.otp.verity_account.total_resend.expire}")
+        @Value("${application.token.otp.verify_account.total_resend.max_resend}")
+        int maxResend;
+        @Value("${application.token.otp.verify_account.total_resend.expire}")
         int totalResendExpire;
     }
 
@@ -45,18 +45,18 @@ public class OtpProperty {
     @Getter
     @Setter
     public static class ResetPasswordVerification {
-        @Value("${application.token.otp.reset_password.key}")
+        @Value("${application.token.otp.reset_password.code}")
         String key;
         @Value("${application.token.otp.reset_password.expire}")
         int expire;
         @Value("${application.token.otp.reset_password.total_try.key}")
         String totalTryKey;
-        @Value("${application.token.otp.reset_password.total_try.value}")
-        int totalTryValue;
+        @Value("${application.token.otp.reset_password.total_try.max_try}")
+        int maxTry;
         @Value("${application.token.otp.reset_password.total_resend.key}")
         String totalResendKey;
-        @Value("${application.token.otp.reset_password.total_resend.value}")
-        int totalResendValue;
+        @Value("${application.token.otp.reset_password.total_resend.max_resend}")
+        int maxResend;
         @Value("${application.token.otp.reset_password.total_resend.expire}")
         int totalResendExpire;
         @Value("${application.token.otp.length}")

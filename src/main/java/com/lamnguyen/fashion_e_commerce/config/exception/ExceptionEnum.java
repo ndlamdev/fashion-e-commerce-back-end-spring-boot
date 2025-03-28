@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 public enum ExceptionEnum {
     USER_EXIST(HttpStatus.CONFLICT.value(), "User is exist!"),
     USER_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "User not found!"),
+    NOT_ACTIVE(9012, "User not active!"),
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED.value(), "Unauthorized"),
     CODE_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "Code not found or expired"),
     VERIFY_EXCEEDED_NUMBER(HttpStatus.NOT_ACCEPTABLE.value(), "Exceeded number of authentication attempts"),

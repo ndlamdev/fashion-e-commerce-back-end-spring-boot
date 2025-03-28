@@ -13,14 +13,14 @@ import com.lamnguyen.fashion_e_commerce.config.exception.ExceptionEnum;
 import com.lamnguyen.fashion_e_commerce.domain.dto.RoleDto;
 import com.lamnguyen.fashion_e_commerce.mapper.RoleMapper;
 import com.lamnguyen.fashion_e_commerce.model.RoleOfUser;
-import com.lamnguyen.fashion_e_commerce.repository.mysql.RoleOfUserRepository;
-import com.lamnguyen.fashion_e_commerce.repository.mysql.RoleRepository;
-import com.lamnguyen.fashion_e_commerce.repository.mysql.UserRepository;
+import com.lamnguyen.fashion_e_commerce.repository.mysql.IRoleOfUserRepository;
+import com.lamnguyen.fashion_e_commerce.repository.mysql.IRoleRepository;
+import com.lamnguyen.fashion_e_commerce.repository.mysql.IUserRepository;
 import com.lamnguyen.fashion_e_commerce.service.authorization.IAuthorizationService;
+import com.lamnguyen.fashion_e_commerce.util.property.ApplicationProperty;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,17 +32,17 @@ import java.util.List;
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class AuthorizationServiceImpl implements IAuthorizationService {
-    RoleRepository roleRepository;
-    UserRepository userRepository;
+    IRoleRepository roleRepository;
+    IUserRepository userRepository;
     RoleMapper roleMapper;
-    RoleOfUserRepository roleOfUserRepository;
+    IRoleOfUserRepository roleOfUserRepository;
+    ApplicationProperty applicationProperty;
 
     @Override
     @Transactional
     public List<RoleDto> removeRole(long userId, List<Long> roleIds) {
         var user = userRepository.findById(userId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND));
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (user.getEmail().equals(authentication.getName()))
+        if (user.getEmail().equals(applicationProperty.getEmailAdmin()))
             throw ApplicationException.createException(ExceptionEnum.ADMIN_CAN_REMOVE_ROLE_MYSELF);
         roleOfUserRepository.removeAllByUser_IdAndRole_IdIn(userId, roleIds);
         return roleOfUserRepository.findAllByUser_Id(userId).stream().map(it -> roleMapper.toRoleDto(it.getRole())).toList();
@@ -52,8 +52,7 @@ public class AuthorizationServiceImpl implements IAuthorizationService {
     @Transactional
     public List<RoleDto> assignRole(long userId, List<Long> roleIds) {
         var user = userRepository.findById(userId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND));
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (user.getEmail().equals(authentication.getName()))
+        if (user.getEmail().equals(applicationProperty.getEmailAdmin()))
             throw ApplicationException.createException(ExceptionEnum.ADMIN_CAN_REMOVE_ROLE_MYSELF);
         var listRole = new ArrayList<RoleDto>();
         for (var roleId : roleIds) {

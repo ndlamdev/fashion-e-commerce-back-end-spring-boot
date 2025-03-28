@@ -38,3 +38,4 @@ out/
 /gradle/
 /authentication_service.iml
 /src/main/resources/application-local.yaml
+/src/main/resources/db/V1__init_data_test.sql

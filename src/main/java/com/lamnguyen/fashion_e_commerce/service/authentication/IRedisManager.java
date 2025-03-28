@@ -30,13 +30,13 @@ public interface IRedisManager {
 
     boolean existRefreshInBlacklist(long userId, String tokenId);
 
-    void setVerifyAccountCode(long userId, String otp);
+    void setRegisterCode(long userId, String otp);
 
-    Optional<String> getVerifyAccountCode(long userId);
+    Optional<String> getRegisterCode(long userId);
 
     int increaseTotalTryVerifyAccount(long userId);
 
-    void removeVerifyAccountCode(long userId);
+    void removeVerifyRegisterCode(long userId);
 
     void setResetPasswordCode(long userId, String otp);
 
@@ -57,4 +57,6 @@ public interface IRedisManager {
     Long getDateTimeChangePassword(long userId);
 
     void setDateTimeChangePassword(long userId, LocalDateTime dateTime);
+
+    int getTotalResendRegisterCode(long userId);
 }

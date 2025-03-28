@@ -11,7 +11,7 @@ package com.lamnguyen.fashion_e_commerce.service.authentication.v1;
 import com.lamnguyen.fashion_e_commerce.domain.dto.PermissionDto;
 import com.lamnguyen.fashion_e_commerce.mapper.PermissionMapper;
 import com.lamnguyen.fashion_e_commerce.model.Permission;
-import com.lamnguyen.fashion_e_commerce.repository.mysql.PermissionRepository;
+import com.lamnguyen.fashion_e_commerce.repository.mysql.IPermissionRepository;
 import com.lamnguyen.fashion_e_commerce.service.authentication.IPermissionService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class PermissionServiceImpl implements IPermissionService {
-	PermissionRepository permissionRepository;
+	IPermissionRepository permissionRepository;
 	PermissionMapper permissionMapper;
 
 	@Override

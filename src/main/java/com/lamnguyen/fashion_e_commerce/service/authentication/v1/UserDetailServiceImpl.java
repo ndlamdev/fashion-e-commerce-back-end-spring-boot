@@ -8,7 +8,7 @@
 
 package com.lamnguyen.fashion_e_commerce.service.authentication.v1;
 
-import com.lamnguyen.fashion_e_commerce.repository.mysql.UserRepository;
+import com.lamnguyen.fashion_e_commerce.repository.mysql.IUserRepository;
 import com.lamnguyen.fashion_e_commerce.util.property.ApplicationProperty;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class UserDetailServiceImpl implements UserDetailsService {
-    UserRepository userRepository;
+    IUserRepository userRepository;
     ApplicationProperty applicationProperty;
 
     @Override

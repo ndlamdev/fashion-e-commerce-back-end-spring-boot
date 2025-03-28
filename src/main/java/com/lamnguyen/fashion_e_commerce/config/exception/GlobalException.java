@@ -44,7 +44,7 @@ public class GlobalException {
     @ExceptionHandler(ApplicationException.class)
     public ResponseEntity<ApiResponse<Object>> handleApplicationException(ApplicationException exception) {
         return ResponseEntity.badRequest().body(ApiResponse.builder()
-                .code(HttpStatus.UNAVAILABLE_FOR_LEGAL_REASONS.value())
+                .code(exception.getCode())
                 .message(exception.getMessageError())
                 .error(exception.getMessage())
                 .trace(exception.getStackTrace())

@@ -11,7 +11,7 @@ package com.lamnguyen.fashion_e_commerce.service.business.user.v1;
 import com.lamnguyen.fashion_e_commerce.config.exception.ApplicationException;
 import com.lamnguyen.fashion_e_commerce.config.exception.ExceptionEnum;
 import com.lamnguyen.fashion_e_commerce.model.User;
-import com.lamnguyen.fashion_e_commerce.repository.mysql.UserRepository;
+import com.lamnguyen.fashion_e_commerce.repository.mysql.IUserRepository;
 import com.lamnguyen.fashion_e_commerce.service.business.user.IUserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class UserServiceImpl implements IUserService {
-    UserRepository userRepository;
+    IUserRepository userRepository;
 
     @Override
     public User findUserByEmail(String email) {
