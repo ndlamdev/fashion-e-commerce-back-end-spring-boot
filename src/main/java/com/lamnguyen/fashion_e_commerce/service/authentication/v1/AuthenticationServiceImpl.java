@@ -131,8 +131,9 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         var jwtAccessToken = jwtTokenUtil.decodeTokenNotVerify(accessToken);
         var payload = jwtTokenUtil.getPayloadNotVerify(jwtAccessToken);
         var userId = payload.getUserId();
-        if (!tokenManager.existAccessTokenId(userId, jwtAccessToken.getId()))
-            throw ApplicationException.createException(ExceptionEnum.LOGOUT_FAILED);
+        if (!tokenManager.existAccessTokenId(userId, jwtAccessToken.getId())) {
+            return;
+        }
         tokenManager.addAccessTokenIdInBlackList(userId, jwtAccessToken.getId());
         tokenManager.addRefreshTokenIdInBlackList(userId, payload.getRefreshTokenId());
         tokenManager.removeAccessTokenId(userId, jwtAccessToken.getId());
