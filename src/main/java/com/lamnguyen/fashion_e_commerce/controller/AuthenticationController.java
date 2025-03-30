@@ -18,12 +18,13 @@ import com.lamnguyen.fashion_e_commerce.domain.request.VerifyAccountRequest;
 import com.lamnguyen.fashion_e_commerce.service.authentication.IAuthenticationService;
 import com.lamnguyen.fashion_e_commerce.util.annotation.ApiMessageResponse;
 import com.lamnguyen.fashion_e_commerce.util.property.ApplicationProperty;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -38,14 +39,18 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     @ApiMessageResponse(value = "Login success!")
-    public LoginSuccessResponse login(HttpSession session, Authentication authentication) {
+    public LoginSuccessResponse login(HttpSession session, Authentication authentication, HttpServletResponse response) {
         var refreshToken = (String) session.getAttribute(applicationProperty.getKeyRefreshToken());
         var accessToken = (String) session.getAttribute(applicationProperty.getKeyAccessToken());
         var email = authentication.getName();
         authenticationService.login(accessToken);
+        Cookie refestTokenCookie = new Cookie(applicationProperty.getKeyRefreshToken(), refreshToken);
+        refestTokenCookie.setMaxAge(applicationProperty.getExpireRefreshToken() * 60000);
+        refestTokenCookie.setHttpOnly(true);
+        refestTokenCookie.setSecure(true);
+        response.addCookie(refestTokenCookie);
         return LoginSuccessResponse.builder()
                 .email(email)
-                .refreshToken(refreshToken)
                 .accessToken(accessToken)
                 .build();
     }
@@ -79,10 +84,10 @@ public class AuthenticationController {
 
     @PostMapping("/renew-access-token")
     @ApiMessageResponse(value = "Refresh token success!")
-    public TokenResponse renewAccessToken(@RequestHeader("Refresh-Token") String refreshToken) {
+    public TokenResponse renewAccessToken(@CookieValue("REFRESH_TOKEN") Cookie refreshToken) {
         return TokenResponse.builder()
                 .token(authenticationService
-                        .renewAccessToken(refreshToken)
+                        .renewAccessToken(refreshToken.getValue())
                         .getTokenValue())
                 .build();
     }
