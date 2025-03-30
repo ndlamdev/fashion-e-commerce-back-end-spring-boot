@@ -20,11 +20,8 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @Builder
-public class ApiResponse<T> {
+public class ApiSuccessResponse<T> {
     int code;
-    String error;
-    Object message;
+    String message;
     T data;
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    StackTraceElement[] trace;
 }

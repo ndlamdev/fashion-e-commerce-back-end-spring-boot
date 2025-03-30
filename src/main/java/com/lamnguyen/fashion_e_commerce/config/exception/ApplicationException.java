@@ -23,16 +23,6 @@ public class ApplicationException extends RuntimeException {
         super(message);
     }
 
-    private ApplicationException(int code, String message) {
-        super(message);
-        this.code = code;
-    }
-
-    private ApplicationException(HttpStatus httpStatus) {
-        super(httpStatus.getReasonPhrase());
-        code = httpStatus.value();
-    }
-
     private ApplicationException(ExceptionEnum exceptionEnum) {
         super(exceptionEnum.getMessage());
         code = exceptionEnum.getCode();
@@ -44,13 +34,6 @@ public class ApplicationException extends RuntimeException {
         this.messageError = messageError;
     }
 
-    public static ApplicationException createException(String message) {
-        return new ApplicationException(message);
-    }
-
-    public static ApplicationException createException(HttpStatus httpStatus) {
-        return new ApplicationException(httpStatus);
-    }
 
     public static ApplicationException createException(ExceptionEnum exceptionEnum) {
         return new ApplicationException(exceptionEnum);
@@ -58,9 +41,5 @@ public class ApplicationException extends RuntimeException {
 
     public static ApplicationException createException(ExceptionEnum exceptionEnum, Object messageError) {
         return new ApplicationException(exceptionEnum, messageError);
-    }
-
-    public static ApplicationException createException(int code, String message) {
-        return new ApplicationException(code, message);
     }
 }

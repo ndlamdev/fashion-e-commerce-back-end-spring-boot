@@ -9,7 +9,8 @@
 package com.lamnguyen.fashion_e_commerce.config.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lamnguyen.fashion_e_commerce.domain.ApiResponse;
+import com.lamnguyen.fashion_e_commerce.config.exception.ExceptionEnum;
+import com.lamnguyen.fashion_e_commerce.domain.ApiErrorResponse;
 import com.lamnguyen.fashion_e_commerce.domain.request.UsernamePasswordAuthenticationRequest;
 import com.nimbusds.jose.shaded.gson.Gson;
 import jakarta.servlet.FilterChain;
@@ -19,15 +20,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.*;
-import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 
 public class UsernamePasswordJsonAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -80,9 +78,10 @@ public class UsernamePasswordJsonAuthenticationFilter extends UsernamePasswordAu
             case InternalAuthenticationServiceException e -> "Tài khoản không tồn tại!";
             default -> "Lỗi!";
         };
-        new ObjectMapper().writeValue(writer, ApiResponse.builder()
-                .code(response.getStatus())
-                .error(message)
+        new ObjectMapper().writeValue(writer, ApiErrorResponse.builder()
+                .code(ExceptionEnum.CODE_NOT_FOUND.getCode())
+                .error(ExceptionEnum.LOGIN_FAIL.name())
+                .detail(message)
                 .trace(failed.getStackTrace())
                 .build());
     }

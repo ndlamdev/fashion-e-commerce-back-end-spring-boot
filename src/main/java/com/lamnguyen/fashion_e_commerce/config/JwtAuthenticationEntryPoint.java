@@ -9,7 +9,9 @@
 package com.lamnguyen.fashion_e_commerce.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lamnguyen.fashion_e_commerce.domain.ApiResponse;
+import com.lamnguyen.fashion_e_commerce.config.exception.ExceptionEnum;
+import com.lamnguyen.fashion_e_commerce.domain.ApiErrorResponse;
+import com.lamnguyen.fashion_e_commerce.domain.ApiSuccessResponse;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -40,10 +42,10 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         String errorMessage = Optional.ofNullable(authException.getCause())
                 .map(Throwable::getMessage)
                 .orElse(authException.getMessage());
-        ApiResponse<Object> res = ApiResponse.builder()
-                .code(HttpStatus.UNAUTHORIZED.value())
-                .error(errorMessage)
-                .message("Token not valid")
+        ApiErrorResponse<Object> res = ApiErrorResponse.builder()
+                .code(ExceptionEnum.UNAUTHORIZED.getCode())
+                .error(ExceptionEnum.UNAUTHORIZED.name())
+                .detail(ExceptionEnum.UNAUTHORIZED.getMessage())
                 .build();
         objectMapper.writeValue(response.getWriter(), res);
     }

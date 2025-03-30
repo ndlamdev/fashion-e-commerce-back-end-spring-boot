@@ -8,7 +8,7 @@
 
 package com.lamnguyen.fashion_e_commerce.config;
 
-import com.lamnguyen.fashion_e_commerce.domain.ApiResponse;
+import com.lamnguyen.fashion_e_commerce.domain.ApiSuccessResponse;
 import com.lamnguyen.fashion_e_commerce.util.annotation.ApiMessageResponse;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -37,7 +37,7 @@ public class ResponseMessageConfig implements ResponseBodyAdvice<Object> {
         var apiMessage = returnType.getMethodAnnotation(ApiMessageResponse.class);
         String message = "No message!";
         if (apiMessage != null) message = apiMessage.value();
-        return ApiResponse.builder()
+        return ApiSuccessResponse.builder()
                 .message(message)
                 .data(body)
                 .code(res.getStatus())
