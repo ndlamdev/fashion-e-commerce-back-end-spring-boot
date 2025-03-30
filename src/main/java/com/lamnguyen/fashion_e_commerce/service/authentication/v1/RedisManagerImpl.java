@@ -49,7 +49,9 @@ public class RedisManagerImpl implements IRedisManager {
 
     @Override
     public boolean existAccessTokenId(long userId, String tokenId) {
-        return Objects.equals(redisTemplate.opsForValue().get(generateKey(applicationProperty.getKeyAccessToken(), userId, tokenId)), 1);
+        var key = generateKey(applicationProperty.getKeyAccessToken(), userId, tokenId);
+        var token = redisTemplate.opsForValue().get(key);
+        return Objects.equals(token, 1);
     }
 
     @Override
