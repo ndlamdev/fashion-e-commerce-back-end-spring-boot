@@ -9,8 +9,9 @@
 package com.lamnguyen.fashion_e_commerce.domain.reponse;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 
 @Builder
-public record LoginSuccessResponse(String email, String accessToken, String refreshToken) {
+public record LoginSuccessResponse(String email, @JsonProperty("access-token") String accessToken) {
 }

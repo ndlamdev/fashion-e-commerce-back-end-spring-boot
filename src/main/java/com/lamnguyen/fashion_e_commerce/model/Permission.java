@@ -19,33 +19,22 @@ import lombok.experimental.SuperBuilder;
 import java.util.List;
 
 @Entity
-@Table(name = "scopes")
+@Table(name = "permissions", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class Scope extends BaseEntity {
+public class Permission extends BaseEntity {
     String name;
-    String method;
-    String controller;
     @Column(name = "`describe`")
     String describe;
 
     @ManyToMany
     @JoinTable(
-            name = "scope_of_role",
-            joinColumns = @JoinColumn(name = "scope_id"),
+            name = "permission_of_role",
+            joinColumns = @JoinColumn(name = "permission_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     List<Role> roles;
-
-
-    @ManyToMany
-    @JoinTable(
-            name = "scope_of_user",
-            joinColumns = @JoinColumn(name = "scope_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    List<User> users;
 }

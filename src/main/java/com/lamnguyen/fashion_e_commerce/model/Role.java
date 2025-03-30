@@ -17,9 +17,11 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "roles", uniqueConstraints =
+@UniqueConstraint(columnNames = {"name"}))
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
@@ -29,13 +31,15 @@ public class Role extends BaseEntity {
     String name;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
-    List<Scope> scopes;
+    List<Permission> permissions;
 
-    @ManyToMany
-    @JoinTable(
-            name = "role_of_user",
-            joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    List<User> users;
+    @OneToMany(mappedBy = "role")
+    List<RoleOfUser> user;
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Role role = (Role) o;
+        return Objects.equals(id, role.id);
+    }
 }

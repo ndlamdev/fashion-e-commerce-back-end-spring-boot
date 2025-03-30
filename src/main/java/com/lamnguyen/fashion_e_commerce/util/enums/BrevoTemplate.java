@@ -12,7 +12,7 @@ import lombok.Getter;
 
 @Getter
 public enum BrevoTemplate {
-    VERITY(2);
+    VERITY(2), RESET_PASSWORD(3);
 
     private long id;
 

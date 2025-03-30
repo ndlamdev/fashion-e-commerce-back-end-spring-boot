@@ -12,15 +12,20 @@ spring:
       host: ${REDIS_HOST:localhost}
       database: ${REDIS_DATABASE:13}
       port: ${REDIS_PORT:6379}
-      username: ${REDIS_USERNAME:root}
+      username: ${REDIS_USERNAME:}
+      password: ${REDIS_PASSWORD:}
       timeout: ${REDIS_TIMEOUT:60000}
+      connect-timeout: ${REDIS_CONNECT_TIMEOUT:60000}
       lettuce:
         pool:
           max-active: ${REDIS_MAX_POOL_ACTIVE:8}
           max-idle: ${REDIS_MAX_POOL_IDLE:8}
           min-idle: ${REDIS_MIN_POOL_IDLE:0}
-          max-wait: ${REDIS_MAX_POOL_WAIT:-1ms}
+          max-wait: ${REDIS_MAX_POOL_WAIT:-1}
 application:
+  admin:
+    email: ${EMAIL_ADMIN:admin@gmail.com}
+    password: ${PASSWORD_ADMIN:admin@Lam}
   BCrypt-length: ${BCRYPT_LENGTH:16}
   login-path: ${LOGIN_PATH:/v1/auth/login}
   jwt:
@@ -29,41 +34,49 @@ application:
     claim: ${JWT_CLAIM:payload}
   prefix:
     role: ${PREFIX_ROLE:ROLE_}
-    permission: ${PREFIX_PERMISSION:SCOPE_}
+    permission: ${PREFIX_PERMISSION:PERMISSION_}
   token:
     blacklist: BLACKLIST
+    reset-password:
+      key: ${RESET_PASSWORD_KEY:RESET_PASSWORD}
+      default-token: ${ACCESS_TOKEN_DEFAULT_VALUE:default}
+      expire: ${ACCESS_TOKEN_EXPIRE:10}
+      blacklist: ${application.token.blacklist}:${application.token.reset-password.key}
+      change: ${CHANGE_PASSWORD:CHANGE_PASSWORD}
     access:
       key: ${ACCESS_TOKEN_KEY:ACCESS_TOKEN}
       default-token: ${ACCESS_TOKEN_DEFAULT_VALUE:default}
-      expire: ${ACCESS_TOKEN_EXPIRE:1800}
-      blacklist: ${application.token.blacklist}_${application.token.access.key}
+      expire: ${ACCESS_TOKEN_EXPIRE:1440}
+      blacklist: ${application.token.blacklist}:${application.token.access.key}
     refresh:
       key: ${REFRESH_TOKEN_KEY:REFRESH_TOKEN}
       default-token: ${REFRESH_TOKEN_DEFAULT_VALUE:default}
-      expire: ${REFRESH_TOKEN_EXPIRE:86400}
-      blacklist: ${application.token.blacklist}_${application.token.refresh.key}
+      expire: ${REFRESH_TOKEN_EXPIRE:10080}
+      blacklist: ${application.token.blacklist}:${application.token.refresh.key}
 
     otp:
-      verity_account:
-        length: 6
+      length: 6
+      verify_account:
         key: ${OTP_VERITY_ACCOUNT:VERITY_ACCOUNT}
+        code: ${application.token.otp.verify_account.key}:CODE
         expire: ${OTP_VERIFY_ACCOUNT_EXPIRE:10}
         total_try:
-          key: ${application.token.otp.verity_account.key}_${application.token.otp.total_try}
-          value: ${OTP_VERIFY_ACCOUNT_TOTAL_TRY:5}
+          key: ${application.token.otp.verify_account.key}:${application.token.otp.total_try}
+          max_try: ${OTP_VERIFY_ACCOUNT_TOTAL_TRY:5}
         total_resend:
-          key: ${application.token.otp.verity_account.key}_${application.token.otp.total_resend}
-          value: ${OTP_VERIFY_ACCOUNT_TOTAL_RESEND:5}
+          key: ${application.token.otp.verify_account.key}:${application.token.otp.total_resend}
+          max_resend: ${OTP_VERIFY_ACCOUNT_TOTAL_RESEND:5}
           expire: ${OTP_VERIFY_ACCOUNT_RESEND_EXPIRE:60}
       reset_password:
         key: ${OTP_RESET_PASSWORD:RESET_PASSWORD}
+        code: ${application.token.otp.reset_password.key}:CODE
         expire: ${OTP_RESET_PASSWORD_EXPIRE:10}
         total_try:
-          key: ${application.token.otp.reset_password.key}_${application.token.otp.total_try}
-          value: ${OTP_RESET_PASSWORD_TOTAL_TRY:5}
+          key: ${application.token.otp.reset_password.key}:${application.token.otp.total_try}
+          max_try: ${OTP_RESET_PASSWORD_TOTAL_TRY:5}
         total_resend:
-          key: ${application.token.otp.reset_password.key}_${application.token.otp.total_resend}
-          value: ${OTP_RESET_PASSWORD_TOTAL_RESEND:5}
+          key: ${application.token.otp.reset_password.key}:${application.token.otp.total_resend}
+          max_resend: ${OTP_RESET_PASSWORD_TOTAL_RESEND:5}
           expire: ${OTP_RESET_PASSWORD_RESEND_EXPIRE:60}
       total_try: ${OTP_TOTAL_TRY:TOTAL_TRY}
       total_resend: ${OTP_TOTAL_RESEND:TOTAL_RESEND}
@@ -72,6 +85,6 @@ logging:
     org.springframework.security: trace
 
 brevo:
-  api-key: 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
-  email: kiminonawa1305@gmail.com
-  name: Kimi Fashion
+  api-key: ${BREVO_API_KEY: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}
+  email: ${BREVO_EMAIL:kiminonawa1305@gmail.com}
+  name: ${BREVO_NAME:Kimi Fashion}

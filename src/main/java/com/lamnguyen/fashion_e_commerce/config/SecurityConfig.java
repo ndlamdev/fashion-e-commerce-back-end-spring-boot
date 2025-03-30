@@ -9,9 +9,9 @@
 package com.lamnguyen.fashion_e_commerce.config;
 
 import com.lamnguyen.fashion_e_commerce.config.converter.JwtAuthenticationConverterImpl;
-import com.lamnguyen.fashion_e_commerce.config.filter.AuthorizationFilterImpl;
 import com.lamnguyen.fashion_e_commerce.config.filter.CheckBlacklistTokenFilter;
 import com.lamnguyen.fashion_e_commerce.config.filter.JWTGeneratorFilter;
+import com.lamnguyen.fashion_e_commerce.config.filter.RemoveBearerTokenAuthorizationFilter;
 import com.lamnguyen.fashion_e_commerce.config.filter.UsernamePasswordJsonAuthenticationFilter;
 import com.lamnguyen.fashion_e_commerce.util.property.ApplicationProperty;
 import lombok.AccessLevel;
@@ -21,13 +21,16 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -35,30 +38,35 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableJpaAuditing
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @EnableCaching
+@EnableAsync
+@EnableMethodSecurity
 public class SecurityConfig {
     ApplicationProperty applicationProperty;
     CorsConfigurationSourceImpl corsConfigurationSource;
-    AuthorizationFilterImpl authorizationFilter;
     JwtAuthenticationConverterImpl jwtAuthenticationConverter;
     JWTGeneratorFilter jwtGeneratorFilter;
     AuthenticationManager manager;
     CheckBlacklistTokenFilter checkBlacklistTokenFilter;
+    JwtAuthenticationEntryPoint authenticationEntryPoint;
+    RemoveBearerTokenAuthorizationFilter removeBearerTokenAuthorizationFilter;
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.addFilterAt(new UsernamePasswordJsonAuthenticationFilter(applicationProperty.getLoginPath(), manager), UsernamePasswordAuthenticationFilter.class);
         httpSecurity.addFilterAfter(jwtGeneratorFilter, UsernamePasswordJsonAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(removeBearerTokenAuthorizationFilter, BearerTokenAuthenticationFilter.class);
         httpSecurity.addFilterAfter(checkBlacklistTokenFilter, BearerTokenAuthenticationFilter.class);
-        httpSecurity.addFilterBefore(authorizationFilter, AuthorizationFilter.class);
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
         httpSecurity.cors(corsConfig -> corsConfig
                 .configurationSource(corsConfigurationSource)
         );
         httpSecurity.authorizeHttpRequests(authorization -> authorization
-                .requestMatchers("/**").permitAll()
+                .requestMatchers(applicationProperty.getWhiteList().toArray(String[]::new)).permitAll()
+                .requestMatchers("/**").authenticated()
         );
         httpSecurity.oauth2ResourceServer(oauth2ResourceServerConfig -> oauth2ResourceServerConfig
                 .jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter))
+                .authenticationEntryPoint(authenticationEntryPoint)
         );
         httpSecurity.sessionManagement(sessionManagementConfig -> sessionManagementConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return httpSecurity.build();

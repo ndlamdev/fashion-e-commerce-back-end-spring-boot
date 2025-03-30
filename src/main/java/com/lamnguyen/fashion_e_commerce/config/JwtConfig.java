@@ -16,10 +16,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.JwtEncoder;
-import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
-import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
+import org.springframework.security.oauth2.jwt.*;
 
 import javax.crypto.spec.SecretKeySpec;
 
@@ -28,6 +25,12 @@ import javax.crypto.spec.SecretKeySpec;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class JwtConfig {
     ApplicationProperty applicationProperty;
+
+    @Bean
+    public JwsHeader jwsHeader() {
+        return  JwsHeader.with(MacAlgorithm.HS256).type("JWT").build();
+    }
+
     @Bean
     JwtDecoder jwtDecoder() {
         return NimbusJwtDecoder.withSecretKey(new SecretKeySpec(applicationProperty.getSecretKey().getBytes(), MacAlgorithm.HS256.getName())).build();

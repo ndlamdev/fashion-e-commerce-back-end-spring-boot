@@ -17,6 +17,8 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -32,12 +34,12 @@ public class RedisManagerImpl implements IRedisManager {
 
     @Override
     public void addAccessTokenIdInBlackList(long userId, String tokenId) {
-        redisTemplate.opsForValue().set(generateKey(applicationProperty.getKeyAccessTokenBlacklist(), userId, tokenId), 1, applicationProperty.getExpireAccessToken() * 1000L);
+        redisTemplate.opsForValue().set(generateKey(applicationProperty.getKeyAccessTokenBlacklist(), userId, tokenId), 1, applicationProperty.getExpireAccessToken(), TimeUnit.MINUTES);
     }
 
     @Override
     public void setAccessTokenId(long userId, String tokenId) {
-        redisTemplate.opsForValue().set(generateKey(applicationProperty.getKeyAccessToken(), userId, tokenId), 1);
+        redisTemplate.opsForValue().set(generateKey(applicationProperty.getKeyAccessToken(), userId, tokenId), 1, applicationProperty.getExpireAccessToken(), TimeUnit.MINUTES);
     }
 
     @Override
@@ -57,12 +59,12 @@ public class RedisManagerImpl implements IRedisManager {
 
     @Override
     public void addRefreshTokenIdInBlackList(long userId, String tokenId) {
-        redisTemplate.opsForValue().set(generateKey(applicationProperty.getKeyRefreshTokenBlacklist(), userId, tokenId), 1, applicationProperty.getExpireRefreshToken() * 1000L);
+        redisTemplate.opsForValue().set(generateKey(applicationProperty.getKeyRefreshTokenBlacklist(), userId, tokenId), 1, applicationProperty.getExpireRefreshToken(), TimeUnit.MINUTES);
     }
 
     @Override
     public void setRefreshTokenId(long userId, String tokenId) {
-        redisTemplate.opsForValue().set(generateKey(applicationProperty.getKeyRefreshToken(), userId, tokenId), 1);
+        redisTemplate.opsForValue().set(generateKey(applicationProperty.getKeyRefreshToken(), userId, tokenId), 1, applicationProperty.getExpireRefreshToken(), TimeUnit.MINUTES);
     }
 
     @Override
@@ -76,14 +78,12 @@ public class RedisManagerImpl implements IRedisManager {
     }
 
     @Override
-    public void setVerifyAccountCode(long userId, String code) {
-        redisTemplate.opsForValue().set(generateKey(accountVerification.getKey(), userId), code, accountVerification.getExpire(), TimeUnit.MINUTES);
-        setVerificationTotalTry(accountVerification.getTotalTryKey(), userId, accountVerification.getExpire());
-        setVerificationTotalResend(accountVerification.getTotalResendKey(), userId, accountVerification.getTotalResendExpire());
+    public void setRegisterCode(long userId, String code) {
+        setCodeVerify(userId, code, accountVerification.getKey(), accountVerification.getExpire(), accountVerification.getTotalTryKey(), accountVerification.getTotalResendKey(), accountVerification.getTotalResendExpire());
     }
 
     @Override
-    public Optional<String> getVerifyAccountCode(long userId) {
+    public Optional<String> getRegisterCode(long userId) {
         return getValue(accountVerification.getKey(), userId);
     }
 
@@ -94,17 +94,22 @@ public class RedisManagerImpl implements IRedisManager {
     }
 
     @Override
-    public void removeVerifyAccountCode(long userId) {
+    public void removeVerifyRegisterCode(long userId) {
         redisTemplate.delete(generateKey(accountVerification.getKey(), userId));
         redisTemplate.delete(generateKey(accountVerification.getTotalResendKey(), userId));
         redisTemplate.delete(generateKey(accountVerification.getTotalTryKey(), userId));
     }
 
     @Override
+    public int getTotalResendRegisterCode(long userId) {
+        var key = generateKey(accountVerification.getTotalResendKey(), userId);
+        var value = redisTemplate.opsForValue().get(key);
+        return value == null ? 0 : (int) value;
+    }
+
+    @Override
     public void setResetPasswordCode(long userId, String code) {
-        redisTemplate.opsForValue().set(generateKey(resetPasswordVerification.getKey(), userId), code, resetPasswordVerification.getExpire(), TimeUnit.MINUTES);
-        setVerificationTotalTry(resetPasswordVerification.getTotalTryKey(), userId, resetPasswordVerification.getExpire());
-        setVerificationTotalResend(resetPasswordVerification.getTotalResendKey(), userId, resetPasswordVerification.getTotalResendExpire());
+        setCodeVerify(userId, code, resetPasswordVerification.getKey(), resetPasswordVerification.getExpire(), resetPasswordVerification.getTotalTryKey(), resetPasswordVerification.getTotalResendKey(), resetPasswordVerification.getTotalResendExpire());
     }
 
     @Override
@@ -114,7 +119,8 @@ public class RedisManagerImpl implements IRedisManager {
 
     @Override
     public int increaseTotalTryResetPassword(long userId) {
-        var value = redisTemplate.opsForValue().increment(generateKey(resetPasswordVerification.getTotalTryKey(), userId));
+        var key = generateKey(resetPasswordVerification.getTotalTryKey(), userId);
+        var value = redisTemplate.opsForValue().increment(key);
         return value != null ? value.intValue() : -1;
     }
 
@@ -125,31 +131,64 @@ public class RedisManagerImpl implements IRedisManager {
         redisTemplate.delete(generateKey(resetPasswordVerification.getTotalTryKey(), userId));
     }
 
-    private void setVerificationTotalTry(String prop, long userId, int expire) {
-        redisTemplate.opsForValue().set(generateKey(prop, userId), 0, expire, TimeUnit.MINUTES);
-    }
-
-    private void setVerificationTotalResend(String prop, long userId, int expire) {
-        var key = generateKey(prop, userId);
-        var value = redisTemplate.opsForValue().get(key);
-        if (value != null)
-            redisTemplate.opsForValue().increment(key);
-
-        redisTemplate.opsForValue().set(key, 0, expire, TimeUnit.MINUTES);
-    }
-
     @Override
-    public int getTotalResendVerifyAccount(long userId) {
-        var value = redisTemplate.opsForValue().get(generateKey(accountVerification.getTotalResendKey(), userId));
+    public int getTotalResendResetPasswordCode(long userId) {
+        var key = generateKey(resetPasswordVerification.getTotalResendKey(), userId);
+        var value = redisTemplate.opsForValue().get(key);
         return value == null ? 0 : (int) value;
     }
 
-    public Optional<String> getValue(String prop, long userId) {
-        var value = redisTemplate.opsForValue().get(generateKey(prop, userId));
+
+    @Override
+    public String getApiName(String path, String method) {
+        return (String) redisTemplate.opsForValue().get(path + "_" + method);
+    }
+
+    public Optional<String> getValue(String prop, long userId, String... others) {
+        var value = redisTemplate.opsForValue().get(generateKey(prop, userId, others));
         return value != null ? Optional.of(value.toString()) : Optional.empty();
     }
 
     private String generateKey(String prop, long userId, String... others) {
         return prop + "_" + userId + (others.length == 0 ? "" : "_" + String.join("_", others));
+    }
+
+    @Override
+    public boolean existTokenResetPasswordInBlacklist(long userId, String tokenId) {
+        return Objects.equals(redisTemplate.opsForValue().get(generateKey(applicationProperty.getKeyResetPasswordTokenBlacklist(), userId, tokenId)), 1);
+    }
+
+    @Override
+    public void addTokenResetPasswordInBlacklist(long userId, String tokenId) {
+        redisTemplate.opsForValue().set(generateKey(applicationProperty.getKeyResetPasswordTokenBlacklist(), userId, tokenId), 1, applicationProperty.getExpireResetPasswordToken(), TimeUnit.MINUTES);
+    }
+
+    @Override
+    public Long getDateTimeChangePassword(long userId) {
+        var number = (Number) redisTemplate.opsForValue().get(generateKey(applicationProperty.getKeyDateTimeChangePassword(), userId));
+        if (number == null) return null;
+        return number.longValue();
+    }
+
+    @Override
+    public void setDateTimeChangePassword(long userId, LocalDateTime dateTime) {
+        redisTemplate.opsForValue().set(generateKey(applicationProperty.getKeyDateTimeChangePassword(), userId), LocalDateTime.now().toEpochSecond(ZoneOffset.UTC), applicationProperty.getExpireAccessToken(), TimeUnit.MINUTES);
+    }
+
+    private void setCodeVerify(long userId, String code, String key, int expire, String totalTryKey, String totalResendKey, int totalResendExpire) {
+        redisTemplate.opsForValue().set(generateKey(key, userId), code, expire, TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set(generateKey(totalTryKey, userId), 0, expire, TimeUnit.MINUTES);
+        setTotalResendCode(totalResendKey, userId, totalResendExpire);
+    }
+
+    private void setTotalResendCode(String prop, long userId, int expire) {
+        var key = generateKey(prop, userId);
+        var value = redisTemplate.opsForValue().get(key);
+        if (value != null) {
+            redisTemplate.opsForValue().increment(key);
+            return;
+        }
+
+        redisTemplate.opsForValue().set(key, 0, expire, TimeUnit.MINUTES);
     }
 }

@@ -9,9 +9,9 @@
 package com.lamnguyen.fashion_e_commerce.config.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lamnguyen.fashion_e_commerce.domain.ApiResponse;
+import com.lamnguyen.fashion_e_commerce.config.exception.ExceptionEnum;
+import com.lamnguyen.fashion_e_commerce.domain.ApiErrorResponse;
 import com.lamnguyen.fashion_e_commerce.service.authentication.IRedisManager;
-import com.lamnguyen.fashion_e_commerce.service.business.user.IUserService;
 import com.lamnguyen.fashion_e_commerce.util.JwtTokenUtil;
 import com.lamnguyen.fashion_e_commerce.util.property.ApplicationProperty;
 import jakarta.servlet.FilterChain;
@@ -45,8 +45,11 @@ public class CheckBlacklistTokenFilter extends OncePerRequestFilter {
             return;
         }
         token = token.substring("Bearer ".length());
-        var jwt = jwtTokenUtil.decodeToken(token);
-        if (!manager.existAccessTokenIdInBlacklist(jwtTokenUtil.getPayload(jwt).getUserId(), jwt.getId())) {
+        var jwt = jwtTokenUtil.decodeTokenNotVerify(token);
+        var userId = jwtTokenUtil.getPayloadNotVerify(jwt).getUserId();
+        var dateTimeChangePassword = manager.getDateTimeChangePassword(userId);
+        var issueDateTime = jwt.getIssuedAt().toInstant().getEpochSecond();
+        if ((dateTimeChangePassword == null || dateTimeChangePassword < issueDateTime) && !manager.existAccessTokenIdInBlacklist(userId, jwt.getId())) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -55,9 +58,10 @@ public class CheckBlacklistTokenFilter extends OncePerRequestFilter {
         var writer = response.getWriter();
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        new ObjectMapper().writeValue(writer, ApiResponse.<String>builder()
-                .code(HttpServletResponse.SC_UNAUTHORIZED)
-                .error("Token not available!")
+        new ObjectMapper().writeValue(writer, ApiErrorResponse.<String>builder()
+                .code(ExceptionEnum.TOKEN_NOT_VALID.getCode())
+                .error(ExceptionEnum.TOKEN_NOT_VALID.name())
+                .detail(ExceptionEnum.TOKEN_NOT_VALID.getMessage())
                 .build());
         writer.flush();
     }

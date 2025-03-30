@@ -8,6 +8,7 @@
 
 package com.lamnguyen.fashion_e_commerce.service.authentication;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface IRedisManager {
@@ -18,6 +19,7 @@ public interface IRedisManager {
     void removeAccessTokenId(long userId, String tokenId);
 
     boolean existAccessTokenId(long userId, String tokenId);
+
     boolean existAccessTokenIdInBlacklist(long userId, String tokenId);
 
     void addRefreshTokenIdInBlackList(long userId, String tokenId);
@@ -28,13 +30,14 @@ public interface IRedisManager {
 
     boolean existRefreshInBlacklist(long userId, String tokenId);
 
-    void setVerifyAccountCode(long userId, String otp);
+    void setRegisterCode(long userId, String otp);
 
-    Optional<String> getVerifyAccountCode(long userId);
+    Optional<String> getRegisterCode(long userId);
 
     int increaseTotalTryVerifyAccount(long userId);
 
-    void removeVerifyAccountCode(long userId);
+    void removeVerifyRegisterCode(long userId);
+
     void setResetPasswordCode(long userId, String otp);
 
     Optional<String> getResetPasswordCode(long userId);
@@ -43,5 +46,17 @@ public interface IRedisManager {
 
     void removeResetPasswordCode(long userId);
 
-    int getTotalResendVerifyAccount(long userId);
+    int getTotalResendResetPasswordCode(long userId);
+
+    String getApiName(String path, String method);
+
+    boolean existTokenResetPasswordInBlacklist(long userId, String tokenId);
+
+    void addTokenResetPasswordInBlacklist(long userId, String tokenId);
+
+    Long getDateTimeChangePassword(long userId);
+
+    void setDateTimeChangePassword(long userId, LocalDateTime dateTime);
+
+    int getTotalResendRegisterCode(long userId);
 }

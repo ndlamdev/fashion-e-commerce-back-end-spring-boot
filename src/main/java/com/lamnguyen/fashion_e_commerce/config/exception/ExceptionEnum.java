@@ -16,15 +16,23 @@ import org.springframework.http.HttpStatus;
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public enum ExceptionEnum {
-    USER_EXIST(HttpStatus.CONFLICT.value(), "User is exist!"),
-    USER_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "User not found!"),
-    UNAUTHORIZED(HttpStatus.UNAUTHORIZED.value(), "Unauthorized"),
-    CODE_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "Code not found or expired"),
-    VERIFY_EXCEEDED_NUMBER(HttpStatus.NOT_ACCEPTABLE.value(), "Exceeded number of authentication attempts"),
-    VERIFY_ACCOUNT_FAILED(HttpStatus.FAILED_DEPENDENCY.value(), "Verify account failed"),
-    LOGOUT_FAILED(HttpStatus.UNAUTHORIZED.value(), "Logout failed"),
-    VERIFICATION_CODE_SENT(HttpStatus.CONFLICT.value(), "Code has been sent!"),
-    ACTIVATED(HttpStatus.FORBIDDEN.value(), "Account is active!");
+    USER_EXIST(90001, "User is exist!"),
+    USER_NOT_FOUND(90002, "User not found!"),
+    NOT_ACTIVE(90003, "User not active!"),
+    UNAUTHORIZED(90004, "Unauthorized"),
+    CODE_NOT_FOUND(90005, "Code not found or expired"),
+    VERIFY_EXCEEDED_NUMBER(90006, "Exceeded number of authentication attempts"),
+    VERIFY_ACCOUNT_FAILED(90005, "Verify account failed"),
+    LOGOUT_FAILED(90006, "Logout failed"),
+    VERIFICATION_CODE_SENT(90006, "Code has been sent!"),
+    ACTIVATED(90007, "Account is active!"),
+    ROLE_NOT_FOUND(90008, "Role not found!"),
+    ROLE_EXIST(90009, "Role is exist!"),
+    TOKEN_NOT_VALID(90010, "Token not valid"),
+    ADMIN_CAN_REMOVE_ROLE_MYSELF(90011, "Admin can not remove any role for myself!"),
+    ADMIN_CAN_ADD_ROLE_FOR_MYSELF(90012, "Admin can not remove any role for myself!"),
+    LOGIN_FAIL(90012, "Admin can not remove any role for myself!"),
+    ;
 
     int code;
     String message;

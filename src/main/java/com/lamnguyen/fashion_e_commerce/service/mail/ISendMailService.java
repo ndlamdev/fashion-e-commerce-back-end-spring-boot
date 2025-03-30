@@ -9,5 +9,7 @@
 package com.lamnguyen.fashion_e_commerce.service.mail;
 
 public interface ISendMailService {
-    void sendMailVerity(String to, String opt);
+    void sendMailVerifyAccountCode(String to, String opt);
+
+    void sendMailResetPasswordCode(String to, String opt);
 }

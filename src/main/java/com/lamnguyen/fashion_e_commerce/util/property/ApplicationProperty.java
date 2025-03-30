@@ -49,10 +49,8 @@ public class ApplicationProperty {
 
     @Value("${application.token.access.key}")
     String keyAccessToken;
-
     @Value("${application.token.access.default-token}")
     String defaultValueAccessToken;
-
     @Value("${application.token.access.expire}")
     int expireAccessToken;
     @Value("${application.token.access.blacklist}")
@@ -60,13 +58,26 @@ public class ApplicationProperty {
 
     @Value("${application.token.refresh.key}")
     String keyRefreshToken;
-
     @Value("${application.token.refresh.default-token}")
     String defaultValueRefreshToken;
-
     @Value("${application.token.refresh.expire}")
     int expireRefreshToken;
-
     @Value("${application.token.refresh.blacklist}")
     String keyRefreshTokenBlacklist;
+    
+    @Value("${application.token.reset-password.key}")
+    String keyResetPasswordToken;
+    @Value("${application.token.reset-password.default-token}")
+    String defaultValueResetPasswordToken;
+    @Value("${application.token.reset-password.expire}")
+    int expireResetPasswordToken;
+    @Value("${application.token.reset-password.blacklist}")
+    String keyResetPasswordTokenBlacklist;
+    @Value("${application.token.reset-password.change}")
+    String keyDateTimeChangePassword;
+
+    @Value("${application.admin.email}")
+    String emailAdmin;
+    @Value("${application.admin.password}")
+    String passwordAdmin;
 }
