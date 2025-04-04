@@ -1,7 +1,13 @@
 spring:
   application:
     name: fashion-e-commerce-api-gateway-service
-
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+  profiles:
+    active: dev
 
 eureka:
   client:
