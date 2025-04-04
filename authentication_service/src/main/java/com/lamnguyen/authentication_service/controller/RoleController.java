@@ -29,14 +29,14 @@ public class RoleController {
 
     @GetMapping
     @ApiMessageResponse("Get all role")
-    @PreAuthorize("hasAnyAuthority('GET_ALL_ROLE')")
+    @PreAuthorize("hasAnyAuthority('GET_ALL_ROLE', 'ROLE_ADMIN')")
     public List<RoleDto> getAll() {
         return iRoleService.getAllRole();
     }
 
     @PostMapping
     @ApiMessageResponse("Create success")
-    @PreAuthorize("hasAnyAuthority('CREATE_ROLE')")
+    @PreAuthorize("hasAnyAuthority('CREATE_ROLE', 'ROLE_ADMIN')")
     public RoleDto getAll(@RequestBody CreateRoleRequest createRoleRequest) {
         return iRoleService.createRole(createRoleRequest.name());
     }

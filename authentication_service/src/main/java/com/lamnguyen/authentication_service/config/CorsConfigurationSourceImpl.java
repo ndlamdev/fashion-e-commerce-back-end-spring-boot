@@ -23,7 +23,7 @@ public class CorsConfigurationSourceImpl implements CorsConfigurationSource {
         var corsConfig = new CorsConfiguration();
         corsConfig.addAllowedHeader("*");
         corsConfig.addAllowedMethod("*");
-        corsConfig.setAllowedOriginPatterns(List.of("http://localhost:5173"));
+        corsConfig.setAllowedOriginPatterns(List.of("http://localhost:8080"));
         corsConfig.setAllowCredentials(true);
         corsConfig.setMaxAge(3600L);
         return corsConfig;

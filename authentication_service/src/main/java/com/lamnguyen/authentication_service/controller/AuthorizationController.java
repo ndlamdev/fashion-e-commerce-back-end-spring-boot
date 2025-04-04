@@ -30,28 +30,28 @@ public class AuthorizationController {
 
     @GetMapping("/{user-id}")
     @ApiMessageResponse("Get all role by user success!")
-    @PreAuthorize("hasAnyAuthority('GET_ALL_ROLE')")
+    @PreAuthorize("hasAnyAuthority('GET_ALL_ROLE', 'ROLE_ADMIN')")
     public List<RoleDto> getAll(@PathVariable("user-id") long userId) {
         return iAuthorizationService.getAllRoleByUserContain(userId);
     }
 
     @GetMapping("/{user-id}/not-contain")
     @ApiMessageResponse("Get all role by user not contain success!")
-    @PreAuthorize("hasAnyAuthority('GET_ALL_ROLE')")
+    @PreAuthorize("hasAnyAuthority('GET_ALL_ROLE', 'ROLE_ADMIN')")
     public List<RoleDto> getAllRoleNotContains(@PathVariable("user-id") long userId) {
         return iAuthorizationService.getAllRoleByUserNotContain(userId);
     }
 
     @PostMapping("/add/{user-id}")
     @ApiMessageResponse("Get all role by user not contain success!")
-    @PreAuthorize("hasAnyAuthority('ADD_ROLE_FOR_USER')")
+    @PreAuthorize("hasAnyAuthority('ADD_ROLE_FOR_USER', 'ROLE_ADMIN')")
     public List<RoleDto> addRoleForUser(@PathVariable("user-id") long userId, @Valid @RequestBody ListRoleIdRequest request) {
         return iAuthorizationService.assignRole(userId, request.roleIds());
     }
 
     @DeleteMapping("/{user-id}")
     @ApiMessageResponse("Get all role by user not contain success!")
-    @PreAuthorize("hasAnyAuthority('REMOVE_ROLE_OF_USER')")
+    @PreAuthorize("hasAnyAuthority('REMOVE_ROLE_OF_USER', 'ROLE_ADMIN')")
     public List<RoleDto> removeRoleOfUser(@PathVariable("user-id") long userId, @Valid @RequestBody ListRoleIdRequest request) {
         return iAuthorizationService.removeRole(userId, request.roleIds());
     }

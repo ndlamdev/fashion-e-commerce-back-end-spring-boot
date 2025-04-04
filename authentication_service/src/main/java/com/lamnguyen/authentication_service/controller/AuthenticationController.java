@@ -87,7 +87,7 @@ public class AuthenticationController {
 	}
 
 	@GetMapping
-	@PreAuthorize("hasAnyAuthority('AUTH_API_TEST')")
+	@PreAuthorize("hasAnyAuthority('AUTH_API_TEST', 'ROLE_ADMIN')")
 	@ApiMessageResponse(value = "Test server!")
 	public String greeting() {
 		return "Hello world!";

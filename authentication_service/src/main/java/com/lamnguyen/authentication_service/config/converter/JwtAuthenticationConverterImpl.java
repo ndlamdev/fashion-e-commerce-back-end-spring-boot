@@ -44,7 +44,7 @@ public class JwtAuthenticationConverterImpl implements Converter<Jwt, AbstractAu
 		var payload = new ObjectMapper().convertValue(source.getClaimAsMap(applicationProperty.getJwtClaim()), JWTPayload.class);
 		Set<GrantedAuthority> authorities = new HashSet<>();
 		if (payload.getRoles().contains("ROLE_ADMIN")) {
-			authorities.addAll(permissionService.getAllPermission().stream().map(permission -> new SimpleGrantedAuthority(permission.getName())).collect(Collectors.toSet()));
+			authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 		} else {
 			payload.getRoles().forEach(it -> {
 				var roles = iRoleService.getByName(it.substring(applicationProperty.getRolePrefix().length()));
