@@ -44,7 +44,7 @@ public class SendMailServiceImpl implements ISendMailService {
 			case CHANGE_PASSWORD -> BrevoTemplate.CHANGE_PASSWORD;
 		};
 
-		sentOtp(message.otp(), message.otp(), template);
+		sentOtp(message.email(), message.otp(), template);
 	}
 
 	public void sentOtp(String to, String opt, BrevoTemplate template) {
