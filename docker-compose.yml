@@ -1,59 +1,41 @@
-version: "v1.0.0"
-name: authentication
+version: '3.7'
 
 services:
-  server:
-    build: .
-    restart: on-failure
-    container_name: authentication_server
-    networks:
-      - fashion_e_commerce
+  # Confluent Kafka broker
+  kafka_1:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka_broker_1_container
+    environment:
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:29092,PLAINTEXT_HOST://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka_1:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     ports:
-      - "8081:8080"
-    image: "fashion-e-commerce:v1.0.0"
+      - "9092:9092"
+      - "29092:29092"
     depends_on:
-      - server_mysql
-      - server_redis
+      - zookeeper
+
+  # Confluent Zookeeper instance
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper_container
     environment:
-      MYSQL_HOST: server_mysql
-      MYSQL_USERNAME: fashion_e_commerce
-      MYSQL_PASSWORD: doan_xem
-      REDIS_HOST: server_redis
-      REDIS_PORT: 6379
-    volumes:
-      - authentication_server_volume_data:/data
-
-  server_mysql:
-    image: mysql
-    container_name: authentication_mysql
-    networks:
-      - fashion_e_commerce
+      ZOOKEEPER_CLIENT_PORT: 2181
     ports:
-      - "3307:3306"
+      - "2181:2181"
+
+  # Kafka UI for monitoring topics, brokers, etc.
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka_ui_container
     environment:
-      MYSQL_USER: fashion_e_commerce
-      MYSQL_PASSWORD: doan_xem
-      MYSQL_DATABASE: fashion_e_commerce
-      MYSQL_ROOT_PASSWORD: 123456@Lam
-    volumes:
-      - authentication_mysql_volume_data:/data
-
-  server_redis:
-    image: redis:7.0.15
-    container_name: authentication_redis
-    networks:
-      - fashion_e_commerce
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: "kafka_1:29092"
+      KAFKA_CLUSTERS_0_ZOOKEEPER: "zookeeper:2181"
     ports:
-      - "6380:6379"
-    restart: always
-    volumes:
-      - authentication_redis_volume_data:/data
-
-networks:
-  fashion_e_commerce:
-    driver: bridge
-
-volumes:
-  authentication_redis_volume_data:
-  authentication_server_volume_data:
-  authentication_mysql_volume_data:
+      - "9000:8080"
+    depends_on:
+      - kafka_1
