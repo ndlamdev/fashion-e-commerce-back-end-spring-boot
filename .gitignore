@@ -35,6 +35,6 @@
 **/.nb-gradle/
 
 ### VS Code ###
-.vscode/
-/.idea/
-/gradle/
+**/.vscode/
+**/.idea/
+**/gradle/
