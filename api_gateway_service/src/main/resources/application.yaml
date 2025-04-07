@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: fashion-e-commerce-api-gateway-service
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+  profiles:
+    active: dev
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_ZONE:http://localhost:8761/fashion-e-commerce-eureka-server}/eureka/
+    registerWithEureka: true
+    fetchRegistry: true
+
+server:
+  port: 8080
+  servlet:
+    context-path: /fashion-e-commerce

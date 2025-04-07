@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: eureka_service
+
+server:
+  port: 8761
+  servlet:
+    context-path: /fashion-e-commerce-eureka-server
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
