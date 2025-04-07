@@ -68,7 +68,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 			if (oldUser.isActive())
 				throw ApplicationException.createException(ExceptionEnum.USER_EXIST);
 			else {
-				registerSuccessHandler(oldUser.getId(), request);
+				sendMailVerify(oldUser.getId(), request);
 				throw ApplicationException.createException(ExceptionEnum.REQUIRE_ACTIVE);
 			}
 		}
@@ -81,17 +81,17 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 		roleOfUserRepository.save(RoleOfUser.builder().user(userSaved).role(Role.builder().id(2).build()).build());
 		//this code use for test
 
-		registerSuccessHandler(userId, request);
-		return RegisterResponse.builder().email(request.email()).build();
-	}
-
-	private void registerSuccessHandler(long userId, RegisterAccountRequest request) {
-		String opt = OtpUtil.generate(6);
-		tokenManager.setRegisterCode(userId, opt);
-		iSendMailService.sendMailVerifyAccountCode(request.email(), opt);
+		sendMailVerify(userId, request);
 		var userDetail = userDetailMapper.toUserDetail(request);
 		userDetail.setUserId(userId);
 		userDetailService.save(userDetail);
+		return RegisterResponse.builder().email(request.email()).build();
+	}
+
+	private void sendMailVerify(long userId, RegisterAccountRequest request) {
+		String opt = OtpUtil.generate(6);
+		tokenManager.setRegisterCode(userId, opt);
+		iSendMailService.sendMailVerifyAccountCode(request.email(), opt);
 	}
 
 	@Override
