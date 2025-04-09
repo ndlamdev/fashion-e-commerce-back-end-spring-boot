@@ -6,7 +6,7 @@
  * User: lam-nguyen
  **/
 
-package com.lamnguyen.product_service;
+package com.lamnguyen.product_service.config;
 
 import com.lamnguyen.product_service.config.converter.StringToObjectHttpMessageConverter;
 import lombok.AccessLevel;

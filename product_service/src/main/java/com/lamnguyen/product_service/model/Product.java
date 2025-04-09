@@ -8,17 +8,17 @@
 
 package com.lamnguyen.product_service.model;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import com.lamnguyen.product_service.utils.enums.GenderType;
+import com.lamnguyen.product_service.utils.enums.ProductTag;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.*;
+import java.util.List;
 
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -26,57 +26,45 @@ import java.util.*;
 @Getter
 @Setter
 @Document(collection = "products")
-public class Product {
-	@Id
-	String id;
-
+public class Product extends MongoBaseEntity {
 	String title;
 
-	@Field("apply_allowance_inventory")
-	boolean applyAllowanceInventory;
-
 	@Field("seo_alias")
-	String seoAlias;
+	String seoAlias; // path in url: product/seoAlias
 
 	String vendor;
 
-	Map<String, String> tags;
+	List<ProductTag> tags;
 
-	List<Option> options;
-
-	@Field("options_ue")
-	List<OptionsValue> optionsValue;
+	@Field("options_values")
+	List<OptionsValue> optionsValues;
 
 	List<Image> images;
 
+	@Builder.Default
 	@Field("on_sale")
-	boolean onSale;
+	boolean onSale = false;
 
-	boolean available;
+	@Builder.Default
+	boolean available = true;
 
-	List<String> collections;
+	@Field("collection_ids")
+	@DocumentReference
+	Collection collections;
 
-	Integer price;
+	@Builder.Default
+	boolean preorder = false;
 
-	@Field("compare_price")
-	Integer comparePrice;
-
-	boolean preorder;
-
-	List<String> pricing;
-
-	@Field("is_pricing")
-	boolean isPricing;
-
+	@Builder.Default
 	@Field("is_combo")
-	boolean isCombo;
+	boolean isCombo = false;
 
 	@Field("display_order")
 	Integer displayOrder;
 
+	@Builder.Default
 	@Field("sale_number")
-	Integer saleNumber;
-
+	Integer saleNumber = 0;
 
 	@Field("is_color_image_option")
 	boolean isColorImageOption;
@@ -84,65 +72,30 @@ public class Product {
 	@Field("youtube_video")
 	String youtubeVideo;
 
-	@Field("addon_note")
-	String addonNote;
-
-	Review review;
+	@Builder.Default
+	Review review = Review.builder().build();
 
 	@Field("coming_soon")
 	boolean comingSoon;
 
-	@Field("display_name")
-	String displayName;
-
 	@Field("display_name_open")
-	String displayNameOpen;
+	String displayNameOpen; // Subtitle
 
-	boolean wildcard;
+	List<String> variants;
 
-	@Field("size_chart")
-	String sizeChart;
-
-	List<Variant> variants;
-
-	Integer percent;
-
-	@Field("regular_price")
-	Integer regularPrice;
-
-	@Field("note_collections")
-	List<String> noteCollections;
+	Discount discount;
 
 	@Field("gender_type")
-	String genderType;
-
-	@Field("pricing_policy")
-	List<String> pricingPolicy;
-
-	@Field("collection_pricing_policy")
-	List<CollectionPricingPolicy> collectionPricingPolicy;
+	GenderType genderType;
 
 	@Field("icon_thumbnail")
 	Image iconThumbnail;
 
-	Integer indexOption;
-
-	List<String> uesInOption;
-
+	@Builder.Default
 	@Field("is_show_variant_color")
-	boolean isShowVariantColor;
+	boolean isShowVariantColor = true;
 
-	List<String> sizes;
-
-	String color;
-
-	@Field("color_slug")
-	String colorSlug;
-
-	@Field("is_flattened")
-	boolean isFlattened;
-
-	@Field("display_collections_variant")
-	Integer displayCollectionsVariant;
+	@Field("apply_allowance_inventory")
+	boolean applyAllowanceInventory;
 }
 

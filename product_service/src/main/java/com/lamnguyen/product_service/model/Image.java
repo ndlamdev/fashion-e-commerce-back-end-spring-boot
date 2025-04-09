@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)

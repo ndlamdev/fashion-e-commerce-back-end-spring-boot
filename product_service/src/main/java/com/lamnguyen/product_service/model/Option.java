@@ -9,6 +9,8 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.List;
+
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
@@ -20,5 +22,5 @@ public class Option extends MongoBaseEntity {
 
 	String title; // Màu  | Size
 
-	OptionsValue value;
+	List<String> values;
 }

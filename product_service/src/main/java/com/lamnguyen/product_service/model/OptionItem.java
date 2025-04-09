@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
@@ -17,6 +18,5 @@ import java.util.List;
 public class OptionItem {
 	String title; // Xanh nhạt
 	String slug; // xanh-nhat
-	String label; // ""
-	List<Image> image; // Danh sách các hình đại diện cho màu đó.
+	List<Image> images; // Danh sách các hình đại diện cho màu đó.
 }

@@ -1,12 +1,8 @@
 package com.lamnguyen.product_service.model;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 @SuperBuilder
@@ -14,16 +10,28 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @RequiredArgsConstructor
 @Getter
 @Setter
-@Document(collection = "reviews")
-public class Review extends MongoBaseEntity {
-	Integer count;
-	Double avg;
+public class Review {
+	@Builder.Default
+	Integer count = 0;
+
+	@Builder.Default
+	Double avg = 9.5;
+
+	@Builder.Default
 	@Field("rating_value")
-	Double ratingValue;
+	Double ratingValue = 4.5;
+
+	@Builder.Default
 	@Field("rating_count")
-	Integer ratingCount;
+	Integer ratingCount = 0;
+
+	@Builder.Default
 	@Field("review_count")
-	Integer reviewCount;
-	Integer bestRating;
-	Integer worstRating;
+	Integer reviewCount = 0;
+
+	@Builder.Default
+	Integer bestRating = 5;
+
+	@Builder.Default
+	Integer worstRating = 4;
 }

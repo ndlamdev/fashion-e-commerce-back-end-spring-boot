@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
@@ -18,9 +19,9 @@ import java.util.List;
 public class OptionsValue {
 	String title; // Màu sắc
 
-	@DBRef
-	Option option;
+	@Field("option_id")
+	String optionId;
 
-	@DBRef
+	@Field("option_item_ids")
 	List<OptionItem> optionItems;
 }

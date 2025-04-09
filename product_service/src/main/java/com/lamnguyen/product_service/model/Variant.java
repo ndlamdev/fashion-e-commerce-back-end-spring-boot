@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
@@ -16,9 +18,10 @@ import java.util.List;
 @RequiredArgsConstructor
 @Getter
 @Setter
+@Document("variants")
 public class Variant extends MongoBaseEntity {
-	@DBRef
-	Product product;
+	@Field("product_id")
+	String productId;
 
 	String title;
 
@@ -30,43 +33,16 @@ public class Variant extends MongoBaseEntity {
 
 	Integer quantity;
 
+	@Field("option_id_1")
 	String option1;
+	@Field("option_id_2")
 	String option2;
+	@Field("option_id_3")
 	String option3;
+	@Field("option_id_4")
 	String option4;
 
-	@Field("sync_product")
-	List<SyncProduct> syncProduct;
-
 	boolean hide;
+
 	Integer pending;
-
-	@Field("based_product_id")
-	String basedProductId;
-
-	@Field("product_stoppage")
-	boolean productStoppage;
-
-	@Field("product_visibility")
-	boolean productVisibility;
-
-	@Field("product_allow_buy_hidden")
-	boolean productAllowBuyHidden;
-
-	@Field("product_exclude_discount")
-	boolean productExcludeDiscount;
-
-	boolean available;
-
-	@Field("product_title")
-	String productTitle;
-
-	@Field("product_apply_allowance_inventory")
-	boolean productApplyAllowanceInventory;
-
-	@Field("regular_price_bk")
-	Integer regularPriceBk;
-
-	@Field("display_collections_variant")
-	Integer displayCollectionsVariant;
 }
