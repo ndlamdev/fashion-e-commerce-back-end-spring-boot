@@ -1,0 +1,16 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: fashion-e-commerce-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/ndlamdev/fashion-e-commerce-config-server
+          timeout: 5
+
+server:
+  servlet:
+    context-path: /fashion-e-commerce-config-server
+  port: 1305

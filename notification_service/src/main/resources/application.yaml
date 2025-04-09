@@ -1,29 +1,11 @@
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: ${EUREKA_ZONE:http://localhost:8761/fashion-e-commerce-eureka-server}/eureka
-    registerWithEureka: true
-    fetchRegistry: true
-  instance:
-    preferIpAddress: true
-
 spring:
   application:
     name: fashion-e-commerce-notification-service
   profiles:
     active: ${PROFILE:dev}
-  kafka:
-    bootstrap-servers: ${KAFKA_SERVER:localhost:9092}
-    consumer:
-      group-id: ${KAFKA_GROUP_ID:notify_group}
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      properties:
-        spring:
-          json:
-            trusted:
-              packages: "send_mail_verify"
-            type:
-              mapping: "send_mail_verify:com.lamnguyen.notification_service.message.SendMailVerifyMessage"
-server:
-  port: 8000
+  config:
+    import: ${CONFIG_SERVER:configserver:http://localhost:1305/fashion-e-commerce-config-server}
+  cloud:
+    config:
+      username: ${CONFIG_USERNAME:}
+      password: ${CONFIG_PASSWORD:}

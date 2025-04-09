@@ -1,15 +1,9 @@
 spring:
   application:
     name: eureka_service
-
-server:
-  port: 8761
-  servlet:
-    context-path: /fashion-e-commerce-eureka-server
-
-eureka:
-  instance:
-    hostname: localhost
-  client:
-    registerWithEureka: false
-    fetchRegistry: false
+  config:
+    import: ${CONFIG_SERVER:configserver:http://localhost:1305/fashion-e-commerce-config-server}
+  cloud:
+    config:
+      username: ${CONFIG_USERNAME:}
+      password: ${CONFIG_PASSWORD:}
