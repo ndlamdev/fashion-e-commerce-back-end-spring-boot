@@ -28,15 +28,20 @@ import com.lamnguyen.authentication_service.service.mail.ISendMailService;
 import com.lamnguyen.authentication_service.util.JwtTokenUtil;
 import com.lamnguyen.authentication_service.util.OtpUtil;
 import com.lamnguyen.authentication_service.util.enums.JwtType;
+import com.lamnguyen.authentication_service.util.property.ApplicationProperty;
 import com.lamnguyen.authentication_service.util.property.OtpProperty;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -209,5 +214,14 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 		var token = jwtTokenUtil.generateAccessToken(user, JWTPayload.generateForAccessToken(user, jwt.getId()));
 		tokenManager.setAccessTokenId(user.getId(), token.getId());
 		return token;
+	}
+
+	@Override
+	public Jwt validate(String token) {
+		var jwtToken = jwtTokenUtil.decodeTokenNotVerify(token.substring(7));
+		var jwtPayload = jwtTokenUtil.getPayloadNotVerify(jwtToken);
+		var auth = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+		jwtPayload.setRoles(auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet()));
+		return jwtTokenUtil.encodeToken(jwtToken, jwtPayload);
 	}
 }

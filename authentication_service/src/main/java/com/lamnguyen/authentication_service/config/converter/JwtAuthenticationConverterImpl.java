@@ -10,7 +10,6 @@ package com.lamnguyen.authentication_service.config.converter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lamnguyen.authentication_service.model.JWTPayload;
-import com.lamnguyen.authentication_service.service.authentication.IPermissionService;
 import com.lamnguyen.authentication_service.service.authorization.IRoleService;
 import com.lamnguyen.authentication_service.util.property.ApplicationProperty;
 import lombok.AccessLevel;
@@ -36,17 +35,18 @@ import java.util.stream.Collectors;
 public class JwtAuthenticationConverterImpl implements Converter<Jwt, AbstractAuthenticationToken> {
 	ApplicationProperty applicationProperty;
 	IRoleService iRoleService;
-	IPermissionService permissionService;
 
 	@Override
 	@Transactional
 	public AbstractAuthenticationToken convert(@NonNull Jwt source) {
 		var payload = new ObjectMapper().convertValue(source.getClaimAsMap(applicationProperty.getJwtClaim()), JWTPayload.class);
+		System.out.println(payload);
 		Set<GrantedAuthority> authorities = new HashSet<>();
 		if (payload.getRoles().contains("ROLE_ADMIN")) {
 			authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 		} else {
 			payload.getRoles().forEach(it -> {
+				if (!it.startsWith(applicationProperty.getRolePrefix())) return;
 				var roles = iRoleService.getByName(it.substring(applicationProperty.getRolePrefix().length()));
 				authorities.addAll(roles.getPermissions().stream().map(permission -> new SimpleGrantedAuthority(permission.getPermission().getName())).collect(Collectors.toSet()));
 			});

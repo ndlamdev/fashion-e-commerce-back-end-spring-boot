@@ -9,3 +9,25 @@ spring:
     config:
       username: ${CONFIG_USERNAME:}
       password: ${CONFIG_PASSWORD:}
+    gateway:
+      routes:
+        - id: authentication-service-white-list
+          uri: lb://FASHION-E-COMMERCE-AUTHENTICATION-SERVICE
+          predicates:
+            - Path=${server.servlet.context-path}/api/auth/**,
+              ${server.servlet.context-path}/api/authentication-service/**
+          filters:
+            - StripPrefix=1
+
+        - id: authentication-service-black-list
+          uri: lb://FASHION-E-COMMERCE-AUTHENTICATION-SERVICE
+          predicates:
+            - Path=${server.servlet.context-path}/api/role/**,
+              ${server.servlet.context-path}/api/authorization/**
+          filters:
+            - StripPrefix=1
+            - name: Authentication
+              args:
+                baseMessage: Process Authentication Filter
+                preAuth: true
+                postAuth: true
