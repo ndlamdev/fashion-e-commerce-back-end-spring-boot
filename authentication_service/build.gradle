@@ -50,6 +50,7 @@ dependencies {
     implementation 'org.flywaydb:flyway-mysql'
     implementation 'org.springframework.kafka:spring-kafka'
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    implementation 'org.redisson:redisson-spring-boot-starter:3.45.1'
 }
 
 dependencyManagement {

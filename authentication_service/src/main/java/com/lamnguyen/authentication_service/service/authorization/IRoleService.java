@@ -27,5 +27,5 @@ public interface IRoleService {
 
     List<PermissionDto> getAllPermissionByRoleContains(long roleId);
 
-    Role getByName(String role);
+    RoleDto getByName(String role);
 }

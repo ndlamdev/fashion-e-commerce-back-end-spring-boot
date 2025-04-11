@@ -1,5 +1,6 @@
 package com.lamnguyen.authentication_service.config;
 
+import com.lamnguyen.authentication_service.model.Role;
 import com.lamnguyen.authentication_service.model.RoleOfUser;
 import com.lamnguyen.authentication_service.model.User;
 import com.lamnguyen.authentication_service.repository.IRoleOfUserRepository;
@@ -39,7 +40,7 @@ public class DataInitializer implements CommandLineRunner {
 					.password(passwordEncoder.encode(applicationProperty.getPasswordAdmin()))
 					.active(true)
 					.build());
-			roleOfUserRepository.save(RoleOfUser.builder().user(admin).role(role).build());
+			roleOfUserRepository.save(RoleOfUser.builder().user(admin).role(Role.builder().id(role.getId()).build()).build());
 		}
 	}
 }

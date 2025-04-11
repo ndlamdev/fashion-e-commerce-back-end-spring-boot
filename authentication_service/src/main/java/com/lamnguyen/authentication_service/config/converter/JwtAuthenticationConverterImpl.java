@@ -9,6 +9,7 @@
 package com.lamnguyen.authentication_service.config.converter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lamnguyen.authentication_service.domain.dto.PermissionDto;
 import com.lamnguyen.authentication_service.model.JWTPayload;
 import com.lamnguyen.authentication_service.service.authorization.IRoleService;
 import com.lamnguyen.authentication_service.util.property.ApplicationProperty;
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -40,17 +42,18 @@ public class JwtAuthenticationConverterImpl implements Converter<Jwt, AbstractAu
 	@Transactional
 	public AbstractAuthenticationToken convert(@NonNull Jwt source) {
 		var payload = new ObjectMapper().convertValue(source.getClaimAsMap(applicationProperty.getJwtClaim()), JWTPayload.class);
-		System.out.println(payload);
+		if (payload.getRoles().contains("ROLE_ADMIN"))
+			return new JwtAuthenticationToken(source, List.of(new SimpleGrantedAuthority("ROLE_ADMIN")));
+
 		Set<GrantedAuthority> authorities = new HashSet<>();
-		if (payload.getRoles().contains("ROLE_ADMIN")) {
-			authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-		} else {
-			payload.getRoles().forEach(it -> {
-				if (!it.startsWith(applicationProperty.getRolePrefix())) return;
-				var roles = iRoleService.getByName(it.substring(applicationProperty.getRolePrefix().length()));
-				authorities.addAll(roles.getPermissions().stream().map(permission -> new SimpleGrantedAuthority(permission.getPermission().getName())).collect(Collectors.toSet()));
-			});
-		}
+		payload.getRoles().forEach(it -> {
+			if (!it.startsWith(applicationProperty.getRolePrefix())) {
+				authorities.add(new SimpleGrantedAuthority(it));
+				return;
+			}
+			var roles = iRoleService.getByName(it.substring(applicationProperty.getRolePrefix().length()));
+			authorities.addAll(roles.getPermissions().stream().map(permission -> new SimpleGrantedAuthority(permission.name())).collect(Collectors.toSet()));
+		});
 		return new JwtAuthenticationToken(source, authorities);
 	}
 }

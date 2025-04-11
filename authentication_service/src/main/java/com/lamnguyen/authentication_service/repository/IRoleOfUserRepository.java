@@ -24,7 +24,7 @@ public interface IRoleOfUserRepository extends JpaRepository<RoleOfUser, Long> {
 	List<RoleOfUser> findAllByUser_Id(long userId);
 
 	@Query("""
-			SELECT new com.lamnguyen.authentication_service.domain.dto.RoleDto(r.id, r.name, r.lock) FROM Role r
+			SELECT new com.lamnguyen.authentication_service.domain.dto.RoleDto(r.id, r.name, r.describe, null, r.lock) FROM Role r
 			WHERE r.id NOT IN (SELECT r2.id FROM Role r2 LEFT JOIN RoleOfUser ru2 ON r2.id = ru2.role.id WHERE ru2.user.id = :userId)
 			""")
 	List<RoleDto> findAllByUser_IdNotContainRole(@PathParam("userId") long userId);

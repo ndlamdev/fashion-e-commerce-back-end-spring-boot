@@ -13,6 +13,6 @@ import com.lamnguyen.authentication_service.model.Permission;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface PermissionMapper {
+public interface IPermissionMapper {
     PermissionDto toPermissionDto(Permission permission);
 }
