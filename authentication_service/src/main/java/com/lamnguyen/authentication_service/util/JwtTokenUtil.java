@@ -15,6 +15,7 @@ import com.lamnguyen.authentication_service.model.SimplePayload;
 import com.lamnguyen.authentication_service.model.User;
 import com.lamnguyen.authentication_service.util.enums.JwtType;
 import com.lamnguyen.authentication_service.util.property.ApplicationProperty;
+import com.lamnguyen.authentication_service.util.property.TokenProperty;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -24,7 +25,10 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -33,6 +37,9 @@ public class JwtTokenUtil {
 	JwtDecoder jwtDecoder;
 	JwtEncoder jwtEncoder;
 	JwsHeader jwsHeader;
+	TokenProperty.AccessTokenProperty accessTokenProperty;
+	TokenProperty.RefreshTokenProperty refreshTokenProperty;
+	TokenProperty.ResetPasswordTokenProperty resetPasswordTokenProperty;
 	ApplicationProperty applicationProperty;
 
 	public Jwt decodeToken(String token) {
@@ -60,7 +67,7 @@ public class JwtTokenUtil {
 	}
 
 	public Jwt generateRefreshToken(User user) {
-		return generateTokenSimplePayLoad(user, JwtType.REFRESH_TOKEN);
+		return generateTokenSimplePayLoad(user, JwtType.REFRESH_TOKEN, refreshTokenProperty.getExpireToken());
 	}
 
 	private JWTPayload getPayload(Map<String, Object> data) {
@@ -73,7 +80,7 @@ public class JwtTokenUtil {
 				.build();
 	}
 
-	private Jwt generateTokenSimplePayLoad(User user, JwtType jwtType) {
+	private Jwt generateTokenSimplePayLoad(User user, JwtType jwtType, int expire) {
 		var now = LocalDateTime.now().toInstant(ZoneOffset.UTC);
 		return jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader, JwtClaimsSet.builder()
 				.id(UUID.randomUUID().toString())
@@ -85,7 +92,7 @@ public class JwtTokenUtil {
 						.userId(user.getId())
 						.email(user.getEmail())
 						.build())
-				.expiresAt(now.plus(applicationProperty.getExpireRefreshToken(), ChronoUnit.SECONDS))
+				.expiresAt(now.plus(expire, ChronoUnit.SECONDS))
 				.build()));
 	}
 
@@ -97,7 +104,7 @@ public class JwtTokenUtil {
 				.subject(user.getEmail())
 				.issuedAt(now)
 				.claim(applicationProperty.getJwtClaim(), payload)
-				.expiresAt(now.plus(applicationProperty.getExpireAccessToken(), ChronoUnit.SECONDS))
+				.expiresAt(now.plus(accessTokenProperty.getExpireToken(), ChronoUnit.SECONDS))
 				.build()));
 	}
 
@@ -113,6 +120,6 @@ public class JwtTokenUtil {
 	}
 
 	public Jwt generateTokenResetPassword(User user) {
-		return generateTokenSimplePayLoad(user, JwtType.RESET_PASSWORD);
+		return generateTokenSimplePayLoad(user, JwtType.RESET_PASSWORD, resetPasswordTokenProperty.getExpireToken());
 	}
 }

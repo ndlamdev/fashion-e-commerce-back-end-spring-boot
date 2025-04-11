@@ -9,7 +9,6 @@
 package com.lamnguyen.authentication_service.config.converter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lamnguyen.authentication_service.domain.dto.PermissionDto;
 import com.lamnguyen.authentication_service.model.JWTPayload;
 import com.lamnguyen.authentication_service.service.authorization.IRoleService;
 import com.lamnguyen.authentication_service.util.property.ApplicationProperty;

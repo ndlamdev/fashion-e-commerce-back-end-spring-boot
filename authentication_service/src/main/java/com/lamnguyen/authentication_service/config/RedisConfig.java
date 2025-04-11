@@ -36,6 +36,29 @@ public class RedisConfig {
 		return template;
 	}
 
+	@Bean("customStringRedisTemplate")
+	RedisTemplate<String, String> stringRedisTemplate(RedisConnectionFactory connectionFactory) {
+		RedisTemplate<String, String> template = new RedisTemplate<>();
+		template.setKeySerializer(new StringRedisSerializer());
+		template.setValueSerializer(new StringRedisSerializer());
+		template.setHashKeySerializer(new StringRedisSerializer());
+		template.setHashValueSerializer(new StringRedisSerializer());
+		template.setConnectionFactory(connectionFactory);
+		return template;
+	}
+
+	@Bean
+	RedisTemplate<String, Number> numberRedisTemplate(RedisConnectionFactory connectionFactory) {
+		RedisTemplate<String, Number> template = new RedisTemplate<>();
+		template.setKeySerializer(new StringRedisSerializer());
+		template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+		template.setHashKeySerializer(new StringRedisSerializer());
+		template.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
+		template.setConnectionFactory(connectionFactory);
+		return template;
+	}
+
+
 	@Bean
 	public RedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
 		return RedisCacheManager.builder(redisConnectionFactory).build();

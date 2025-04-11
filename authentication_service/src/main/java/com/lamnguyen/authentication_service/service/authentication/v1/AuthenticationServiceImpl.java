@@ -21,14 +21,13 @@ import com.lamnguyen.authentication_service.model.RoleOfUser;
 import com.lamnguyen.authentication_service.model.User;
 import com.lamnguyen.authentication_service.repository.IRoleOfUserRepository;
 import com.lamnguyen.authentication_service.service.authentication.IAuthenticationService;
-import com.lamnguyen.authentication_service.service.authentication.IRedisManager;
 import com.lamnguyen.authentication_service.service.business.user.IUserDetailService;
 import com.lamnguyen.authentication_service.service.business.user.IUserService;
 import com.lamnguyen.authentication_service.service.mail.ISendMailService;
+import com.lamnguyen.authentication_service.service.redis.*;
 import com.lamnguyen.authentication_service.util.JwtTokenUtil;
 import com.lamnguyen.authentication_service.util.OtpUtil;
 import com.lamnguyen.authentication_service.util.enums.JwtType;
-import com.lamnguyen.authentication_service.util.property.ApplicationProperty;
 import com.lamnguyen.authentication_service.util.property.OtpProperty;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -54,7 +53,11 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 	IUserDetailService userDetailService;
 	UserDetailMapper userDetailMapper;
 	ISendMailService iSendMailService;
-	IRedisManager tokenManager;
+	IRegisterCodeRedisManager registerCodeRedisManager;
+	IResetPasswordRedisManager resetPasswordCodeRedisManager;
+	IAccessTokenRedisManager accessTokenRedisManager;
+	IChangePasswordRedisManager changePasswordRedisManager;
+	IRefreshTokenRedisManager refreshTokenRedisManager;
 	IRoleOfUserRepository roleOfUserRepository;
 	JwtTokenUtil jwtTokenUtil;
 	OtpProperty.AccountVerification accountVerification;
@@ -95,22 +98,13 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
 	private void sendMailVerify(long userId, RegisterAccountRequest request) {
 		String opt = OtpUtil.generate(6);
-		tokenManager.setRegisterCode(userId, opt);
+		registerCodeRedisManager.setCode(userId, opt);
 		iSendMailService.sendMailVerifyAccountCode(request.email(), opt);
 	}
 
 	@Override
 	public void verifyAccount(String email, String code) {
-		var user = userService.findUserByEmail(email);
-		var userId = user.getId();
-		var optional = tokenManager.getRegisterCode(userId);
-		if (optional.isEmpty()) throw ApplicationException.createException(ExceptionEnum.CODE_NOT_FOUND);
-		var total = tokenManager.increaseTotalTryVerifyAccount(userId);
-		if (total > accountVerification.getMaxTry())
-			throw ApplicationException.createException(ExceptionEnum.VERIFY_EXCEEDED_NUMBER);
-		if (!code.equals(optional.get()))
-			throw ApplicationException.createException(ExceptionEnum.VERIFY_ACCOUNT_FAILED, "The remaining number of authentication attempts is: " + (accountVerification.getMaxTry() - total));
-		tokenManager.removeVerifyRegisterCode(userId);
+		var user = getVerifyCodeHelper(registerCodeRedisManager, email, code);
 		user.setActive(true);
 		userService.save(user);
 	}
@@ -120,13 +114,13 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 		var user = userService.findUserByEmail(email);
 		if (user.isActive()) throw ApplicationException.createException(ExceptionEnum.ACTIVATED);
 		var userId = user.getId();
-		var optional = tokenManager.getRegisterCode(userId);
+		var optional = registerCodeRedisManager.getCode(userId);
 		if (optional.isPresent()) throw ApplicationException.createException(ExceptionEnum.VERIFICATION_CODE_SENT);
-		var total = tokenManager.getTotalResendRegisterCode(userId);
+		var total = registerCodeRedisManager.getTotalResendCode(userId);
 		if (total > accountVerification.getMaxResend())
 			throw ApplicationException.createException(ExceptionEnum.VERIFY_EXCEEDED_NUMBER);
 		String opt = OtpUtil.generate(accountVerification.getLength());
-		tokenManager.setRegisterCode(userId, opt);
+		registerCodeRedisManager.setCode(userId, opt);
 		iSendMailService.sendMailVerifyAccountCode(email, opt);
 	}
 
@@ -135,8 +129,8 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 		var jwtAccessToken = jwtTokenUtil.decodeToken(accessToken);
 		var payload = jwtTokenUtil.getPayload(jwtAccessToken);
 		var userId = payload.getUserId();
-		tokenManager.setAccessTokenId(userId, jwtAccessToken.getId());
-		tokenManager.setRefreshTokenId(userId, payload.getRefreshTokenId());
+		accessTokenRedisManager.setTokenId(userId, jwtAccessToken.getId());
+		refreshTokenRedisManager.setTokenId(userId, payload.getRefreshTokenId());
 	}
 
 	@Override
@@ -145,13 +139,13 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 		var jwtAccessToken = jwtTokenUtil.decodeTokenNotVerify(accessToken);
 		var payload = jwtTokenUtil.getPayloadNotVerify(jwtAccessToken);
 		var userId = payload.getUserId();
-		if (!tokenManager.existAccessTokenId(userId, jwtAccessToken.getId())) {
+		if (!accessTokenRedisManager.existTokenId(userId, jwtAccessToken.getId())) {
 			return;
 		}
-		tokenManager.addAccessTokenIdInBlackList(userId, jwtAccessToken.getId());
-		tokenManager.addRefreshTokenIdInBlackList(userId, payload.getRefreshTokenId());
-		tokenManager.removeAccessTokenId(userId, jwtAccessToken.getId());
-		tokenManager.removeRefreshTokenId(userId, payload.getRefreshTokenId());
+		accessTokenRedisManager.addTokenIdInBlackList(userId, jwtAccessToken.getId());
+		refreshTokenRedisManager.addTokenIdInBlackList(userId, payload.getRefreshTokenId());
+		accessTokenRedisManager.removeTokenId(userId, jwtAccessToken.getId());
+		refreshTokenRedisManager.removeTokenId(userId, payload.getRefreshTokenId());
 	}
 
 	@Override
@@ -161,30 +155,35 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 			throw ApplicationException.createException(ExceptionEnum.NOT_ACTIVE);
 		}
 		var userId = user.getId();
-		var optional = tokenManager.getResetPasswordCode(userId);
+		var optional = resetPasswordCodeRedisManager.getCode(userId);
 		if (optional.isPresent()) throw ApplicationException.createException(ExceptionEnum.VERIFICATION_CODE_SENT);
-		var total = tokenManager.getTotalResendResetPasswordCode(userId);
+		var total = resetPasswordCodeRedisManager.getTotalResendCode(userId);
 		if (1 + total > resetPasswordVerification.getMaxResend())
 			throw ApplicationException.createException(ExceptionEnum.VERIFY_EXCEEDED_NUMBER);
 
 		String opt = OtpUtil.generate(resetPasswordVerification.getLength());
-		tokenManager.setResetPasswordCode(userId, opt);
+		resetPasswordCodeRedisManager.setCode(userId, opt);
 		iSendMailService.sendMailResetPasswordCode(email, opt);
 	}
 
 	@Override
 	public Jwt verifyResetPasswordCode(String email, String code) {
+		var user = getVerifyCodeHelper(resetPasswordCodeRedisManager, email, code);
+		return jwtTokenUtil.generateTokenResetPassword(user);
+	}
+
+	private User getVerifyCodeHelper(IVerifyCodeRedisManager verifyCodeRedisManager, String email, String code) {
 		var user = userService.findUserByEmail(email);
 		var userId = user.getId();
-		var optional = tokenManager.getResetPasswordCode(userId);
+		var optional = verifyCodeRedisManager.getCode(userId);
 		if (optional.isEmpty()) throw ApplicationException.createException(ExceptionEnum.CODE_NOT_FOUND);
-		var total = tokenManager.increaseTotalTryResetPassword(userId);
+		var total = verifyCodeRedisManager.increaseTotalTry(userId);
 		if (total > resetPasswordVerification.getMaxTry())
 			throw ApplicationException.createException(ExceptionEnum.VERIFY_EXCEEDED_NUMBER);
 		if (!code.equals(optional.get()))
 			throw ApplicationException.createException(ExceptionEnum.VERIFY_ACCOUNT_FAILED, "The remaining number of authentication attempts is: " + (accountVerification.getMaxTry() - total));
-		tokenManager.removeResetPasswordCode(userId);
-		return jwtTokenUtil.generateTokenResetPassword(user);
+		verifyCodeRedisManager.removeCode(userId);
+		return user;
 	}
 
 	@Override
@@ -193,13 +192,13 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 		var simplePayload = jwtTokenUtil.getSimplePayload(jwt);
 		if (simplePayload.getType() != JwtType.RESET_PASSWORD)
 			throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
-		var check = tokenManager.existTokenResetPasswordInBlacklist(simplePayload.getUserId(), jwt.getId());
+		var check = resetPasswordCodeRedisManager.existTokenResetPasswordInBlacklist(simplePayload.getUserId(), jwt.getId());
 		if (check) throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
 		var user = userService.findUserByEmail(simplePayload.getEmail());
 		user.setPassword(passwordEncoder.encode(request.password()));
 		userService.save(user);
-		tokenManager.addTokenResetPasswordInBlacklist(simplePayload.getUserId(), jwt.getId());
-		tokenManager.setDateTimeChangePassword(simplePayload.getUserId(), LocalDateTime.now());
+		resetPasswordCodeRedisManager.addTokenResetPasswordInBlacklist(simplePayload.getUserId(), jwt.getId());
+		changePasswordRedisManager.setDateTimeChangePassword(simplePayload.getUserId(), LocalDateTime.now());
 	}
 
 	@Override
@@ -208,11 +207,11 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 		var simplePayload = jwtTokenUtil.getSimplePayloadNotVerify(jwt);
 		if (simplePayload.getType() != JwtType.REFRESH_TOKEN)
 			throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
-		if (tokenManager.existRefreshInBlacklist(simplePayload.getUserId(), jwt.getId()))
+		if (refreshTokenRedisManager.existTokenIdInBlacklist(simplePayload.getUserId(), jwt.getId()))
 			throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
 		var user = userService.findById(simplePayload.getUserId());
 		var token = jwtTokenUtil.generateAccessToken(user, JWTPayload.generateForAccessToken(user, jwt.getId()));
-		tokenManager.setAccessTokenId(user.getId(), token.getId());
+		accessTokenRedisManager.setTokenId(user.getId(), token.getId());
 		return token;
 	}
 

@@ -24,60 +24,31 @@ import java.util.List;
 @Getter
 @Setter
 public class ApplicationProperty {
-    List<String> whiteList;
+	List<String> whiteList;
 
-    @Value(value = "${application.jwt.secret-key}")
-    String secretKey;
+	@Value(value = "${application.jwt.secret-key}")
+	String secretKey;
 
-    @Value(value = "${application.BCrypt-length}")
-    int bCryptLength;
+	@Value(value = "${application.BCrypt-length}")
+	int bCryptLength;
 
-    @Value(value = "${application.login-path}")
-    String loginPath;
+	@Value(value = "${application.login-path}")
+	String loginPath;
 
-    @Value("${application.jwt.iss}")
-    String jwtIss;
+	@Value("${application.jwt.iss}")
+	String jwtIss;
 
-    @Value("${application.jwt.claim}")
-    String jwtClaim;
+	@Value("${application.jwt.claim}")
+	String jwtClaim;
 
-    @Value("${application.prefix.role}")
-    String rolePrefix;
+	@Value("${application.prefix.role}")
+	String rolePrefix;
 
-    @Value("${application.prefix.permission}")
-    String permissionPrefix;
+	@Value("${application.prefix.permission}")
+	String permissionPrefix;
 
-    @Value("${application.token.access.key}")
-    String keyAccessToken;
-    @Value("${application.token.access.default-token}")
-    String defaultValueAccessToken;
-    @Value("${application.token.access.expire}")
-    int expireAccessToken;
-    @Value("${application.token.access.blacklist}")
-    String keyAccessTokenBlacklist;
-
-    @Value("${application.token.refresh.key}")
-    String keyRefreshToken;
-    @Value("${application.token.refresh.default-token}")
-    String defaultValueRefreshToken;
-    @Value("${application.token.refresh.expire}")
-    int expireRefreshToken;
-    @Value("${application.token.refresh.blacklist}")
-    String keyRefreshTokenBlacklist;
-    
-    @Value("${application.token.reset-password.key}")
-    String keyResetPasswordToken;
-    @Value("${application.token.reset-password.default-token}")
-    String defaultValueResetPasswordToken;
-    @Value("${application.token.reset-password.expire}")
-    int expireResetPasswordToken;
-    @Value("${application.token.reset-password.blacklist}")
-    String keyResetPasswordTokenBlacklist;
-    @Value("${application.token.reset-password.change}")
-    String keyDateTimeChangePassword;
-
-    @Value("${application.admin.email}")
-    String emailAdmin;
-    @Value("${application.admin.password}")
-    String passwordAdmin;
+	@Value("${application.admin.email}")
+	String emailAdmin;
+	@Value("${application.admin.password}")
+	String passwordAdmin;
 }

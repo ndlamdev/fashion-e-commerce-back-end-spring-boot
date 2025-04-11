@@ -11,7 +11,8 @@ package com.lamnguyen.authentication_service.config.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lamnguyen.authentication_service.config.exception.ExceptionEnum;
 import com.lamnguyen.authentication_service.domain.ApiErrorResponse;
-import com.lamnguyen.authentication_service.service.authentication.IRedisManager;
+import com.lamnguyen.authentication_service.service.redis.IAccessTokenRedisManager;
+import com.lamnguyen.authentication_service.service.redis.IChangePasswordRedisManager;
 import com.lamnguyen.authentication_service.util.JwtTokenUtil;
 import com.lamnguyen.authentication_service.util.property.ApplicationProperty;
 import jakarta.servlet.FilterChain;
@@ -33,7 +34,8 @@ import java.io.IOException;
 @Component
 public class CheckBlacklistTokenFilter extends OncePerRequestFilter {
     ApplicationProperty applicationProperty;
-    IRedisManager manager;
+    IChangePasswordRedisManager changePasswordRedisManager;
+    IAccessTokenRedisManager accessTokenRedisManager;
     JwtTokenUtil jwtTokenUtil;
 
 
@@ -47,9 +49,9 @@ public class CheckBlacklistTokenFilter extends OncePerRequestFilter {
         token = token.substring("Bearer ".length());
         var jwt = jwtTokenUtil.decodeTokenNotVerify(token);
         var userId = jwtTokenUtil.getPayloadNotVerify(jwt).getUserId();
-        var dateTimeChangePassword = manager.getDateTimeChangePassword(userId);
+        var dateTimeChangePassword = changePasswordRedisManager.getDateTimeChangePassword(userId);
         var issueDateTime = jwt.getIssuedAt().toInstant().getEpochSecond();
-        if ((dateTimeChangePassword == null || dateTimeChangePassword < issueDateTime) && !manager.existAccessTokenIdInBlacklist(userId, jwt.getId())) {
+        if ((dateTimeChangePassword == null || dateTimeChangePassword < issueDateTime) && !accessTokenRedisManager.existTokenIdInBlacklist(userId, jwt.getId())) {
             filterChain.doFilter(request, response);
             return;
         }

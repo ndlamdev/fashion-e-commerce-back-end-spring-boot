@@ -17,9 +17,8 @@ import com.lamnguyen.authentication_service.domain.request.SetNewPasswordRequest
 import com.lamnguyen.authentication_service.domain.request.VerifyAccountRequest;
 import com.lamnguyen.authentication_service.service.authentication.IAuthenticationService;
 import com.lamnguyen.authentication_service.util.annotation.ApiMessageResponse;
-import com.lamnguyen.authentication_service.util.property.ApplicationProperty;
+import com.lamnguyen.authentication_service.util.property.TokenProperty;
 import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
@@ -32,20 +31,18 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
-import java.io.IOException;
-
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RequestMapping("/auth/v1")
 public class AuthenticationController {
 	IAuthenticationService authenticationService;
-	ApplicationProperty applicationProperty;
+	TokenProperty.AccessTokenProperty accessTokenProperty;
 
 	@PostMapping("/login")
 	@ApiMessageResponse(value = "Login success!")
 	public LoginSuccessResponse login(HttpSession session, Authentication authentication) {
-		var accessToken = (String) session.getAttribute(applicationProperty.getKeyAccessToken());
+		var accessToken = (String) session.getAttribute(accessTokenProperty.getTokenKey());
 		var email = authentication.getName();
 		authenticationService.login(accessToken);
 		return LoginSuccessResponse.builder()

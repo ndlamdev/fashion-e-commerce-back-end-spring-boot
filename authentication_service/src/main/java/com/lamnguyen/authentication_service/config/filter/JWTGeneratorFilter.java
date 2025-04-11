@@ -12,6 +12,7 @@ import com.lamnguyen.authentication_service.model.JWTPayload;
 import com.lamnguyen.authentication_service.service.business.user.IUserService;
 import com.lamnguyen.authentication_service.util.JwtTokenUtil;
 import com.lamnguyen.authentication_service.util.property.ApplicationProperty;
+import com.lamnguyen.authentication_service.util.property.TokenProperty;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -31,40 +32,42 @@ import java.io.IOException;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
 public class JWTGeneratorFilter extends OncePerRequestFilter {
-    ApplicationProperty applicationProperty;
-    IUserService userService;
-    JwtTokenUtil jwtTokenUtil;
+	TokenProperty.AccessTokenProperty accessTokenProperty;
+	TokenProperty.RefreshTokenProperty refreshTokenProperty;
+	ApplicationProperty applicationProperty;
+	IUserService userService;
+	JwtTokenUtil jwtTokenUtil;
 
-    @Override
-    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null) {
-            filterChain.doFilter(request, response);
-            return;
-        }
+	@Override
+	protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
+		var authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication == null) {
+			filterChain.doFilter(request, response);
+			return;
+		}
 
-        var user = userService.findUserByEmail(authentication.getName());
-        var refreshToken = jwtTokenUtil.generateRefreshToken(user);
+		var user = userService.findUserByEmail(authentication.getName());
+		var refreshToken = jwtTokenUtil.generateRefreshToken(user);
 
-        var payloadAccessToken = JWTPayload.generateForAccessToken(authentication);
-        payloadAccessToken.setUserId(user.getId());
-        payloadAccessToken.setRefreshTokenId(refreshToken.getId());
-        var accessToken = jwtTokenUtil.generateAccessToken(user, payloadAccessToken);
+		var payloadAccessToken = JWTPayload.generateForAccessToken(authentication);
+		payloadAccessToken.setUserId(user.getId());
+		payloadAccessToken.setRefreshTokenId(refreshToken.getId());
+		var accessToken = jwtTokenUtil.generateAccessToken(user, payloadAccessToken);
 
-        var session = request.getSession();
-        session.setAttribute(applicationProperty.getKeyAccessToken(), accessToken.getTokenValue());
+		var session = request.getSession();
+		session.setAttribute(accessTokenProperty.getTokenKey(), accessToken.getTokenValue());
 
-        Cookie refestTokenCookie = new Cookie(applicationProperty.getKeyRefreshToken(), refreshToken.getTokenValue());
-        refestTokenCookie.setMaxAge(applicationProperty.getExpireRefreshToken() * 60000);
-        refestTokenCookie.setHttpOnly(true);
-        refestTokenCookie.setSecure(true);
-        response.addCookie(refestTokenCookie);
+		Cookie refestTokenCookie = new Cookie(refreshTokenProperty.getTokenKey(), refreshToken.getTokenValue());
+		refestTokenCookie.setMaxAge(refreshTokenProperty.getExpireToken() * 60000);
+		refestTokenCookie.setHttpOnly(true);
+		refestTokenCookie.setSecure(true);
+		response.addCookie(refestTokenCookie);
 
-        filterChain.doFilter(request, response);
-    }
+		filterChain.doFilter(request, response);
+	}
 
-    @Override
-    protected boolean shouldNotFilter(@NonNull HttpServletRequest request) {
-        return !applicationProperty.getLoginPath().equals(request.getServletPath());
-    }
+	@Override
+	protected boolean shouldNotFilter(@NonNull HttpServletRequest request) {
+		return !applicationProperty.getLoginPath().equals(request.getServletPath());
+	}
 }

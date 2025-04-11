@@ -10,7 +10,6 @@ package com.lamnguyen.authentication_service.service.authorization;
 
 import com.lamnguyen.authentication_service.domain.dto.PermissionDto;
 import com.lamnguyen.authentication_service.domain.dto.RoleDto;
-import com.lamnguyen.authentication_service.model.Role;
 
 import java.util.List;
 
