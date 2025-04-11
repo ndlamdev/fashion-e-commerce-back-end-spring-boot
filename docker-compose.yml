@@ -36,6 +36,6 @@ services:
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: "kafka_1:29092"
       KAFKA_CLUSTERS_0_ZOOKEEPER: "zookeeper:2181"
     ports:
-      - "9000:8080"
+      - "9000:9000"
     depends_on:
       - kafka_1

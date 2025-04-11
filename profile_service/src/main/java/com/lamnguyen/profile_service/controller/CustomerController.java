@@ -1,0 +1,70 @@
+package com.lamnguyen.profile_service.controller;
+
+import com.lamnguyen.profile_service.domain.ApiPaging;
+import com.lamnguyen.profile_service.domain.ApiResponse;
+import com.lamnguyen.profile_service.domain.ApiResponseSuccess;
+import com.lamnguyen.profile_service.domain.request.SaveCustomerRequest;
+import com.lamnguyen.profile_service.domain.response.SaveCustomerResponse;
+import com.lamnguyen.profile_service.service.ICustomerService;
+import com.lamnguyen.profile_service.utils.annotation.ApiMessageResponse;
+import jakarta.validation.Valid;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
+import java.util.List;
+
+@RestController
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@RequestMapping("api/v1/customers")
+public class CustomerController {
+    ICustomerService customerService;
+
+    @GetMapping("/" )
+    @ApiMessageResponse("Get customer by page")
+    public ResponseEntity<ApiResponseSuccess<ApiPaging<SaveCustomerResponse>>> getAllCustomers(
+            @Valid @RequestParam(defaultValue = "0") Integer page,
+            @Valid @RequestParam(defaultValue = "12") Integer size
+            ) {
+        var customers = customerService.getCustomers(page, size);
+        var limited = ApiPaging.<SaveCustomerResponse>builder()
+                .content(customers.getContent())
+                .current(customers.getNumber())
+                .size(customers.getSize())
+                .totalPage(customers.getTotalPages())
+                .build();
+        var response = ApiResponseSuccess.<ApiPaging<SaveCustomerResponse>>builder()
+                .data(limited)
+                .message(HttpStatus.OK.name())
+                .code(HttpStatus.OK.value())
+                .build();
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponseSuccess<SaveCustomerResponse>> getCustomer(@PathVariable @Valid Long id) {
+        var response = ApiResponseSuccess.<SaveCustomerResponse>builder()
+                .data(customerService.getCustomerById(id))
+                .message(HttpStatus.OK.name())
+                .code(HttpStatus.OK.value())
+                .build();
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/save")
+    public ResponseEntity<ApiResponseSuccess<SaveCustomerResponse>> saveCustomer(
+            @Valid @RequestBody SaveCustomerRequest saveCustomerRequest
+    ){
+        var response = ApiResponseSuccess.<SaveCustomerResponse>builder()
+                .data(customerService.saveCustomer(saveCustomerRequest))
+                .message(HttpStatus.OK.name())
+                .code(HttpStatus.OK.value())
+                .build();
+        return ResponseEntity.ok(response);
+    }
+}
