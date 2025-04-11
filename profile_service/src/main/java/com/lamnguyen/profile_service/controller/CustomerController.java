@@ -47,6 +47,7 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
+    @ApiMessageResponse("Get customer by id")
     public ResponseEntity<ApiResponseSuccess<SaveCustomerResponse>> getCustomer(@PathVariable @Valid Long id) {
         var response = ApiResponseSuccess.<SaveCustomerResponse>builder()
                 .data(customerService.getCustomerById(id))
@@ -57,6 +58,7 @@ public class CustomerController {
     }
 
     @PostMapping("/save")
+    @ApiMessageResponse("save customer")
     public ResponseEntity<ApiResponseSuccess<SaveCustomerResponse>> saveCustomer(
             @Valid @RequestBody SaveCustomerRequest saveCustomerRequest
     ){

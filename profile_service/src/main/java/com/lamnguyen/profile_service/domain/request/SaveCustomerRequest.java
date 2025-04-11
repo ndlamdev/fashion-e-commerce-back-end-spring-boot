@@ -16,7 +16,6 @@ public record SaveCustomerRequest(
         String fullName,
         @NotBlank(message = "Require phoneNumber is not blank")
         @Size(min = 10, max = 11)
-        @CreditCardNumber
         String phone,
         @Past
         LocalDate birthday,

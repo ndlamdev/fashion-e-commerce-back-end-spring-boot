@@ -12,7 +12,6 @@ import java.util.List;
 public interface IAddressMapper {
     Address toAddress(SaveAddressRequest request);
 
-
     SaveAddressResponse toAddressResponse(Address address);
 
     List<SaveAddressResponse> toAddressResponseList(List<Address> addresses);

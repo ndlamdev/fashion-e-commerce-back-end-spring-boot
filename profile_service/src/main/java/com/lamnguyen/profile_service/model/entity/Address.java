@@ -3,6 +3,7 @@ package com.lamnguyen.profile_service.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -10,13 +11,9 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 @Table(name = "addresses")
-public class Address {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-
+public class Address extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "customer_id")
     Customer customer;
