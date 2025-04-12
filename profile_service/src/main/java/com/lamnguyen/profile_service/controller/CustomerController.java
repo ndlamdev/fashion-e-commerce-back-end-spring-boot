@@ -1,7 +1,6 @@
 package com.lamnguyen.profile_service.controller;
 
 import com.lamnguyen.profile_service.domain.ApiPaging;
-import com.lamnguyen.profile_service.domain.ApiResponse;
 import com.lamnguyen.profile_service.domain.ApiResponseSuccess;
 import com.lamnguyen.profile_service.domain.request.SaveCustomerRequest;
 import com.lamnguyen.profile_service.domain.response.SaveCustomerResponse;
@@ -15,13 +14,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@RequestMapping("api/v1/customers")
+@RequestMapping("/profile/v1")
 public class CustomerController {
     ICustomerService customerService;
 

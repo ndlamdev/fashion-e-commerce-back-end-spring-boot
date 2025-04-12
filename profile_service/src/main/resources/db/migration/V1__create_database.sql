@@ -7,7 +7,7 @@ CREATE TABLE customers
     update_by     VARCHAR(255) NULL,
     update_at     datetime NULL,
     full_name VARCHAR(255) NOT NULL,
-    email       VARCHAR(255) NULL,
+    email       VARCHAR(255) UNIQUE NULL,
     phone       VARCHAR(255) NOT NULL,
     birthday      datetime NULL,
     height       INT NULL,
@@ -35,5 +35,5 @@ CREATE TABLE addresses
     districtCode       VARCHAR(255) NOT NULL,
     cityCode VARCHAR(255) NOT NULL,
     CONSTRAINT pk_addresses PRIMARY KEY (id),
-    CONSTRAINT FK_CUSTOMER_ADDRESS FOREIGN KEY (customer_id) REFERENCES customers (id);
+    CONSTRAINT FK_CUSTOMER_ADDRESS FOREIGN KEY (customer_id) REFERENCES customers (id)
 );
