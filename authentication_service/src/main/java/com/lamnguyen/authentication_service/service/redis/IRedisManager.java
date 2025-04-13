@@ -12,4 +12,8 @@ public interface IRedisManager {
 	default String generateKey(String prop, long userId, String... others) {
 		return prop + "_" + userId + (others.length == 0 ? "" : "_" + String.join("_", others));
 	}
+
+	default String generateHashKey(String prop, long userId, String... others) {
+		return prop + ":" + userId + (others.length == 0 ? "" : "_" + String.join("_", others));
+	}
 }

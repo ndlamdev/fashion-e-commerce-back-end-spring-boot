@@ -33,17 +33,17 @@ public abstract class ATokenRedisManager implements ITokenRedisManager {
 
 	@Override
 	public void setTokenId(long userId, String tokenId) {
-		numberRedisTemplate.opsForValue().set(generateKey(tokenProperty.getTokenKey(), userId, tokenId), 1, tokenProperty.getExpireToken(), TimeUnit.MINUTES);
+		numberRedisTemplate.opsForValue().set(generateHashKey(tokenProperty.getTokenKey(), userId, tokenId), 1, tokenProperty.getExpireToken(), TimeUnit.MINUTES);
 	}
 
 	@Override
 	public void removeTokenId(long userId, String tokenId) {
-		numberRedisTemplate.delete(generateKey(tokenProperty.getTokenKey(), userId, tokenId));
+		numberRedisTemplate.delete(generateHashKey(tokenProperty.getTokenKey(), userId, tokenId));
 	}
 
 	@Override
 	public boolean existTokenId(long userId, String tokenId) {
-		var key = generateKey(tokenProperty.getTokenKey(), userId, tokenId);
+		var key = generateHashKey(tokenProperty.getTokenKey(), userId, tokenId);
 		var token = numberRedisTemplate.opsForValue().get(key);
 		return Objects.equals(token, 1);
 	}
