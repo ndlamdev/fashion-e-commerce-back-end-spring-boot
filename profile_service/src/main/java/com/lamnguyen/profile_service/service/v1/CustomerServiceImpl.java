@@ -31,8 +31,8 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public SaveCustomerResponse saveCustomer(SaveCustomerRequest saveCustomerRequest) {
-        var customer = customerRepository.findById(saveCustomerRequest.id()).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND));
-        return mapper.toSaveCustomerResponse(customerRepository.save(customer));
+        if(!customerRepository.existsById(saveCustomerRequest.id())) throw ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND);
+        return mapper.toSaveCustomerResponse(customerRepository.save(mapper.toCustomer(saveCustomerRequest)));
     }
 
     @Override
