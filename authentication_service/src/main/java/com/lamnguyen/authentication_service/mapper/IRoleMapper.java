@@ -11,11 +11,9 @@ package com.lamnguyen.authentication_service.mapper;
 import com.lamnguyen.authentication_service.domain.dto.RoleDto;
 import com.lamnguyen.authentication_service.model.Role;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {IPermissionMapper.class})
 public interface IRoleMapper {
-	@Mapping(source = "permissions", target = "permissions", ignore = true)
 	RoleDto toRoleDto(Role role);
 
 	Role toRole(RoleDto roleDto);

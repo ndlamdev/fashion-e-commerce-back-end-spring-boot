@@ -91,11 +91,7 @@ public class RoleServiceImpl implements IRoleService {
 	public Optional<RoleDto> getByNameDb(String name) {
 		return roleRedisManager.cache(name, (value) -> {
 			var role = roleRepository.findByName(name);
-			if (role.isEmpty()) return Optional.empty();
-			var roleDto = roleMapper.toRoleDto(role.get());
-			var permissionDto = role.get().getPermissions().stream().map(it -> permissionMapper.toPermissionDto(it.getPermission())).toList();
-			roleDto.setPermissions(permissionDto);
-			return Optional.of(roleDto);
+			return role.map(roleMapper::toRoleDto);
 		});
 	}
 }
