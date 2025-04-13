@@ -8,6 +8,7 @@
 
 package com.lamnguyen.authentication_service.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lamnguyen.authentication_service.domain.dto.RoleDto;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -18,20 +19,23 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class RedisConfig {
+	ObjectMapper mapper;
+
 	@Bean
 	RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
 		RedisTemplate<String, Object> template = new RedisTemplate<>();
+
 		template.setKeySerializer(new StringRedisSerializer());
-		template.setValueSerializer(new JdkSerializationRedisSerializer());
+		template.setValueSerializer(new GenericJackson2JsonRedisSerializer(mapper));
 		template.setHashKeySerializer(new StringRedisSerializer());
-		template.setHashValueSerializer(new JdkSerializationRedisSerializer());
+		template.setHashValueSerializer(new GenericJackson2JsonRedisSerializer(mapper));
 		template.setConnectionFactory(connectionFactory);
 		return template;
 	}
@@ -67,6 +71,10 @@ public class RedisConfig {
 	@Bean
 	RedisTemplate<String, RoleDto> roleRedisTemplate(RedisConnectionFactory connectionFactory) {
 		RedisTemplate<String, RoleDto> template = new RedisTemplate<>();
+		template.setKeySerializer(new StringRedisSerializer());
+		template.setValueSerializer(new Jackson2JsonRedisSerializer<>(mapper, RoleDto.class));
+		template.setHashKeySerializer(new StringRedisSerializer());
+		template.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(mapper, RoleDto.class));
 		template.setConnectionFactory(connectionFactory);
 		return template;
 	}

@@ -20,15 +20,13 @@ import com.lamnguyen.authentication_service.model.Role;
 import com.lamnguyen.authentication_service.repository.IPermissionRepository;
 import com.lamnguyen.authentication_service.repository.IRoleRepository;
 import com.lamnguyen.authentication_service.service.authorization.IRoleService;
-import com.lamnguyen.authentication_service.util.RedissionClientUtil;
+import com.lamnguyen.authentication_service.service.redis.IRoleRedisManager;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,8 +38,7 @@ public class RoleServiceImpl implements IRoleService {
 	IRoleMapper roleMapper;
 	IPermissionMapper permissionMapper;
 	IPermissionRepository permissionRepository;
-	RedisTemplate<String, RoleDto> roleDtoRedisTemplate;
-	RedissionClientUtil redissonClient;
+	IRoleRedisManager roleRedisManager;
 
 	@Override
 	public List<RoleDto> getAllRole() {
@@ -85,32 +82,20 @@ public class RoleServiceImpl implements IRoleService {
 
 	@Override
 	public RoleDto getByName(String name) {
-		var optional = roleDtoRedisTemplate.opsForValue().get("role:" + name);
-		System.out.println(optional);
-		if (optional != null) {
-			return optional;
-		}
+		return roleRedisManager.getRole(name)
+				.orElseGet(() -> getByNameDb(name)
+						.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ROLE_NOT_FOUND)));
 
-		return getByNameDb(name).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ROLE_NOT_FOUND));
 	}
 
 	public Optional<RoleDto> getByNameDb(String name) {
-		return redissonClient.synchronize(name, name, (data) -> {
-			var cached = roleDtoRedisTemplate.opsForValue().get("role:" + name);
-			if (cached != null) {
-				return Optional.of(cached);
-			}
-
+		return roleRedisManager.cache(name, (value) -> {
 			var role = roleRepository.findByName(name);
 			if (role.isEmpty()) return Optional.empty();
 			var roleDto = roleMapper.toRoleDto(role.get());
 			var permissionDto = role.get().getPermissions().stream().map(it -> permissionMapper.toPermissionDto(it.getPermission())).toList();
 			roleDto.setPermissions(permissionDto);
-			roleDtoRedisTemplate.opsForValue().set("role:" + name, roleDto, Duration.ofMinutes(60));
 			return Optional.of(roleDto);
-		}, (data) -> {
-			var cached = roleDtoRedisTemplate.opsForValue().get("role:" + name);
-			return Optional.ofNullable(cached);
 		});
 	}
 }

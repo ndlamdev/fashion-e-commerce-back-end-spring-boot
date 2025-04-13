@@ -8,6 +8,7 @@
 
 package com.lamnguyen.authentication_service.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -39,14 +40,18 @@ public class BaseEntity {
     boolean lock;
 
     @CreatedBy
+    @JsonProperty("create_by")
     String createBy;
 
     @CreatedDate
+    @JsonProperty("create_at")
     LocalDateTime createAt;
 
     @LastModifiedBy
+    @JsonProperty("update_by")
     String updateBy;
 
     @LastModifiedDate
+    @JsonProperty("update_at")
     LocalDateTime updateAt;
 }
