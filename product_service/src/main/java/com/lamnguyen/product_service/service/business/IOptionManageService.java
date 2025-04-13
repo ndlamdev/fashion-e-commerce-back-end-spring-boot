@@ -6,7 +6,7 @@
  * User: kimin
  **/
 
-package com.lamnguyen.product_service.service;
+package com.lamnguyen.product_service.service.business;
 
 public interface IOptionManageService {
 	void create();

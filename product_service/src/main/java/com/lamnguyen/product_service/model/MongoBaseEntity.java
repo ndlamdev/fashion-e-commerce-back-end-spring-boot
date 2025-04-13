@@ -9,16 +9,21 @@
 package com.lamnguyen.product_service.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.*;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.FieldType;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @SuperBuilder
 @Getter
@@ -26,7 +31,7 @@ import java.util.UUID;
 @FieldDefaults(level = AccessLevel.PROTECTED)
 @RequiredArgsConstructor
 public class MongoBaseEntity {
-	@Id
+	@MongoId
 	@JsonProperty("id")
 	@Field(targetType = FieldType.STRING)
 	String id;

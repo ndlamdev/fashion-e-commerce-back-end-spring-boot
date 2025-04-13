@@ -1,8 +1,8 @@
-package com.lamnguyen.product_service.model;
+package com.lamnguyen.product_service.domain.dto;
 
+import com.lamnguyen.product_service.model.OptionItem;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
@@ -12,11 +12,14 @@ import java.util.List;
 
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@RequiredArgsConstructor
 @Getter
 @Setter
-public class CollectionPricingPolicy {
-	@Field("pricing_type")
-	String pricingType;
-	List<Condition> conditions;
+public class OptionsValueDto {
+	String title; // Màu sắc
+
+	@Field("option_id")
+	String optionId;
+
+	@Field("option_item_ids")
+	List<OptionItem> optionItems;
 }

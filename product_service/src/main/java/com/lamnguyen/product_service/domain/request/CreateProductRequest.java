@@ -8,67 +8,59 @@
 
 package com.lamnguyen.product_service.domain.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.lamnguyen.product_service.domain.dto.OptionsValueDto;
+import com.lamnguyen.product_service.model.Discount;
 import com.lamnguyen.product_service.model.Image;
+import com.lamnguyen.product_service.model.Variant;
 import com.lamnguyen.product_service.utils.enums.GenderType;
 import com.lamnguyen.product_service.utils.enums.ProductTag;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
 public record CreateProductRequest(
-		@NotBlank
 		String title,
 
-		@JsonProperty("seo_alias")
-		String seoAlias, // path in url: product/seoAlias
+		String vendor, // người bán
 
-		String vendor,
+		List<ProductTag> tags, // bán chạy hay mới....
 
-		List<ProductTag> tags,
+		@Field("options_values")
+		List<OptionsValueDto> optionsValues, // Các option để tạo ra biến thể
 
-		List<Image> images,
+		List<Image> images, // Hình ảnh để show card
 
-		Boolean available,
+		boolean available, // Có khả dụng hay không
+
+		@Field("collection_id")
+		@DocumentReference(lazy = true)
+		String collection, // Thuộc danh sách nào
+
+		@Field("display_order")
+		Integer displayOrder, // Thứ tự hiển thị
+
+		@Field("youtube_video")
+		String youtubeVideo, // Link video trên youtube cho chi tiết sản phẩm
+
+		@Field("coming_soon")
+		boolean comingSoon, // Đánh dấu sản phẩm có phải mẫu sẽ xuất hiện sớm không
+
+		@Field("display_name_open")
+		String displayNameOpen, // Subtitle, hiển thị ở dưới title trong chi tiết sản phẩm
+
+		@DocumentReference
+		List<Variant> variants, // Các biến thể. Phải được tạo ra từ các OptionValue của bản phẩm
 
 		@NotNull
-		@NotEmpty
-		@JsonProperty("collection_ids")
-		String collections,
+		Discount discount, // Khuyến mãi
 
-		@JsonProperty("is_combo")
-		Boolean isCombo,
+		@Field("gender_type")
+		GenderType genderType, // Dòng sản phẩm của nam hay nữ
 
-		@JsonProperty("display_order")
-		Integer displayOrder,
-
-		@JsonProperty("sale_number")
-		Integer saleNumber,
-
-		@JsonProperty("is_color_image_option")
-		Boolean isColorImageOption,
-
-		@JsonProperty("youtube_video")
-		String youtubeVideo,
-
-		@JsonProperty("coming_soon")
-		Boolean comingSoon,
-
-		@JsonProperty("display_name_open")
-		String displayNameOpen, // Subtitle
-
-		@JsonProperty("gender_type")
-		GenderType genderType,
-
-		@JsonProperty("icon_thumbnail")
-		Image iconThumbnail,
-
-		@JsonProperty("is_show_variant_color")
-		Boolean isShowVariantColor,
-
-		@JsonProperty("apply_allowance_inventory")
-		Boolean applyAllowanceInventory
+		@Field("icon_thumbnail")
+		@DocumentReference(lazy = true)
+		Image iconThumbnail // Hình minh họa khuyến mãi
 ) {
 }

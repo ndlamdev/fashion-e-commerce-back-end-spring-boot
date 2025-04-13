@@ -1,0 +1,83 @@
+/**
+ * Nguyen Dinh Lam
+ * Email: kiminonawa1305@gmail.com
+ * Phone number: +84 855354919
+ * Create at: 12:57 PM - 09/04/2025
+ * User: kimin
+ **/
+
+package com.lamnguyen.product_service.service.business.v1;
+
+import com.lamnguyen.product_service.config.exception.ApplicationException;
+import com.lamnguyen.product_service.config.exception.ExceptionEnum;
+import com.lamnguyen.product_service.domain.dto.CollectionDto;
+import com.lamnguyen.product_service.domain.dto.ProductDto;
+import com.lamnguyen.product_service.domain.request.IdCollectionRequest;
+import com.lamnguyen.product_service.domain.request.TitleCollectionRequest;
+import com.lamnguyen.product_service.domain.request.UpdateCollectionRequest;
+import com.lamnguyen.product_service.mapper.ICollectionMapper;
+import com.lamnguyen.product_service.model.Product;
+import com.lamnguyen.product_service.repository.ICollectionRepository;
+import com.lamnguyen.product_service.service.business.ICollectionManageService;
+import com.lamnguyen.product_service.service.redis.ICollectionRedisManager;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@RequiredArgsConstructor
+public class CollectionManageServiceImpl implements ICollectionManageService {
+	ICollectionRepository collectionRepository;
+	ICollectionMapper collectionMapper;
+	ICollectionRedisManager cacheManager;
+
+	@Override
+	public boolean existById(String id) {
+		return collectionRepository.existsById(id);
+	}
+
+	@Override
+	public void create(TitleCollectionRequest request) {
+		var collection = collectionMapper.toCollection(request);
+		var inserted = collectionRepository.insert(collection);
+		cacheManager.save(inserted.getId(), collectionMapper.toCollectionDto(inserted));
+	}
+
+	@Override
+	public List<CollectionDto> getAll() {
+		return List.of();
+	}
+
+	@Override
+	public void update(UpdateCollectionRequest request) {
+
+	}
+
+	@Override
+	public void delete(IdCollectionRequest request) {
+		cacheManager.delete(request.id());
+	}
+
+	@Override
+	public List<ProductDto> getAllProductByCollectionId(String id) {
+		var collection = cacheManager.get(id).orElseGet(() -> cacheManager.cache(id, id, id, input -> {
+			var data = collectionRepository.findById(input);
+			return data.map(collectionMapper::toCollectionDto);
+		}).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.COLLECTION_NOT_FOUND)));
+		return collection.getProducts().stream().toList();
+	}
+
+	@Override
+	@Async
+	public void addProductId(String collectionId, String productId) {
+		var collection = collectionRepository.findById(collectionId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.COLLECTION_NOT_FOUND));
+		collection.getProducts().add(Product.builder().id(productId).build());
+		collectionRepository.save(collection);
+		cacheManager.delete(collectionId);
+	}
+}

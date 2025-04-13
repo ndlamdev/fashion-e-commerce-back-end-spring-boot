@@ -6,10 +6,10 @@
  * User: kimin
  **/
 
-package com.lamnguyen.product_service.service;
+package com.lamnguyen.product_service.service.business;
 
-import com.lamnguyen.product_service.domain.dto.CollectionDTO;
-import com.lamnguyen.product_service.domain.dto.ProductDTO;
+import com.lamnguyen.product_service.domain.dto.CollectionDto;
+import com.lamnguyen.product_service.domain.dto.ProductDto;
 import com.lamnguyen.product_service.domain.request.IdCollectionRequest;
 import com.lamnguyen.product_service.domain.request.TitleCollectionRequest;
 import com.lamnguyen.product_service.domain.request.UpdateCollectionRequest;
@@ -17,13 +17,17 @@ import com.lamnguyen.product_service.domain.request.UpdateCollectionRequest;
 import java.util.List;
 
 public interface ICollectionManageService {
+	boolean existById(String id);
+
 	void create(TitleCollectionRequest request);
 
-	List<CollectionDTO> getAll();
+	List<CollectionDto> getAll();
 
 	void update(UpdateCollectionRequest request);
 
 	void delete(IdCollectionRequest request);
 
-	List<ProductDTO> getAllProductByCollectionId(String id);
+	List<ProductDto> getAllProductByCollectionId(String id);
+
+	void addProductId(String collectionId, String productId);
 }

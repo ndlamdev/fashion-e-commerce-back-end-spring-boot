@@ -8,14 +8,19 @@
 
 package com.lamnguyen.product_service.mapper;
 
+import com.lamnguyen.product_service.domain.dto.CollectionDto;
 import com.lamnguyen.product_service.domain.request.TitleCollectionRequest;
 import com.lamnguyen.product_service.domain.request.UpdateCollectionRequest;
 import com.lamnguyen.product_service.model.Collection;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {IProductMapper.class})
 public interface ICollectionMapper {
-	Collection toCollection(TitleCollectionRequest request);
+	Collection toCollection(TitleCollectionRequest titleCollectionRequest);
 
-	Collection toCollection(UpdateCollectionRequest request);
+	Collection toCollection(UpdateCollectionRequest updateCollectionRequest);
+
+	Collection toCollection(CollectionDto dto);
+
+	CollectionDto toCollectionDto(Collection collection);
 }

@@ -8,9 +8,7 @@
 
 package com.lamnguyen.product_service.domain.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public record IdCollectionRequest(
-		String title
+		String id
 ) {
 }

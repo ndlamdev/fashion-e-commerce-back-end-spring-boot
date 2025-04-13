@@ -1,12 +1,13 @@
 package com.lamnguyen.product_service.model;
 
+import com.lamnguyen.product_service.utils.enums.DisplayOptionValueType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
@@ -17,11 +18,15 @@ import java.util.List;
 @Getter
 @Setter
 public class OptionsValue {
-	String title; // Màu sắc
+	String title; // title để hiển thị kế bên các giá thị của option (ví dụ: màu sắc hoặc size)
 
 	@Field("option_id")
-	String optionId;
+	@DocumentReference(lazy = true)
+	Option option; // Thuộc nhóm option nào
 
 	@Field("option_item_ids")
-	List<OptionItem> optionItems;
+	List<OptionItem> optionItems; // Danh sách các giá trị của option này
+
+	@Field("display_option_type")
+	DisplayOptionValueType displayOptionValueType;
 }

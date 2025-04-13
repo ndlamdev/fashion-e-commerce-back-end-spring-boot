@@ -1,4 +1,4 @@
-package com.lamnguyen.product_service.model;
+package com.lamnguyen.product_service.domain.dto;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class Review {
+public class ReviewDto {
 	@Builder.Default
 	Integer count = 0;
 

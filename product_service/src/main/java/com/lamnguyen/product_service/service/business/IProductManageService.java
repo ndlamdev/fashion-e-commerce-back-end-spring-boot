@@ -6,7 +6,7 @@
  * User: kimin
  **/
 
-package com.lamnguyen.product_service.service;
+package com.lamnguyen.product_service.service.business;
 
 import com.lamnguyen.product_service.domain.request.CreateProductRequest;
 

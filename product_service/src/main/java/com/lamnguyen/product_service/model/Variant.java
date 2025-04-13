@@ -6,12 +6,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import org.springframework.data.mongodb.core.mapping.Field;
-
-import java.util.List;
 
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -21,7 +18,8 @@ import java.util.List;
 @Document("variants")
 public class Variant extends MongoBaseEntity {
 	@Field("product_id")
-	String productId;
+	@DocumentReference
+	Product product;
 
 	String title;
 

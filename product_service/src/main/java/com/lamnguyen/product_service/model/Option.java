@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
@@ -22,5 +23,6 @@ public class Option extends MongoBaseEntity {
 
 	String title; // Màu  | Size
 
-	List<String> values;
+	@DocumentReference
+	List<OptionsValue> values;
 }

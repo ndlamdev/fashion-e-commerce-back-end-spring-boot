@@ -8,16 +8,14 @@
 
 package com.lamnguyen.product_service.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @SuperBuilder
 @Getter
@@ -25,9 +23,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document("collections")
-public class Collection extends MongoBaseEntity {
+public class Collection extends MongoBaseEntity implements Serializable {
 	String title;
 
-	@DocumentReference()
-	List<Product> products;
+	@DocumentReference(lazy = true)
+	@Builder.Default
+	Set<Product> products = new HashSet<>();
 }

@@ -6,26 +6,28 @@
  * User kimin
  **/
 
-package com.lamnguyen.product_service.model;
+package com.lamnguyen.product_service.domain.dto;
 
+import com.lamnguyen.product_service.model.Discount;
+import com.lamnguyen.product_service.model.Image;
+import com.lamnguyen.product_service.model.MongoBaseEntity;
+import com.lamnguyen.product_service.model.Variant;
 import com.lamnguyen.product_service.utils.enums.GenderType;
 import com.lamnguyen.product_service.utils.enums.ProductTag;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
-@SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
 @Getter
 @Setter
-@Document(collection = "products")
-public class Product extends MongoBaseEntity {
+@SuperBuilder
+public class ProductDto extends MongoBaseEntity {
 	String title;
 
 	@Field("seo_alias")
@@ -36,7 +38,7 @@ public class Product extends MongoBaseEntity {
 	List<ProductTag> tags; // bán chạy hay mới....
 
 	@Field("options_values")
-	List<OptionsValue> optionsValues; // Các option để tạo ra biến thể
+	List<OptionsValueDto> optionsValues; // Các option để tạo ra biến thể
 
 	List<Image> images; // Hình ảnh để show card
 
@@ -45,10 +47,13 @@ public class Product extends MongoBaseEntity {
 
 	@Field("collection_id")
 	@DocumentReference(lazy = true)
-	Collection collection; // Thuộc danh sách nào
+	CollectionDto collection; // Thuộc danh sách nào
 
 	@Field("display_order")
 	Integer displayOrder; // Thứ tự hiển thị
+
+	@Field("is_color_image_option")
+	boolean isColorImageOption;
 
 	@Field("youtube_video")
 	String youtubeVideo; // Link video trên youtube cho chi tiết sản phẩm
@@ -70,5 +75,7 @@ public class Product extends MongoBaseEntity {
 	@Field("icon_thumbnail")
 	@DocumentReference(lazy = true)
 	Image iconThumbnail; // Hình minh họa khuyến mãi
-}
 
+	@Builder.Default
+	ReviewDto review = ReviewDto.builder().build();
+}

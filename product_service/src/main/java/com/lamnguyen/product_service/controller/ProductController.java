@@ -8,28 +8,27 @@
 
 package com.lamnguyen.product_service.controller;
 
-import com.lamnguyen.product_service.domain.request.CreateProductRequest;
-import com.lamnguyen.product_service.service.business.IProductManageService;
+import com.lamnguyen.product_service.domain.dto.ProductDto;
+import com.lamnguyen.product_service.service.business.IProductService;
 import com.lamnguyen.product_service.utils.annotation.ApiMessageResponse;
-import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/product/admin/v1")
+@RequestMapping("/product/v1")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
-public class ProductAdminController {
-	IProductManageService productManageService;
+public class ProductController {
+	IProductService productService;
 
-	@PostMapping()
-	@ApiMessageResponse("Create success!")
-	public void create(@Valid @RequestBody CreateProductRequest request) {
-		productManageService.create(request);
+	@GetMapping("/{id}")
+	@ApiMessageResponse("Get product success!")
+	public ProductDto getProductDetail(@PathVariable("id") String id) {
+		return productService.getProductDtoById(id);
 	}
 }

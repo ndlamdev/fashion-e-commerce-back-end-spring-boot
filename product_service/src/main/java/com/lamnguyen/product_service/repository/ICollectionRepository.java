@@ -11,5 +11,8 @@ package com.lamnguyen.product_service.repository;
 import com.lamnguyen.product_service.model.Collection;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
+import java.util.Optional;
+
 public interface ICollectionRepository extends MongoRepository<Collection, String> {
+	Optional<Collection> findByIdAndLockIsFalse(String id);
 }
