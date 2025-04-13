@@ -30,8 +30,8 @@ public class CustomerServiceImpl implements ICustomerService {
     ICustomerMapper mapper;
 
     @Override
-    public SaveCustomerResponse saveCustomer(SaveCustomerRequest saveCustomerRequest) {
-        if(!customerRepository.existsById(saveCustomerRequest.id())) throw ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND);
+    public SaveCustomerResponse saveCustomer(SaveCustomerRequest saveCustomerRequest, Long userId) {
+        if(!customerRepository.existsById(userId)) throw ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND);
         return mapper.toSaveCustomerResponse(customerRepository.save(mapper.toCustomer(saveCustomerRequest)));
     }
 

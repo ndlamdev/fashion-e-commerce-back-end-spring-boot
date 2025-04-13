@@ -16,6 +16,7 @@ public record CustomerDto(
         String fullName,
         String email,
         String phone,
+        String countryCode,
         LocalDate birthday,
         List<AddressDto> shippingAddresses,
         Double height,

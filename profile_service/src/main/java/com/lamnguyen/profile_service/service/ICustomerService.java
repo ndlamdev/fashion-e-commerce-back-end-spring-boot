@@ -8,7 +8,7 @@ import com.lamnguyen.profile_service.domain.response.SaveCustomerResponse;
 import org.springframework.data.domain.Page;
 
 public interface ICustomerService {
-    SaveCustomerResponse saveCustomer(SaveCustomerRequest saveCustomerRequest);
+    SaveCustomerResponse saveCustomer(SaveCustomerRequest saveCustomerRequest, Long userId);
 
     ApiResponseSuccess<ApiPaging<CustomerDto>> getCustomers(Integer page, Integer size);
 

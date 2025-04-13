@@ -12,6 +12,7 @@ public record SaveAddressResponse(
         String city,
         String cityCode,
         String country,
+        String countryCode,
         Boolean active
         ) {
 }

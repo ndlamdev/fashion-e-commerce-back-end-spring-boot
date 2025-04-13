@@ -14,6 +14,8 @@ public record SaveCustomerResponse(
         String fullName,
         String email,
         String phone,
+        @JsonProperty("country_code")
+        String countryCode,
         LocalDate birthday,
         List<AddressDto> shippingAddresses,
         Double height,

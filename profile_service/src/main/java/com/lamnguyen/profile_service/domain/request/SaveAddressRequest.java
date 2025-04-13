@@ -1,11 +1,10 @@
 package com.lamnguyen.profile_service.domain.request;
 
+import com.lamnguyen.profile_service.utils.annotation.ValidInternationalPhone;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import org.springframework.validation.annotation.Validated;
 
-@Validated
+@ValidInternationalPhone(phoneField = "phone", countryField = "countryCode")
 public record SaveAddressRequest(
         @NotNull
         Long id,
@@ -27,7 +26,7 @@ public record SaveAddressRequest(
         String cityCode,
         @NotBlank(message = "Require districtCode is not blank")
         String districtCode,
-        @NotBlank(message = "Require country is not blank")
-        String country
+        @NotBlank(message = "Require countryCode is not blank")
+        String countryCode
 ) {
 }

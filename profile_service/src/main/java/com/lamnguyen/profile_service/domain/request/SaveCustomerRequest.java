@@ -1,25 +1,24 @@
 package com.lamnguyen.profile_service.domain.request;
 
+import com.lamnguyen.profile_service.utils.annotation.ValidInternationalPhone;
 import com.lamnguyen.profile_service.utils.enums.SexEnum;
 import jakarta.persistence.Enumerated;
-import jakarta.validation.constraints.*;
-import org.hibernate.validator.constraints.CreditCardNumber;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import org.hibernate.validator.constraints.Range;
-import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
 
-@Validated
+@ValidInternationalPhone(phoneField = "phone", countryField = "countryCode")
 public record SaveCustomerRequest(
         @NotNull(message = "Require id is not null")
         Long id,
         @NotNull(message = "Require fullName is not null")
         String fullName,
+        @NotBlank
+        String countryCode,
         @NotBlank(message = "Require phoneNumber is not blank")
-        @Pattern(regexp = "^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$"
-                + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}$"
-                + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}$"
-                + "|^(((\\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\\b")
         String phone,
         @Past
         LocalDate birthday,

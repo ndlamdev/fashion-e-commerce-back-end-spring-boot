@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController {
     ICustomerService customerService;
 
-    @GetMapping("/")
+    @GetMapping("/customers")
     @ApiMessageResponse("Get customer by page")
     public ResponseEntity<ApiResponseSuccess<ApiPaging<CustomerDto>>> getAllCustomers(
             @Valid @RequestParam(defaultValue = "0") Integer page,
@@ -38,13 +38,14 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.getCustomerById(id));
     }
 
-    @PostMapping("/save")
+    @PatchMapping("/{id}")
     @ApiMessageResponse("save customer")
     public ResponseEntity<ApiResponseSuccess<SaveCustomerResponse>> saveCustomer(
-            @Valid @RequestBody SaveCustomerRequest saveCustomerRequest
+            @Valid @RequestBody SaveCustomerRequest saveCustomerRequest,
+            @Valid @PathVariable Long id
     ) {
         var response = ApiResponseSuccess.<SaveCustomerResponse>builder()
-                .data(customerService.saveCustomer(saveCustomerRequest))
+                .data(customerService.saveCustomer(saveCustomerRequest, id))
                 .message(HttpStatus.OK.name())
                 .code(HttpStatus.OK.value())
                 .build();

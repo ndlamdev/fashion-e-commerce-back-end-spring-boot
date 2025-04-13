@@ -26,6 +26,9 @@ public class Customer extends BaseEntity {
     String email;
     @Column(nullable = false)
     String phone;
+    @Column(nullable = false)
+    @Builder.Default
+    String countryCode = "VN";
     LocalDate birthday;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     List<Address> shippingAddresses;

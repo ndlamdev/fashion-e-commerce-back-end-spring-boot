@@ -33,5 +33,7 @@ public class Address extends BaseEntity {
     @Column(nullable = false)
     String country;
     @Column(nullable = false)
+    String countryCode;
+    @Column(nullable = false)
     Boolean active; // dia chi mac dinh
 }

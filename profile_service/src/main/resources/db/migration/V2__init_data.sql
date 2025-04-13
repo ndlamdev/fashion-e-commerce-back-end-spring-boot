@@ -1,2 +1,2 @@
-INSERT INTO customers(id, full_name, phone)
-VALUES (1, 'lamhongphong', '0376236485')
+INSERT INTO customers(id, full_name, phone, country_code)
+VALUES (1, 'lamhongphong', '0376236485', "VN")
