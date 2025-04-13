@@ -2,6 +2,8 @@ package com.lamnguyen.profile_service.model.entity;
 
 import com.lamnguyen.profile_service.utils.enums.SexEnum;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
@@ -18,9 +20,11 @@ import java.util.List;
 @SuperBuilder
 @Table(name = "customers")
 public class Customer extends BaseEntity {
+    @Column(nullable = false)
     String fullName;
     @Column(unique = true)
     String email;
+    @Column(nullable = false)
     String phone;
     LocalDate birthday;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")

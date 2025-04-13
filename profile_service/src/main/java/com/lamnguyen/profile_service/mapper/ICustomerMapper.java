@@ -10,13 +10,11 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {IAddressMapper.class})
 public interface ICustomerMapper {
-    Customer toCustomer(SaveUserDetailMessage saveCustomerRequest);
-
-    Customer toAddress(SaveUserDetailMessage message);
+    Customer toCustomer(SaveUserDetailMessage message);
 
     SaveCustomerResponse toSaveCustomerResponse(Customer customer);
 
-    List<SaveCustomerResponse> toSaveCustomerResponseList(List<Customer> customers);
+    List<CustomerDto> toCustomerDTOs(List<Customer> customers);
 
     CustomerDto toSaveCustomerDto(Customer customer);
 }

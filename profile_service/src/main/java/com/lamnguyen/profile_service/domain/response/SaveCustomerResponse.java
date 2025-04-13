@@ -1,6 +1,7 @@
 package com.lamnguyen.profile_service.domain.response;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lamnguyen.profile_service.domain.dto.AddressDto;
 import com.lamnguyen.profile_service.utils.enums.SexEnum;
 
@@ -17,6 +18,7 @@ public record SaveCustomerResponse(
         List<AddressDto> shippingAddresses,
         Double height,
         Double weight,
+        @JsonProperty("sex")
         SexEnum gender
 ) {
 }

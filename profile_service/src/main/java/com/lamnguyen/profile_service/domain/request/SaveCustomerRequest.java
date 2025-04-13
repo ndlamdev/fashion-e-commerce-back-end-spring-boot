@@ -15,14 +15,15 @@ public record SaveCustomerRequest(
         @NotNull(message = "Require fullName is not null")
         String fullName,
         @NotBlank(message = "Require phoneNumber is not blank")
-        @Size(min = 10, max = 11)
+        @Pattern(regexp = "^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$"
+                + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}$"
+                + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}$")
         String phone,
         @Past
         LocalDate birthday,
-        @Range(min= 140, max= 190)
+        @Range(min = 140, max = 190)
         Double height,
-        @Min(40) @Max(90)
-        @Range(min = 40, max=90)
+        @Range(min = 40, max = 90)
         Double weight,
         SexEnum gender
 ) {

@@ -18,12 +18,20 @@ public class Address extends BaseEntity {
     @JoinColumn(name = "customer_id")
     Customer customer;
     String street;
+    @Column(nullable = false)
     String ward;
+    @Column(nullable = false)
     String wardCode;
+    @Column(nullable = false)
     String district;
+    @Column(nullable = false)
     String districtCode;
+    @Column(nullable = false)
     String city;
+    @Column(nullable = false)
     String cityCode;
+    @Column(nullable = false)
     String country;
+    @Column(nullable = false)
     Boolean active; // dia chi mac dinh
 }

@@ -28,30 +28,14 @@ public class CustomerController {
             @Valid @RequestParam(defaultValue = "0") Integer page,
             @Valid @RequestParam(defaultValue = "12") Integer size
     ) {
-        var customers = customerService.getCustomers(page, size);
-        var limited = ApiPaging.<CustomerDto>builder()
-                .content(customers.getContent())
-                .current(customers.getNumber())
-                .size(customers.getSize())
-                .totalPage(customers.getTotalPages())
-                .build();
-        var response = ApiResponseSuccess.<ApiPaging<CustomerDto>>builder()
-                .data(limited)
-                .message(HttpStatus.OK.name())
-                .code(HttpStatus.OK.value())
-                .build();
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(customerService.getCustomers(page, size));
     }
 
     @GetMapping("/{id}")
     @ApiMessageResponse("Get customer by id")
     public ResponseEntity<ApiResponseSuccess<SaveCustomerResponse>> getCustomer(@PathVariable @Valid Long id) {
-        var response = ApiResponseSuccess.<SaveCustomerResponse>builder()
-                .data(customerService.getCustomerById(id))
-                .message(HttpStatus.OK.name())
-                .code(HttpStatus.OK.value())
-                .build();
-        return ResponseEntity.ok(response);
+
+        return ResponseEntity.ok(customerService.getCustomerById(id));
     }
 
     @PostMapping("/save")
