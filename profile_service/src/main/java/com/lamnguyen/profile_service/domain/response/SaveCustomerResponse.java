@@ -1,7 +1,7 @@
 package com.lamnguyen.profile_service.domain.response;
 
 
-import com.lamnguyen.profile_service.model.entity.Address;
+import com.lamnguyen.profile_service.domain.dto.AddressDto;
 import com.lamnguyen.profile_service.utils.enums.SexEnum;
 
 import java.time.LocalDate;
@@ -14,7 +14,7 @@ public record SaveCustomerResponse(
         String email,
         String phone,
         LocalDate birthday,
-        List<Address> shippingAddresses,
+        List<AddressDto> shippingAddresses,
         Double height,
         Double weight,
         SexEnum gender

@@ -25,5 +25,5 @@ public class Address extends BaseEntity {
     String city;
     String cityCode;
     String country;
-    Boolean active;
+    Boolean active; // dia chi mac dinh
 }

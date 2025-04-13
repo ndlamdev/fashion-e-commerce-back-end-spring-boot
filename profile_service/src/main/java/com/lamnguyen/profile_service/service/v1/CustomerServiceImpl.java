@@ -2,6 +2,7 @@ package com.lamnguyen.profile_service.service.v1;
 
 import com.lamnguyen.profile_service.config.exception.ApplicationException;
 import com.lamnguyen.profile_service.config.exception.ExceptionEnum;
+import com.lamnguyen.profile_service.domain.dto.CustomerDto;
 import com.lamnguyen.profile_service.domain.request.SaveCustomerRequest;
 import com.lamnguyen.profile_service.domain.response.SaveCustomerResponse;
 import com.lamnguyen.profile_service.mapper.ICustomerMapper;
@@ -32,9 +33,9 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public Page<SaveCustomerResponse> getCustomers(Integer page, Integer size) {
+    public Page<CustomerDto> getCustomers(Integer page, Integer size) {
         var pageable = PageRequest.of(page, size);
-        return customerRepository.findAll(pageable).map(mapper::toSaveCustomerResponse) ;
+        return customerRepository.findAll(pageable).map(mapper::toSaveCustomerDto);
     }
 
     @Override

@@ -19,6 +19,7 @@ import java.util.List;
 @Table(name = "customers")
 public class Customer extends BaseEntity {
     String fullName;
+    @Column(unique = true)
     String email;
     String phone;
     LocalDate birthday;
@@ -28,5 +29,4 @@ public class Customer extends BaseEntity {
     Double weight;
     @Enumerated(EnumType.STRING)
     SexEnum gender;
-
 }
