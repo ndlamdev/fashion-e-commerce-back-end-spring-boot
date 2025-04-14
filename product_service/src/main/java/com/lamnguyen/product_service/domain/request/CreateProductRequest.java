@@ -8,59 +8,56 @@
 
 package com.lamnguyen.product_service.domain.request;
 
-import com.lamnguyen.product_service.domain.dto.OptionsValueDto;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.lamnguyen.product_service.domain.dto.OptionDto;
 import com.lamnguyen.product_service.model.Discount;
-import com.lamnguyen.product_service.model.Image;
-import com.lamnguyen.product_service.model.Variant;
 import com.lamnguyen.product_service.utils.enums.GenderType;
 import com.lamnguyen.product_service.utils.enums.ProductTag;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
 public record CreateProductRequest(
+		@NotBlank
 		String title,
 
-		String vendor, // người bán
+		@NotBlank
+		String vendor, // Người bán
 
-		List<ProductTag> tags, // bán chạy hay mới....
+		@NotNull
+		@NotEmpty
+		List<ProductTag> tags, // Bán chạy hay mới....
 
-		@Field("options_values")
-		List<OptionsValueDto> optionsValues, // Các option để tạo ra biến thể
+		@NotNull
+		@NotEmpty
+		List<OptionDto> options, // Các option để tạo ra biến thể
 
-		List<Image> images, // Hình ảnh để show card
+		@JsonProperty("options_values")
+		List<CreateImageOptionsValueRequest> optionsValues,// Các giá trị bổ xung thêm cho option. Như detail của option.
 
 		boolean available, // Có khả dụng hay không
 
-		@Field("collection_id")
-		@DocumentReference(lazy = true)
+		@JsonProperty("collection_id")
 		String collection, // Thuộc danh sách nào
 
-		@Field("display_order")
+		@JsonProperty("display_order")
 		Integer displayOrder, // Thứ tự hiển thị
 
-		@Field("youtube_video")
+		@JsonProperty("youtube_video")
 		String youtubeVideo, // Link video trên youtube cho chi tiết sản phẩm
 
-		@Field("coming_soon")
+		@JsonProperty("coming_soon")
 		boolean comingSoon, // Đánh dấu sản phẩm có phải mẫu sẽ xuất hiện sớm không
 
-		@Field("display_name_open")
+		@JsonProperty("display_name_open")
 		String displayNameOpen, // Subtitle, hiển thị ở dưới title trong chi tiết sản phẩm
-
-		@DocumentReference
-		List<Variant> variants, // Các biến thể. Phải được tạo ra từ các OptionValue của bản phẩm
 
 		@NotNull
 		Discount discount, // Khuyến mãi
 
-		@Field("gender_type")
-		GenderType genderType, // Dòng sản phẩm của nam hay nữ
-
-		@Field("icon_thumbnail")
-		@DocumentReference(lazy = true)
-		Image iconThumbnail // Hình minh họa khuyến mãi
+		@JsonProperty("gender_type")
+		GenderType genderType // Dòng sản phẩm của nam hay nữ
 ) {
 }

@@ -87,6 +87,19 @@ spring:
               mapping: "send_mail_verify:com.lamnguyen.authentication_service.event.SendMailVerifyEvent,save_user_detail:com.lamnguyen.authentication_service.event.SaveUserDetailEvent"
 ```
 
+```java
+package com.lamnguyen.authentication_service.event;
+
+import com.lamnguyen.authentication_service.util.enums.MailType;
+import lombok.Builder;
+
+@Builder
+public record SendMailVerifyEvent(String email,
+                                  String otp,
+                                  MailType type) {
+}
+```
+
 * Đối với consumer
 
 ```yaml
@@ -101,6 +114,31 @@ spring:
               packages: "save_user_detail"
             type:
               mapping: "save_user_detail:com.lamnguyen.profile_service.message.SaveUserDetailMessage"
+```
+
+```java
+package com.lamnguyen.profile_service.message;
+
+import com.lamnguyen.profile_service.utils.enums.SexEnum;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+import java.time.LocalDate;
+
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class SaveUserDetailMessage {
+	Long userId;
+	String fullName;
+	String phone;
+	SexEnum sexEnum;
+	LocalDate birthday;
+}
+
 ```
 
 <span style="color:red">* Chú ý: </span> Riêng với consumer cần cấu hình để cho consumer có thể trust các package mà

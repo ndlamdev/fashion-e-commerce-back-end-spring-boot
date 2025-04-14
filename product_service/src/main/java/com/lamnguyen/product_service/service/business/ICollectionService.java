@@ -8,8 +8,8 @@
 
 package com.lamnguyen.product_service.service.business;
 
-import com.lamnguyen.product_service.domain.dto.CollectionDto;
+import com.lamnguyen.product_service.domain.dto.CollectionSaveRedisDto;
 
 public interface ICollectionService {
-	CollectionDto findById(String id);
+	CollectionSaveRedisDto findById(String id);
 }

@@ -9,12 +9,14 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serializable;
+
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class VariantDto extends MongoBaseEntity {
+public class VariantDto extends MongoBaseEntity implements Serializable {
 	@JsonProperty("product_id")
 	String productId;
 

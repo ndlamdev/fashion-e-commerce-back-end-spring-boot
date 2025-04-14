@@ -9,10 +9,17 @@
 package com.lamnguyen.product_service.mapper;
 
 import com.lamnguyen.product_service.domain.dto.CollectionDto;
+import com.lamnguyen.product_service.domain.dto.CollectionSaveRedisDto;
 import com.lamnguyen.product_service.domain.request.TitleCollectionRequest;
 import com.lamnguyen.product_service.domain.request.UpdateCollectionRequest;
 import com.lamnguyen.product_service.model.Collection;
+import com.lamnguyen.product_service.model.Product;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", uses = {IProductMapper.class})
 public interface ICollectionMapper {
@@ -23,4 +30,12 @@ public interface ICollectionMapper {
 	Collection toCollection(CollectionDto dto);
 
 	CollectionDto toCollectionDto(Collection collection);
+
+	@Mapping(source = "products", target = "products", qualifiedByName = "toSetProductId")
+	CollectionSaveRedisDto toCollectionSaveRedisDto(Collection collection);
+
+	@Named("toSetProductId")
+	default Set<String> toSetProductId(Set<Product> products) {
+		return products.stream().map(Product::getId).collect(Collectors.toSet());
+	}
 }

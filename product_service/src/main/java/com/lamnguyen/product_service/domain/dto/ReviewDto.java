@@ -2,15 +2,17 @@ package com.lamnguyen.product_service.domain.dto;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.SuperBuilder;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-@SuperBuilder
+import java.io.Serializable;
+
+@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@RequiredArgsConstructor
 @Getter
 @Setter
-public class ReviewDto {
+@AllArgsConstructor
+@NoArgsConstructor
+public class ReviewDto  implements Serializable {
 	@Builder.Default
 	Integer count = 0;
 

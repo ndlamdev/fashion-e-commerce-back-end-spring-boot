@@ -7,8 +7,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
 
@@ -17,12 +15,10 @@ import java.util.List;
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class Option extends MongoBaseEntity {
-	@Field("option_id")
-	OptionType optionType; // size | color
+public class Option {
+	OptionType type; // size | color
 
 	String title; // Màu  | Size
 
-	@DocumentReference
-	List<OptionsValue> values;
+	List<String> values; // Danh sách các giá trị của option này
 }

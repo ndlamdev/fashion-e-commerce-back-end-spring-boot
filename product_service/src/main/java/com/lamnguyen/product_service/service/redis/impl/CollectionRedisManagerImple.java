@@ -8,7 +8,7 @@
 
 package com.lamnguyen.product_service.service.redis.impl;
 
-import com.lamnguyen.product_service.domain.dto.CollectionDto;
+import com.lamnguyen.product_service.domain.dto.CollectionSaveRedisDto;
 import com.lamnguyen.product_service.service.redis.ICollectionRedisManager;
 import com.lamnguyen.product_service.utils.RedissionClientUtil;
 import com.lamnguyen.product_service.utils.redis.ACacheManage;
@@ -23,18 +23,18 @@ import java.util.function.Function;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class CollectionRedisManagerImple extends ACacheManage<CollectionDto> implements ICollectionRedisManager {
-	public CollectionRedisManagerImple(RedisTemplate<String, CollectionDto> template, RedissionClientUtil redissonClient) {
+public class CollectionRedisManagerImple extends ACacheManage<CollectionSaveRedisDto> implements ICollectionRedisManager {
+	public CollectionRedisManagerImple(RedisTemplate<String, CollectionSaveRedisDto> template, RedissionClientUtil redissonClient) {
 		super(template, redissonClient);
 	}
 
 	@Override
-	public <T> Optional<CollectionDto> cache(String keyLock, String keyCache, T input, Function<T, Optional<CollectionDto>> callDB) {
+	public <T> Optional<CollectionSaveRedisDto> cache(String keyLock, String keyCache, T input, Function<T, Optional<CollectionSaveRedisDto>> callDB) {
 		return cache(keyLock, generateKeyCache(keyCache), input, callDB, 60, TimeUnit.MINUTES);
 	}
 
 	@Override
-	public void save(String key, CollectionDto data) {
+	public void save(String key, CollectionSaveRedisDto data) {
 		save(generateKeyCache(key), data, 60, TimeUnit.MINUTES);
 	}
 

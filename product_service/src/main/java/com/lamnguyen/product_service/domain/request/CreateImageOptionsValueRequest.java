@@ -8,13 +8,15 @@
 
 package com.lamnguyen.product_service.domain.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.lamnguyen.product_service.model.Image;
+import com.lamnguyen.product_service.utils.enums.OptionType;
 
-public record OptionsValueRequest(
-		@JsonProperty("option-id")
-		String optionId,
+import java.util.List;
+
+public record CreateImageOptionsValueRequest(
 		String title,
-		Image image
+
+		OptionType option,
+
+		List<CreateOptionItemRequest> options
 ) {
 }

@@ -24,8 +24,8 @@ import java.util.Set;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CollectionDto extends MongoBaseEntity implements Serializable {
+public class CollectionSaveRedisDto extends MongoBaseEntity implements Serializable {
 	String id;
 	String title;
-	Set<ProductDto> products;
+	Set<String> products;
 }

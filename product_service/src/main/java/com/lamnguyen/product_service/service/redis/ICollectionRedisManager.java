@@ -8,8 +8,8 @@
 
 package com.lamnguyen.product_service.service.redis;
 
-import com.lamnguyen.product_service.domain.dto.CollectionDto;
+import com.lamnguyen.product_service.domain.dto.CollectionSaveRedisDto;
 import com.lamnguyen.product_service.utils.redis.ICacheManage;
 
-public interface ICollectionRedisManager extends ICacheManage<CollectionDto> {
+public interface ICollectionRedisManager extends ICacheManage<CollectionSaveRedisDto> {
 }

@@ -13,7 +13,6 @@ import lombok.experimental.SuperBuilder;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,7 +22,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document("collections")
-public class Collection extends MongoBaseEntity implements Serializable {
+public class Collection extends MongoBaseEntity  {
 	String title;
 
 	@DocumentReference(lazy = true)

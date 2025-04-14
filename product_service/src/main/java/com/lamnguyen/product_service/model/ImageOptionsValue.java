@@ -1,24 +1,24 @@
 package com.lamnguyen.product_service.model;
 
+import com.lamnguyen.product_service.utils.enums.OptionType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import java.util.List;
 
 @SuperBuilder
-@FieldDefaults(level = AccessLevel.PROTECTED)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class OptionItem {
-	String title; // Xanh nhạt
-	String slug; // xanh-nhat
-	String label;
-	@DocumentReference(lazy = true)
-	List<Image> images;
+public class ImageOptionsValue {
+	String title;
+
+	OptionType option;
+
+	List<OptionItem> options;
 }

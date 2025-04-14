@@ -8,6 +8,7 @@
 
 package com.lamnguyen.product_service.model;
 
+import com.lamnguyen.product_service.utils.annotation.CompareAmountImageOptionsValue;
 import com.lamnguyen.product_service.utils.enums.GenderType;
 import com.lamnguyen.product_service.utils.enums.ProductTag;
 import lombok.*;
@@ -25,6 +26,7 @@ import java.util.List;
 @Getter
 @Setter
 @Document(collection = "products")
+@CompareAmountImageOptionsValue
 public class Product extends MongoBaseEntity {
 	String title;
 
@@ -35,8 +37,10 @@ public class Product extends MongoBaseEntity {
 
 	List<ProductTag> tags; // bán chạy hay mới....
 
+	List<Option> options; // Các option để tạo ra biến thể
+
 	@Field("options_values")
-	List<OptionsValue> optionsValues; // Các option để tạo ra biến thể
+	List<ImageOptionsValue> optionsValues; // Nếu các option có các giá trị riêng của nó thì dùng trường này. Ví dụ như các option liên quan đến màu thì cần dùng cái này để lưu hình ảnh sản phẩm theo màu đó.
 
 	List<Image> images; // Hình ảnh để show card
 

@@ -19,6 +19,7 @@ import com.lamnguyen.product_service.mapper.ICollectionMapper;
 import com.lamnguyen.product_service.model.Product;
 import com.lamnguyen.product_service.repository.ICollectionRepository;
 import com.lamnguyen.product_service.service.business.ICollectionManageService;
+import com.lamnguyen.product_service.service.business.IProductService;
 import com.lamnguyen.product_service.service.redis.ICollectionRedisManager;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -35,6 +37,7 @@ public class CollectionManageServiceImpl implements ICollectionManageService {
 	ICollectionRepository collectionRepository;
 	ICollectionMapper collectionMapper;
 	ICollectionRedisManager cacheManager;
+	IProductService productService;
 
 	@Override
 	public boolean existById(String id) {
@@ -45,7 +48,7 @@ public class CollectionManageServiceImpl implements ICollectionManageService {
 	public void create(TitleCollectionRequest request) {
 		var collection = collectionMapper.toCollection(request);
 		var inserted = collectionRepository.insert(collection);
-		cacheManager.save(inserted.getId(), collectionMapper.toCollectionDto(inserted));
+		cacheManager.save(inserted.getId(), collectionMapper.toCollectionSaveRedisDto(inserted));
 	}
 
 	@Override
@@ -67,9 +70,9 @@ public class CollectionManageServiceImpl implements ICollectionManageService {
 	public List<ProductDto> getAllProductByCollectionId(String id) {
 		var collection = cacheManager.get(id).orElseGet(() -> cacheManager.cache(id, id, id, input -> {
 			var data = collectionRepository.findById(input);
-			return data.map(collectionMapper::toCollectionDto);
+			return data.map(collectionMapper::toCollectionSaveRedisDto);
 		}).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.COLLECTION_NOT_FOUND)));
-		return collection.getProducts().stream().toList();
+		return collection.getProducts().stream().map(productService::getProductDtoById).collect(Collectors.toList());
 	}
 
 	@Override

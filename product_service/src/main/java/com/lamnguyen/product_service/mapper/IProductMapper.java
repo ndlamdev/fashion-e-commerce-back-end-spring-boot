@@ -22,9 +22,7 @@ import java.util.regex.Pattern;
 @Mapper(componentModel = "spring", uses = {IVariantMapper.class})
 public interface IProductMapper {
 	@Mapping(source = "collection", target = "collection", qualifiedByName = "toCollection")
-	@Mapping(source = "images", target = "images", ignore = true)
-	@Mapping(source = "iconThumbnail", target = "iconThumbnail", ignore = true)
-	@Mapping(source = "seoAlias", target = "title", qualifiedByName = "toSeoAlias")
+	@Mapping(source = "title", target = "seoAlias", qualifiedByName = "toSeoAlias")
 	Product toProduct(CreateProductRequest request);
 
 	@Mapping(source = "collection.id", target = "collection")

@@ -11,6 +11,7 @@ package com.lamnguyen.product_service.service.business.v1;
 import com.lamnguyen.product_service.config.exception.ApplicationException;
 import com.lamnguyen.product_service.config.exception.ExceptionEnum;
 import com.lamnguyen.product_service.domain.dto.CollectionDto;
+import com.lamnguyen.product_service.domain.dto.CollectionSaveRedisDto;
 import com.lamnguyen.product_service.mapper.ICollectionMapper;
 import com.lamnguyen.product_service.repository.ICollectionRepository;
 import com.lamnguyen.product_service.service.business.ICollectionService;
@@ -31,12 +32,12 @@ public class CollectionServiceImpl implements ICollectionService {
 	ICollectionRedisManager manager;
 
 	@Override
-	public CollectionDto findById(String id) {
+	public CollectionSaveRedisDto findById(String id) {
 		return manager.get(id)
 				.orElseGet(() -> findInDb(id).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.COLLECTION_NOT_FOUND)));
 	}
 
-	private Optional<CollectionDto> findInDb(String id) {
-		return manager.cache(id, id, id, s -> collectionRepository.findByIdAndLockIsFalse(s).map(collectionMapper::toCollectionDto));
+	private Optional<CollectionSaveRedisDto> findInDb(String id) {
+		return manager.cache(id, id, id, s -> collectionRepository.findByIdAndLockIsFalse(s).map(collectionMapper::toCollectionSaveRedisDto));
 	}
 }

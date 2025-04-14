@@ -2,30 +2,27 @@
  * Nguyen Dinh Lam
  * Email: kiminonawa1305@gmail.com
  * Phone number: +84 855354919
- * Create at: 12:54 PM - 09/04/2025
+ * Create at: 12:36 PM - 14/04/2025
  * User: kimin
  **/
 
 package com.lamnguyen.product_service.domain.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.lamnguyen.product_service.model.MongoBaseEntity;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
-import java.util.Set;
 
+@SuperBuilder
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@RequiredArgsConstructor
 @Getter
 @Setter
-@SuperBuilder
-@NoArgsConstructor
-@AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class CollectionDto extends MongoBaseEntity implements Serializable {
-	String id;
-	String title;
-	Set<ProductDto> products;
+public class ImageDto extends MongoBaseEntity implements Serializable {
+	String src;
 }

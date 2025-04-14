@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @RequiredArgsConstructor
 @Getter
 @Setter
+@Document("images")
 public class Image extends MongoBaseEntity {
 	String src;
 }

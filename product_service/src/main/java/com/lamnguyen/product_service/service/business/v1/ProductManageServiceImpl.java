@@ -16,6 +16,7 @@ import com.lamnguyen.product_service.repository.IProductRepository;
 import com.lamnguyen.product_service.service.business.ICollectionManageService;
 import com.lamnguyen.product_service.service.business.IProductManageService;
 import com.lamnguyen.product_service.service.redis.IProductRedisManager;
+import com.lamnguyen.product_service.utils.ValidationUtil;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -29,6 +30,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 	IProductMapper productMapper;
 	ICollectionManageService collectionManageService;
 	IProductRedisManager redisManager;
+	ValidationUtil validationUtil;
 
 	@Override
 	public void create(CreateProductRequest request) {
@@ -36,6 +38,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 			throw ApplicationException.createException(ExceptionEnum.COLLECTION_NOT_FOUND);
 
 		var product = productMapper.toProduct(request);
+		validationUtil.validate(product);
 		var inserted = productRepository.insert(product);
 		collectionManageService.addProductId(request.collection(), inserted.getId());
 		redisManager.save(inserted.getId(), productMapper.toProductDto(inserted));
@@ -50,4 +53,5 @@ public class ProductManageServiceImpl implements IProductManageService {
 	public void lock() {
 
 	}
+
 }

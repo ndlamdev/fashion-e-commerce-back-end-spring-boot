@@ -8,9 +8,17 @@
 
 package com.lamnguyen.product_service.model;
 
+import lombok.*;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Discount {
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Discount implements Serializable {
 	Integer percent;
 	LocalDateTime start;
 	LocalDateTime end;
