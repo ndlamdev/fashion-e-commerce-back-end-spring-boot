@@ -17,7 +17,8 @@ public class MyPhoneNumberUtil {
         PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
         Phonenumber.PhoneNumber phone = null;
         try {
-            var ignored = Long.parseLong(phoneNumber.substring(1));
+            if(phoneNumber.startsWith("+")) { phoneNumber = phoneNumber.substring(1); }
+            var ignored = Long.parseLong(phoneNumber);
             phone = phoneUtil.parse(phoneNumber, region);
         } catch (NumberParseException e) {
             return false;
