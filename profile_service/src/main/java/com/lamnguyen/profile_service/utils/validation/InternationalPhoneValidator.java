@@ -37,10 +37,8 @@ public class InternationalPhoneValidator implements ConstraintValidator<ValidInt
             String country = countryObj.toString();
             String phone = phoneObj.toString();
 
-            PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
-            Phonenumber.PhoneNumber numberProto = phoneUtil.parse(phone, country);
-
-            return phoneUtil.isValidNumber(numberProto);
+            boolean re =  MyPhoneNumberUtil.isPhoneNumberValid(country, phone);
+            return re;
         } catch (Exception e) {
             return false;
         }

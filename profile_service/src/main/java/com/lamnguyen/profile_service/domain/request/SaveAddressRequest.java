@@ -6,8 +6,6 @@ import jakarta.validation.constraints.NotNull;
 
 @ValidInternationalPhone(phoneField = "phone", countryField = "countryCode")
 public record SaveAddressRequest(
-        @NotNull
-        Long id,
         @NotBlank(message = "Require fullName is not blank")
         String fullName,
         @NotBlank(message = "Require phone is not blank")

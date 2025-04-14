@@ -12,8 +12,6 @@ import java.time.LocalDate;
 
 @ValidInternationalPhone(phoneField = "phone", countryField = "countryCode")
 public record SaveCustomerRequest(
-        @NotNull(message = "Require id is not null")
-        Long id,
         @NotNull(message = "Require fullName is not null")
         String fullName,
         @NotBlank
