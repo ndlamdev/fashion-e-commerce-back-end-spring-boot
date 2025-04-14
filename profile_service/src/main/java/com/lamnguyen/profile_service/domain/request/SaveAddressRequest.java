@@ -1,5 +1,6 @@
 package com.lamnguyen.profile_service.domain.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lamnguyen.profile_service.utils.annotation.ValidInternationalPhone;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -10,21 +11,25 @@ public record SaveAddressRequest(
         String fullName,
         @NotBlank(message = "Require phone is not blank")
         String phone,
-        @NotBlank(message = "Require city is not blank")
-        String city,
-        @NotBlank(message = "Require district is not blank")
-        String district,
-        @NotBlank(message = "Require ward is not blank")
-        String ward,
         @NotNull(message = "Require street is not null")
         String street,
+        @NotBlank(message = "Require ward is not blank")
+        String ward,
         @NotBlank(message = "Require wardCode is not blank")
         String wardCode,
-        @NotBlank(message = "Require cityCode is not blank")
-        String cityCode,
+        @NotBlank(message = "Require district is not blank")
+        String district,
         @NotBlank(message = "Require districtCode is not blank")
         String districtCode,
+        @NotBlank(message = "Require city is not blank")
+        String city,
+        @NotBlank(message = "Require cityCode is not blank")
+        String cityCode,
+        @NotBlank(message = "Require country is not blank")
+        String country,
         @NotBlank(message = "Require countryCode is not blank")
-        String countryCode
+        String countryCode,
+        @NotNull
+        Boolean active
 ) {
 }

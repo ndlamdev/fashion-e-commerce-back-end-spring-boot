@@ -31,8 +31,10 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public SaveCustomerResponse saveCustomer(SaveCustomerRequest saveCustomerRequest, Long userId) {
-        if(!customerRepository.existsById(userId)) throw ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND);
-        return mapper.toSaveCustomerResponse(customerRepository.save(mapper.toCustomer(saveCustomerRequest)));
+        var customer = customerRepository.findById(userId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND));
+        customer =  mapper.toCustomer(saveCustomerRequest);
+        customer.setId(userId);
+        return mapper.toSaveCustomerResponse(customerRepository.save(customer));
     }
 
     @Override
@@ -54,12 +56,8 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public ApiResponseSuccess<SaveCustomerResponse> getCustomerById(Long id) {
+    public CustomerDto getCustomerById(Long id) {
         var customer = customerRepository.findById(id).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND));
-        return ApiResponseSuccess.<SaveCustomerResponse>builder()
-                .data(mapper.toSaveCustomerResponse(customer))
-                .message(HttpStatus.OK.name())
-                .code(HttpStatus.OK.value())
-                .build();
+        return mapper.toSaveCustomerDto(customer);
     }
 }

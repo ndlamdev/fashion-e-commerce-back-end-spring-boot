@@ -13,11 +13,13 @@ import java.util.List;
 public interface ICustomerMapper {
     Customer toCustomer(SaveUserDetailMessage message);
 
-    Customer toCustomer(SaveCustomerRequest message);
+    Customer toCustomer(SaveCustomerRequest request);
 
     SaveCustomerResponse toSaveCustomerResponse(Customer customer);
 
     List<CustomerDto> toCustomerDTOs(List<Customer> customers);
 
     CustomerDto toSaveCustomerDto(Customer customer);
+
+    Customer toCustomer(CustomerDto customer);
 }

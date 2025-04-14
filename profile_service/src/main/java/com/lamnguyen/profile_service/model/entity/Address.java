@@ -17,6 +17,8 @@ public class Address extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "customer_id")
     Customer customer;
+    String fullName;
+    String phone;
     String street;
     @Column(nullable = false)
     String ward;

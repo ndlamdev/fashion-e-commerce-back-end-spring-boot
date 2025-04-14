@@ -13,16 +13,18 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-@RequestMapping("/profile/v1")
+@RequestMapping("/v1/profile")
 public class CustomerController {
     ICustomerService customerService;
 
     @GetMapping("/customers")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     @ApiMessageResponse("Get customer by page")
     public ResponseEntity<ApiResponseSuccess<ApiPaging<CustomerDto>>> getAllCustomers(
             @Valid @RequestParam(defaultValue = "0") Integer page,
@@ -32,13 +34,15 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('GET_ALL_ROLE', 'ROLE_ADMIN')")
     @ApiMessageResponse("Get customer by id")
-    public ResponseEntity<ApiResponseSuccess<SaveCustomerResponse>> getCustomer(@PathVariable @Valid Long id) {
+    public ResponseEntity<CustomerDto> getCustomer(@PathVariable @Valid Long id) {
 
         return ResponseEntity.ok(customerService.getCustomerById(id));
     }
 
     @PatchMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('GET_ALL_ROLE', 'ROLE_ADMIN')")
     @ApiMessageResponse("save customer")
     public ResponseEntity<ApiResponseSuccess<SaveCustomerResponse>> saveCustomer(
             @Valid @RequestBody SaveCustomerRequest saveCustomerRequest,

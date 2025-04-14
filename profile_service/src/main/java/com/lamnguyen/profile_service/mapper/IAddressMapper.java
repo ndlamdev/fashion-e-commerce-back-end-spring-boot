@@ -1,12 +1,12 @@
 package com.lamnguyen.profile_service.mapper;
 
 import com.lamnguyen.profile_service.domain.dto.AddressDto;
-import com.lamnguyen.profile_service.domain.response.SaveAddressResponse;
+import com.lamnguyen.profile_service.domain.response.AddressResponse;
 import com.lamnguyen.profile_service.domain.request.SaveAddressRequest;
-import com.lamnguyen.profile_service.message.SaveUserDetailMessage;
 import com.lamnguyen.profile_service.model.entity.Address;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
 import java.util.List;
 
@@ -14,10 +14,16 @@ import java.util.List;
 public interface IAddressMapper {
     Address toAddress(SaveAddressRequest request);
 
-    SaveAddressResponse toAddressResponse(Address address);
+    @Mapping(source = "customer.id", target = "customerId")
+    AddressResponse toAddressResponse(Address address);
 
-    List<SaveAddressResponse> toAddressResponseList(List<Address> addresses);
+    List<AddressResponse> toAddressResponseList(List<Address> addresses);
 
     @Mapping(source = "customer.id", target = "customerId")
     AddressDto toAddressDto(Address address);
+
+    AddressDto toAddressDto(SaveAddressRequest request);
+
+    @Mapping(source = "customerId", target = "customer.id")
+    Address toAddress(AddressDto address);
 }
