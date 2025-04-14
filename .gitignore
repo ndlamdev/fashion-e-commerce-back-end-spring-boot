@@ -36,7 +36,6 @@
 ### VS Code ###
 **/.vscode/
 **/.idea/
-**/gradle/
 
 **/search_by_image_using_ai_service/search_app/data
 **/.evn
