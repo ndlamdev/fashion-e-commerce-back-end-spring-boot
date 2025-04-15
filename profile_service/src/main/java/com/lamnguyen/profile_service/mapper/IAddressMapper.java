@@ -14,7 +14,7 @@ import java.util.List;
 public interface IAddressMapper {
     Address toAddress(SaveAddressRequest request);
 
-    @Mapping(source = "customer.id", target = "customerId")
+//    @Mapping(source = "customer.id", target = "customerId")
     AddressResponse toAddressResponse(Address address);
 
     List<AddressResponse> toAddressResponseList(List<Address> addresses);

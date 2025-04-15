@@ -2,7 +2,6 @@ package com.lamnguyen.profile_service.domain.response;
 
 public record AddressResponse(
         Long id,
-        Long customerId,
         String fullName,
         String phone,
         String street,

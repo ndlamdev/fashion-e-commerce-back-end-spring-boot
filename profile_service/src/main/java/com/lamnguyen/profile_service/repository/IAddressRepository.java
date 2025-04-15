@@ -19,6 +19,7 @@ public interface IAddressRepository extends JpaRepository<Address, Long> {
 
     Address findAddressByIdAndLockAndCustomer_Id(Long id, Boolean lock, Long customerId);
 
+    Address findDistinctFirstByLockAndCustomer_Id(Boolean lock, Long customerId);
     @Modifying
     @Transactional
     @Query("""
@@ -30,6 +31,6 @@ public interface IAddressRepository extends JpaRepository<Address, Long> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE Address a SET a.active = false")
-    void deactivateAllAddresses();
+    @Query("UPDATE Address a SET a.active = false WHERE a.customer.id = :customerId")
+    void deactivateAllAddresses(@Param("customerId") Long customerId);
 }

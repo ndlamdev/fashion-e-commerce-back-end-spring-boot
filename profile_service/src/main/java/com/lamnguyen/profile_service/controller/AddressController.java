@@ -62,4 +62,13 @@ public class AddressController {
     public void deleteAddress(@PathVariable Long id) {
         service.deleteAddressById(id);
     }
+
+    @PatchMapping("/default/{id}")
+    @PreAuthorize("hasAnyAuthority('USER_SET_DEFAULT_ADDRESS', 'ROLE_ADMIN')")
+    @ApiMessageResponse("set default address")
+    public void setDefaultAddress(
+            @PathVariable("id") Long id
+    ) {
+         service.setDefaultAddress(id);
+    }
 }

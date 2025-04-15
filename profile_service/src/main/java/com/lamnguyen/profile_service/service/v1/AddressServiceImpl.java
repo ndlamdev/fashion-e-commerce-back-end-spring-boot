@@ -5,6 +5,7 @@ import com.lamnguyen.profile_service.config.exception.ExceptionEnum;
 import com.lamnguyen.profile_service.domain.request.SaveAddressRequest;
 import com.lamnguyen.profile_service.domain.response.AddressResponse;
 import com.lamnguyen.profile_service.mapper.IAddressMapper;
+import com.lamnguyen.profile_service.model.entity.Address;
 import com.lamnguyen.profile_service.model.entity.Customer;
 import com.lamnguyen.profile_service.repository.IAddressRepository;
 import com.lamnguyen.profile_service.service.IAddressService;
@@ -18,6 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +30,6 @@ import java.util.Optional;
 public class AddressServiceImpl implements IAddressService {
     IAddressMapper mapper;
     IAddressRepository repository;
-    ICustomerService customerService;
     JwtTokenUtil jwtTokenUtil;
 
     @Override
@@ -48,12 +49,12 @@ public class AddressServiceImpl implements IAddressService {
 
     @Override
     public AddressResponse addAddress(SaveAddressRequest request, Long customerId) {
-        var customerDto = customerService.getCustomerById(customerId);
-        if (customerDto.shippingAddresses().size() > 5)
+        var addresses = getAddresses(customerId);
+        if (addresses.size() >= 5)
             throw ApplicationException.createException(ExceptionEnum.ADDRESS_LARGER_LIMITED);
-        if(request.active()) repository.deactivateAllAddresses();
+        if(request.active()) repository.deactivateAllAddresses(customerId);
         var address = mapper.toAddress(request);
-        if (customerDto.shippingAddresses().isEmpty()) address.setActive(true);
+        if (addresses.isEmpty()) address.setActive(true);
         address.setCustomer(Customer.builder().id(customerId).build());
         return mapper.toAddressResponse(repository.save(address));
     }
@@ -76,8 +77,8 @@ public class AddressServiceImpl implements IAddressService {
     }
 
     @Override
-    public AddressResponse getAddressById(Long id, Long CustomerId) {
-        var address = Optional.of(repository.findAddressByIdAndLockAndCustomer_Id(id, false, CustomerId)).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
+    public AddressResponse getAddressById(Long id, Long customerId) {
+        var address = Optional.ofNullable(repository.findAddressByIdAndLockAndCustomer_Id(id, false, customerId)).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
         return mapper.toAddressResponse(address);
     }
 
@@ -88,14 +89,41 @@ public class AddressServiceImpl implements IAddressService {
 
     @Override
     public void deleteAddressById(Long id, Long customerId) {
-        var address = repository.findById(id).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
+        var address = Optional.ofNullable(repository.findAddressByIdAndLockAndCustomer_Id(id, false,customerId)).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
         address.setLock(true);
         repository.save(address);
+
+        Address first = null;
+        if(address.getActive()) {
+            first = repository.findDistinctFirstByLockAndCustomer_Id(false, customerId);
+        }
+        if(first != null) {
+            first.setActive(true);
+            repository.save(first);
+        }
     }
 
     @Override
     public void deleteAddressById(Long id) {
         deleteAddressById(id, getUserIdFromToken());
+    }
+
+    @Override
+    public void setCountAddressLimited(Integer limit) {
+
+    }
+
+    @Override
+    public void setDefaultAddress(Long id) {
+        setDefaultAddress(id, getUserIdFromToken());
+    }
+
+    @Override
+    public void setDefaultAddress(Long id, Long customerId) {
+        var address = Optional.ofNullable(repository.findAddressByIdAndLockAndCustomer_Id(id, false, customerId)).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
+        repository.deactivateAllAddresses(customerId);
+        address.setActive(true);
+        repository.save(address);
     }
 
     private Long getUserIdFromToken(){
