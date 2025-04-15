@@ -33,18 +33,25 @@ public class AddressServiceImpl implements IAddressService {
 
     @Override
     public AddressResponse saveAddress(SaveAddressRequest request, Long id, Long customerId) {
-        var address = Optional.of(repository.findAddressByIdAndLockAndCustomer_Id(id, false, customerId)).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
-        var addressDTO = mapper.toAddressDto(address);
-        address = mapper.toAddress(addressDTO);
+        var address = Optional.ofNullable(repository.findAddressByIdAndLockAndCustomer_Id(id, false, customerId)).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
+        address = mapper.toAddress(request);
+        address.setId(id);
+        address.setCustomer(Customer.builder().id(customerId).build());
+        repository.updateActiveAddress(customerId, id);
         return mapper.toAddressResponse(repository.save(address));
     }
 
     @Override
+    public AddressResponse saveAddress(SaveAddressRequest request, Long addressId) {
+        return saveAddress(request, addressId, getUserIdFromToken());
+    }
+
+    @Override
     public AddressResponse addAddress(SaveAddressRequest request, Long customerId) {
-        log.info("Add address request: {}, {}", request, customerId);
         var customerDto = customerService.getCustomerById(customerId);
         if (customerDto.shippingAddresses().size() > 5)
             throw ApplicationException.createException(ExceptionEnum.ADDRESS_LARGER_LIMITED);
+        if(request.active()) repository.deactivateAllAddresses();
         var address = mapper.toAddress(request);
         if (customerDto.shippingAddresses().isEmpty()) address.setActive(true);
         address.setCustomer(Customer.builder().id(customerId).build());
@@ -53,15 +60,19 @@ public class AddressServiceImpl implements IAddressService {
 
     @Override
     public AddressResponse addAddress(SaveAddressRequest request) {
-        var authentication = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-        var jwtPayload = jwtTokenUtil.getPayloadNotVerify(jwtTokenUtil.decodeTokenNotVerify(authentication.getToken().getTokenValue()));
-        return addAddress(request, jwtPayload.getUserId());
+        return addAddress(request, getUserIdFromToken());
     }
+
 
     @Override
     public List<AddressResponse> getAddresses(Long customerId) {
         var addresses = repository.findAllByLockAndCustomer_Id(false, customerId);
         return mapper.toAddressResponseList(addresses);
+    }
+
+    @Override
+    public List<AddressResponse> getAddresses() {
+        return getAddresses(getUserIdFromToken());
     }
 
     @Override
@@ -71,10 +82,25 @@ public class AddressServiceImpl implements IAddressService {
     }
 
     @Override
+    public AddressResponse getAddressById(Long id) {
+        return getAddressById(id, getUserIdFromToken());
+    }
+
+    @Override
     public void deleteAddressById(Long id, Long customerId) {
         var address = repository.findById(id).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
         address.setLock(true);
         repository.save(address);
     }
 
+    @Override
+    public void deleteAddressById(Long id) {
+        deleteAddressById(id, getUserIdFromToken());
+    }
+
+    private Long getUserIdFromToken(){
+        var authentication = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        var jwtPayload = jwtTokenUtil.getPayloadNotVerify(jwtTokenUtil.decodeTokenNotVerify(authentication.getToken().getTokenValue()));
+        return jwtPayload.getUserId();
+    }
 }

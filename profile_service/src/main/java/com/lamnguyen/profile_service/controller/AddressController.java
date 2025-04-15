@@ -16,61 +16,50 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/profile")
+@RequestMapping("/v1/profile/address")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
 public class AddressController {
     IAddressService service;
 
-    @GetMapping("/{customer-id}/address/")
-    @PreAuthorize("hasAnyAuthority('GET_ALL_ROLE', 'ROLE_ADMIN')")
+    @GetMapping("/")
+    @PreAuthorize("hasAnyAuthority('USER_GET_ALL_ADDRESS', 'ROLE_ADMIN')")
     @ApiMessageResponse("get addresses")
-    public List<AddressResponse> getAll(@PathVariable("customer-id") Long customerId) {
-        return service.getAddresses(customerId);
+    public List<AddressResponse> getAll() {
+        return service.getAddresses();
     }
 
-    @GetMapping("/{customer-id}/address/{id}")
-    @PreAuthorize("hasAnyAuthority('GET_ALL_ROLE', 'ROLE_ADMIN')")
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('USER_GET_BY_ADDRESS_ID', 'ROLE_ADMIN')")
     @ApiMessageResponse("Get address by id")
-    public AddressResponse getAddressById(@PathVariable("id") Long id, @PathVariable("customer-id") Long CustomerId) {
-        return service.getAddressById(id, CustomerId);
+    public AddressResponse getAddressById(@PathVariable("id") Long id) {
+        return service.getAddressById(id);
     }
 
-    @PatchMapping("/{customer-id}/address/{id}")
-    @PreAuthorize("hasAnyAuthority('GET_ALL_ROLE', 'ROLE_ADMIN')")
+    @PatchMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('USER_SAVE_ADDRESS', 'ROLE_ADMIN')")
     @ApiMessageResponse("save address")
     public AddressResponse saveAddress(
             @RequestBody @Valid SaveAddressRequest request,
-            @PathVariable("id") Long id,
-            @PathVariable("customer-id") Long CustomerId
+            @PathVariable("id") Long id
     ) {
-        return service.saveAddress(request, id, CustomerId);
+        return service.saveAddress(request, id);
     }
 
-    @PostMapping("/{customer-id}/address/")
-    @PreAuthorize("hasAnyAuthority('GET_ALL_ROLE', 'ROLE_ADMIN')")
-    @ApiMessageResponse("add address")
-    public AddressResponse saveAddress(
-            @RequestBody @Valid SaveAddressRequest request,
-            @PathVariable("customer-id") Long CustomerId
-    ) {
-        return service.addAddress(request, CustomerId);
-    }
 
-    @PostMapping("/address/")
+    @PostMapping("/")
     @PreAuthorize("hasAnyAuthority('USER_ADD_ADDRESS', 'ROLE_ADMIN')")
     @ApiMessageResponse("add address")
-    public AddressResponse saveAddress(
+    public AddressResponse addAddress(
             @RequestBody @Valid SaveAddressRequest request
     ) {
         return service.addAddress(request);
     }
 
-
-    @DeleteMapping("/{customer-id}/address/{id}")
+    @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('USER_DELETE_ADDRESS', 'ROLE_ADMIN')")
     @ApiMessageResponse("delete address")
-    public void deleteAddress(@PathVariable Long id, @PathVariable("customer-id") Long CustomerId) {
-        service.deleteAddressById(id, CustomerId);
+    public void deleteAddress(@PathVariable Long id) {
+        service.deleteAddressById(id);
     }
 }
