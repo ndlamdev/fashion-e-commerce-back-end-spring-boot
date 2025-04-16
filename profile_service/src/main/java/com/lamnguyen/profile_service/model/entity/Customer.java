@@ -2,8 +2,6 @@ package com.lamnguyen.profile_service.model.entity;
 
 import com.lamnguyen.profile_service.utils.enums.SexEnum;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;

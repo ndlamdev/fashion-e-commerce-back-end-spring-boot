@@ -39,12 +39,14 @@ public class BaseEntity {
     boolean lock;
 
     @CreatedBy
+    @Column(name = "create_by")
     String createBy;
 
     @CreatedDate
     LocalDateTime createAt;
 
     @LastModifiedBy
+    @Column(name = "update_by")
     String updateBy;
 
     @LastModifiedDate
