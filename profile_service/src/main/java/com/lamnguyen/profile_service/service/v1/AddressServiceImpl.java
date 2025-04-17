@@ -2,6 +2,7 @@ package com.lamnguyen.profile_service.service.v1;
 
 import com.lamnguyen.profile_service.config.exception.ApplicationException;
 import com.lamnguyen.profile_service.config.exception.ExceptionEnum;
+import com.lamnguyen.profile_service.domain.dto.AddressDto;
 import com.lamnguyen.profile_service.domain.request.SaveAddressRequest;
 import com.lamnguyen.profile_service.domain.response.AddressResponse;
 import com.lamnguyen.profile_service.mapper.IAddressMapper;
@@ -9,11 +10,13 @@ import com.lamnguyen.profile_service.model.entity.Address;
 import com.lamnguyen.profile_service.model.entity.Customer;
 import com.lamnguyen.profile_service.repository.IAddressRepository;
 import com.lamnguyen.profile_service.service.IAddressService;
+import com.lamnguyen.profile_service.service.producer.CustomerProducer;
 import com.lamnguyen.profile_service.utils.JwtTokenUtil;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -29,6 +32,7 @@ public class AddressServiceImpl implements IAddressService {
     IAddressMapper mapper;
     IAddressRepository repository;
     JwtTokenUtil jwtTokenUtil;
+    CustomerProducer customerProducer;
 
     @Override
     public AddressResponse saveAddress(SaveAddressRequest request, Long id, Long customerId) {
@@ -36,7 +40,10 @@ public class AddressServiceImpl implements IAddressService {
         address = mapper.toAddress(request);
         address.setId(id);
         address.setCustomer(Customer.builder().id(customerId).build());
-        repository.activeAddress(customerId, id);
+        if(request.active()) {
+            repository.activeAddress(customerId, id);
+            customerProducer.sendInfoAddressShipping(mapper.toInfoAddressShipping(address)); // send info-address-topic
+        }
         return mapper.toAddressResponse(repository.save(address));
     }
 
@@ -48,14 +55,16 @@ public class AddressServiceImpl implements IAddressService {
     @Override
     public AddressResponse addAddress(SaveAddressRequest request, Long customerId) {
         var addresses = getAddresses(customerId);
+        var addressDefault = addresses.stream()
+                .filter(AddressResponse::active)
+                .findFirst()
+                .orElse(null);
         if (addresses.size() >= 5)
             throw ApplicationException.createException(ExceptionEnum.ADDRESS_LARGER_LIMITED);
-        if (!addresses.isEmpty()){
-            var activeAddress = addresses.stream().filter(it -> it.active() == true).findFirst().get();
-            repository.inactiveAddress(activeAddress.id(), customerId);
-        }
         var address = mapper.toAddress(request);
-        address.setActive(true);
+        if (addresses.isEmpty())  address.setActive(true);
+        if(addressDefault != null) repository.inactiveAddress(addressDefault.id(), customerId);
+        if(address.getActive()) customerProducer.sendInfoAddressShipping(mapper.toInfoAddressShipping(address)); // send info-address-topic
         address.setCustomer(Customer.builder().id(customerId).build());
         return mapper.toAddressResponse(repository.save(address));
     }
@@ -101,6 +110,7 @@ public class AddressServiceImpl implements IAddressService {
         if (first != null) {
             first.setActive(true);
             repository.save(first);
+            customerProducer.sendInfoAddressShipping(mapper.toInfoAddressShipping(address)); // send info-address-topic
         }
     }
 
