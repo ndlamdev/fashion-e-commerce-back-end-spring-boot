@@ -34,7 +34,7 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('GET_ALL_ROLE', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('USER_GET_PROFILE', 'ROLE_ADMIN')")
     @ApiMessageResponse("Get customer by id")
     public ResponseEntity<CustomerDto> getCustomer(@PathVariable @Valid Long id) {
 
@@ -42,7 +42,7 @@ public class CustomerController {
     }
 
     @PatchMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('GET_ALL_ROLE', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('USER_SAVE_PROFILE', 'ROLE_ADMIN')")
     @ApiMessageResponse("save customer")
     public ResponseEntity<ApiResponseSuccess<SaveCustomerResponse>> saveCustomer(
             @Valid @RequestBody SaveCustomerRequest saveCustomerRequest,
@@ -50,8 +50,6 @@ public class CustomerController {
     ) {
         var response = ApiResponseSuccess.<SaveCustomerResponse>builder()
                 .data(customerService.saveCustomer(saveCustomerRequest, id))
-                .message(HttpStatus.OK.name())
-                .code(HttpStatus.OK.value())
                 .build();
         return ResponseEntity.ok(response);
     }

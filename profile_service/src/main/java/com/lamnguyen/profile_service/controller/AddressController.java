@@ -1,6 +1,5 @@
 package com.lamnguyen.profile_service.controller;
 
-import com.lamnguyen.profile_service.domain.ApiResponseSuccess;
 import com.lamnguyen.profile_service.domain.request.SaveAddressRequest;
 import com.lamnguyen.profile_service.domain.response.AddressResponse;
 import com.lamnguyen.profile_service.service.IAddressService;
@@ -9,20 +8,19 @@ import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/profile/address")
+@RequestMapping("/v1/profile/addresses")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
 public class AddressController {
     IAddressService service;
 
-    @GetMapping("/")
+    @GetMapping
     @PreAuthorize("hasAnyAuthority('USER_GET_ALL_ADDRESS', 'ROLE_ADMIN')")
     @ApiMessageResponse("get addresses")
     public List<AddressResponse> getAll() {
@@ -47,7 +45,7 @@ public class AddressController {
     }
 
 
-    @PostMapping("/")
+    @PostMapping
     @PreAuthorize("hasAnyAuthority('USER_ADD_ADDRESS', 'ROLE_ADMIN')")
     @ApiMessageResponse("add address")
     public AddressResponse addAddress(
@@ -63,12 +61,13 @@ public class AddressController {
         service.deleteAddressById(id);
     }
 
-    @PatchMapping("/default/{id}")
+    @PatchMapping
     @PreAuthorize("hasAnyAuthority('USER_SET_DEFAULT_ADDRESS', 'ROLE_ADMIN')")
     @ApiMessageResponse("set default address")
     public void setDefaultAddress(
-            @PathVariable("id") Long id
+            @RequestParam("new") @Valid Long newId,
+            @RequestParam("old") @Valid Long oldId
     ) {
-         service.setDefaultAddress(id);
+         service.setDefaultAddress(oldId, newId);
     }
 }

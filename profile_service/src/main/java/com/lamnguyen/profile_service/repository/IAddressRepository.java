@@ -27,10 +27,26 @@ public interface IAddressRepository extends JpaRepository<Address, Long> {
                 SET a.active = CASE WHEN a.id = :addressId THEN true ELSE false END
                 WHERE a.customer.id = :customerId
             """)
-    void updateActiveAddress(@Param("customerId") Long customerId, @Param("addressId") Long addressId);
+    void activeAddress(@Param("customerId") Long customerId, @Param("addressId") Long addressId);
 
     @Modifying
     @Transactional
-    @Query("UPDATE Address a SET a.active = false WHERE a.customer.id = :customerId")
-    void deactivateAllAddresses(@Param("customerId") Long customerId);
+    @Query("""
+            
+            UPDATE Address a
+            SET a.active = CASE
+                WHEN a.id = :newId THEN true
+                WHEN a.id = :oldId THEN false
+                ELSE a.active
+                END
+            WHERE (a.id = :newId OR a.id = :oldId)
+                  AND a.customer.id = :customerId
+            """)
+    void setDefaultAddress(@Param("oldId") Long oldId, @Param("newId") Long  newId, @Param("customerId") Long customerId);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE Address a SET a.active = false WHERE a.customer.id = :customerId AND a.id = :id")
+    void inactiveAddress(@Param("id") Long id, @Param("customerId") Long customerId);
+
 }

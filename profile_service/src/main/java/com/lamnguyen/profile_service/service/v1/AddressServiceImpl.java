@@ -36,7 +36,7 @@ public class AddressServiceImpl implements IAddressService {
         address = mapper.toAddress(request);
         address.setId(id);
         address.setCustomer(Customer.builder().id(customerId).build());
-        repository.updateActiveAddress(customerId, id);
+        repository.activeAddress(customerId, id);
         return mapper.toAddressResponse(repository.save(address));
     }
 
@@ -50,9 +50,12 @@ public class AddressServiceImpl implements IAddressService {
         var addresses = getAddresses(customerId);
         if (addresses.size() >= 5)
             throw ApplicationException.createException(ExceptionEnum.ADDRESS_LARGER_LIMITED);
-        if(request.active()) repository.deactivateAllAddresses(customerId);
+        if (!addresses.isEmpty()){
+            var activeAddress = addresses.stream().filter(it -> it.active() == true).findFirst().get();
+            repository.inactiveAddress(activeAddress.id(), customerId);
+        }
         var address = mapper.toAddress(request);
-        if (addresses.isEmpty()) address.setActive(true);
+        address.setActive(true);
         address.setCustomer(Customer.builder().id(customerId).build());
         return mapper.toAddressResponse(repository.save(address));
     }
@@ -87,15 +90,15 @@ public class AddressServiceImpl implements IAddressService {
 
     @Override
     public void deleteAddressById(Long id, Long customerId) {
-        var address = Optional.ofNullable(repository.findAddressByIdAndLockAndCustomer_Id(id, false,customerId)).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
+        var address = Optional.ofNullable(repository.findAddressByIdAndLockAndCustomer_Id(id, false, customerId)).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
         address.setLock(true);
         repository.save(address);
 
         Address first = null;
-        if(address.getActive()) {
+        if (address.getActive()) {
             first = repository.findDistinctFirstByLockAndCustomer_Id(false, customerId);
         }
-        if(first != null) {
+        if (first != null) {
             first.setActive(true);
             repository.save(first);
         }
@@ -112,19 +115,18 @@ public class AddressServiceImpl implements IAddressService {
     }
 
     @Override
-    public void setDefaultAddress(Long id) {
-        setDefaultAddress(id, getUserIdFromToken());
+    public void setDefaultAddress(Long oldId, Long newId) {
+        setDefaultAddress(oldId, newId, getUserIdFromToken());
     }
 
     @Override
-    public void setDefaultAddress(Long id, Long customerId) {
-        var address = Optional.ofNullable(repository.findAddressByIdAndLockAndCustomer_Id(id, false, customerId)).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
-        repository.deactivateAllAddresses(customerId);
-        address.setActive(true);
-        repository.save(address);
+    public void setDefaultAddress(Long oldId, Long newId, Long customerId) {
+        Optional.ofNullable(repository.findAddressByIdAndLockAndCustomer_Id(oldId, false, customerId)).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
+        Optional.ofNullable(repository.findAddressByIdAndLockAndCustomer_Id(newId, false, customerId)).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
+        repository.setDefaultAddress(oldId, newId, customerId);
     }
 
-    private Long getUserIdFromToken(){
+    private Long getUserIdFromToken() {
         var authentication = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         var jwtPayload = jwtTokenUtil.getPayloadNotVerify(jwtTokenUtil.decodeTokenNotVerify(authentication.getToken().getTokenValue()));
         return jwtPayload.getUserId();
