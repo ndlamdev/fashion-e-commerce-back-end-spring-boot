@@ -1,6 +1,6 @@
 spring:
   application:
-    name: fashion-e-commerce-authentication-service
+    name: fashion-e-commerce-media-service
   profiles:
     active: ${PROFILE:dev}
   config:
