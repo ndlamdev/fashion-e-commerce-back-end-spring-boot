@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.lamnguyen.profile_service.protos";
+option java_outer_classname = "ProfileProto";
+
+service ProfileService {
+  rpc GetUserProfile (UserRequest) returns (UserResponse);
+}
+
+message UserRequest {
+  int64 user_id = 1;
+}
+
+enum SexEnum {
+  MALE = 0;
+  FEMALE = 1;
+  OTHER = 2;
+}
+
+message UserResponse {
+  int64 id = 1;
+  string email = 2;
+  string fullName = 3;
+  string avatar = 4;
+  string phone = 5;
+  optional SexEnum sexEnum = 6;
+  string birthday = 7;
+  float height = 8;
+  float weight = 9;
+  string countryCode = 10;
+}

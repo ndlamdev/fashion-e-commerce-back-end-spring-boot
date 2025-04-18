@@ -1,4 +1,4 @@
-package com.lamnguyen.profile_service.service;
+package com.lamnguyen.profile_service.service.business;
 
 import com.lamnguyen.profile_service.domain.request.SaveAddressRequest;
 import com.lamnguyen.profile_service.domain.response.AddressResponse;

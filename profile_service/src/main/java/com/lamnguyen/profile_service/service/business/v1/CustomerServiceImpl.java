@@ -1,4 +1,4 @@
-package com.lamnguyen.profile_service.service.v1;
+package com.lamnguyen.profile_service.service.business.v1;
 
 import com.lamnguyen.profile_service.config.exception.ApplicationException;
 import com.lamnguyen.profile_service.config.exception.ExceptionEnum;
@@ -9,17 +9,15 @@ import com.lamnguyen.profile_service.domain.request.SaveCustomerRequest;
 import com.lamnguyen.profile_service.domain.response.SaveCustomerResponse;
 import com.lamnguyen.profile_service.mapper.ICustomerMapper;
 import com.lamnguyen.profile_service.repository.ICustomerRepository;
-import com.lamnguyen.profile_service.service.ICustomerService;
+import com.lamnguyen.profile_service.service.business.ICustomerService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -56,6 +54,7 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
+    @Transactional
     public CustomerDto getCustomerById(Long id) {
         var customer = customerRepository.findById(id).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND));
         return mapper.toSaveCustomerDto(customer);

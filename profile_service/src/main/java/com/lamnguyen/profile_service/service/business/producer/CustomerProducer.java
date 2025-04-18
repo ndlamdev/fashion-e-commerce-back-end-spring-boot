@@ -1,4 +1,4 @@
-package com.lamnguyen.profile_service.service.producer;
+package com.lamnguyen.profile_service.service.business.producer;
 
 import com.lamnguyen.profile_service.message.InfoAddressShipping;
 import lombok.AccessLevel;
@@ -9,8 +9,6 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.event.TransactionPhase;
-import org.springframework.transaction.event.TransactionalEventListener;
 
 import static org.springframework.kafka.support.KafkaHeaders.TOPIC;
 

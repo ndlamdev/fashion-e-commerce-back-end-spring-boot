@@ -1,4 +1,6 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: fashion-e-commerce-profile-service
   profiles:
@@ -9,3 +11,7 @@ spring:
     config:
       username: ${CONFIG_USERNAME:}
       password: ${CONFIG_PASSWORD:}
+
+grpc:
+  server:
+    port: 8102

@@ -5,6 +5,7 @@ import com.lamnguyen.profile_service.domain.request.SaveCustomerRequest;
 import com.lamnguyen.profile_service.domain.response.SaveCustomerResponse;
 import com.lamnguyen.profile_service.message.SaveUserDetailMessage;
 import com.lamnguyen.profile_service.model.entity.Customer;
+import com.lamnguyen.profile_service.protos.UserResponse;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -22,4 +23,6 @@ public interface ICustomerMapper {
     CustomerDto toSaveCustomerDto(Customer customer);
 
     Customer toCustomer(CustomerDto customer);
+
+    UserResponse toUserResponse(CustomerDto customer);
 }

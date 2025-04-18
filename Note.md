@@ -112,3 +112,87 @@ public class GoogleAuthServiceImpl {
 	}
 }
 ```
+
+## Cấu hình Grpc
+
+### Các thư viện cần phải có phía client và server.
+
+```groovy
+plugins {
+    id "com.google.protobuf" version "0.9.5"
+}
+
+ext {
+    springGrpcVersion = "0.7.0"
+}
+
+dependencies {
+    implementation 'net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE'
+    implementation 'javax.annotation:javax.annotation-api:1.3.2'
+    implementation 'com.google.protobuf:protobuf-java:4.30.2'
+}
+
+repositories {
+    gradlePluginPortal()
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.grpc:spring-grpc-dependencies:$springGrpcVersion"
+    }
+}
+
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:4.30.2" // Hoặc bản mới hơn
+    }
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:1.72.0"
+        }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.plugins {
+                grpc {}
+            }
+        }
+    }
+}
+```
+
+### Tạo file proto
+
+Các file .proto phải được ở folder src/main/proto/*.proto
+
+```protobuf
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.lamnguyen.authentication_service.protos";
+option java_outer_classname = "HelloWorldProto";
+
+// The greeting service definition.
+service Simple {
+  // Sends a greeting
+  rpc SayHello (HelloRequest) returns (HelloReply) {
+  }
+  rpc StreamHello(HelloRequest) returns (stream HelloReply) {}
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings
+message HelloReply {
+  string message = 1;
+}
+```
+
+### Generate code
+
+\* Lưu ý: Nên clean trước khi build lại dự án

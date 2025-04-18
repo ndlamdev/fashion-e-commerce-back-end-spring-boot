@@ -1,4 +1,4 @@
-package com.lamnguyen.profile_service.service.consumer;
+package com.lamnguyen.profile_service.service.business.consumer;
 
 import com.lamnguyen.profile_service.mapper.ICustomerMapper;
 import com.lamnguyen.profile_service.message.SaveUserDetailMessage;

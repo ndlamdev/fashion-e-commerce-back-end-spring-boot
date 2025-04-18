@@ -1,22 +1,20 @@
-package com.lamnguyen.profile_service.service.v1;
+package com.lamnguyen.profile_service.service.business.v1;
 
 import com.lamnguyen.profile_service.config.exception.ApplicationException;
 import com.lamnguyen.profile_service.config.exception.ExceptionEnum;
-import com.lamnguyen.profile_service.domain.dto.AddressDto;
 import com.lamnguyen.profile_service.domain.request.SaveAddressRequest;
 import com.lamnguyen.profile_service.domain.response.AddressResponse;
 import com.lamnguyen.profile_service.mapper.IAddressMapper;
 import com.lamnguyen.profile_service.model.entity.Address;
 import com.lamnguyen.profile_service.model.entity.Customer;
 import com.lamnguyen.profile_service.repository.IAddressRepository;
-import com.lamnguyen.profile_service.service.IAddressService;
-import com.lamnguyen.profile_service.service.producer.CustomerProducer;
+import com.lamnguyen.profile_service.service.business.IAddressService;
+import com.lamnguyen.profile_service.service.business.producer.CustomerProducer;
 import com.lamnguyen.profile_service.utils.JwtTokenUtil;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
