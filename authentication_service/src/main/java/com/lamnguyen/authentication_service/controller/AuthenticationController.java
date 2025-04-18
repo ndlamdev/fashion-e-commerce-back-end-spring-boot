@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
-@RequestMapping("/v1")
+@RequestMapping("/auth/v1")
 public class AuthenticationController {
 	IAuthenticationService authenticationService;
 	ApplicationProperty applicationProperty;

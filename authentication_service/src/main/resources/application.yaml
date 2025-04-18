@@ -2,9 +2,9 @@ spring:
   application:
     name: fashion-e-commerce-authentication-service
   profiles:
-    active: ${PROFILE:dev}
+    active: ${PROFILE:dev,phong-dev}
   config:
-    import: ${CONFIG_SERVER:configserver:http://localhost:1305/fashion-e-commerce-config-server}
+    import: ${CONFIG_SERVER:configserver:https://config-server.ndlamdev.website/fashion-e-commerce-config-server}
   cloud:
     config:
       username: ${CONFIG_USERNAME:}
