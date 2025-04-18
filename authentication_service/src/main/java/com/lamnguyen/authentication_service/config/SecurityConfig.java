@@ -8,6 +8,10 @@
 
 package com.lamnguyen.authentication_service.config;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.gson.GsonFactory;
 import com.lamnguyen.authentication_service.config.converter.JwtAuthenticationConverterImpl;
 import com.lamnguyen.authentication_service.config.endpoint.CustomAuthenticationEntryPoint;
 import com.lamnguyen.authentication_service.config.filter.CheckBlacklistTokenFilter;
@@ -31,6 +35,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import java.util.Collections;
 
 @Configuration
 @RequiredArgsConstructor
@@ -61,7 +67,8 @@ public class SecurityConfig {
 		);
 		httpSecurity.authorizeHttpRequests(authorization -> authorization
 				.requestMatchers(applicationProperty.getWhiteList().toArray(String[]::new)).permitAll()
-				.requestMatchers("/**").authenticated()
+				.requestMatchers("/greeting", "/v1/google/login").permitAll()
+				.requestMatchers("/**").permitAll()
 		);
 		httpSecurity.oauth2ResourceServer(oauth2ResourceServerConfig -> oauth2ResourceServerConfig
 				.jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter))
@@ -70,5 +77,25 @@ public class SecurityConfig {
 		httpSecurity.exceptionHandling(configurer -> configurer.authenticationEntryPoint(authenticationEntryPoint));
 		httpSecurity.sessionManagement(sessionManagementConfig -> sessionManagementConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		return httpSecurity.build();
+	}
+
+	@Bean
+	public GoogleAuthorizationCodeTokenRequest googleAuthorizationCodeTokenRequest() {
+		return new GoogleAuthorizationCodeTokenRequest(
+				new NetHttpTransport(),
+				new GsonFactory(),
+				"https://oauth2.googleapis.com/token",
+				applicationProperty.getClientId(),
+				applicationProperty.getClientSecret(),
+				"",
+				"postmessage" // or your redirect URI
+		);
+	}
+
+	@Bean
+	public GoogleIdTokenVerifier googleIdTokenVerifier() {
+		return new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
+				.setAudience(Collections.singletonList(applicationProperty.getClientId()))
+				.build();
 	}
 }

@@ -2,7 +2,7 @@
 package com.lamnguyen.authentication_service.util.enums;
 
 public enum JwtType {
-	ACCESS_TOKEN, RESET_PASSWORD, REFRESH_TOKEN;
+	ACCESS_TOKEN, RESET_PASSWORD, REFRESH_TOKEN, REGISTER_WITH_GOOGLE;
 
 	public static JwtType getEnum(Object type) {
 		if (type instanceof String data) {

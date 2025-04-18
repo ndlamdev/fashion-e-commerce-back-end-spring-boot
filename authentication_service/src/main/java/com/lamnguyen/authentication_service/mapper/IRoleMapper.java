@@ -13,7 +13,7 @@ import com.lamnguyen.authentication_service.model.Role;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface RoleMapper {
+public interface IRoleMapper {
     RoleDto toRoleDto(Role role);
     Role toRole(RoleDto roleDto);
 }

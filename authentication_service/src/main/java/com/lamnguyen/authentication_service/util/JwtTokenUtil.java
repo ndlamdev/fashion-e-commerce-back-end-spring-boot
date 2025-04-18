@@ -10,6 +10,8 @@ package com.lamnguyen.authentication_service.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.lamnguyen.authentication_service.model.JWTPayload;
 import com.lamnguyen.authentication_service.model.SimplePayload;
 import com.lamnguyen.authentication_service.model.User;
@@ -37,6 +39,7 @@ public class JwtTokenUtil {
     JwtEncoder jwtEncoder;
     JwsHeader jwsHeader;
     ApplicationProperty applicationProperty;
+    ObjectMapper objectMapper;
 
     public Jwt decodeToken(String token) {
         return jwtDecoder.decode(token);
@@ -106,5 +109,21 @@ public class JwtTokenUtil {
 
     public Jwt generateTokenResetPassword(User user) {
         return generateTokenSimplePayLoad(user, JwtType.RESET_PASSWORD);
+    }
+
+    public Jwt generateRegisterWithGoogleToken(GoogleIdToken.Payload payload) {
+        var now = LocalDateTime.now().toInstant(ZoneOffset.UTC);
+        return jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader, JwtClaimsSet.builder()
+                .id(UUID.randomUUID().toString())
+                .issuer(applicationProperty.getJwtIss())
+                .subject(payload.getEmail())
+                .issuedAt(now)
+                .claim(applicationProperty.getJwtClaim(), payload)
+                .expiresAt(now.plus(applicationProperty.getExpireAccessToken(), ChronoUnit.SECONDS))
+                .build()));
+    }
+
+    public GoogleIdToken.Payload getGoogleIdTokenPayload(String token) {
+        return jwtDecoder.decode(token).getClaim(applicationProperty.getJwtClaim());
     }
 }

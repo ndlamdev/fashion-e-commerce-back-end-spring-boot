@@ -50,6 +50,7 @@ dependencies {
     implementation 'org.flywaydb:flyway-mysql'
     implementation 'org.springframework.kafka:spring-kafka'
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    implementation 'com.google.api-client:google-api-client:2.7.2'
 }
 
 dependencyManagement {

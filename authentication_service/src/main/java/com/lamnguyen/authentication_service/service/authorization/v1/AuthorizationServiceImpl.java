@@ -11,7 +11,7 @@ package com.lamnguyen.authentication_service.service.authorization.v1;
 import com.lamnguyen.authentication_service.config.exception.ApplicationException;
 import com.lamnguyen.authentication_service.config.exception.ExceptionEnum;
 import com.lamnguyen.authentication_service.domain.dto.RoleDto;
-import com.lamnguyen.authentication_service.mapper.RoleMapper;
+import com.lamnguyen.authentication_service.mapper.IRoleMapper;
 import com.lamnguyen.authentication_service.model.RoleOfUser;
 import com.lamnguyen.authentication_service.repository.IRoleOfUserRepository;
 import com.lamnguyen.authentication_service.repository.IRoleRepository;
@@ -34,7 +34,7 @@ import java.util.List;
 public class AuthorizationServiceImpl implements IAuthorizationService {
     IRoleRepository roleRepository;
     IUserRepository userRepository;
-    RoleMapper roleMapper;
+    IRoleMapper roleMapper;
     IRoleOfUserRepository roleOfUserRepository;
     ApplicationProperty applicationProperty;
 

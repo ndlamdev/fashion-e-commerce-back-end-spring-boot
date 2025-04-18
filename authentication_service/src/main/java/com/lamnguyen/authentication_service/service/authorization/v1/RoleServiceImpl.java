@@ -12,8 +12,8 @@ import com.lamnguyen.authentication_service.config.exception.ApplicationExceptio
 import com.lamnguyen.authentication_service.config.exception.ExceptionEnum;
 import com.lamnguyen.authentication_service.domain.dto.PermissionDto;
 import com.lamnguyen.authentication_service.domain.dto.RoleDto;
-import com.lamnguyen.authentication_service.mapper.PermissionMapper;
-import com.lamnguyen.authentication_service.mapper.RoleMapper;
+import com.lamnguyen.authentication_service.mapper.IPermissionMapper;
+import com.lamnguyen.authentication_service.mapper.IRoleMapper;
 import com.lamnguyen.authentication_service.model.Permission;
 import com.lamnguyen.authentication_service.model.PermissionOfRole;
 import com.lamnguyen.authentication_service.model.Role;
@@ -33,8 +33,8 @@ import java.util.List;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class RoleServiceImpl implements IRoleService {
 	IRoleRepository roleRepository;
-	RoleMapper roleMapper;
-	PermissionMapper permissionMapper;
+	IRoleMapper roleMapper;
+	IPermissionMapper permissionMapper;
 	IPermissionRepository permissionRepository;
 
 	@Override

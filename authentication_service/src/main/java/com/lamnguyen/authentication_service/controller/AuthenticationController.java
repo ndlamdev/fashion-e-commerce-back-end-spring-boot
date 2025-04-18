@@ -8,14 +8,13 @@
 
 package com.lamnguyen.authentication_service.controller;
 
+import com.lamnguyen.authentication_service.domain.GoogleAuthRequest;
 import com.lamnguyen.authentication_service.domain.reponse.LoginSuccessResponse;
 import com.lamnguyen.authentication_service.domain.reponse.RegisterResponse;
 import com.lamnguyen.authentication_service.domain.reponse.TokenResponse;
-import com.lamnguyen.authentication_service.domain.request.EmailRequest;
-import com.lamnguyen.authentication_service.domain.request.RegisterAccountRequest;
-import com.lamnguyen.authentication_service.domain.request.SetNewPasswordRequest;
-import com.lamnguyen.authentication_service.domain.request.VerifyAccountRequest;
+import com.lamnguyen.authentication_service.domain.request.*;
 import com.lamnguyen.authentication_service.service.authentication.IAuthenticationService;
+import com.lamnguyen.authentication_service.service.authentication.IGoogleAuthService;
 import com.lamnguyen.authentication_service.util.annotation.ApiMessageResponse;
 import com.lamnguyen.authentication_service.util.property.ApplicationProperty;
 import jakarta.servlet.http.Cookie;
@@ -25,16 +24,22 @@ import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
-@RequestMapping("/v1")
+@RequestMapping("/auth/v1")
 public class AuthenticationController {
 	IAuthenticationService authenticationService;
+	IGoogleAuthService googleAuthService;
 	ApplicationProperty applicationProperty;
 
 	@PostMapping("/login")
@@ -45,6 +50,7 @@ public class AuthenticationController {
 		authenticationService.login(accessToken);
 		return LoginSuccessResponse.builder()
 				.email(email)
+				.userInfo(null)
 				.accessToken(accessToken)
 				.build();
 	}
@@ -57,23 +63,20 @@ public class AuthenticationController {
 
 	@PostMapping("/verify")
 	@ApiMessageResponse("Verify success")
-	public Void verify(@Valid @RequestBody VerifyAccountRequest request) {
+	public void verify(@Valid @RequestBody VerifyAccountRequest request) {
 		authenticationService.verifyAccount(request.email(), request.code());
-		return null;
 	}
 
 	@PostMapping("/resend-verify")
 	@ApiMessageResponse("Resend code verify account success")
-	public Void resendVerify(@RequestBody EmailRequest request) {
+	public void resendVerify(@RequestBody EmailRequest request) {
 		authenticationService.resendVerifyAccountCode(request.email());
-		return null;
 	}
 
 	@PostMapping("/logout")
 	@ApiMessageResponse(value = "Logout success!")
-	public Void logout(@RequestHeader("Authorization") String accessToken) {
+	public void logout(@RequestHeader("Authorization") String accessToken) {
 		authenticationService.logout(accessToken);
-		return null;
 	}
 
 	@PostMapping("/renew-access-token")
@@ -95,9 +98,8 @@ public class AuthenticationController {
 
 	@PostMapping("/reset-password")
 	@ApiMessageResponse("Reset password success")
-	public Void resetPassword(@Valid @RequestBody EmailRequest request) {
+	public void resetPassword(@Valid @RequestBody EmailRequest request) {
 		authenticationService.sendResetPasswordCode(request.email());
-		return null;
 	}
 
 	@PostMapping("/reset-password/verify")
@@ -109,8 +111,29 @@ public class AuthenticationController {
 
 	@PostMapping("/reset-password/set-new-password")
 	@ApiMessageResponse("Set new password success")
-	public Void setNewPassword(@Valid @RequestBody SetNewPasswordRequest request) {
+	public void setNewPassword(@Valid @RequestBody SetNewPasswordRequest request) {
 		authenticationService.setNewPassword(request);
-		return null;
+	}
+
+
+	@PostMapping("/google/login")
+	@ApiMessageResponse("Login google success")
+	public LoginSuccessResponse loginWithGoogle(@Valid @RequestBody GoogleAuthRequest request, HttpServletResponse response) throws IOException, GeneralSecurityException {
+		var token = googleAuthService.login(request.authCode());
+		authenticationService.login(token.accessToken());
+		Cookie refestTokenCookie = new Cookie(applicationProperty.getKeyRefreshToken(), token.refreshToken());
+		refestTokenCookie.setMaxAge(applicationProperty.getExpireRefreshToken() * 60000);
+		refestTokenCookie.setHttpOnly(true);
+		refestTokenCookie.setSecure(true);
+		response.addCookie(refestTokenCookie);
+		return LoginSuccessResponse.builder()
+				.email(token.email())
+				.accessToken(token.accessToken())
+				.build();
+	}
+
+	@GetMapping("/google/register")
+	public void registerWithGoogle(@RequestBody RegisterAccountWithGoogleRequest request) {
+		googleAuthService.register(request);
 	}
 }

@@ -22,7 +22,9 @@ import java.time.LocalDate;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SaveUserDetailEvent {
 	Long userId;
+	String email;
 	String fullName;
+	String avatar;
 	String phone;
 	SexEnum sexEnum;
 	LocalDate birthday;

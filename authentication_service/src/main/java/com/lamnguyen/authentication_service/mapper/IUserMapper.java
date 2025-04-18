@@ -9,10 +9,13 @@
 package com.lamnguyen.authentication_service.mapper;
 
 import com.lamnguyen.authentication_service.domain.request.RegisterAccountRequest;
+import com.lamnguyen.authentication_service.domain.request.RegisterAccountWithGoogleRequest;
 import com.lamnguyen.authentication_service.model.User;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface UserMapper {
+public interface IUserMapper {
     User toUser(RegisterAccountRequest request);
+
+    User toUser(RegisterAccountWithGoogleRequest request);
 }

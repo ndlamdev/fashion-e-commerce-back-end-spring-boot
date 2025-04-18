@@ -80,4 +80,9 @@ public class ApplicationProperty {
     String emailAdmin;
     @Value("${application.admin.password}")
     String passwordAdmin;
+    
+    @Value("${spring.security.oauth2.client.registration.google.client-id}")
+    String clientId;
+    @Value("${spring.security.oauth2.client.registration.google.client-secret}")
+    String clientSecret;
 }

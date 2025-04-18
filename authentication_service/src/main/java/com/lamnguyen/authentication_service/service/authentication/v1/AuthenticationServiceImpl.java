@@ -13,8 +13,8 @@ import com.lamnguyen.authentication_service.config.exception.ExceptionEnum;
 import com.lamnguyen.authentication_service.domain.reponse.RegisterResponse;
 import com.lamnguyen.authentication_service.domain.request.RegisterAccountRequest;
 import com.lamnguyen.authentication_service.domain.request.SetNewPasswordRequest;
-import com.lamnguyen.authentication_service.mapper.UserDetailMapper;
-import com.lamnguyen.authentication_service.mapper.UserMapper;
+import com.lamnguyen.authentication_service.mapper.IUserDetailMapper;
+import com.lamnguyen.authentication_service.mapper.IUserMapper;
 import com.lamnguyen.authentication_service.model.JWTPayload;
 import com.lamnguyen.authentication_service.model.Role;
 import com.lamnguyen.authentication_service.model.RoleOfUser;
@@ -45,9 +45,9 @@ import java.time.LocalDateTime;
 public class AuthenticationServiceImpl implements IAuthenticationService {
 	IUserService userService;
 	PasswordEncoder passwordEncoder;
-	UserMapper userMapper;
+	IUserMapper userMapper;
 	IUserDetailService userDetailService;
-	UserDetailMapper userDetailMapper;
+	IUserDetailMapper userDetailMapper;
 	ISendMailService iSendMailService;
 	IRedisManager tokenManager;
 	IRoleOfUserRepository roleOfUserRepository;
@@ -84,6 +84,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 		sendMailVerify(userId, request);
 		var userDetail = userDetailMapper.toUserDetail(request);
 		userDetail.setUserId(userId);
+		userDetail.setEmail(userSaved.getEmail());
 		userDetailService.save(userDetail);
 		return RegisterResponse.builder().email(request.email()).build();
 	}
