@@ -50,7 +50,6 @@ public class AuthenticationController {
 		authenticationService.login(accessToken);
 		return LoginSuccessResponse.builder()
 				.email(email)
-				.userInfo(null)
 				.accessToken(accessToken)
 				.build();
 	}

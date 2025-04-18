@@ -20,8 +20,10 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@ToString
 public class SaveUserDetailMessage {
 	Long userId;
+	String email;
 	String fullName;
 	String phone;
 	SexEnum sexEnum;
