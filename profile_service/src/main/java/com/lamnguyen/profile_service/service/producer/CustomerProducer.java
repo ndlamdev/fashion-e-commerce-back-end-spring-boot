@@ -22,7 +22,7 @@ public class CustomerProducer {
     KafkaTemplate<String, InfoAddressShipping> kafkaTemplate;
 
     public void sendInfoAddressShipping(InfoAddressShipping infoCustomer) {
-        log.info("Send info address shipping to {}", infoCustomer);
+        log.info("Send info address shipping with json to info-address-shipping-topic {}", infoCustomer);
         Message<InfoAddressShipping> message = MessageBuilder
                 .withPayload(infoCustomer)
                 .setHeader(TOPIC, "info-address-shipping-topic")
