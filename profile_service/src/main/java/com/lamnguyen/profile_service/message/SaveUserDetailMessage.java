@@ -26,6 +26,6 @@ public class SaveUserDetailMessage {
 	String email;
 	String fullName;
 	String phone;
-	SexEnum sexEnum;
+	SexEnum gender;
 	LocalDate birthday;
 }

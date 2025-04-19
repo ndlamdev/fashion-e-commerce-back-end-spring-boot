@@ -20,7 +20,7 @@ public interface ICustomerMapper {
 
     List<CustomerDto> toCustomerDTOs(List<Customer> customers);
 
-    CustomerDto toSaveCustomerDto(Customer customer);
+    CustomerDto toCustomerDto(Customer customer);
 
     Customer toCustomer(CustomerDto customer);
 

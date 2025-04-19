@@ -12,4 +12,6 @@ public interface ICustomerService {
     ApiResponseSuccess<ApiPaging<CustomerDto>> getCustomers(Integer page, Integer size);
 
     CustomerDto getCustomerById(Long id);
+
+    CustomerDto getCustomerByUserId(Long id);
 }

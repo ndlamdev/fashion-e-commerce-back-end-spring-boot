@@ -17,10 +17,12 @@ import io.grpc.stub.StreamObserver;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.log4j.Log4j2;
 import net.devh.boot.grpc.server.service.GrpcService;
 
 @GrpcService
 @RequiredArgsConstructor
+@Log4j2
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ProfileServiceGrpcImpl extends ProfileServiceGrpc.ProfileServiceImplBase {
 	ICustomerService customerService;
@@ -28,8 +30,12 @@ public class ProfileServiceGrpcImpl extends ProfileServiceGrpc.ProfileServiceImp
 
 	@Override
 	public void getUserProfile(UserRequest request, StreamObserver<UserResponse> responseObserver) {
-		var data = customerService.getCustomerById(request.getUserId());
+		var data = customerService.getCustomerByUserId(request.getUserId());
 		var result = customerMapper.toUserResponse(data);
+		log.info("==============================================================================================================================================================================================");
+		log.info("gRPC method: {}", "getUserProfile");
+		log.info("gRPC Data: {}", data);
+		log.info("==============================================================================================================================================================================================");
 		responseObserver.onNext(result);
 		responseObserver.onCompleted();
 	}

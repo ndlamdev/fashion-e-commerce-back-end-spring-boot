@@ -32,8 +32,7 @@ public class CustomerConsumer {
     @RetryableTopic(
             backoff = @Backoff(value = 3000L),
             attempts = "5",
-            include =
-                    ApiException.class)
+            include = ApiException.class)
     public void saveUserDetail(SaveUserDetailMessage message) {
         log.info("Consuming the message from save-user-detail Topic:: {}", message);
         createAnonymousAuthentication(message.getEmail());

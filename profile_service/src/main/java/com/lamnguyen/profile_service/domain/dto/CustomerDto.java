@@ -21,7 +21,6 @@ public record CustomerDto(
         List<AddressDto> shippingAddresses,
         Double height,
         Double weight,
-        @JsonProperty("sex")
         SexEnum gender,
         @JsonProperty("is_lock")
         Boolean lock

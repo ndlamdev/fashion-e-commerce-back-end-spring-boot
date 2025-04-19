@@ -10,6 +10,7 @@ import com.lamnguyen.profile_service.domain.response.SaveCustomerResponse;
 import com.lamnguyen.profile_service.mapper.ICustomerMapper;
 import com.lamnguyen.profile_service.repository.ICustomerRepository;
 import com.lamnguyen.profile_service.service.business.ICustomerService;
+import com.lamnguyen.profile_service.service.redis.ICustomerRedisManager;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -19,6 +20,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -26,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CustomerServiceImpl implements ICustomerService {
     ICustomerRepository customerRepository;
     ICustomerMapper mapper;
+    ICustomerRedisManager customerRedisManager;
 
     @Override
     public SaveCustomerResponse saveCustomer(SaveCustomerRequest saveCustomerRequest, Long userId) {
@@ -56,7 +61,28 @@ public class CustomerServiceImpl implements ICustomerService {
     @Override
     @Transactional
     public CustomerDto getCustomerById(Long id) {
-        var customer = customerRepository.findById(id).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND));
-        return mapper.toSaveCustomerDto(customer);
+        return customerRedisManager
+                .getById(id) // get in cache
+                .or(() -> cacheById(id)) // caching data
+                .orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND)); // throw exception
+    }
+
+    @Override
+    @Transactional
+    public CustomerDto getCustomerByUserId(Long id) {
+        return customerRedisManager
+                .getByUserId(id) // get in cache
+                .or(() -> cacheByUserId(id)) // caching data
+                .orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND)); // throw exception
+    }
+
+    private Optional<CustomerDto> cacheById(long id) {
+        var data = customerRepository.findById(id).map(mapper::toCustomerDto);
+        return customerRedisManager.cacheById(id, () -> data, 60, TimeUnit.MINUTES);
+    }
+
+    private Optional<CustomerDto> cacheByUserId(long id) {
+        var data = customerRepository.findByUserId(id).map(mapper::toCustomerDto);
+        return customerRedisManager.cacheByUserId(id, () -> data, 60, TimeUnit.MINUTES);
     }
 }

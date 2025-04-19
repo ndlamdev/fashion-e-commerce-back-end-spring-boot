@@ -20,7 +20,6 @@ public record SaveCustomerResponse(
         List<AddressDto> shippingAddresses,
         Double height,
         Double weight,
-        @JsonProperty("sex")
         SexEnum gender
 ) {
 }

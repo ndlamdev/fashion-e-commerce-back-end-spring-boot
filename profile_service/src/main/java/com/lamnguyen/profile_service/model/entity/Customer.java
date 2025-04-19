@@ -19,19 +19,25 @@ import java.util.List;
 @Table(name = "customers")
 public class Customer extends BaseEntity {
     @Column(nullable = false)
+    Long userId;
+    @Column(nullable = false, columnDefinition = "varchar(255) default ''")
     String fullName;
-    @Column(unique = true)
+    @Column(unique = true, columnDefinition = "varchar(255) default ''")
     String email;
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "varchar(255) default ''")
     String phone;
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "varchar(255) default 'VN'")
     @Builder.Default
     String countryCode = "VN";
+    @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     LocalDate birthday;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     List<Address> shippingAddresses;
+    @Column(columnDefinition = "double default 0")
     Double height;
+    @Column(columnDefinition = "double default 0")
     Double weight;
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "varchar(255) default 'MALE'")
     SexEnum gender;
 }
