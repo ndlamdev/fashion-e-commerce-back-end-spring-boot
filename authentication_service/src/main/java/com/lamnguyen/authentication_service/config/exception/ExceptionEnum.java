@@ -33,7 +33,7 @@ public enum ExceptionEnum {
 	LOGIN_FAIL(90012, "Admin can not remove any role for myself!"),
 	REQUIRE_ACTIVE(90013, "Require verify your account!"),
 	REQUIRE_REGISTER(90014, "Require login after login google success!"),
-	;
+	GRPC_EXCEPTION(90000, "Internal exception");
 
 	int code;
 	String message;

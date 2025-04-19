@@ -39,7 +39,7 @@ public record RegisterAccountRequest(
         String fullName,
         @NotBlank
         String phone,
-        SexEnum sexEnum,
+        SexEnum gender,
         LocalDate birthday
 ) {
         public RegisterAccountRequest(@NotBlank
@@ -55,13 +55,13 @@ public record RegisterAccountRequest(
                                       String confirmPassword, @NotBlank
                                       @JsonProperty("full-name")
                                       String fullName, @NotBlank
-                                      String phone, SexEnum sexEnum, LocalDate birthday) {
+                                      String phone, SexEnum gender, LocalDate birthday) {
                 this.email = email;
                 this.password = password;
                 this.confirmPassword = confirmPassword;
                 this.fullName = fullName;
                 this.phone = phone;
-                this.sexEnum = Objects.requireNonNullElse(sexEnum, SexEnum.MALE);
+                this.gender = Objects.requireNonNullElse(gender, SexEnum.MALE);
                 this.birthday = birthday;
         }
 }

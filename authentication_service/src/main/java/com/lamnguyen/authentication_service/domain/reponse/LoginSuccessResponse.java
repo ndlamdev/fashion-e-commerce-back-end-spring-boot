@@ -10,8 +10,10 @@ package com.lamnguyen.authentication_service.domain.reponse;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.lamnguyen.authentication_service.domain.dto.ProfileUserDto;
 import lombok.Builder;
 
 @Builder
-public record LoginSuccessResponse(String email, @JsonProperty("access-token") String accessToken) {
+public record LoginSuccessResponse(@JsonProperty("access-token") String accessToken,
+                                   ProfileUserDto user) {
 }

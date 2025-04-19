@@ -19,13 +19,13 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Getter
 @Setter
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PROTECTED)
 public class SaveUserDetailEvent {
 	Long userId;
 	String email;
 	String fullName;
 	String avatar;
 	String phone;
-	SexEnum sexEnum;
+	SexEnum gender;
 	LocalDate birthday;
 }

@@ -46,10 +46,9 @@ public class AuthenticationController {
 	@ApiMessageResponse(value = "Login success!")
 	public LoginSuccessResponse login(HttpSession session, Authentication authentication) {
 		var accessToken = (String) session.getAttribute(applicationProperty.getKeyAccessToken());
-		var email = authentication.getName();
-		authenticationService.login(accessToken);
+		var user = authenticationService.login(accessToken);
 		return LoginSuccessResponse.builder()
-				.email(email)
+				.user(user)
 				.accessToken(accessToken)
 				.build();
 	}
@@ -119,14 +118,14 @@ public class AuthenticationController {
 	@ApiMessageResponse("Login google success")
 	public LoginSuccessResponse loginWithGoogle(@Valid @RequestBody GoogleAuthRequest request, HttpServletResponse response) throws IOException, GeneralSecurityException {
 		var token = googleAuthService.login(request.authCode());
-		authenticationService.login(token.accessToken());
+		var user = authenticationService.login(token.accessToken());
 		Cookie refestTokenCookie = new Cookie(applicationProperty.getKeyRefreshToken(), token.refreshToken());
 		refestTokenCookie.setMaxAge(applicationProperty.getExpireRefreshToken() * 60000);
 		refestTokenCookie.setHttpOnly(true);
 		refestTokenCookie.setSecure(true);
 		response.addCookie(refestTokenCookie);
 		return LoginSuccessResponse.builder()
-				.email(token.email())
+				.user(user)
 				.accessToken(token.accessToken())
 				.build();
 	}

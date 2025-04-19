@@ -10,6 +10,7 @@ package com.lamnguyen.authentication_service.service.authentication.v1;
 
 import com.lamnguyen.authentication_service.config.exception.ApplicationException;
 import com.lamnguyen.authentication_service.config.exception.ExceptionEnum;
+import com.lamnguyen.authentication_service.domain.dto.ProfileUserDto;
 import com.lamnguyen.authentication_service.domain.reponse.RegisterResponse;
 import com.lamnguyen.authentication_service.domain.request.RegisterAccountRequest;
 import com.lamnguyen.authentication_service.domain.request.SetNewPasswordRequest;
@@ -24,6 +25,7 @@ import com.lamnguyen.authentication_service.service.authentication.IAuthenticati
 import com.lamnguyen.authentication_service.service.authentication.IRedisManager;
 import com.lamnguyen.authentication_service.service.business.user.IUserDetailService;
 import com.lamnguyen.authentication_service.service.business.user.IUserService;
+import com.lamnguyen.authentication_service.service.grpc.IProfileCostumerGrpcClient;
 import com.lamnguyen.authentication_service.service.mail.ISendMailService;
 import com.lamnguyen.authentication_service.util.JwtTokenUtil;
 import com.lamnguyen.authentication_service.util.OtpUtil;
@@ -54,6 +56,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 	JwtTokenUtil jwtTokenUtil;
 	OtpProperty.AccountVerification accountVerification;
 	OtpProperty.ResetPasswordVerification resetPasswordVerification;
+	IProfileCostumerGrpcClient iProfileCostumerGrpcClient;
 
 
 	@Override
@@ -127,12 +130,14 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 	}
 
 	@Override
-	public void login(String accessToken) {
+	public ProfileUserDto login(String accessToken) {
 		var jwtAccessToken = jwtTokenUtil.decodeToken(accessToken);
 		var payload = jwtTokenUtil.getPayload(jwtAccessToken);
 		var userId = payload.getUserId();
 		tokenManager.setAccessTokenId(userId, jwtAccessToken.getId());
 		tokenManager.setRefreshTokenId(userId, payload.getRefreshTokenId());
+		var profile = iProfileCostumerGrpcClient.findById(userId);
+		return userDetailMapper.toProfileUserDto(profile);
 	}
 
 	@Override

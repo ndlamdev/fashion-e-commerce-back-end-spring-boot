@@ -8,20 +8,29 @@
 
 package com.lamnguyen.authentication_service.controller;
 
+import com.lamnguyen.authentication_service.protos.UserRequest;
+import com.lamnguyen.authentication_service.service.grpc.impl.ProfileCostumerGrpcClientImpl;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RequestMapping("/authentication-service/greeting")
 public class GreetingController {
+	private ProfileCostumerGrpcClientImpl profileServiceGrpc;
 	@GetMapping()
 	public String greeting() {
+		UserRequest request = UserRequest.newBuilder()
+				.setUserId(1)
+				.build();
 		return "Hello World!";
 	}
+
 }
