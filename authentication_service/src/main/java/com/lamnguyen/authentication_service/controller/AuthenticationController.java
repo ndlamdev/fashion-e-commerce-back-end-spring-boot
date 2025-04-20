@@ -14,6 +14,7 @@ import com.lamnguyen.authentication_service.domain.reponse.RegisterResponse;
 import com.lamnguyen.authentication_service.domain.reponse.TokenResponse;
 import com.lamnguyen.authentication_service.domain.request.*;
 import com.lamnguyen.authentication_service.service.authentication.IAuthenticationService;
+import com.lamnguyen.authentication_service.service.authentication.IFacebookAuthService;
 import com.lamnguyen.authentication_service.service.authentication.IGoogleAuthService;
 import com.lamnguyen.authentication_service.util.annotation.ApiMessageResponse;
 import com.lamnguyen.authentication_service.util.property.ApplicationProperty;
@@ -40,6 +41,7 @@ import java.security.GeneralSecurityException;
 public class AuthenticationController {
 	IAuthenticationService authenticationService;
 	IGoogleAuthService googleAuthService;
+	IFacebookAuthService facebookAuthService;
 	ApplicationProperty applicationProperty;
 
 	@PostMapping("/login")
@@ -133,5 +135,15 @@ public class AuthenticationController {
 	@PostMapping("/google/register")
 	public void registerWithGoogle(@RequestBody RegisterAccountWithGoogleRequest request) {
 		googleAuthService.register(request);
+	}
+
+	@PostMapping("/facebook/login")
+	@ApiMessageResponse("Login google success")
+	public LoginSuccessResponse loginWithFacebook(@RequestBody AccessTokenRequest request) throws IOException, GeneralSecurityException {
+		facebookAuthService.login(request.accessToken());
+		return LoginSuccessResponse.builder()
+				.user(null)
+				.accessToken("")
+				.build();
 	}
 }

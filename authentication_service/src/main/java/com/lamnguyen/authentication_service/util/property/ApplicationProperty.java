@@ -85,4 +85,9 @@ public class ApplicationProperty {
     String clientId;
     @Value("${spring.security.oauth2.client.registration.google.client-secret}")
     String clientSecret;
+
+    @Value("${application.facebook.app_id}")
+    String appIdFacebook;
+    @Value("${application.facebook.app_secret}")
+    String appSecretFacebook;
 }

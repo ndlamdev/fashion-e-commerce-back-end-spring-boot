@@ -52,15 +52,16 @@ CREATE TABLE roles
 
 CREATE TABLE users
 (
-    id        BIGINT AUTO_INCREMENT NOT NULL,
-    is_lock   BIT DEFAULT 0 NOT NULL,
-    create_by VARCHAR(255) NULL,
-    create_at datetime NULL,
-    update_by VARCHAR(255) NULL,
-    update_at datetime NULL,
-    email     VARCHAR(255) NULL,
-    password  VARCHAR(255) NULL,
-    active    BIT DEFAULT 0 NULL,
+    id          BIGINT AUTO_INCREMENT NOT NULL,
+    is_lock     BIT DEFAULT 0 NOT NULL,
+    create_by   VARCHAR(255) NULL,
+    create_at   datetime NULL,
+    update_by   VARCHAR(255) NULL,
+    update_at   datetime NULL,
+    email       VARCHAR(255) NULL,
+    password    VARCHAR(255) NULL,
+    facebook_id VARCHAR(255) NULL,
+    active      BIT DEFAULT 0 NULL,
     CONSTRAINT pk_users PRIMARY KEY (id)
 );
 

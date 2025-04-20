@@ -16,8 +16,6 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -31,6 +29,8 @@ public class User extends BaseEntity {
     String email;
 
     String password;
+
+    String facebookId;
 
     @Column(columnDefinition = "bit default false")
     boolean active;
