@@ -28,7 +28,6 @@ public class ProfileUserDto {
 	String email;
 	@JsonProperty("full_name")
 	String fullName;
-	@JsonProperty("avatar")
 	String avatar;
 	@JsonProperty("phone")
 	String phone;

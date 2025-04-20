@@ -49,7 +49,7 @@ public class JWTGeneratorFilter extends OncePerRequestFilter {
         var payloadAccessToken = JWTPayload.generateForAccessToken(authentication);
         payloadAccessToken.setUserId(user.getId());
         payloadAccessToken.setRefreshTokenId(refreshToken.getId());
-        var accessToken = jwtTokenUtil.generateAccessToken(user, payloadAccessToken);
+        var accessToken = jwtTokenUtil.generateAccessToken(payloadAccessToken);
 
         var session = request.getSession();
         session.setAttribute(applicationProperty.getKeyAccessToken(), accessToken.getTokenValue());

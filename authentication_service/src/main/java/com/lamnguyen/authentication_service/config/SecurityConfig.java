@@ -67,7 +67,6 @@ public class SecurityConfig {
 		);
 		httpSecurity.authorizeHttpRequests(authorization -> authorization
 				.requestMatchers(applicationProperty.getWhiteList().toArray(String[]::new)).permitAll()
-				.requestMatchers("/greeting", "/v1/google/login").permitAll()
 				.requestMatchers("/**").authenticated()
 		);
 		httpSecurity.oauth2ResourceServer(oauth2ResourceServerConfig -> oauth2ResourceServerConfig

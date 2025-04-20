@@ -32,7 +32,8 @@ public enum ExceptionEnum {
 	ADMIN_CAN_ADD_ROLE_FOR_MYSELF(90012, "Admin can not remove any role for myself!"),
 	LOGIN_FAIL(90012, "Admin can not remove any role for myself!"),
 	REQUIRE_ACTIVE(90013, "Require verify your account!"),
-	REQUIRE_REGISTER(90014, "Require login after login google success!"),
+	REQUIRE_REGISTER(90014, "Require register after login google success!"),
+	EMAIL_LOGIN_GOOGLE_NOT_VERIFY(90015, "Email use to login Google not verify!"),
 	GRPC_EXCEPTION(90000, "Internal exception");
 
 	int code;

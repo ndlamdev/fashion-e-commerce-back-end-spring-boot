@@ -8,11 +8,8 @@
 
 package com.lamnguyen.authentication_service.event;
 
-import com.lamnguyen.authentication_service.util.enums.SexEnum;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.time.LocalDate;
 
 @Builder
 @NoArgsConstructor
@@ -20,12 +17,10 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PROTECTED)
-public class SaveUserDetailEvent {
+public class SaveProfileUserEvent {
 	Long userId;
 	String email;
 	String fullName;
 	String avatar;
 	String phone;
-	SexEnum gender;
-	LocalDate birthday;
 }

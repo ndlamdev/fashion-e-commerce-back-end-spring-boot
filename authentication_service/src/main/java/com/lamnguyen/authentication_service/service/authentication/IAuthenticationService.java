@@ -12,7 +12,6 @@ import com.lamnguyen.authentication_service.domain.dto.ProfileUserDto;
 import com.lamnguyen.authentication_service.domain.reponse.RegisterResponse;
 import com.lamnguyen.authentication_service.domain.request.RegisterAccountRequest;
 import com.lamnguyen.authentication_service.domain.request.SetNewPasswordRequest;
-import com.lamnguyen.authentication_service.protos.UserResponse;
 import org.springframework.security.oauth2.jwt.Jwt;
 
 public interface IAuthenticationService {

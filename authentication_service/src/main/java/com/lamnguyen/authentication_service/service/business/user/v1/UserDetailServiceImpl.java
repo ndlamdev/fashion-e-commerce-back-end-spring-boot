@@ -8,12 +8,11 @@
 
 package com.lamnguyen.authentication_service.service.business.user.v1;
 
-import com.lamnguyen.authentication_service.event.SaveUserDetailEvent;
+import com.lamnguyen.authentication_service.event.SaveProfileUserEvent;
 import com.lamnguyen.authentication_service.service.business.user.IUserDetailService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +20,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class UserDetailServiceImpl implements IUserDetailService {
-	KafkaTemplate<String, SaveUserDetailEvent> template;
+	KafkaTemplate<String, SaveProfileUserEvent> template;
 
 	@Override
-	public void save(SaveUserDetailEvent user) {
+	public void save(SaveProfileUserEvent user) {
 		template.send("save-user-detail", user);
 	}
 }

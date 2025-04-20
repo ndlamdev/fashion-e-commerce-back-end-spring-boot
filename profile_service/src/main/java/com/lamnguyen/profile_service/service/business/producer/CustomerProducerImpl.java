@@ -16,7 +16,7 @@ import static org.springframework.kafka.support.KafkaHeaders.TOPIC;
 @Service
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class CustomerProducer {
+public class CustomerProducerImpl {
     KafkaTemplate<String, InfoAddressShipping> kafkaTemplate;
 
     public void sendInfoAddressShipping(InfoAddressShipping infoCustomer) {

@@ -10,8 +10,8 @@ package com.lamnguyen.profile_service.service.grpc;
 
 import com.lamnguyen.profile_service.mapper.ICustomerMapper;
 import com.lamnguyen.profile_service.protos.ProfileServiceGrpc;
-import com.lamnguyen.profile_service.protos.UserRequest;
-import com.lamnguyen.profile_service.protos.UserResponse;
+import com.lamnguyen.profile_service.protos.ProfileUserRequest;
+import com.lamnguyen.profile_service.protos.ProfileUserResponse;
 import com.lamnguyen.profile_service.service.business.ICustomerService;
 import io.grpc.stub.StreamObserver;
 import lombok.AccessLevel;
@@ -29,7 +29,7 @@ public class ProfileServiceGrpcImpl extends ProfileServiceGrpc.ProfileServiceImp
 	ICustomerMapper customerMapper;
 
 	@Override
-	public void getUserProfile(UserRequest request, StreamObserver<UserResponse> responseObserver) {
+	public void getUserProfile(ProfileUserRequest request, StreamObserver<ProfileUserResponse> responseObserver) {
 		var data = customerService.getCustomerByUserId(request.getUserId());
 		var result = customerMapper.toUserResponse(data);
 		log.info("==============================================================================================================================================================================================");

@@ -8,8 +8,8 @@
 
 package com.lamnguyen.authentication_service.service.business.user;
 
-import com.lamnguyen.authentication_service.event.SaveUserDetailEvent;
+import com.lamnguyen.authentication_service.event.SaveProfileUserEvent;
 
 public interface IUserDetailService {
-    void save(SaveUserDetailEvent user);
+    void save(SaveProfileUserEvent user);
 }

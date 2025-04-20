@@ -8,8 +8,8 @@
 
 package com.lamnguyen.authentication_service.service.grpc;
 
-import com.lamnguyen.authentication_service.protos.UserResponse;
+import com.lamnguyen.authentication_service.domain.dto.ProfileUserDto;
 
-public interface IProfileCostumerGrpcClient {
-	UserResponse findById(long id);
+public interface IProfileUserGrpcClient {
+	ProfileUserDto findById(long id);
 }

@@ -5,10 +5,10 @@ option java_package = "com.lamnguyen.profile_service.protos";
 option java_outer_classname = "ProfileProto";
 
 service ProfileService {
-  rpc GetUserProfile (UserRequest) returns (UserResponse);
+  rpc GetUserProfile (ProfileUserRequest) returns (ProfileUserResponse);
 }
 
-message UserRequest {
+message ProfileUserRequest {
   int64 user_id = 1;
 }
 
@@ -18,7 +18,7 @@ enum SexEnum {
   OTHER = 2;
 }
 
-message UserResponse {
+message ProfileUserResponse {
   int64 id = 1;
   string email = 2;
   string fullName = 3;

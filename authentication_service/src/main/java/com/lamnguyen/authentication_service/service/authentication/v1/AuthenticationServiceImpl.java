@@ -14,7 +14,7 @@ import com.lamnguyen.authentication_service.domain.dto.ProfileUserDto;
 import com.lamnguyen.authentication_service.domain.reponse.RegisterResponse;
 import com.lamnguyen.authentication_service.domain.request.RegisterAccountRequest;
 import com.lamnguyen.authentication_service.domain.request.SetNewPasswordRequest;
-import com.lamnguyen.authentication_service.mapper.IUserDetailMapper;
+import com.lamnguyen.authentication_service.mapper.IProfileUserMapper;
 import com.lamnguyen.authentication_service.mapper.IUserMapper;
 import com.lamnguyen.authentication_service.model.JWTPayload;
 import com.lamnguyen.authentication_service.model.Role;
@@ -25,7 +25,7 @@ import com.lamnguyen.authentication_service.service.authentication.IAuthenticati
 import com.lamnguyen.authentication_service.service.authentication.IRedisManager;
 import com.lamnguyen.authentication_service.service.business.user.IUserDetailService;
 import com.lamnguyen.authentication_service.service.business.user.IUserService;
-import com.lamnguyen.authentication_service.service.grpc.IProfileCostumerGrpcClient;
+import com.lamnguyen.authentication_service.service.grpc.IProfileUserGrpcClient;
 import com.lamnguyen.authentication_service.service.mail.ISendMailService;
 import com.lamnguyen.authentication_service.util.JwtTokenUtil;
 import com.lamnguyen.authentication_service.util.OtpUtil;
@@ -49,14 +49,14 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 	PasswordEncoder passwordEncoder;
 	IUserMapper userMapper;
 	IUserDetailService userDetailService;
-	IUserDetailMapper userDetailMapper;
+	IProfileUserMapper userDetailMapper;
 	ISendMailService iSendMailService;
 	IRedisManager tokenManager;
 	IRoleOfUserRepository roleOfUserRepository;
 	JwtTokenUtil jwtTokenUtil;
 	OtpProperty.AccountVerification accountVerification;
 	OtpProperty.ResetPasswordVerification resetPasswordVerification;
-	IProfileCostumerGrpcClient iProfileCostumerGrpcClient;
+	IProfileUserGrpcClient iProfileCostumerGrpcClient;
 
 
 	@Override
@@ -136,8 +136,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 		var userId = payload.getUserId();
 		tokenManager.setAccessTokenId(userId, jwtAccessToken.getId());
 		tokenManager.setRefreshTokenId(userId, payload.getRefreshTokenId());
-		var profile = iProfileCostumerGrpcClient.findById(userId);
-		return userDetailMapper.toProfileUserDto(profile);
+		return iProfileCostumerGrpcClient.findById(userId);
 	}
 
 	@Override
@@ -212,7 +211,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 		if (tokenManager.existRefreshInBlacklist(simplePayload.getUserId(), jwt.getId()))
 			throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
 		var user = userService.findById(simplePayload.getUserId());
-		var token = jwtTokenUtil.generateAccessToken(user, JWTPayload.generateForAccessToken(user, jwt.getId()));
+		var token = jwtTokenUtil.generateAccessToken(JWTPayload.generateForAccessToken(user, jwt.getId()));
 		tokenManager.setAccessTokenId(user.getId(), token.getId());
 		return token;
 	}

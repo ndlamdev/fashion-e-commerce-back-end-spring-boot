@@ -130,7 +130,7 @@ public class AuthenticationController {
 				.build();
 	}
 
-	@GetMapping("/google/register")
+	@PostMapping("/google/register")
 	public void registerWithGoogle(@RequestBody RegisterAccountWithGoogleRequest request) {
 		googleAuthService.register(request);
 	}

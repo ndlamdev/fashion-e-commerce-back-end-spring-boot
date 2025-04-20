@@ -1,6 +1,7 @@
 package com.lamnguyen.authentication_service.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lamnguyen.authentication_service.util.enums.JwtType;
 import lombok.*;
 import lombok.experimental.FieldDefaults;

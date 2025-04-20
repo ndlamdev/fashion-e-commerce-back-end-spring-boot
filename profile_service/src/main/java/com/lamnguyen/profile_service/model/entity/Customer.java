@@ -20,24 +20,38 @@ import java.util.List;
 public class Customer extends BaseEntity {
     @Column(nullable = false)
     Long userId;
-    @Column(nullable = false, columnDefinition = "varchar(255) default ''")
-    String fullName;
-    @Column(unique = true, columnDefinition = "varchar(255) default ''")
-    String email;
-    @Column(nullable = false, columnDefinition = "varchar(255) default ''")
-    String phone;
-    @Column(nullable = false, columnDefinition = "varchar(255) default 'VN'")
+
     @Builder.Default
+    @Column(nullable = false)
+    String fullName = "";
+
+    @Builder.Default
+    @Column(unique = true)
+    String email = "";
+
+    @Builder.Default
+    @Column(nullable = false)
+    String phone = "";
+
+    @Builder.Default
+    String avatar = "";
+
+    @Builder.Default
+    @Column(nullable = false)
     String countryCode = "VN";
-    @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
-    LocalDate birthday;
+
+    @Builder.Default
+    LocalDate birthday = LocalDate.now();
+
+    @Builder.Default
+    Double height = 0.0;
+
+    @Builder.Default
+    Double weight = 0.0;
+
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    SexEnum gender = SexEnum.MALE;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
     List<Address> shippingAddresses;
-    @Column(columnDefinition = "double default 0")
-    Double height;
-    @Column(columnDefinition = "double default 0")
-    Double weight;
-    @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "varchar(255) default 'MALE'")
-    SexEnum gender;
 }

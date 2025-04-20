@@ -1,7 +1,7 @@
 package com.lamnguyen.profile_service.service.business.consumer;
 
 import com.lamnguyen.profile_service.mapper.ICustomerMapper;
-import com.lamnguyen.profile_service.message.SaveUserDetailMessage;
+import com.lamnguyen.profile_service.message.SaveProfileUserMessage;
 import com.lamnguyen.profile_service.repository.ICustomerRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class CustomerConsumer {
+public class CustomerConsumerImpl {
     ICustomerRepository customerRepository;
     ICustomerMapper mapper;
 
@@ -33,7 +33,7 @@ public class CustomerConsumer {
             backoff = @Backoff(value = 3000L),
             attempts = "5",
             include = ApiException.class)
-    public void saveUserDetail(SaveUserDetailMessage message) {
+    public void saveUserDetail(SaveProfileUserMessage message) {
         log.info("Consuming the message from save-user-detail Topic:: {}", message);
         createAnonymousAuthentication(message.getEmail());
         customerRepository.save(mapper.toCustomer(message));

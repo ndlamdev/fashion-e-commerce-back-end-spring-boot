@@ -8,11 +8,8 @@
 
 package com.lamnguyen.profile_service.message;
 
-import com.lamnguyen.profile_service.utils.enums.SexEnum;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.time.LocalDate;
 
 @Builder
 @NoArgsConstructor
@@ -21,11 +18,10 @@ import java.time.LocalDate;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @ToString
-public class SaveUserDetailMessage {
+public class SaveProfileUserMessage {
 	Long userId;
 	String email;
 	String fullName;
 	String phone;
-	SexEnum gender;
-	LocalDate birthday;
+	String avatar;
 }

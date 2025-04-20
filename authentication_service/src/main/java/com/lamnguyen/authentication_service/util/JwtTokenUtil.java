@@ -11,7 +11,7 @@ package com.lamnguyen.authentication_service.util;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.lamnguyen.authentication_service.domain.dto.GooglePayloadDto;
 import com.lamnguyen.authentication_service.model.JWTPayload;
 import com.lamnguyen.authentication_service.model.SimplePayload;
 import com.lamnguyen.authentication_service.model.User;
@@ -70,13 +70,14 @@ public class JwtTokenUtil {
     }
 
     private JWTPayload getPayload(Map<String, Object> data) {
-        return JWTPayload.builder()
-                .userId(((Number) data.getOrDefault("userId", 0L)).longValue())
-                .email((String) data.getOrDefault("email", null))
-                .refreshTokenId((String) data.getOrDefault("refreshTokenId", null))
-                .type(JwtType.getEnum(data.getOrDefault("type", null)))
-                .roles(new HashSet<>((ArrayList<String>) data.getOrDefault("roles", new ArrayList<String>())))
-                .build();
+        return objectMapper.convertValue(data, JWTPayload.class);
+//        return JWTPayload.builder()
+//                .userId(((Number) data.getOrDefault("user_id", 0L)).longValue())
+//                .email((String) data.getOrDefault("email", null))
+//                .refreshTokenId((String) data.getOrDefault("refresh_token_id", null))
+//                .type(JwtType.getEnum(data.getOrDefault("type", null)))
+//                .roles(new HashSet<>((ArrayList<String>) data.getOrDefault("roles", new ArrayList<String>())))
+//                .build();
     }
 
     private Jwt generateTokenSimplePayLoad(User user, JwtType jwtType) {
@@ -95,23 +96,7 @@ public class JwtTokenUtil {
                 .build()));
     }
 
-    public Jwt generateAccessToken(User user, JWTPayload payload) {
-        var now = LocalDateTime.now().toInstant(ZoneOffset.UTC);
-        return jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader, JwtClaimsSet.builder()
-                .id(UUID.randomUUID().toString())
-                .issuer(applicationProperty.getJwtIss())
-                .subject(user.getEmail())
-                .issuedAt(now)
-                .claim(applicationProperty.getJwtClaim(), payload)
-                .expiresAt(now.plus(applicationProperty.getExpireAccessToken(), ChronoUnit.SECONDS))
-                .build()));
-    }
-
-    public Jwt generateTokenResetPassword(User user) {
-        return generateTokenSimplePayLoad(user, JwtType.RESET_PASSWORD);
-    }
-
-    public Jwt generateRegisterWithGoogleToken(GoogleIdToken.Payload payload) {
+    public Jwt generateAccessToken(JWTPayload payload) {
         var now = LocalDateTime.now().toInstant(ZoneOffset.UTC);
         return jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader, JwtClaimsSet.builder()
                 .id(UUID.randomUUID().toString())
@@ -123,7 +108,23 @@ public class JwtTokenUtil {
                 .build()));
     }
 
-    public GoogleIdToken.Payload getGoogleIdTokenPayload(String token) {
-        return jwtDecoder.decode(token).getClaim(applicationProperty.getJwtClaim());
+    public Jwt generateTokenResetPassword(User user) {
+        return generateTokenSimplePayLoad(user, JwtType.RESET_PASSWORD);
+    }
+
+    public Jwt generateRegisterWithGoogleToken(GooglePayloadDto payload) {
+        var now = LocalDateTime.now().toInstant(ZoneOffset.UTC);
+        return jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader, JwtClaimsSet.builder()
+                .id(UUID.randomUUID().toString())
+                .issuer(applicationProperty.getJwtIss())
+                .subject(payload.email())
+                .issuedAt(now)
+                .claim(applicationProperty.getJwtClaim(), payload)
+                .expiresAt(now.plus(applicationProperty.getExpireAccessToken(), ChronoUnit.SECONDS))
+                .build()));
+    }
+
+    public GooglePayloadDto getGooglePayloadDto(String token) {
+        return objectMapper.convertValue(jwtDecoder.decode(token).getClaim(applicationProperty.getJwtClaim()), GooglePayloadDto.class);
     }
 }

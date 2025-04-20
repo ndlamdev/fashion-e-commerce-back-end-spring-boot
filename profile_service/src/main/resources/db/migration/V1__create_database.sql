@@ -24,21 +24,22 @@ CREATE TABLE addresses
 
 CREATE TABLE customers
 (
-    id           BIGINT AUTO_INCREMENT       NOT NULL,
-    is_lock      BIT          DEFAULT 0      NOT NULL,
-    create_by    VARCHAR(255)                NULL,
-    create_at    datetime     DEFAULT NOW()  NULL,
-    update_by    VARCHAR(255)                NULL,
-    update_at    datetime                    NULL,
-    user_id      BIGINT                      NOT NULL,
-    full_name    VARCHAR(255) DEFAULT ''     NOT NULL,
-    email        VARCHAR(255) DEFAULT ''     NULL,
-    phone        VARCHAR(255) DEFAULT ''     NOT NULL,
-    country_code VARCHAR(255) DEFAULT 'VN'   NOT NULL,
-    birthday     datetime     DEFAULT NOW()  NULL,
-    height       DOUBLE       DEFAULT 0      NULL,
-    weight       DOUBLE       DEFAULT 0      NULL,
-    gender       VARCHAR(255) DEFAULT 'MALE' NULL,
+    id           BIGINT AUTO_INCREMENT  NOT NULL,
+    is_lock      BIT      DEFAULT 0     NOT NULL,
+    create_by    VARCHAR(255)           NULL,
+    create_at    datetime DEFAULT NOW() NULL,
+    update_by    VARCHAR(255)           NULL,
+    update_at    datetime               NULL,
+    user_id      BIGINT                 NOT NULL,
+    full_name    VARCHAR(255)           NOT NULL,
+    email        VARCHAR(255)           NULL,
+    phone        VARCHAR(255)           NOT NULL,
+    avatar       VARCHAR(255)           NULL,
+    country_code VARCHAR(255)           NOT NULL,
+    birthday     date                   NULL,
+    height       DOUBLE                 NULL,
+    weight       DOUBLE                 NULL,
+    gender       VARCHAR(255)           NULL,
     CONSTRAINT pk_customers PRIMARY KEY (id)
 );
 
