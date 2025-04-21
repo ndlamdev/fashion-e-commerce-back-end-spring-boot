@@ -6,7 +6,7 @@
  * User: lam-nguyen
  **/
 
-package com.lamnguyen.authentication_service.util.enums;
+package com.lamnguyen.authentication_service.utils.enums;
 
 public enum SexEnum {
     MALE, FEMALE, OTHER

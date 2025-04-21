@@ -18,4 +18,8 @@ public interface IUserService {
     User save(User user);
 
     User findById(long userId);
+
+	User findByFacebookUserId(long facebookUserId);
+
+	boolean existsUserByFacebookUserId(long facebookUserId);
 }

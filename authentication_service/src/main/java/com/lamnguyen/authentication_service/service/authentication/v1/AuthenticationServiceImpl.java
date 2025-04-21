@@ -23,14 +23,15 @@ import com.lamnguyen.authentication_service.model.User;
 import com.lamnguyen.authentication_service.repository.IRoleOfUserRepository;
 import com.lamnguyen.authentication_service.service.authentication.IAuthenticationService;
 import com.lamnguyen.authentication_service.service.authentication.IRedisManager;
-import com.lamnguyen.authentication_service.service.business.user.IUserDetailService;
+import com.lamnguyen.authentication_service.service.business.user.IProfileUserService;
 import com.lamnguyen.authentication_service.service.business.user.IUserService;
 import com.lamnguyen.authentication_service.service.grpc.IProfileUserGrpcClient;
 import com.lamnguyen.authentication_service.service.mail.ISendMailService;
-import com.lamnguyen.authentication_service.util.JwtTokenUtil;
-import com.lamnguyen.authentication_service.util.OtpUtil;
-import com.lamnguyen.authentication_service.util.enums.JwtType;
-import com.lamnguyen.authentication_service.util.property.OtpProperty;
+import com.lamnguyen.authentication_service.utils.enums.JwtType;
+import com.lamnguyen.authentication_service.utils.helper.JwtTokenUtil;
+import com.lamnguyen.authentication_service.utils.helper.OtpUtil;
+import com.lamnguyen.authentication_service.utils.helper.SendMailHelper;
+import com.lamnguyen.authentication_service.utils.property.OtpProperty;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -48,9 +49,9 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 	IUserService userService;
 	PasswordEncoder passwordEncoder;
 	IUserMapper userMapper;
-	IUserDetailService userDetailService;
+	IProfileUserService userDetailService;
 	IProfileUserMapper userDetailMapper;
-	ISendMailService iSendMailService;
+	ISendMailService sendMailVerify;
 	IRedisManager tokenManager;
 	IRoleOfUserRepository roleOfUserRepository;
 	JwtTokenUtil jwtTokenUtil;
@@ -62,21 +63,18 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 	@Override
 	public RegisterResponse register(RegisterAccountRequest request) {
 		var user = userMapper.toUser(request);
-		User oldUser = null;
 		try {
-			oldUser = userService.findUserByEmail(user.getEmail());
-		} catch (Exception ignored) {
-		}
-		if (oldUser != null) {
+			User oldUser = userService.findUserByEmail(user.getEmail());
 			if (oldUser.isActive())
 				throw ApplicationException.createException(ExceptionEnum.USER_EXIST);
 			else {
-				sendMailVerify(oldUser.getId(), request);
+				SendMailHelper.sendMailVerify(tokenManager, sendMailVerify, oldUser.getId(), request.getEmail());
 				throw ApplicationException.createException(ExceptionEnum.REQUIRE_ACTIVE);
 			}
+		} catch (Exception ignored) {
 		}
 
-		user.setPassword(passwordEncoder.encode(request.password()));
+		user.setPassword(passwordEncoder.encode(request.getPassword()));
 		User userSaved = userService.save(user);
 
 		var userId = userSaved.getId();
@@ -84,18 +82,11 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 		roleOfUserRepository.save(RoleOfUser.builder().user(userSaved).role(Role.builder().id(2).build()).build());
 		//this code use for test
 
-		sendMailVerify(userId, request);
+		SendMailHelper.sendMailVerify(tokenManager, sendMailVerify, userId, request.getEmail());
 		var userDetail = userDetailMapper.toUserDetail(request);
 		userDetail.setUserId(userId);
-		userDetail.setEmail(userSaved.getEmail());
 		userDetailService.save(userDetail);
-		return RegisterResponse.builder().email(request.email()).build();
-	}
-
-	private void sendMailVerify(long userId, RegisterAccountRequest request) {
-		String opt = OtpUtil.generate(6);
-		tokenManager.setRegisterCode(userId, opt);
-		iSendMailService.sendMailVerifyAccountCode(request.email(), opt);
+		return RegisterResponse.builder().email(request.getEmail()).build();
 	}
 
 	@Override
@@ -126,7 +117,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 			throw ApplicationException.createException(ExceptionEnum.VERIFY_EXCEEDED_NUMBER);
 		String opt = OtpUtil.generate(accountVerification.getLength());
 		tokenManager.setRegisterCode(userId, opt);
-		iSendMailService.sendMailVerifyAccountCode(email, opt);
+		sendMailVerify.sendMailVerifyAccountCode(email, opt);
 	}
 
 	@Override
@@ -169,7 +160,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
 		String opt = OtpUtil.generate(resetPasswordVerification.getLength());
 		tokenManager.setResetPasswordCode(userId, opt);
-		iSendMailService.sendMailResetPasswordCode(email, opt);
+		sendMailVerify.sendMailResetPasswordCode(email, opt);
 	}
 
 	@Override

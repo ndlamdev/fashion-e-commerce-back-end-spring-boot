@@ -6,7 +6,7 @@
  * User: lam-nguyen
  **/
 
-package com.lamnguyen.authentication_service.util.property;
+package com.lamnguyen.authentication_service.utils.property;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -55,6 +55,8 @@ public class ApplicationProperty {
     int expireAccessToken;
     @Value("${application.token.access.blacklist}")
     String keyAccessTokenBlacklist;
+    @Value("${application.token.access.facebook.key}")
+    String keyAccessTokenFacebook;
 
     @Value("${application.token.refresh.key}")
     String keyRefreshToken;
@@ -90,4 +92,11 @@ public class ApplicationProperty {
     String appIdFacebook;
     @Value("${application.facebook.app_secret}")
     String appSecretFacebook;
+
+    @Value("application.token.register.expire")
+    long expireRegisterToken;
+    @Value("application.token.register.google.key")
+    String keyRegisterTokenUsingFacebook;
+    @Value("application.token.register.facebook.key")
+    String keyRegisterTokenUsingGoogle;
 }

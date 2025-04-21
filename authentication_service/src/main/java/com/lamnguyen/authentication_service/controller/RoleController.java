@@ -11,7 +11,7 @@ package com.lamnguyen.authentication_service.controller;
 import com.lamnguyen.authentication_service.domain.dto.RoleDto;
 import com.lamnguyen.authentication_service.domain.request.CreateRoleRequest;
 import com.lamnguyen.authentication_service.service.authorization.IRoleService;
-import com.lamnguyen.authentication_service.util.annotation.ApiMessageResponse;
+import com.lamnguyen.authentication_service.utils.annotation.ApiMessageResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

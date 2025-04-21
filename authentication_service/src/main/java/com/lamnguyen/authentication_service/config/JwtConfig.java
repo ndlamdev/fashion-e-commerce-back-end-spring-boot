@@ -8,7 +8,7 @@
 
 package com.lamnguyen.authentication_service.config;
 
-import com.lamnguyen.authentication_service.util.property.ApplicationProperty;
+import com.lamnguyen.authentication_service.utils.property.ApplicationProperty;
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

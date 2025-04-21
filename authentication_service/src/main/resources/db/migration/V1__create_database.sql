@@ -60,7 +60,7 @@ CREATE TABLE users
     update_at   datetime NULL,
     email       VARCHAR(255) NULL,
     password    VARCHAR(255) NULL,
-    facebook_id VARCHAR(255) NULL,
+    facebook_user_id BIGINT NULL,
     active      BIT DEFAULT 0 NULL,
     CONSTRAINT pk_users PRIMARY KEY (id)
 );

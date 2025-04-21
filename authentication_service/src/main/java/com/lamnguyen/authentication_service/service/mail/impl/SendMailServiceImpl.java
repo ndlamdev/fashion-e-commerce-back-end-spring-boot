@@ -10,7 +10,7 @@ package com.lamnguyen.authentication_service.service.mail.impl;
 
 import com.lamnguyen.authentication_service.event.SendMailVerifyEvent;
 import com.lamnguyen.authentication_service.service.mail.ISendMailService;
-import com.lamnguyen.authentication_service.util.enums.MailType;
+import com.lamnguyen.authentication_service.utils.enums.MailType;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

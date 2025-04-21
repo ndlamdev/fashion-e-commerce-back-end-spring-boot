@@ -10,6 +10,6 @@ package com.lamnguyen.authentication_service.service.business.user;
 
 import com.lamnguyen.authentication_service.event.SaveProfileUserEvent;
 
-public interface IUserDetailService {
+public interface IProfileUserService {
     void save(SaveProfileUserEvent user);
 }

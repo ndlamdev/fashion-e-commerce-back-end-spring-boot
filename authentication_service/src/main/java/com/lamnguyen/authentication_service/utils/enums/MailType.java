@@ -6,7 +6,7 @@
  * User: kimin
  **/
 
-package com.lamnguyen.authentication_service.util.enums;
+package com.lamnguyen.authentication_service.utils.enums;
 
 public enum MailType {
 	VERIFY_ACCOUNT, RESET_PASSWORD, CHANGE_PASSWORD

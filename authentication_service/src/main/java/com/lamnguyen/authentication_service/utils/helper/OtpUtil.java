@@ -6,7 +6,7 @@
  * User: lam-nguyen
  **/
 
-package com.lamnguyen.authentication_service.util;
+package com.lamnguyen.authentication_service.utils.helper;
 
 import java.util.List;
 import java.util.Random;

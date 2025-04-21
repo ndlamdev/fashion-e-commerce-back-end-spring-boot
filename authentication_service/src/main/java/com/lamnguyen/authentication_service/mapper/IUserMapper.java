@@ -9,6 +9,7 @@
 package com.lamnguyen.authentication_service.mapper;
 
 import com.lamnguyen.authentication_service.domain.request.RegisterAccountRequest;
+import com.lamnguyen.authentication_service.domain.request.RegisterAccountWithFacebookRequest;
 import com.lamnguyen.authentication_service.domain.request.RegisterAccountWithGoogleRequest;
 import com.lamnguyen.authentication_service.model.User;
 import org.mapstruct.Mapper;
@@ -18,4 +19,8 @@ public interface IUserMapper {
     User toUser(RegisterAccountRequest request);
 
     User toUser(RegisterAccountWithGoogleRequest request);
+
+    User toUser(RegisterAccountWithFacebookRequest request);
+
+    RegisterAccountRequest toRegisterAccountRequest(RegisterAccountWithFacebookRequest request);
 }

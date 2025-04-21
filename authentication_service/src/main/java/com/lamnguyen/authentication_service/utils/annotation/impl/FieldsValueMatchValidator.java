@@ -6,9 +6,9 @@
  * User: lam-nguyen
  **/
 
-package com.lamnguyen.authentication_service.util.annotation.impl;
+package com.lamnguyen.authentication_service.utils.annotation.impl;
 
-import com.lamnguyen.authentication_service.util.annotation.FieldsValueMatch;
+import com.lamnguyen.authentication_service.utils.annotation.FieldsValueMatch;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.BeanWrapperImpl;

@@ -6,7 +6,7 @@
  * User: lam-nguyen
  **/
 
-package com.lamnguyen.authentication_service.util.annotation;
+package com.lamnguyen.authentication_service.utils.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

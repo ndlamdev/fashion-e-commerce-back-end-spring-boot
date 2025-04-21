@@ -9,8 +9,8 @@
 package com.lamnguyen.authentication_service.service.authentication.v1;
 
 import com.lamnguyen.authentication_service.service.authentication.IRedisManager;
-import com.lamnguyen.authentication_service.util.property.ApplicationProperty;
-import com.lamnguyen.authentication_service.util.property.OtpProperty;
+import com.lamnguyen.authentication_service.utils.property.ApplicationProperty;
+import com.lamnguyen.authentication_service.utils.property.OtpProperty;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -51,7 +51,7 @@ public class RedisManagerImpl implements IRedisManager {
 	public boolean existAccessTokenId(long userId, String tokenId) {
 		var key = generateKey(applicationProperty.getKeyAccessToken(), userId, tokenId);
 		var token = redisTemplate.opsForValue().get(key);
-		return Objects.equals(token, 1);
+		return token != null;
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class RedisManagerImpl implements IRedisManager {
 
 	@Override
 	public boolean existRefreshInBlacklist(long userId, String tokenId) {
-		return Objects.equals(redisTemplate.opsForValue().get(generateKey(applicationProperty.getKeyRefreshTokenBlacklist(), userId, tokenId)), 1);
+		return redisTemplate.opsForValue().get(generateKey(applicationProperty.getKeyRefreshTokenBlacklist(), userId, tokenId)) != null;
 	}
 
 	@Override
@@ -157,7 +157,7 @@ public class RedisManagerImpl implements IRedisManager {
 
 	@Override
 	public boolean existTokenResetPasswordInBlacklist(long userId, String tokenId) {
-		return Objects.equals(redisTemplate.opsForValue().get(generateKey(applicationProperty.getKeyResetPasswordTokenBlacklist(), userId, tokenId)), 1);
+		return redisTemplate.opsForValue().get(generateKey(applicationProperty.getKeyResetPasswordTokenBlacklist(), userId, tokenId)) != null;
 	}
 
 	@Override
@@ -192,5 +192,35 @@ public class RedisManagerImpl implements IRedisManager {
 		}
 
 		redisTemplate.opsForValue().set(key, 0, expire, TimeUnit.MINUTES);
+	}
+
+	@Override
+	public void setRegisterTokenIdUsingGoogle(String id) {
+		redisTemplate.opsForValue().set(applicationProperty.getKeyRegisterTokenUsingGoogle() + id, 1);
+	}
+
+	@Override
+	public boolean existRegisterTokenIdUsingGoogle(String id) {
+		return redisTemplate.opsForValue().get(applicationProperty.getKeyRegisterTokenUsingGoogle() + id) != null;
+	}
+
+	@Override
+	public void setRegisterTokenIdUsingFacebook(String id) {
+		redisTemplate.opsForValue().set(applicationProperty.getKeyRegisterTokenUsingFacebook() + id, 1);
+	}
+
+	@Override
+	public boolean existRegisterTokenIdUsingFacebook(String id) {
+		return redisTemplate.opsForValue().get(applicationProperty.getKeyRegisterTokenUsingFacebook() + id) != null;
+	}
+
+	@Override
+	public void setAccessTokenFacebook(String token) {
+		redisTemplate.opsForValue().set(applicationProperty.getKeyAccessTokenFacebook() + token, 1);
+	}
+
+	@Override
+	public boolean existAccessTokenFacebook(String token) {
+		return redisTemplate.opsForValue().get(applicationProperty.getKeyAccessTokenFacebook() + token) != null;
 	}
 }

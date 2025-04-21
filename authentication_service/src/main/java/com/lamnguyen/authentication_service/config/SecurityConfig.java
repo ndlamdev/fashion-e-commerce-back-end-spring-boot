@@ -18,7 +18,7 @@ import com.lamnguyen.authentication_service.config.filter.CheckBlacklistTokenFil
 import com.lamnguyen.authentication_service.config.filter.JWTGeneratorFilter;
 import com.lamnguyen.authentication_service.config.filter.RemoveBearerTokenAuthorizationFilter;
 import com.lamnguyen.authentication_service.config.filter.UsernamePasswordJsonAuthenticationFilter;
-import com.lamnguyen.authentication_service.util.property.ApplicationProperty;
+import com.lamnguyen.authentication_service.utils.property.ApplicationProperty;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

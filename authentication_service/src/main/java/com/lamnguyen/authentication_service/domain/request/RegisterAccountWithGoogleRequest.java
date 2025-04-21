@@ -9,7 +9,7 @@
 package com.lamnguyen.authentication_service.domain.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.lamnguyen.authentication_service.util.annotation.FieldsValueMatch;
+import com.lamnguyen.authentication_service.utils.annotation.FieldsValueMatch;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;

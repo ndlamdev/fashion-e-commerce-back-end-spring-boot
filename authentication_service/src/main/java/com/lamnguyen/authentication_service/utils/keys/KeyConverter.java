@@ -6,7 +6,7 @@
  * User: lam-nguyen
  **/
 
-package com.lamnguyen.authentication_service.util.keys;
+package com.lamnguyen.authentication_service.utils.keys;
 
 import java.security.KeyFactory;
 import java.security.PrivateKey;

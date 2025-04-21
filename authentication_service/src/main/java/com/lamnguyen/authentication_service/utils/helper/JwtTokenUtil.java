@@ -6,7 +6,7 @@
  * User: lam-nguyen
  **/
 
-package com.lamnguyen.authentication_service.util;
+package com.lamnguyen.authentication_service.utils.helper;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
@@ -15,8 +15,8 @@ import com.lamnguyen.authentication_service.domain.dto.GooglePayloadDto;
 import com.lamnguyen.authentication_service.model.JWTPayload;
 import com.lamnguyen.authentication_service.model.SimplePayload;
 import com.lamnguyen.authentication_service.model.User;
-import com.lamnguyen.authentication_service.util.enums.JwtType;
-import com.lamnguyen.authentication_service.util.property.ApplicationProperty;
+import com.lamnguyen.authentication_service.utils.enums.JwtType;
+import com.lamnguyen.authentication_service.utils.property.ApplicationProperty;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -26,8 +26,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.UUID;
 
@@ -120,11 +118,26 @@ public class JwtTokenUtil {
                 .subject(payload.email())
                 .issuedAt(now)
                 .claim(applicationProperty.getJwtClaim(), payload)
-                .expiresAt(now.plus(applicationProperty.getExpireAccessToken(), ChronoUnit.SECONDS))
+                .expiresAt(now.plus(applicationProperty.getExpireRegisterToken(), ChronoUnit.MINUTES))
                 .build()));
     }
 
-    public GooglePayloadDto getGooglePayloadDto(String token) {
-        return objectMapper.convertValue(jwtDecoder.decode(token).getClaim(applicationProperty.getJwtClaim()), GooglePayloadDto.class);
+    public GooglePayloadDto getGooglePayloadDtoNotVerify(String token) {
+        return objectMapper.convertValue(JWT.decode(token).getClaim(applicationProperty.getJwtClaim()), GooglePayloadDto.class);
+    }
+
+    public Jwt generateRegisterWithFacebookUserId(long facebookUserId) {
+        var now = LocalDateTime.now().toInstant(ZoneOffset.UTC);
+        return jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader, JwtClaimsSet.builder()
+                .id(UUID.randomUUID().toString())
+                .issuer(applicationProperty.getJwtIss())
+                .issuedAt(now)
+                .claim(applicationProperty.getJwtClaim(), facebookUserId)
+                .expiresAt(now.plus(applicationProperty.getExpireRegisterToken(), ChronoUnit.MINUTES))
+                .build()));
+    }
+
+    public long getFacebookUserIdNotVerify(String token) {
+        return objectMapper.convertValue(JWT.decode(token).getClaim(applicationProperty.getJwtClaim()), long.class);
     }
 }

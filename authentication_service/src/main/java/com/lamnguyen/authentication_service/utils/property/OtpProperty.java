@@ -6,7 +6,7 @@
  * User: lam-nguyen
  **/
 
-package com.lamnguyen.authentication_service.util.property;
+package com.lamnguyen.authentication_service.utils.property;
 
 import lombok.AccessLevel;
 import lombok.Getter;
