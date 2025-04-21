@@ -27,6 +27,7 @@ import com.lamnguyen.authentication_service.service.business.facebook.IFacebookG
 import com.lamnguyen.authentication_service.service.business.user.IProfileUserService;
 import com.lamnguyen.authentication_service.service.business.user.IUserService;
 import com.lamnguyen.authentication_service.utils.helper.JwtTokenUtil;
+import com.lamnguyen.authentication_service.utils.property.ApplicationProperty;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -34,6 +35,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
@@ -48,6 +50,7 @@ public class FacebookAuthServiceImpl implements IFacebookAuthService {
     IProfileUserMapper profileUserMapper;
     IRedisManager tokenManager;
     IRoleOfUserRepository roleOfUserRepository;
+    private final ApplicationProperty applicationProperty;
 
     @Override
     public LoginSuccessDto login(String accessTokenStr) {
@@ -74,7 +77,7 @@ public class FacebookAuthServiceImpl implements IFacebookAuthService {
     }
 
     private void checkTokenValid(IFacebookGraphClient.DebugTokenResponse debugTokenResponse, String token) {
-        if (tokenManager.existAccessTokenFacebook(token)) {
+        if (tokenManager.existAccessTokenFacebook(token) || !applicationProperty.getAppIdFacebook().equals(debugTokenResponse.data().appId())) {
             throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
         }
 
