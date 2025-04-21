@@ -38,102 +38,102 @@ import java.time.Instant;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @Service
 public class FacebookAuthServiceImpl implements IFacebookAuthService {
-	IFacebookGraphClient facebookGraphClient;
-	IUserService userService;
-	JwtTokenUtil jwtTokenUtil;
-	IUserMapper userMapper;
-	PasswordEncoder passwordEncoder;
-	IProfileUserService profileUserService;
-	IProfileUserMapper profileUserMapper;
-	IRedisManager tokenManager;
-	IRoleOfUserRepository roleOfUserRepository;
+    IFacebookGraphClient facebookGraphClient;
+    IUserService userService;
+    JwtTokenUtil jwtTokenUtil;
+    IUserMapper userMapper;
+    PasswordEncoder passwordEncoder;
+    IProfileUserService profileUserService;
+    IProfileUserMapper profileUserMapper;
+    IRedisManager tokenManager;
+    IRoleOfUserRepository roleOfUserRepository;
 
-	@Override
-	public LoginSuccessDto login(String accessTokenStr) {
-		var debugTokenResponse = facebookGraphClient.debugToken(accessTokenStr);
-		checkTokenValid(debugTokenResponse, accessTokenStr);
+    @Override
+    public LoginSuccessDto login(String accessTokenStr) {
+        var debugTokenResponse = facebookGraphClient.debugToken(accessTokenStr);
+        checkTokenValid(debugTokenResponse, accessTokenStr);
 
-		try {
-			User user = userService.findByFacebookUserId(debugTokenResponse.data().userId());
-			var refreshToken = jwtTokenUtil.generateRefreshToken(user);
-			var payloadAccessToken = JWTPayload.generateForAccessToken(user, refreshToken.getId());
-			var accessToken = jwtTokenUtil.generateAccessToken(payloadAccessToken);
+        try {
+            User user = userService.findByFacebookUserId(debugTokenResponse.data().userId());
+            var refreshToken = jwtTokenUtil.generateRefreshToken(user);
+            var payloadAccessToken = JWTPayload.generateForAccessToken(user, refreshToken.getId());
+            var accessToken = jwtTokenUtil.generateAccessToken(payloadAccessToken);
 
-			tokenManager.setAccessTokenFacebook(accessTokenStr);
+            tokenManager.setAccessTokenFacebook(accessTokenStr);
 
-			return new LoginSuccessDto(user.getEmail(), accessToken.getTokenValue(), refreshToken.getTokenValue());
-		} catch (Exception e) {
-			var profileUser = facebookGraphClient.getProfile(accessTokenStr);
-			System.out.println(profileUser);
-			var payload = profileUserMapper.toFacebookPayloadDto(profileUser);
-			var token = jwtTokenUtil.generateRegisterToken(payload);
-			throw ApplicationException.createException(ExceptionEnum.REQUIRE_REGISTER, new RegisterTokenResponse(token.getTokenValue()));
-		}
-	}
+            return new LoginSuccessDto(user.getEmail(), accessToken.getTokenValue(), refreshToken.getTokenValue());
+        } catch (ApplicationException e) {
+            var profileUser = facebookGraphClient.getProfile(accessTokenStr);
+            System.out.println(profileUser);
+            var payload = profileUserMapper.toFacebookPayloadDto(profileUser);
+            var token = jwtTokenUtil.generateRegisterToken(payload);
+            throw ApplicationException.createException(ExceptionEnum.REQUIRE_REGISTER, new RegisterTokenResponse(token.getTokenValue()));
+        }
+    }
 
-	private void checkTokenValid(IFacebookGraphClient.DebugTokenResponse debugTokenResponse, String token) {
-		if (tokenManager.existAccessTokenFacebook(token)) {
-			throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
-		}
+    private void checkTokenValid(IFacebookGraphClient.DebugTokenResponse debugTokenResponse, String token) {
+        if (tokenManager.existAccessTokenFacebook(token)) {
+            throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
+        }
 
-		if (!debugTokenResponse.data().valid()) throw ApplicationException.createException(ExceptionEnum.UNAUTHORIZED);
+        if (!debugTokenResponse.data().valid()) throw ApplicationException.createException(ExceptionEnum.UNAUTHORIZED);
 
-		long expiresAt = debugTokenResponse.data().expiresAt();
-		boolean isExpired = Instant.ofEpochSecond(expiresAt).isBefore(Instant.now());
+        long expiresAt = debugTokenResponse.data().expiresAt();
+        boolean isExpired = Instant.ofEpochSecond(expiresAt).isBefore(Instant.now());
 
-		if (isExpired) {
-			throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
-		}
-	}
+        if (isExpired) {
+            throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
+        }
+    }
 
-	@Override
-	public void register(RegisterAccountWithFacebookRequest request) {
-		if (!preprocessDataRegister(request)) {
-			return;
-		}
+    @Override
+    public void register(RegisterAccountWithFacebookRequest request) {
+        if (!preprocessDataRegister(request)) {
+            return;
+        }
 
-		var jwt = jwtTokenUtil.decodeTokenNotVerify(request.getToken());
-		var payload = jwtTokenUtil.getFacebookPayloadDtoNotVerify(request.getToken());
-		var user = userMapper.toUser(request);
-		user.setPassword(passwordEncoder.encode(request.getPassword()));
-		user.setActive(true);
-		User userSaved = userService.save(user);
+        var jwt = jwtTokenUtil.decodeTokenNotVerify(request.getToken());
+        var payload = jwtTokenUtil.getFacebookPayloadDtoNotVerify(request.getToken());
+        var user = userMapper.toUser(request);
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setActive(true);
+        User userSaved = userService.save(user);
 
-		var userId = userSaved.getId();
-		// this code use for test
-		roleOfUserRepository.save(RoleOfUser.builder().user(userSaved).role(Role.builder().id(2).build()).build());
-		//this code use for test
+        var userId = userSaved.getId();
+        // this code use for test
+        roleOfUserRepository.save(RoleOfUser.builder().user(userSaved).role(Role.builder().id(2).build()).build());
+        //this code use for test
 
-		var profileUser = profileUserMapper.toUserDetail(request);
-		profileUser.setUserId(userId);
-		profileUser.setFullName(payload.name());
-		profileUser.setAvatar(payload.avatar());
-		profileUserService.save(profileUser);
-		tokenManager.setRegisterTokenIdUsingFacebook(jwt.getId());
-	}
+        var profileUser = profileUserMapper.toSaveProfileUserEvent(request);
+        profileUser.setUserId(userId);
+        profileUser.setFullName(payload.name());
+        profileUser.setAvatar(payload.avatar());
+        profileUserService.save(profileUser);
+        tokenManager.setRegisterTokenIdUsingFacebook(jwt.getId());
+    }
 
-	private boolean preprocessDataRegister(RegisterAccountWithFacebookRequest request) {
-		var jwt = jwtTokenUtil.decodeToken(request.getToken());
-		if (tokenManager.existRegisterTokenIdUsingFacebook(jwt.getId())) {
-			throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
-		}
+    private boolean preprocessDataRegister(RegisterAccountWithFacebookRequest request) {
+        var jwt = jwtTokenUtil.decodeToken(request.getToken());
+        if (tokenManager.existRegisterTokenIdUsingFacebook(jwt.getId())) {
+            throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
+        }
 
-		var payload = jwtTokenUtil.getFacebookPayloadDtoNotVerify(request.getToken());
-		if (userService.existsUserByFacebookUserId(payload.id()))
-			throw ApplicationException.createException(ExceptionEnum.USER_EXIST);
+        var payload = jwtTokenUtil.getFacebookPayloadDtoNotVerify(request.getToken());
+        if (userService.existsUserByFacebookUserId(payload.id()))
+            throw ApplicationException.createException(ExceptionEnum.USER_EXIST);
+        User oldUser = null;
+        try {
+            oldUser = userService.findUserByEmail(request.getEmail());
+        } catch (Exception ignored) {
+            return true;
+        }
 
-		try {
-			User oldUser = userService.findUserByEmail(request.getEmail());
+        if (oldUser.isActive()) {
+            throw ApplicationException.createException(ExceptionEnum.USER_EXIST);
+        }
 
-			if (oldUser.isActive()) {
-				throw ApplicationException.createException(ExceptionEnum.USER_EXIST);
-			}
-
-			oldUser.setActive(true);
-			userService.save(oldUser);
-			return false;
-		} catch (Exception ignored) {
-			return true;
-		}
-	}
+        oldUser.setActive(true);
+        userService.save(oldUser);
+        return false;
+    }
 }

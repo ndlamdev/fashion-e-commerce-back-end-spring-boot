@@ -27,6 +27,8 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.UUID;
 
@@ -45,11 +47,13 @@ public class JwtTokenUtil {
     }
 
     public JWTPayload getPayload(Jwt token) {
-        return getPayload(token.<Map<String, Object>>getClaim(applicationProperty.getJwtClaim()));
+        var claims = token.getClaim(applicationProperty.getJwtClaim());
+        return objectMapper.convertValue(claims, JWTPayload.class);
     }
 
     public SimplePayload getSimplePayload(Jwt token) {
-        return getPayload(token.<Map<String, Object>>getClaim(applicationProperty.getJwtClaim()));
+        var claims = token.getClaim(applicationProperty.getJwtClaim());
+        return objectMapper.convertValue(claims, SimplePayload.class);
     }
 
     public DecodedJWT decodeTokenNotVerify(String token) {
@@ -57,26 +61,28 @@ public class JwtTokenUtil {
     }
 
     public JWTPayload getPayloadNotVerify(DecodedJWT token) {
-        return getPayload(token.getClaim(applicationProperty.getJwtClaim()).asMap());
+        var claims = token.getClaim(applicationProperty.getJwtClaim()).asMap();
+        return objectMapper.convertValue(claims, JWTPayload.class);
     }
 
     public SimplePayload getSimplePayloadNotVerify(DecodedJWT token) {
-        return getPayload(token.getClaim(applicationProperty.getJwtClaim()).asMap());
+        var claims = token.getClaim(applicationProperty.getJwtClaim()).asMap();
+        return objectMapper.convertValue(claims, JWTPayload.class);
     }
 
     public Jwt generateRefreshToken(User user) {
         return generateTokenSimplePayLoad(user, JwtType.REFRESH_TOKEN);
     }
 
+    @Deprecated
     private JWTPayload getPayload(Map<String, Object> data) {
-        return objectMapper.convertValue(data, JWTPayload.class);
-//        return JWTPayload.builder()
-//                .userId(((Number) data.getOrDefault("user_id", 0L)).longValue())
-//                .email((String) data.getOrDefault("email", null))
-//                .refreshTokenId((String) data.getOrDefault("refresh_token_id", null))
-//                .type(JwtType.getEnum(data.getOrDefault("type", null)))
-//                .roles(new HashSet<>((ArrayList<String>) data.getOrDefault("roles", new ArrayList<String>())))
-//                .build();
+        return JWTPayload.builder()
+                .userId(((Number) data.getOrDefault("user_id", 0L)).longValue())
+                .email((String) data.getOrDefault("email", null))
+                .refreshTokenId((String) data.getOrDefault("refresh_token_id", null))
+                .type(JwtType.getEnum(data.getOrDefault("type", null)))
+                .roles(new HashSet<>((ArrayList<String>) data.getOrDefault("roles", new ArrayList<String>())))
+                .build();
     }
 
     private Jwt generateTokenSimplePayLoad(User user, JwtType jwtType) {
@@ -124,7 +130,8 @@ public class JwtTokenUtil {
     }
 
     public GooglePayloadDto getGooglePayloadDtoNotVerify(String token) {
-        return objectMapper.convertValue(JWT.decode(token).getClaim(applicationProperty.getJwtClaim()), GooglePayloadDto.class);
+        var claims = jwtDecoder.decode(token).getClaim(applicationProperty.getJwtClaim());
+        return objectMapper.convertValue(claims, GooglePayloadDto.class);
     }
 
     public Jwt generateRegisterToken(FacebookPayloadDto facebookPayloadDto) {
@@ -139,6 +146,7 @@ public class JwtTokenUtil {
     }
 
     public FacebookPayloadDto getFacebookPayloadDtoNotVerify(String token) {
-        return objectMapper.convertValue(JWT.decode(token).getClaim(applicationProperty.getJwtClaim()), FacebookPayloadDto.class);
+        var claims = JWT.decode(token).getClaim(applicationProperty.getJwtClaim());
+        return objectMapper.convertValue(claims, FacebookPayloadDto.class);
     }
 }

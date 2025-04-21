@@ -11,7 +11,6 @@ package com.lamnguyen.authentication_service.service.authentication.v1;
 import com.lamnguyen.authentication_service.config.exception.ApplicationException;
 import com.lamnguyen.authentication_service.config.exception.ExceptionEnum;
 import com.lamnguyen.authentication_service.domain.dto.ProfileUserDto;
-import com.lamnguyen.authentication_service.domain.reponse.RegisterResponse;
 import com.lamnguyen.authentication_service.domain.request.RegisterAccountRequest;
 import com.lamnguyen.authentication_service.domain.request.SetNewPasswordRequest;
 import com.lamnguyen.authentication_service.mapper.IProfileUserMapper;
@@ -46,164 +45,165 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class AuthenticationServiceImpl implements IAuthenticationService {
-	IUserService userService;
-	PasswordEncoder passwordEncoder;
-	IUserMapper userMapper;
-	IProfileUserService userDetailService;
-	IProfileUserMapper userDetailMapper;
-	ISendMailService sendMailVerify;
-	IRedisManager tokenManager;
-	IRoleOfUserRepository roleOfUserRepository;
-	JwtTokenUtil jwtTokenUtil;
-	OtpProperty.AccountVerification accountVerification;
-	OtpProperty.ResetPasswordVerification resetPasswordVerification;
-	IProfileUserGrpcClient iProfileCostumerGrpcClient;
+    IUserService userService;
+    PasswordEncoder passwordEncoder;
+    IUserMapper userMapper;
+    IProfileUserService userDetailService;
+    IProfileUserMapper userDetailMapper;
+    ISendMailService sendMailVerify;
+    IRedisManager tokenManager;
+    IRoleOfUserRepository roleOfUserRepository;
+    JwtTokenUtil jwtTokenUtil;
+    OtpProperty.AccountVerification accountVerification;
+    OtpProperty.ResetPasswordVerification resetPasswordVerification;
+    IProfileUserGrpcClient iProfileCostumerGrpcClient;
 
 
-	@Override
-	public RegisterResponse register(RegisterAccountRequest request) {
-		var user = userMapper.toUser(request);
-		try {
-			User oldUser = userService.findUserByEmail(user.getEmail());
-			if (oldUser.isActive())
-				throw ApplicationException.createException(ExceptionEnum.USER_EXIST);
-			else {
-				SendMailHelper.sendMailVerify(tokenManager, sendMailVerify, oldUser.getId(), request.getEmail());
-				throw ApplicationException.createException(ExceptionEnum.REQUIRE_ACTIVE);
-			}
-		} catch (Exception ignored) {
-		}
+    @Override
+    public void register(RegisterAccountRequest request) {
+        var user = userMapper.toUser(request);
+        User oldUser = null;
+        try {
+            oldUser = userService.findUserByEmail(user.getEmail());
+        } catch (ApplicationException ignored) {
+            user.setPassword(passwordEncoder.encode(request.getPassword()));
+            User userSaved = userService.save(user);
 
-		user.setPassword(passwordEncoder.encode(request.getPassword()));
-		User userSaved = userService.save(user);
+            var userId = userSaved.getId();
+            // this code use for test
+            roleOfUserRepository.save(RoleOfUser.builder().user(userSaved).role(Role.builder().id(2).build()).build());
+            //this code use for test
 
-		var userId = userSaved.getId();
-		// this code use for test
-		roleOfUserRepository.save(RoleOfUser.builder().user(userSaved).role(Role.builder().id(2).build()).build());
-		//this code use for test
+            SendMailHelper.sendMailVerify(tokenManager, sendMailVerify, userId, request.getEmail());
+            var userDetail = userDetailMapper.toSaveProfileUserEvent(request);
+            userDetail.setUserId(userId);
+            userDetailService.save(userDetail);
+            return;
+        }
 
-		SendMailHelper.sendMailVerify(tokenManager, sendMailVerify, userId, request.getEmail());
-		var userDetail = userDetailMapper.toUserDetail(request);
-		userDetail.setUserId(userId);
-		userDetailService.save(userDetail);
-		return RegisterResponse.builder().email(request.getEmail()).build();
-	}
+        if (oldUser.isActive())
+            throw ApplicationException.createException(ExceptionEnum.USER_EXIST);
+        else {
+            SendMailHelper.sendMailVerify(tokenManager, sendMailVerify, oldUser.getId(), request.getEmail());
+            throw ApplicationException.createException(ExceptionEnum.REQUIRE_ACTIVE);
+        }
+    }
 
-	@Override
-	public void verifyAccount(String email, String code) {
-		var user = userService.findUserByEmail(email);
-		var userId = user.getId();
-		var optional = tokenManager.getRegisterCode(userId);
-		if (optional.isEmpty()) throw ApplicationException.createException(ExceptionEnum.CODE_NOT_FOUND);
-		var total = tokenManager.increaseTotalTryVerifyAccount(userId);
-		if (total > accountVerification.getMaxTry())
-			throw ApplicationException.createException(ExceptionEnum.VERIFY_EXCEEDED_NUMBER);
-		if (!code.equals(optional.get()))
-			throw ApplicationException.createException(ExceptionEnum.VERIFY_ACCOUNT_FAILED, "The remaining number of authentication attempts is: " + (accountVerification.getMaxTry() - total));
-		tokenManager.removeVerifyRegisterCode(userId);
-		user.setActive(true);
-		userService.save(user);
-	}
+    @Override
+    public void verifyAccount(String email, String code) {
+        var user = userService.findUserByEmail(email);
+        var userId = user.getId();
+        var optional = tokenManager.getRegisterCode(userId);
+        if (optional.isEmpty()) throw ApplicationException.createException(ExceptionEnum.CODE_NOT_FOUND);
+        var total = tokenManager.increaseTotalTryVerifyAccount(userId);
+        if (total > accountVerification.getMaxTry())
+            throw ApplicationException.createException(ExceptionEnum.VERIFY_EXCEEDED_NUMBER);
+        if (!code.equals(optional.get()))
+            throw ApplicationException.createException(ExceptionEnum.VERIFY_ACCOUNT_FAILED, "The remaining number of authentication attempts is: " + (accountVerification.getMaxTry() - total));
+        tokenManager.removeVerifyRegisterCode(userId);
+        user.setActive(true);
+        userService.save(user);
+    }
 
-	@Override
-	public void resendVerifyAccountCode(String email) {
-		var user = userService.findUserByEmail(email);
-		if (user.isActive()) throw ApplicationException.createException(ExceptionEnum.ACTIVATED);
-		var userId = user.getId();
-		var optional = tokenManager.getRegisterCode(userId);
-		if (optional.isPresent()) throw ApplicationException.createException(ExceptionEnum.VERIFICATION_CODE_SENT);
-		var total = tokenManager.getTotalResendRegisterCode(userId);
-		if (total > accountVerification.getMaxResend())
-			throw ApplicationException.createException(ExceptionEnum.VERIFY_EXCEEDED_NUMBER);
-		String opt = OtpUtil.generate(accountVerification.getLength());
-		tokenManager.setRegisterCode(userId, opt);
-		sendMailVerify.sendMailVerifyAccountCode(email, opt);
-	}
+    @Override
+    public void resendVerifyAccountCode(String email) {
+        var user = userService.findUserByEmail(email);
+        if (user.isActive()) throw ApplicationException.createException(ExceptionEnum.ACTIVATED);
+        var userId = user.getId();
+        var optional = tokenManager.getRegisterCode(userId);
+        if (optional.isPresent()) throw ApplicationException.createException(ExceptionEnum.VERIFICATION_CODE_SENT);
+        var total = tokenManager.getTotalResendRegisterCode(userId);
+        if (total > accountVerification.getMaxResend())
+            throw ApplicationException.createException(ExceptionEnum.VERIFY_EXCEEDED_NUMBER);
+        String opt = OtpUtil.generate(accountVerification.getLength());
+        tokenManager.setRegisterCode(userId, opt);
+        sendMailVerify.sendMailVerifyAccountCode(email, opt);
+    }
 
-	@Override
-	public ProfileUserDto login(String accessToken) {
-		var jwtAccessToken = jwtTokenUtil.decodeToken(accessToken);
-		var payload = jwtTokenUtil.getPayload(jwtAccessToken);
-		var userId = payload.getUserId();
-		tokenManager.setAccessTokenId(userId, jwtAccessToken.getId());
-		tokenManager.setRefreshTokenId(userId, payload.getRefreshTokenId());
-		return iProfileCostumerGrpcClient.findById(userId);
-	}
+    @Override
+    public ProfileUserDto login(String accessToken) {
+        var jwtAccessToken = jwtTokenUtil.decodeToken(accessToken);
+        var payload = jwtTokenUtil.getPayload(jwtAccessToken);
+        var userId = payload.getUserId();
+        tokenManager.setAccessTokenId(userId, jwtAccessToken.getId());
+        tokenManager.setRefreshTokenId(userId, payload.getRefreshTokenId());
+        return iProfileCostumerGrpcClient.findById(userId);
+    }
 
-	@Override
-	public void logout(String accessToken) {
-		accessToken = accessToken.substring("Bearer ".length());
-		var jwtAccessToken = jwtTokenUtil.decodeTokenNotVerify(accessToken);
-		var payload = jwtTokenUtil.getPayloadNotVerify(jwtAccessToken);
-		var userId = payload.getUserId();
-		if (!tokenManager.existAccessTokenId(userId, jwtAccessToken.getId())) {
-			return;
-		}
-		tokenManager.addAccessTokenIdInBlackList(userId, jwtAccessToken.getId());
-		tokenManager.addRefreshTokenIdInBlackList(userId, payload.getRefreshTokenId());
-		tokenManager.removeAccessTokenId(userId, jwtAccessToken.getId());
-		tokenManager.removeRefreshTokenId(userId, payload.getRefreshTokenId());
-	}
+    @Override
+    public void logout(String accessToken) {
+        accessToken = accessToken.substring("Bearer ".length());
+        var jwtAccessToken = jwtTokenUtil.decodeTokenNotVerify(accessToken);
+        var payload = jwtTokenUtil.getPayloadNotVerify(jwtAccessToken);
+        var userId = payload.getUserId();
+        if (!tokenManager.existAccessTokenId(userId, jwtAccessToken.getId())) {
+            return;
+        }
+        tokenManager.addAccessTokenIdInBlackList(userId, jwtAccessToken.getId());
+        tokenManager.addRefreshTokenIdInBlackList(userId, payload.getRefreshTokenId());
+        tokenManager.removeAccessTokenId(userId, jwtAccessToken.getId());
+        tokenManager.removeRefreshTokenId(userId, payload.getRefreshTokenId());
+    }
 
-	@Override
-	public void sendResetPasswordCode(String email) {
-		var user = userService.findUserByEmail(email);
-		if (!user.isActive()) {
-			throw ApplicationException.createException(ExceptionEnum.NOT_ACTIVE);
-		}
-		var userId = user.getId();
-		var optional = tokenManager.getResetPasswordCode(userId);
-		if (optional.isPresent()) throw ApplicationException.createException(ExceptionEnum.VERIFICATION_CODE_SENT);
-		var total = tokenManager.getTotalResendResetPasswordCode(userId);
-		if (1 + total > resetPasswordVerification.getMaxResend())
-			throw ApplicationException.createException(ExceptionEnum.VERIFY_EXCEEDED_NUMBER);
+    @Override
+    public void sendResetPasswordCode(String email) {
+        var user = userService.findUserByEmail(email);
+        if (!user.isActive()) {
+            throw ApplicationException.createException(ExceptionEnum.NOT_ACTIVE);
+        }
+        var userId = user.getId();
+        var optional = tokenManager.getResetPasswordCode(userId);
+        if (optional.isPresent()) throw ApplicationException.createException(ExceptionEnum.VERIFICATION_CODE_SENT);
+        var total = tokenManager.getTotalResendResetPasswordCode(userId);
+        if (1 + total > resetPasswordVerification.getMaxResend())
+            throw ApplicationException.createException(ExceptionEnum.VERIFY_EXCEEDED_NUMBER);
 
-		String opt = OtpUtil.generate(resetPasswordVerification.getLength());
-		tokenManager.setResetPasswordCode(userId, opt);
-		sendMailVerify.sendMailResetPasswordCode(email, opt);
-	}
+        String opt = OtpUtil.generate(resetPasswordVerification.getLength());
+        tokenManager.setResetPasswordCode(userId, opt);
+        sendMailVerify.sendMailResetPasswordCode(email, opt);
+    }
 
-	@Override
-	public Jwt verifyResetPasswordCode(String email, String code) {
-		var user = userService.findUserByEmail(email);
-		var userId = user.getId();
-		var optional = tokenManager.getResetPasswordCode(userId);
-		if (optional.isEmpty()) throw ApplicationException.createException(ExceptionEnum.CODE_NOT_FOUND);
-		var total = tokenManager.increaseTotalTryResetPassword(userId);
-		if (total > resetPasswordVerification.getMaxTry())
-			throw ApplicationException.createException(ExceptionEnum.VERIFY_EXCEEDED_NUMBER);
-		if (!code.equals(optional.get()))
-			throw ApplicationException.createException(ExceptionEnum.VERIFY_ACCOUNT_FAILED, "The remaining number of authentication attempts is: " + (accountVerification.getMaxTry() - total));
-		tokenManager.removeResetPasswordCode(userId);
-		return jwtTokenUtil.generateTokenResetPassword(user);
-	}
+    @Override
+    public Jwt verifyResetPasswordCode(String email, String code) {
+        var user = userService.findUserByEmail(email);
+        var userId = user.getId();
+        var optional = tokenManager.getResetPasswordCode(userId);
+        if (optional.isEmpty()) throw ApplicationException.createException(ExceptionEnum.CODE_NOT_FOUND);
+        var total = tokenManager.increaseTotalTryResetPassword(userId);
+        if (total > resetPasswordVerification.getMaxTry())
+            throw ApplicationException.createException(ExceptionEnum.VERIFY_EXCEEDED_NUMBER);
+        if (!code.equals(optional.get()))
+            throw ApplicationException.createException(ExceptionEnum.VERIFY_ACCOUNT_FAILED, "The remaining number of authentication attempts is: " + (accountVerification.getMaxTry() - total));
+        tokenManager.removeResetPasswordCode(userId);
+        return jwtTokenUtil.generateTokenResetPassword(user);
+    }
 
-	@Override
-	public void setNewPassword(SetNewPasswordRequest request) {
-		var jwt = jwtTokenUtil.decodeToken(request.token());
-		var simplePayload = jwtTokenUtil.getSimplePayload(jwt);
-		if (simplePayload.getType() != JwtType.RESET_PASSWORD)
-			throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
-		var check = tokenManager.existTokenResetPasswordInBlacklist(simplePayload.getUserId(), jwt.getId());
-		if (check) throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
-		var user = userService.findUserByEmail(simplePayload.getEmail());
-		user.setPassword(passwordEncoder.encode(request.password()));
-		userService.save(user);
-		tokenManager.addTokenResetPasswordInBlacklist(simplePayload.getUserId(), jwt.getId());
-		tokenManager.setDateTimeChangePassword(simplePayload.getUserId(), LocalDateTime.now());
-	}
+    @Override
+    public void setNewPassword(SetNewPasswordRequest request) {
+        var jwt = jwtTokenUtil.decodeToken(request.token());
+        var simplePayload = jwtTokenUtil.getSimplePayload(jwt);
+        if (simplePayload.getType() != JwtType.RESET_PASSWORD)
+            throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
+        var check = tokenManager.existTokenResetPasswordInBlacklist(simplePayload.getUserId(), jwt.getId());
+        if (check) throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
+        var user = userService.findUserByEmail(simplePayload.getEmail());
+        user.setPassword(passwordEncoder.encode(request.password()));
+        userService.save(user);
+        tokenManager.addTokenResetPasswordInBlacklist(simplePayload.getUserId(), jwt.getId());
+        tokenManager.setDateTimeChangePassword(simplePayload.getUserId(), LocalDateTime.now());
+    }
 
-	@Override
-	public Jwt renewAccessToken(String refreshToken) {
-		var jwt = jwtTokenUtil.decodeTokenNotVerify(refreshToken);
-		var simplePayload = jwtTokenUtil.getSimplePayloadNotVerify(jwt);
-		if (simplePayload.getType() != JwtType.REFRESH_TOKEN)
-			throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
-		if (tokenManager.existRefreshInBlacklist(simplePayload.getUserId(), jwt.getId()))
-			throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
-		var user = userService.findById(simplePayload.getUserId());
-		var token = jwtTokenUtil.generateAccessToken(JWTPayload.generateForAccessToken(user, jwt.getId()));
-		tokenManager.setAccessTokenId(user.getId(), token.getId());
-		return token;
-	}
+    @Override
+    public Jwt renewAccessToken(String refreshToken) {
+        var jwt = jwtTokenUtil.decodeTokenNotVerify(refreshToken);
+        var simplePayload = jwtTokenUtil.getSimplePayloadNotVerify(jwt);
+        if (simplePayload.getType() != JwtType.REFRESH_TOKEN)
+            throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
+        if (tokenManager.existRefreshInBlacklist(simplePayload.getUserId(), jwt.getId()))
+            throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
+        var user = userService.findById(simplePayload.getUserId());
+        var token = jwtTokenUtil.generateAccessToken(JWTPayload.generateForAccessToken(user, jwt.getId()));
+        tokenManager.setAccessTokenId(user.getId(), token.getId());
+        return token;
+    }
 }

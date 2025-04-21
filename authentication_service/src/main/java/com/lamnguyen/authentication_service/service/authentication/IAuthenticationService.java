@@ -15,7 +15,7 @@ import com.lamnguyen.authentication_service.domain.request.SetNewPasswordRequest
 import org.springframework.security.oauth2.jwt.Jwt;
 
 public interface IAuthenticationService {
-    RegisterResponse register(RegisterAccountRequest request);
+    void register(RegisterAccountRequest request);
 
     void verifyAccount(String email, String code);
 

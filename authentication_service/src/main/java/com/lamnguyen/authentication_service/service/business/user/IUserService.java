@@ -8,6 +8,7 @@
 
 package com.lamnguyen.authentication_service.service.business.user;
 
+import com.lamnguyen.authentication_service.config.exception.ApplicationException;
 import com.lamnguyen.authentication_service.model.User;
 
 public interface IUserService {
@@ -19,7 +20,7 @@ public interface IUserService {
 
     User findById(long userId);
 
-	User findByFacebookUserId(String facebookUserId);
+    User findByFacebookUserId(String facebookUserId);
 
-	boolean existsUserByFacebookUserId(String facebookUserId);
+    boolean existsUserByFacebookUserId(String facebookUserId);
 }

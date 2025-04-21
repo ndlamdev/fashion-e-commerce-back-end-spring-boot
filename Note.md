@@ -196,3 +196,17 @@ message HelloReply {
 ### Generate code
 
 \* Lưu ý: Nên clean trước khi build lại dự án
+
+## Cách triển khai 1 server kafka, redis, my-sql từ xa  bằng cloudflared
+
+1. Thiết lập các dịch vụ trước trên các máy tính từ xa
+2. Tải và cài đặt cloudflared trên máy tính host [window](https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-windows-amd64.msi)
+3. install service bằng lệnh  `cloudflared service install <key>`; Kiềm key này bằng cách tạo 1 tunnel và tìm kiếm trong phần hướng dẫn trong lúc tạo tunnel
+4. Chạy lệnh `cloudflared login`
+5. Chạy lệnh tạo tunnel `cloudflared tunnel create <ten_tunnel_muon_tao>`; Lệnh kiểm tra danh dách tunnel `clouflared tunnel list`
+6. Chạy tunnel `cloudflared tunnel run <ten_tunnel_da_tao>`
+7. Truy cập trang web quản lý tunnel của cloudflare
+8. Chọn tunnel bạn vừa tạo
+9. Chon migration file cấu hình tunnel
+10. Tạo 1 public hostname đến máy tính và port của bạn với giao thức tcp
+11. Trên máy tính host, dừng và chạy lại lệnh run tunnel

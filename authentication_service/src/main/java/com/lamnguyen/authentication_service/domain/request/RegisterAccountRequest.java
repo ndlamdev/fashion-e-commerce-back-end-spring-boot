@@ -14,34 +14,34 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
-@SuperBuilder
+@Builder
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PROTECTED)
 @FieldsValueMatch(field = "password", fieldMatch = "confirmPassword", message = "Password and confirmPassword not match")
 public class RegisterAccountRequest {
-        @NotBlank
-        @Email
-        String email;
-        @NotBlank
-        @Size(min = 8, message = "Password must be at least 8 characters long")
-        @Pattern(regexp = ".*[a-z].*", message = "Password must contain at least one uppercase letter")
-        @Pattern(regexp = ".*[A-Z].*", message = "Password must contain at least one lowercase letter")
-        @Pattern(regexp = ".*[0-9].*", message = "Password must contain at least one digit")
-        @Pattern(regexp = ".*[@$!%*?&].*", message = "Password must contain at least one special character (@$!%*?&)")
-        String password;
-        @NotBlank
-        @JsonProperty("confirm-password")
-        String confirmPassword;
-        @NotBlank
-        @JsonProperty("full-fullName")
-        String fullName;
-        @NotBlank
-        String phone;
+    @NotBlank
+    @Email
+    String email;
+    @NotBlank
+    @Size(min = 8, message = "Password must be at least 8 characters long")
+    @Pattern(regexp = ".*[a-z].*", message = "Password must contain at least one uppercase letter")
+    @Pattern(regexp = ".*[A-Z].*", message = "Password must contain at least one lowercase letter")
+    @Pattern(regexp = ".*[0-9].*", message = "Password must contain at least one digit")
+    @Pattern(regexp = ".*[@$!%*?&].*", message = "Password must contain at least one special character (@$!%*?&)")
+    String password;
+    @NotBlank
+    @JsonProperty("confirm-password")
+    String confirmPassword;
+    @NotBlank
+    @JsonProperty("full-name")
+    String fullName;
+    @NotBlank
+    String phone;
 }
