@@ -48,8 +48,6 @@ public interface IRedisManager {
 
     int getTotalResendResetPasswordCode(long userId);
 
-    String getApiName(String path, String method);
-
     boolean existTokenResetPasswordInBlacklist(long userId, String tokenId);
 
     void addTokenResetPasswordInBlacklist(long userId, String tokenId);

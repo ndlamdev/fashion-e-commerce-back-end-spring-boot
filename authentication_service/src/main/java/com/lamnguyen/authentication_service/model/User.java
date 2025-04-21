@@ -30,7 +30,7 @@ public class User extends BaseEntity {
 
     String password;
 
-    long facebookUserId;
+    String facebookUserId;
 
     @Column(columnDefinition = "bit default false")
     boolean active;

@@ -11,6 +11,7 @@ package com.lamnguyen.authentication_service.utils.helper;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lamnguyen.authentication_service.domain.dto.FacebookPayloadDto;
 import com.lamnguyen.authentication_service.domain.dto.GooglePayloadDto;
 import com.lamnguyen.authentication_service.model.JWTPayload;
 import com.lamnguyen.authentication_service.model.SimplePayload;
@@ -126,18 +127,18 @@ public class JwtTokenUtil {
         return objectMapper.convertValue(JWT.decode(token).getClaim(applicationProperty.getJwtClaim()), GooglePayloadDto.class);
     }
 
-    public Jwt generateRegisterWithFacebookUserId(long facebookUserId) {
+    public Jwt generateRegisterToken(FacebookPayloadDto facebookPayloadDto) {
         var now = LocalDateTime.now().toInstant(ZoneOffset.UTC);
         return jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader, JwtClaimsSet.builder()
                 .id(UUID.randomUUID().toString())
                 .issuer(applicationProperty.getJwtIss())
                 .issuedAt(now)
-                .claim(applicationProperty.getJwtClaim(), facebookUserId)
+                .claim(applicationProperty.getJwtClaim(), facebookPayloadDto)
                 .expiresAt(now.plus(applicationProperty.getExpireRegisterToken(), ChronoUnit.MINUTES))
                 .build()));
     }
 
-    public long getFacebookUserIdNotVerify(String token) {
-        return objectMapper.convertValue(JWT.decode(token).getClaim(applicationProperty.getJwtClaim()), long.class);
+    public FacebookPayloadDto getFacebookPayloadDtoNotVerify(String token) {
+        return objectMapper.convertValue(JWT.decode(token).getClaim(applicationProperty.getJwtClaim()), FacebookPayloadDto.class);
     }
 }

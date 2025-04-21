@@ -140,12 +140,6 @@ public class RedisManagerImpl implements IRedisManager {
 		return value == null ? 0 : (int) value;
 	}
 
-
-	@Override
-	public String getApiName(String path, String method) {
-		return (String) redisTemplate.opsForValue().get(path + "_" + method);
-	}
-
 	public Optional<String> getValue(String prop, long userId, String... others) {
 		var value = redisTemplate.opsForValue().get(generateKey(prop, userId, others));
 		return value != null ? Optional.of(value.toString()) : Optional.empty();

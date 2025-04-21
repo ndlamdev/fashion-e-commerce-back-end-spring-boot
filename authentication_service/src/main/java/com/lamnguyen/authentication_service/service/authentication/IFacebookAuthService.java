@@ -10,7 +10,6 @@ package com.lamnguyen.authentication_service.service.authentication;
 
 import com.lamnguyen.authentication_service.domain.dto.LoginSuccessDto;
 import com.lamnguyen.authentication_service.domain.request.RegisterAccountWithFacebookRequest;
-import com.lamnguyen.authentication_service.domain.request.RegisterAccountWithGoogleRequest;
 
 public interface IFacebookAuthService {
 

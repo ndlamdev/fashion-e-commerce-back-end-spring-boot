@@ -93,10 +93,10 @@ public class ApplicationProperty {
     @Value("${application.facebook.app_secret}")
     String appSecretFacebook;
 
-    @Value("application.token.register.expire")
-    long expireRegisterToken;
-    @Value("application.token.register.google.key")
+    @Value("${application.token.register.expire}")
+    int expireRegisterToken;
+    @Value("${application.token.register.google.key}")
     String keyRegisterTokenUsingFacebook;
-    @Value("application.token.register.facebook.key")
+    @Value("${application.token.register.facebook.key}")
     String keyRegisterTokenUsingGoogle;
 }

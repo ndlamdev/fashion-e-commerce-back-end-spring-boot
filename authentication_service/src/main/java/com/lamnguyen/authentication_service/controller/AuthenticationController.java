@@ -139,7 +139,7 @@ public class AuthenticationController {
 
 	@PostMapping("/facebook/login")
 	@ApiMessageResponse("Login google success")
-	public LoginSuccessResponse loginWithFacebook(@RequestBody AccessTokenRequest request) throws IOException, GeneralSecurityException {
+	public LoginSuccessResponse loginWithFacebook(@RequestBody AccessTokenRequest request) {
 		facebookAuthService.login(request.accessToken());
 		return LoginSuccessResponse.builder()
 				.user(null)

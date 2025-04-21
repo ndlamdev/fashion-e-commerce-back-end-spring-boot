@@ -19,7 +19,7 @@ public interface IUserService {
 
     User findById(long userId);
 
-	User findByFacebookUserId(long facebookUserId);
+	User findByFacebookUserId(String facebookUserId);
 
-	boolean existsUserByFacebookUserId(long facebookUserId);
+	boolean existsUserByFacebookUserId(String facebookUserId);
 }

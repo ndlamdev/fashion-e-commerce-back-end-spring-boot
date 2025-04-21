@@ -22,6 +22,9 @@ public interface IFacebookGraphClient {
 	@GetMapping(value = "/oauth/access_token?grant_type=fb_exchange_token")
 	ExchangeTokenResponse exchangeToken(@RequestParam("client_id") String appId, @RequestParam("client_secret") String appSecret, @RequestParam("fb_exchange_token") String token);
 
+	@GetMapping(value = "/me?fields=id%2Cname%2Cemail%2Cfirst_name%2Clast_name%2Cpicture%2Clocale%2Ctimezone")
+	ProfileUserFacebookResponse getProfile(@RequestParam("access_token") String accessToken);
+
 	record DebugTokenResponse(
 			DataDebugTokenResponse data
 	) {
@@ -37,11 +40,10 @@ public interface IFacebookGraphClient {
 				@JsonProperty("is_valid")
 				boolean valid,
 				@JsonProperty("user_id")
-				long userId,
+				String userId,
 				String[] scopes
 		) {
 		}
-
 	}
 
 	record ExchangeTokenResponse(
@@ -52,5 +54,29 @@ public interface IFacebookGraphClient {
 			@JsonProperty("expires_in")
 			long expiresIn
 	) {
+	}
+
+	record ProfileUserFacebookResponse(
+			String id,
+			String name,
+			@JsonProperty("first_name")
+			String firstName,
+			@JsonProperty("last_name")
+			String lastName,
+			@JsonProperty("picture")
+			Picture avatar
+	) {
+		public record Picture(
+				PictureData data
+		) {
+			public record PictureData(
+					double height,
+					double width,
+					@JsonProperty("is_silhouette")
+					boolean isSilhouette,
+					String url
+			) {
+			}
+		}
 	}
 }

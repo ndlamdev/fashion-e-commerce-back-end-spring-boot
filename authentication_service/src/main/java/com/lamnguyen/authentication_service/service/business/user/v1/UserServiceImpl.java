@@ -45,12 +45,12 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User findByFacebookUserId(long facebookId) {
-        return userRepository.findByFacebookId(facebookId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND));
+    public User findByFacebookUserId(String facebookId) {
+        return userRepository.findByFacebookUserId(facebookId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND));
     }
 
     @Override
-    public boolean existsUserByFacebookUserId(long facebookUserId) {
-        return userRepository.existsUserByFacebookUserId(facebookUserId);;
+    public boolean existsUserByFacebookUserId(String facebookUserId) {
+        return userRepository.existsUserByFacebookUserId(facebookUserId);
     }
 }

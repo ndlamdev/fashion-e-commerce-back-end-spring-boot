@@ -63,7 +63,10 @@ public class FacebookAuthServiceImpl implements IFacebookAuthService {
 
 			return new LoginSuccessDto(user.getEmail(), accessToken.getTokenValue(), refreshToken.getTokenValue());
 		} catch (Exception e) {
-			var token = jwtTokenUtil.generateRegisterWithFacebookUserId(debugTokenResponse.data().userId());
+			var profileUser = facebookGraphClient.getProfile(accessTokenStr);
+			System.out.println(profileUser);
+			var payload = profileUserMapper.toFacebookPayloadDto(profileUser);
+			var token = jwtTokenUtil.generateRegisterToken(payload);
 			throw ApplicationException.createException(ExceptionEnum.REQUIRE_REGISTER, new RegisterTokenResponse(token.getTokenValue()));
 		}
 	}
@@ -90,7 +93,7 @@ public class FacebookAuthServiceImpl implements IFacebookAuthService {
 		}
 
 		var jwt = jwtTokenUtil.decodeTokenNotVerify(request.getToken());
-
+		var payload = jwtTokenUtil.getFacebookPayloadDtoNotVerify(request.getToken());
 		var user = userMapper.toUser(request);
 		user.setPassword(passwordEncoder.encode(request.getPassword()));
 		user.setActive(true);
@@ -103,6 +106,8 @@ public class FacebookAuthServiceImpl implements IFacebookAuthService {
 
 		var profileUser = profileUserMapper.toUserDetail(request);
 		profileUser.setUserId(userId);
+		profileUser.setFullName(payload.name());
+		profileUser.setAvatar(payload.avatar());
 		profileUserService.save(profileUser);
 		tokenManager.setRegisterTokenIdUsingFacebook(jwt.getId());
 	}
@@ -113,8 +118,8 @@ public class FacebookAuthServiceImpl implements IFacebookAuthService {
 			throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
 		}
 
-		var facebookUserId = jwtTokenUtil.getFacebookUserIdNotVerify(request.getToken());
-		if (userService.existsUserByFacebookUserId(facebookUserId))
+		var payload = jwtTokenUtil.getFacebookPayloadDtoNotVerify(request.getToken());
+		if (userService.existsUserByFacebookUserId(payload.id()))
 			throw ApplicationException.createException(ExceptionEnum.USER_EXIST);
 
 		try {

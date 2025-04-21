@@ -21,7 +21,6 @@ import com.lamnguyen.authentication_service.service.authentication.IGoogleAuthSe
 import com.lamnguyen.authentication_service.service.authentication.IRedisManager;
 import com.lamnguyen.authentication_service.service.business.user.IProfileUserService;
 import com.lamnguyen.authentication_service.service.business.user.IUserService;
-import com.lamnguyen.authentication_service.service.mail.ISendMailService;
 import com.lamnguyen.authentication_service.utils.helper.JwtTokenUtil;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -46,7 +45,6 @@ public class GoogleAuthServiceImpl implements IGoogleAuthService {
 	GoogleAuthorizationCodeTokenRequest googleAuthorizationCodeTokenRequest;
 	IRoleOfUserRepository roleOfUserRepository;
 	IRedisManager tokenManager;
-	ISendMailService sendMailService;
 
 	public GoogleTokenResponse verifyGoogleAuthCode(String authCode) {
 		try {
@@ -58,7 +56,7 @@ public class GoogleAuthServiceImpl implements IGoogleAuthService {
 
 	@Override
 	public GoogleIdToken.Payload getPayload(String idTokenString) {
-		GoogleIdToken idToken = null;
+		GoogleIdToken idToken;
 		try {
 			idToken = googleIdTokenVerifier.verify(idTokenString);
 		} catch (GeneralSecurityException | IOException | IllegalArgumentException e) {
@@ -72,7 +70,7 @@ public class GoogleAuthServiceImpl implements IGoogleAuthService {
 	public LoginSuccessDto login(String authCode) {
 		var response = verifyGoogleAuthCode(authCode);
 		var payload = getPayload(response.getIdToken());
-		User user = null;
+		User user;
 		try {
 			user = userService.findUserByEmail(payload.getEmail());
 		} catch (Exception e) {
