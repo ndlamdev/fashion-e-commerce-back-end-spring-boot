@@ -9,7 +9,10 @@
 package com.lamnguyen.authentication_service.service.business.user;
 
 import com.lamnguyen.authentication_service.event.SaveProfileUserEvent;
+import com.lamnguyen.authentication_service.event.UpdateAvatarUserEvent;
 
 public interface IProfileUserService {
     void save(SaveProfileUserEvent user);
+
+    void updateAvatar(UpdateAvatarUserEvent event);
 }

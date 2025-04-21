@@ -13,6 +13,7 @@ import com.lamnguyen.authentication_service.config.exception.ExceptionEnum;
 import com.lamnguyen.authentication_service.domain.dto.LoginSuccessDto;
 import com.lamnguyen.authentication_service.domain.reponse.RegisterTokenResponse;
 import com.lamnguyen.authentication_service.domain.request.RegisterAccountWithFacebookRequest;
+import com.lamnguyen.authentication_service.event.UpdateAvatarUserEvent;
 import com.lamnguyen.authentication_service.mapper.IProfileUserMapper;
 import com.lamnguyen.authentication_service.mapper.IUserMapper;
 import com.lamnguyen.authentication_service.model.JWTPayload;
@@ -67,6 +68,7 @@ public class FacebookAuthServiceImpl implements IFacebookAuthService {
             System.out.println(profileUser);
             var payload = profileUserMapper.toFacebookPayloadDto(profileUser);
             var token = jwtTokenUtil.generateRegisterToken(payload);
+            tokenManager.setAccessTokenFacebook(accessTokenStr);
             throw ApplicationException.createException(ExceptionEnum.REQUIRE_REGISTER, new RegisterTokenResponse(token.getTokenValue()));
         }
     }
@@ -88,15 +90,14 @@ public class FacebookAuthServiceImpl implements IFacebookAuthService {
 
     @Override
     public void register(RegisterAccountWithFacebookRequest request) {
-        if (!preprocessDataRegister(request)) {
-            return;
-        }
+        preprocessDataRegister(request);
 
         var jwt = jwtTokenUtil.decodeTokenNotVerify(request.getToken());
         var payload = jwtTokenUtil.getFacebookPayloadDtoNotVerify(request.getToken());
         var user = userMapper.toUser(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setActive(true);
+        user.setFacebookUserId(payload.id());
         User userSaved = userService.save(user);
 
         var userId = userSaved.getId();
@@ -112,7 +113,7 @@ public class FacebookAuthServiceImpl implements IFacebookAuthService {
         tokenManager.setRegisterTokenIdUsingFacebook(jwt.getId());
     }
 
-    private boolean preprocessDataRegister(RegisterAccountWithFacebookRequest request) {
+    private void preprocessDataRegister(RegisterAccountWithFacebookRequest request) {
         var jwt = jwtTokenUtil.decodeToken(request.getToken());
         if (tokenManager.existRegisterTokenIdUsingFacebook(jwt.getId())) {
             throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
@@ -121,19 +122,19 @@ public class FacebookAuthServiceImpl implements IFacebookAuthService {
         var payload = jwtTokenUtil.getFacebookPayloadDtoNotVerify(request.getToken());
         if (userService.existsUserByFacebookUserId(payload.id()))
             throw ApplicationException.createException(ExceptionEnum.USER_EXIST);
-        User oldUser = null;
+        User oldUser;
         try {
             oldUser = userService.findUserByEmail(request.getEmail());
         } catch (Exception ignored) {
-            return true;
-        }
-
-        if (oldUser.isActive()) {
-            throw ApplicationException.createException(ExceptionEnum.USER_EXIST);
+            return;
         }
 
         oldUser.setActive(true);
+        oldUser.setFacebookUserId(payload.id());
         userService.save(oldUser);
-        return false;
+        var updateAvatarUserEvent = UpdateAvatarUserEvent.builder().avatar(payload.avatar()).userId(oldUser.getId()).build();
+        profileUserService.updateAvatar(updateAvatarUserEvent);
+        tokenManager.setRegisterTokenIdUsingFacebook(jwt.getId());
+        throw ApplicationException.createException(ExceptionEnum.ACCOUNT_NOT_LINK, "Your account has been linked to email " + request.getEmail());
     }
 }

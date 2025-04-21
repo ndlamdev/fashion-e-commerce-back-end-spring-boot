@@ -9,6 +9,7 @@
 package com.lamnguyen.authentication_service.controller;
 
 import com.lamnguyen.authentication_service.domain.GoogleAuthRequest;
+import com.lamnguyen.authentication_service.domain.dto.LoginSuccessDto;
 import com.lamnguyen.authentication_service.domain.reponse.LoginSuccessResponse;
 import com.lamnguyen.authentication_service.domain.reponse.TokenResponse;
 import com.lamnguyen.authentication_service.domain.request.*;
@@ -57,7 +58,7 @@ public class AuthenticationController {
     @PostMapping("/register")
     @ApiMessageResponse("Register success")
     public void register(@Valid @RequestBody RegisterAccountRequest request) {
-         authenticationService.register(request);
+        authenticationService.register(request);
     }
 
     @PostMapping("/verify")
@@ -117,18 +118,9 @@ public class AuthenticationController {
 
     @PostMapping("/google/login")
     @ApiMessageResponse("Login using google success")
-    public LoginSuccessResponse loginWithGoogle(@Valid @RequestBody GoogleAuthRequest request, HttpServletResponse response) throws IOException, GeneralSecurityException {
+    public LoginSuccessResponse loginWithGoogle(@Valid @RequestBody GoogleAuthRequest request, HttpServletResponse response) {
         var token = googleAuthService.login(request.authCode());
-        var user = authenticationService.login(token.accessToken());
-        Cookie refestTokenCookie = new Cookie(applicationProperty.getKeyRefreshToken(), token.refreshToken());
-        refestTokenCookie.setMaxAge(applicationProperty.getExpireRefreshToken() * 60000);
-        refestTokenCookie.setHttpOnly(true);
-        refestTokenCookie.setSecure(true);
-        response.addCookie(refestTokenCookie);
-        return LoginSuccessResponse.builder()
-                .user(user)
-                .accessToken(token.accessToken())
-                .build();
+        return getLoginSuccessResponse(response, token);
     }
 
     @PostMapping("/google/register")
@@ -139,11 +131,27 @@ public class AuthenticationController {
 
     @PostMapping("/facebook/login")
     @ApiMessageResponse("Login using facebook success")
-    public LoginSuccessResponse loginWithFacebook(@RequestBody AccessTokenRequest request) {
-        facebookAuthService.login(request.accessToken());
+    public LoginSuccessResponse loginWithFacebook(@RequestBody AccessTokenRequest request, HttpServletResponse response) {
+        var token = facebookAuthService.login(request.accessToken());
+        return getLoginSuccessResponse(response, token);
+    }
+
+    @PostMapping("/facebook/register")
+    @ApiMessageResponse("Register with facebook success")
+    public void registerWithFacebook(@RequestBody RegisterAccountWithFacebookRequest request) {
+        facebookAuthService.register(request);
+    }
+
+    private LoginSuccessResponse getLoginSuccessResponse(HttpServletResponse response, LoginSuccessDto token) {
+        var user = authenticationService.login(token.accessToken());
+        Cookie refestTokenCookie = new Cookie(applicationProperty.getKeyRefreshToken(), token.refreshToken());
+        refestTokenCookie.setMaxAge(applicationProperty.getExpireRefreshToken() * 60000);
+        refestTokenCookie.setHttpOnly(true);
+        refestTokenCookie.setSecure(true);
+        response.addCookie(refestTokenCookie);
         return LoginSuccessResponse.builder()
-                .user(null)
-                .accessToken("")
+                .user(user)
+                .accessToken(token.accessToken())
                 .build();
     }
 }

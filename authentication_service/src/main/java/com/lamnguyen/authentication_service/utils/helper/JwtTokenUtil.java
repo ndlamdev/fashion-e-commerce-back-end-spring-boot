@@ -146,7 +146,7 @@ public class JwtTokenUtil {
     }
 
     public FacebookPayloadDto getFacebookPayloadDtoNotVerify(String token) {
-        var claims = JWT.decode(token).getClaim(applicationProperty.getJwtClaim());
+        var claims = JWT.decode(token).getClaim(applicationProperty.getJwtClaim()).asMap();
         return objectMapper.convertValue(claims, FacebookPayloadDto.class);
     }
 }

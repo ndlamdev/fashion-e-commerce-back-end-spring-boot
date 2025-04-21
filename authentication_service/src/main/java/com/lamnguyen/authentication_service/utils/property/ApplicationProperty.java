@@ -95,8 +95,8 @@ public class ApplicationProperty {
 
     @Value("${application.token.register.expire}")
     int expireRegisterToken;
-    @Value("${application.token.register.google.key}")
-    String keyRegisterTokenUsingFacebook;
     @Value("${application.token.register.facebook.key}")
+    String keyRegisterTokenUsingFacebook;
+    @Value("${application.token.register.google.key}")
     String keyRegisterTokenUsingGoogle;
 }

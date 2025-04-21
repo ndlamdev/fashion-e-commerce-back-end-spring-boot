@@ -1,7 +1,10 @@
 package com.lamnguyen.profile_service.service.business.consumer;
 
+import com.lamnguyen.profile_service.config.exception.ApplicationException;
+import com.lamnguyen.profile_service.config.exception.ExceptionEnum;
 import com.lamnguyen.profile_service.mapper.ICustomerMapper;
 import com.lamnguyen.profile_service.message.SaveProfileUserMessage;
+import com.lamnguyen.profile_service.message.UpdateAvatarUserMessage;
 import com.lamnguyen.profile_service.repository.ICustomerRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -28,13 +31,13 @@ public class CustomerConsumerImpl {
     ICustomerRepository customerRepository;
     ICustomerMapper mapper;
 
-    @KafkaListener(topics = "save-user-detail", groupId = "user-detail")
+    @KafkaListener(topics = "save-profile", groupId = "profile-user")
     @RetryableTopic(
             backoff = @Backoff(value = 3000L),
             attempts = "5",
             include = ApiException.class)
     public void saveUserDetail(SaveProfileUserMessage message) {
-        log.info("Consuming the message from save-user-detail Topic:: {}", message);
+        log.info("Consuming the message from save-profile Topic: {}", message);
         createAnonymousAuthentication(message.getEmail());
         customerRepository.save(mapper.toCustomer(message));
     }
@@ -43,5 +46,19 @@ public class CustomerConsumerImpl {
         var context = SecurityContextHolder.getContext();
         var roles = List.of(new SimpleGrantedAuthority("ROLE_ANONYMOUS"));
         context.setAuthentication(new AnonymousAuthenticationToken(Uuid.randomUuid().toString(), new User(email, "", roles), roles));
+    }
+
+    @KafkaListener(topics = "update-avatar-user", groupId = "profile-user")
+    @RetryableTopic(
+            backoff = @Backoff(value = 3000L),
+            attempts = "5",
+            include = ApiException.class)
+    public void updateAvatarUser(UpdateAvatarUserMessage message) {
+        log.info("Consuming the message from update-avatar-user: {}", message);
+        var profile = customerRepository.findByUserId(message.getUserId()).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_EXIST));
+        createAnonymousAuthentication(profile.getEmail());
+        if (profile.getAvatar() != null) return;
+        profile.setAvatar(message.getAvatar());
+        customerRepository.save(profile);
     }
 }
