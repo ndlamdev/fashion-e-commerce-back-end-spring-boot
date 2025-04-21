@@ -18,9 +18,11 @@ import com.lamnguyen.authentication_service.model.RoleOfUser;
 import com.lamnguyen.authentication_service.model.User;
 import com.lamnguyen.authentication_service.repository.IRoleOfUserRepository;
 import com.lamnguyen.authentication_service.service.authentication.IGoogleAuthService;
-import com.lamnguyen.authentication_service.service.business.user.IUserDetailService;
+import com.lamnguyen.authentication_service.service.authentication.IRedisManager;
+import com.lamnguyen.authentication_service.service.business.user.IProfileUserService;
 import com.lamnguyen.authentication_service.service.business.user.IUserService;
-import com.lamnguyen.authentication_service.util.JwtTokenUtil;
+import com.lamnguyen.authentication_service.service.mail.ISendMailService;
+import com.lamnguyen.authentication_service.utils.helper.JwtTokenUtil;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -40,9 +42,11 @@ public class GoogleAuthServiceImpl implements IGoogleAuthService {
 	IUserMapper userMapper;
 	PasswordEncoder passwordEncoder;
 	IProfileUserMapper userDetailMapper;
-	IUserDetailService userDetailService;
+	IProfileUserService userDetailService;
 	GoogleAuthorizationCodeTokenRequest googleAuthorizationCodeTokenRequest;
 	IRoleOfUserRepository roleOfUserRepository;
+	IRedisManager tokenManager;
+	ISendMailService sendMailService;
 
 	public GoogleTokenResponse verifyGoogleAuthCode(String authCode) {
 		try {
@@ -86,10 +90,13 @@ public class GoogleAuthServiceImpl implements IGoogleAuthService {
 
 	@Override
 	public void register(RegisterAccountWithGoogleRequest request) {
-		var payload = jwtTokenUtil.getGooglePayloadDto(request.token());
-		if (userService.existsUserByEmail(payload.email())) {
-			throw ApplicationException.createException(ExceptionEnum.USER_EXIST);
+		if (!checkRegisterToken(request.token())) {
+			return;
 		}
+
+		var jwt = jwtTokenUtil.decodeTokenNotVerify(request.token());
+		var payload = jwtTokenUtil.getGooglePayloadDtoNotVerify(request.token());
+
 		var user = userMapper.toUser(request);
 		user.setEmail(payload.email());
 		user.setPassword(passwordEncoder.encode(request.password()));
@@ -102,5 +109,29 @@ public class GoogleAuthServiceImpl implements IGoogleAuthService {
 		userDetail.setUserId(userSaved.getId());
 		userDetail.setPhone(request.phone());
 		userDetailService.save(userDetail);
+		tokenManager.setRegisterTokenIdUsingGoogle(jwt.getId());
+	}
+
+	private boolean checkRegisterToken(String token) {
+		var jwt = jwtTokenUtil.decodeToken(token);
+
+		if (tokenManager.existRegisterTokenIdUsingGoogle(jwt.getId())) {
+			throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
+		}
+
+		var payload = jwtTokenUtil.getGooglePayloadDtoNotVerify(token);
+
+		try {
+			User oldUser = userService.findUserByEmail(payload.email());
+			if (oldUser.isActive()) {
+				throw ApplicationException.createException(ExceptionEnum.USER_EXIST);
+			}
+
+			oldUser.setActive(true);
+			userService.save(oldUser);
+			return false;
+		} catch (Exception ignored) {
+			return true;
+		}
 	}
 }
