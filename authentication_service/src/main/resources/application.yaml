@@ -9,9 +9,3 @@ spring:
     config:
       username: ${CONFIG_USERNAME:}
       password: ${CONFIG_PASSWORD:}
-
-grpc:
-  client:
-    fashion-e-commerce-profile-service:
-      enableKeepAlive: true
-      negotiationType: plaintext
