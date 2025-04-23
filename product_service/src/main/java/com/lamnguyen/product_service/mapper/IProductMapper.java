@@ -2,7 +2,7 @@
  * Author: Nguyen Dinh Lam
  * Email: kiminonawa1305@gmail.com
  * Phone number: +84 855354919
- * Create at: 1:55 PM - 09/04/2025
+ * Create at: 1:55 PM-09/04/2025
  * User: kimin
  **/
 
@@ -19,16 +19,20 @@ import org.mapstruct.Named;
 import java.text.Normalizer;
 import java.util.regex.Pattern;
 
-@Mapper(componentModel = "spring", uses = {IVariantMapper.class})
+@Mapper(componentModel = "spring", uses = {IImageOptionsValueMapper.class, ICollectionMapper.class, IImageMapper.class})
 public interface IProductMapper {
 	@Mapping(source = "collection", target = "collection", qualifiedByName = "toCollection")
 	@Mapping(source = "title", target = "seoAlias", qualifiedByName = "toSeoAlias")
 	Product toProduct(CreateProductRequest request);
 
 	@Mapping(source = "collection.id", target = "collection")
+	@Mapping(source = "iconThumbnail", target = "iconThumbnail", ignore = true)
+	@Mapping(source = "images", target = "images", ignore = true)
 	ProductDto toProductDto(Product product);
 
-	@Mapping(source = "collection", target = "collection", qualifiedByName = "toCollection")
+	@Mapping(source = "iconThumbnail", target = "iconThumbnail", qualifiedByName = "toImageId")
+	@Mapping(source = "images", target = "images", qualifiedByName = "toImageId")
+	@Mapping(source = "collection", target = "collection.id")
 	Product toProduct(ProductDto dto);
 
 	@Named("toCollection")

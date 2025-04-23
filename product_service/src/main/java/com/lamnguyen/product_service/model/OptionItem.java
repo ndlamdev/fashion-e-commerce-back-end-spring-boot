@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import java.util.List;
 
@@ -19,6 +18,5 @@ public class OptionItem {
 	String title; // Xanh nhạt
 	String slug; // xanh-nhat
 	String label;
-	@DocumentReference(lazy = true)
-	List<Image> images;
+	List<String> images;
 }

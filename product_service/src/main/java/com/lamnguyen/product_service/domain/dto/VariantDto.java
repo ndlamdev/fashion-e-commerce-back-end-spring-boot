@@ -1,7 +1,7 @@
 package com.lamnguyen.product_service.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.lamnguyen.product_service.model.MongoBaseEntity;
+import com.lamnguyen.product_service.model.MongoBaseDocument;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import java.io.Serializable;
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class VariantDto extends MongoBaseEntity implements Serializable {
+public class VariantDto extends MongoBaseDocument implements Serializable {
 	@JsonProperty("product_id")
 	String productId;
 

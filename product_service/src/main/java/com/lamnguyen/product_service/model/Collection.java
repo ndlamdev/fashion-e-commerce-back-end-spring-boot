@@ -22,7 +22,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document("collections")
-public class Collection extends MongoBaseEntity  {
+public class Collection extends MongoBaseDocument {
 	String title;
 
 	@DocumentReference(lazy = true)

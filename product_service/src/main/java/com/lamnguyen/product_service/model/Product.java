@@ -27,7 +27,7 @@ import java.util.List;
 @Setter
 @Document(collection = "products")
 @CompareAmountImageOptionsValue
-public class Product extends MongoBaseEntity {
+public class Product extends MongoBaseDocument {
 	String title;
 
 	@Field("seo_alias")
@@ -42,7 +42,7 @@ public class Product extends MongoBaseEntity {
 	@Field("options_values")
 	List<ImageOptionsValue> optionsValues; // Nếu các option có các giá trị riêng của nó thì dùng trường này. Ví dụ như các option liên quan đến màu thì cần dùng cái này để lưu hình ảnh sản phẩm theo màu đó.
 
-	List<Image> images; // Hình ảnh để show card
+	List<String> images; // Hình ảnh để show card
 
 	@Builder.Default
 	boolean available = true; // Có khả dụng hay không
@@ -63,16 +63,12 @@ public class Product extends MongoBaseEntity {
 	@Field("display_name_open")
 	String displayNameOpen; // Subtitle, hiển thị ở dưới title trong chi tiết sản phẩm
 
-	@DocumentReference
-	List<Variant> variants; // Các biến thể. Phải được tạo ra từ các OptionValue của bản phẩm
-
 	Discount discount; // Khuyến mãi
 
 	@Field("gender_type")
 	GenderType genderType; // Dòng sản phẩm của nam hay nữ
 
 	@Field("icon_thumbnail")
-	@DocumentReference(lazy = true)
-	Image iconThumbnail; // Hình minh họa khuyến mãi
+	String iconThumbnail; // Hình minh họa khuyến mãi
 }
 

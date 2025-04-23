@@ -8,7 +8,7 @@
 
 package com.lamnguyen.product_service.domain.dto;
 
-import com.lamnguyen.product_service.model.MongoBaseEntity;
+import com.lamnguyen.product_service.model.MongoBaseDocument;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +23,6 @@ import java.io.Serializable;
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class ImageDto extends MongoBaseEntity implements Serializable {
+public class ImageDto extends MongoBaseDocument implements Serializable {
 	String src;
 }

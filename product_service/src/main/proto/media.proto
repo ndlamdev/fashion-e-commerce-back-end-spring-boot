@@ -12,7 +12,7 @@ service MediaCheckedService {
 }
 
 message ImageCodeRequest {
-  int64 image_id = 1; // mã hình ảnh
+  string image_id = 1; // mã hình ảnh
 }
 
 message ImageExistsResponse {

@@ -18,5 +18,5 @@ public class ImageOptionsValueDto implements Serializable {
 
 	OptionType option;
 
-	List<OptionItemDto> images;
+	List<OptionItemDto> options;
 }

@@ -10,8 +10,7 @@ package com.lamnguyen.product_service.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lamnguyen.product_service.model.Discount;
-import com.lamnguyen.product_service.model.Image;
-import com.lamnguyen.product_service.model.MongoBaseEntity;
+import com.lamnguyen.product_service.model.MongoBaseDocument;
 import com.lamnguyen.product_service.utils.enums.GenderType;
 import com.lamnguyen.product_service.utils.enums.ProductTag;
 import lombok.*;
@@ -26,7 +25,7 @@ import java.util.List;
 @Getter
 @Setter
 @SuperBuilder
-public class ProductDto extends MongoBaseEntity implements Serializable {
+public class ProductDto extends MongoBaseDocument implements Serializable {
 	String title;
 
 	@JsonProperty("seo_alias")
@@ -41,7 +40,7 @@ public class ProductDto extends MongoBaseEntity implements Serializable {
 	@JsonProperty("options_value")
 	List<ImageOptionsValueDto> optionsValues; // Các option có giá trị riêng thì dùng trường này.
 
-	List<Image> images; // Hình ảnh để show card
+	List<ImageDto> images; // Hình ảnh để show card
 
 	@Builder.Default
 	boolean available = true; // Có khả dụng hay không

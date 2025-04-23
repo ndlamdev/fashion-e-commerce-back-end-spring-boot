@@ -9,7 +9,7 @@
 package com.lamnguyen.product_service.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.lamnguyen.product_service.model.MongoBaseEntity;
+import com.lamnguyen.product_service.model.MongoBaseDocument;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
@@ -24,7 +24,7 @@ import java.util.Set;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CollectionSaveRedisDto extends MongoBaseEntity implements Serializable {
+public class CollectionSaveRedisDto extends MongoBaseDocument implements Serializable {
 	String id;
 	String title;
 	Set<String> products;

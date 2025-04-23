@@ -30,7 +30,7 @@ import java.time.LocalDateTime;
 @Setter
 @FieldDefaults(level = AccessLevel.PROTECTED)
 @RequiredArgsConstructor
-public class MongoBaseEntity {
+public class MongoBaseDocument {
 	@MongoId
 	@JsonProperty("id")
 	@Field(targetType = FieldType.STRING)
