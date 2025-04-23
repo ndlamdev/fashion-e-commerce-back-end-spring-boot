@@ -9,7 +9,7 @@
 package com.lamnguyen.authentication_service.service.authentication.v1;
 
 import com.lamnguyen.authentication_service.repository.IUserRepository;
-import com.lamnguyen.authentication_service.util.property.ApplicationProperty;
+import com.lamnguyen.authentication_service.utils.property.ApplicationProperty;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

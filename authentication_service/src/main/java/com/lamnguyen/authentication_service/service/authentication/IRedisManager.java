@@ -48,8 +48,6 @@ public interface IRedisManager {
 
     int getTotalResendResetPasswordCode(long userId);
 
-    String getApiName(String path, String method);
-
     boolean existTokenResetPasswordInBlacklist(long userId, String tokenId);
 
     void addTokenResetPasswordInBlacklist(long userId, String tokenId);
@@ -59,4 +57,16 @@ public interface IRedisManager {
     void setDateTimeChangePassword(long userId, LocalDateTime dateTime);
 
     int getTotalResendRegisterCode(long userId);
+
+    void setRegisterTokenIdUsingGoogle(String id);
+
+    boolean existRegisterTokenIdUsingGoogle(String id);
+
+    void setRegisterTokenIdUsingFacebook(String id);
+
+    boolean existRegisterTokenIdUsingFacebook(String id);
+
+    void setAccessTokenFacebook(String token);
+
+    boolean existAccessTokenFacebook(String token);
 }

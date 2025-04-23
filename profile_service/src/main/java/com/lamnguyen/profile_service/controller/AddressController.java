@@ -2,7 +2,7 @@ package com.lamnguyen.profile_service.controller;
 
 import com.lamnguyen.profile_service.domain.request.SaveAddressRequest;
 import com.lamnguyen.profile_service.domain.response.AddressResponse;
-import com.lamnguyen.profile_service.service.IAddressService;
+import com.lamnguyen.profile_service.service.business.IAddressService;
 import com.lamnguyen.profile_service.utils.annotation.ApiMessageResponse;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;

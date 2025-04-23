@@ -1,11 +1,17 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: fashion-e-commerce-profile-service
   profiles:
-    active: ${PROFILE:dev,phong-dev}
+    active: ${PROFILE:dev}
   config:
     import: ${CONFIG_SERVER:configserver:https://config-server.ndlamdev.website/fashion-e-commerce-config-server}
   cloud:
     config:
       username: ${CONFIG_USERNAME:}
       password: ${CONFIG_PASSWORD:}
+
+grpc:
+  server:
+    port: 8102

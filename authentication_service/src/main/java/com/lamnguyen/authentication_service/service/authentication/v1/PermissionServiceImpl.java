@@ -9,7 +9,7 @@
 package com.lamnguyen.authentication_service.service.authentication.v1;
 
 import com.lamnguyen.authentication_service.domain.dto.PermissionDto;
-import com.lamnguyen.authentication_service.mapper.PermissionMapper;
+import com.lamnguyen.authentication_service.mapper.IPermissionMapper;
 import com.lamnguyen.authentication_service.model.Permission;
 import com.lamnguyen.authentication_service.repository.IPermissionRepository;
 import com.lamnguyen.authentication_service.service.authentication.IPermissionService;
@@ -25,7 +25,7 @@ import java.util.List;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class PermissionServiceImpl implements IPermissionService {
 	IPermissionRepository permissionRepository;
-	PermissionMapper permissionMapper;
+	IPermissionMapper permissionMapper;
 
 	@Override
 	public List<PermissionDto> getAllPermissionDto() {

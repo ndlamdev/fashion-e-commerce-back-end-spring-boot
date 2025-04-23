@@ -43,6 +43,7 @@ public class BaseEntity {
     String createBy;
 
     @CreatedDate
+    @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     LocalDateTime createAt;
 
     @LastModifiedBy
@@ -50,5 +51,6 @@ public class BaseEntity {
     String updateBy;
 
     @LastModifiedDate
+    @Column(columnDefinition = "DATETIME ON UPDATE CURRENT_TIMESTAMP")
     LocalDateTime updateAt;
 }

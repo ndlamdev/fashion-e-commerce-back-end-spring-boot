@@ -8,7 +8,7 @@
 
 package com.lamnguyen.authentication_service.event;
 
-import com.lamnguyen.authentication_service.util.enums.MailType;
+import com.lamnguyen.authentication_service.utils.enums.MailType;
 import lombok.Builder;
 
 @Builder
