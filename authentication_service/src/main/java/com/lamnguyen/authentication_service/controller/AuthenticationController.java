@@ -17,7 +17,6 @@ import com.lamnguyen.authentication_service.service.authentication.IAuthenticati
 import com.lamnguyen.authentication_service.service.authentication.IFacebookAuthService;
 import com.lamnguyen.authentication_service.service.authentication.IGoogleAuthService;
 import com.lamnguyen.authentication_service.utils.annotation.ApiMessageResponse;
-import com.lamnguyen.authentication_service.utils.property.ApplicationProperty;
 import com.lamnguyen.authentication_service.utils.property.TokenProperty;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -42,7 +41,6 @@ public class AuthenticationController {
     IAuthenticationService authenticationService;
     IGoogleAuthService googleAuthService;
     IFacebookAuthService facebookAuthService;
-    ApplicationProperty applicationProperty;
 	TokenProperty.AccessTokenProperty accessTokenProperty;
     TokenProperty.RefreshTokenProperty getKeyRefreshToken;
 
