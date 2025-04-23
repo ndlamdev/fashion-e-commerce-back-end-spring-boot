@@ -8,7 +8,7 @@
 
 package com.lamnguyen.authentication_service.service.redis;
 
-import com.lamnguyen.authentication_service.util.property.TokenProperty;
+import com.lamnguyen.authentication_service.utils.property.TokenProperty;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.redis.core.RedisTemplate;

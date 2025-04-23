@@ -17,7 +17,7 @@ import com.lamnguyen.authentication_service.repository.IRoleOfUserRepository;
 import com.lamnguyen.authentication_service.repository.IRoleRepository;
 import com.lamnguyen.authentication_service.repository.IUserRepository;
 import com.lamnguyen.authentication_service.service.authorization.IAuthorizationService;
-import com.lamnguyen.authentication_service.util.property.ApplicationProperty;
+import com.lamnguyen.authentication_service.utils.property.ApplicationProperty;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

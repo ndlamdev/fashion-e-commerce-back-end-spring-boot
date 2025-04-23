@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package image;
+
+option java_multiple_files = true;
+option java_package = "com.example.image";
+option java_outer_classname = "ImageServiceProto";
+
+service MediaCheckedService {
+  // Check if an image code exists
+  rpc CheckMediaExists (ImageCodeRequest) returns (ImageExistsResponse);
+}
+
+message ImageCodeRequest {
+  string image_id = 1; // mã hình ảnh
+}
+
+message ImageExistsResponse {
+  bool exists = 1;       // true nếu tồn tại, false nếu không
+}

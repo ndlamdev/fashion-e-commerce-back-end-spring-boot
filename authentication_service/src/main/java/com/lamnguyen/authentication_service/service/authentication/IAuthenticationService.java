@@ -8,19 +8,20 @@
 
 package com.lamnguyen.authentication_service.service.authentication;
 
+import com.lamnguyen.authentication_service.domain.dto.ProfileUserDto;
 import com.lamnguyen.authentication_service.domain.reponse.RegisterResponse;
 import com.lamnguyen.authentication_service.domain.request.RegisterAccountRequest;
 import com.lamnguyen.authentication_service.domain.request.SetNewPasswordRequest;
 import org.springframework.security.oauth2.jwt.Jwt;
 
 public interface IAuthenticationService {
-    RegisterResponse register(RegisterAccountRequest request);
+    void register(RegisterAccountRequest request);
 
     void verifyAccount(String email, String code);
 
     void resendVerifyAccountCode(String email);
 
-    void login(String accessToken);
+    ProfileUserDto login(String accessToken);
 
     void logout(String accessToken);
 

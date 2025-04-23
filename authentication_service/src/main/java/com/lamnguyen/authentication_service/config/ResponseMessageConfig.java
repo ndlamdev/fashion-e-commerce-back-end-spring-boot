@@ -9,7 +9,7 @@
 package com.lamnguyen.authentication_service.config;
 
 import com.lamnguyen.authentication_service.domain.ApiSuccessResponse;
-import com.lamnguyen.authentication_service.util.annotation.ApiMessageResponse;
+import com.lamnguyen.authentication_service.utils.annotation.ApiMessageResponse;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;

@@ -8,7 +8,7 @@
 
 package com.lamnguyen.authentication_service.service.redis;
 
-import com.lamnguyen.authentication_service.util.property.OtpProperty;
+import com.lamnguyen.authentication_service.utils.property.OtpProperty;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;

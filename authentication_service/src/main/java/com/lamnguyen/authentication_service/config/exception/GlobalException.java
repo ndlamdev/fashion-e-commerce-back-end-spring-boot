@@ -10,6 +10,7 @@ package com.lamnguyen.authentication_service.config.exception;
 
 
 import com.lamnguyen.authentication_service.domain.ApiErrorResponse;
+import io.grpc.StatusRuntimeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -66,6 +67,16 @@ public class GlobalException {
         return ResponseEntity.badRequest().body(ApiErrorResponse.builder()
                 .code(HttpStatus.UNAUTHORIZED.value())
                 .error(HttpStatus.UNAUTHORIZED.name())
+                .detail(exception.getMessage())
+                .trace(exception.getStackTrace())
+                .build());
+    }
+
+    @ExceptionHandler(StatusRuntimeException.class)
+    public ResponseEntity<ApiErrorResponse<Object>> handleMissingServletRequestParameterException(StatusRuntimeException exception) {
+        return ResponseEntity.badRequest().body(ApiErrorResponse.builder()
+                .code(ExceptionEnum.GRPC_EXCEPTION.getCode())
+                .error(ExceptionEnum.GRPC_EXCEPTION.name())
                 .detail(exception.getMessage())
                 .trace(exception.getStackTrace())
                 .build());

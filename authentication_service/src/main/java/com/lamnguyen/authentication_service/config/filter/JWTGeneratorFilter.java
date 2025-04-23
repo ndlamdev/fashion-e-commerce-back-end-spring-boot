@@ -10,9 +10,9 @@ package com.lamnguyen.authentication_service.config.filter;
 
 import com.lamnguyen.authentication_service.model.JWTPayload;
 import com.lamnguyen.authentication_service.service.business.user.IUserService;
-import com.lamnguyen.authentication_service.util.JwtTokenUtil;
-import com.lamnguyen.authentication_service.util.property.ApplicationProperty;
-import com.lamnguyen.authentication_service.util.property.TokenProperty;
+import com.lamnguyen.authentication_service.utils.helper.JwtTokenUtil;
+import com.lamnguyen.authentication_service.utils.property.ApplicationProperty;
+import com.lamnguyen.authentication_service.utils.property.TokenProperty;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -52,7 +52,7 @@ public class JWTGeneratorFilter extends OncePerRequestFilter {
 		var payloadAccessToken = JWTPayload.generateForAccessToken(authentication);
 		payloadAccessToken.setUserId(user.getId());
 		payloadAccessToken.setRefreshTokenId(refreshToken.getId());
-		var accessToken = jwtTokenUtil.generateAccessToken(user, payloadAccessToken);
+		var accessToken = jwtTokenUtil.generateAccessToken(payloadAccessToken);
 
 		var session = request.getSession();
 		session.setAttribute(accessTokenProperty.getTokenKey(), accessToken.getTokenValue());

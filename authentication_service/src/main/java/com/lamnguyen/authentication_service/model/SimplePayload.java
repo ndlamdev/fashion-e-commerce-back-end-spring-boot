@@ -1,6 +1,6 @@
 package com.lamnguyen.authentication_service.model;
 
-import com.lamnguyen.authentication_service.util.enums.JwtType;
+import com.lamnguyen.authentication_service.utils.enums.JwtType;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;

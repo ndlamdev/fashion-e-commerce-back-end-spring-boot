@@ -8,7 +8,6 @@
 
 package com.lamnguyen.media_service.controller;
 
-import com.lamnguyen.media_service.utils.annotation.ApiMessageResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

@@ -10,25 +10,27 @@ package com.lamnguyen.authentication_service.service.authentication.v1;
 
 import com.lamnguyen.authentication_service.config.exception.ApplicationException;
 import com.lamnguyen.authentication_service.config.exception.ExceptionEnum;
-import com.lamnguyen.authentication_service.domain.reponse.RegisterResponse;
+import com.lamnguyen.authentication_service.domain.dto.ProfileUserDto;
 import com.lamnguyen.authentication_service.domain.request.RegisterAccountRequest;
 import com.lamnguyen.authentication_service.domain.request.SetNewPasswordRequest;
-import com.lamnguyen.authentication_service.mapper.UserDetailMapper;
-import com.lamnguyen.authentication_service.mapper.UserMapper;
+import com.lamnguyen.authentication_service.mapper.IProfileUserMapper;
+import com.lamnguyen.authentication_service.mapper.IUserMapper;
 import com.lamnguyen.authentication_service.model.JWTPayload;
 import com.lamnguyen.authentication_service.model.Role;
 import com.lamnguyen.authentication_service.model.RoleOfUser;
 import com.lamnguyen.authentication_service.model.User;
 import com.lamnguyen.authentication_service.repository.IRoleOfUserRepository;
 import com.lamnguyen.authentication_service.service.authentication.IAuthenticationService;
-import com.lamnguyen.authentication_service.service.business.user.IUserDetailService;
+import com.lamnguyen.authentication_service.service.business.user.IProfileUserService;
 import com.lamnguyen.authentication_service.service.business.user.IUserService;
+import com.lamnguyen.authentication_service.service.grpc.IProfileUserGrpcClient;
 import com.lamnguyen.authentication_service.service.mail.ISendMailService;
 import com.lamnguyen.authentication_service.service.redis.*;
-import com.lamnguyen.authentication_service.util.JwtTokenUtil;
-import com.lamnguyen.authentication_service.util.OtpUtil;
-import com.lamnguyen.authentication_service.util.enums.JwtType;
-import com.lamnguyen.authentication_service.util.property.OtpProperty;
+import com.lamnguyen.authentication_service.utils.enums.JwtType;
+import com.lamnguyen.authentication_service.utils.helper.JwtTokenUtil;
+import com.lamnguyen.authentication_service.utils.helper.OtpUtil;
+import com.lamnguyen.authentication_service.utils.helper.SendMailHelper;
+import com.lamnguyen.authentication_service.utils.property.OtpProperty;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -49,10 +51,10 @@ import java.util.stream.Collectors;
 public class AuthenticationServiceImpl implements IAuthenticationService {
 	IUserService userService;
 	PasswordEncoder passwordEncoder;
-	UserMapper userMapper;
-	IUserDetailService userDetailService;
-	UserDetailMapper userDetailMapper;
-	ISendMailService iSendMailService;
+	IUserMapper userMapper;
+	IProfileUserService userDetailService;
+	IProfileUserMapper userDetailMapper;
+	ISendMailService sendMailService;
 	IRegisterCodeRedisManager registerCodeRedisManager;
 	IResetPasswordRedisManager resetPasswordCodeRedisManager;
 	IAccessTokenRedisManager accessTokenRedisManager;
@@ -62,44 +64,42 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 	JwtTokenUtil jwtTokenUtil;
 	OtpProperty.AccountVerification accountVerification;
 	OtpProperty.ResetPasswordVerification resetPasswordVerification;
+	IProfileUserGrpcClient profileUserGrpcClient;
 
 
 	@Override
-	public RegisterResponse register(RegisterAccountRequest request) {
+	public void register(RegisterAccountRequest request) {
 		var user = userMapper.toUser(request);
 		User oldUser = null;
 		try {
 			oldUser = userService.findUserByEmail(user.getEmail());
-		} catch (Exception ignored) {
+		} catch (ApplicationException ignored) {
+			user.setPassword(passwordEncoder.encode(request.getPassword()));
+			User userSaved = userService.save(user);
+
+			var userId = userSaved.getId();
+			// this code use for test
+			roleOfUserRepository.save(RoleOfUser.builder().user(userSaved).role(Role.builder().id(2).build()).build());
+			//this code use for test
+
+			SendMailHelper.sendMailVerify(registerCodeRedisManager, sendMailService, userId, request.getEmail());
+			var userDetail = userDetailMapper.toSaveProfileUserEvent(request);
+			userDetail.setUserId(userId);
+			userDetailService.save(userDetail);
+			return;
 		}
-		if (oldUser != null) {
-			if (oldUser.isActive())
-				throw ApplicationException.createException(ExceptionEnum.USER_EXIST);
-			else {
-				sendMailVerify(oldUser.getId(), request);
-				throw ApplicationException.createException(ExceptionEnum.REQUIRE_ACTIVE);
-			}
+		if (oldUser.isActive())
+			throw ApplicationException.createException(ExceptionEnum.USER_EXIST);
+		else {
+			SendMailHelper.sendMailVerify(registerCodeRedisManager, sendMailService, oldUser.getId(), request.getEmail());
+			throw ApplicationException.createException(ExceptionEnum.REQUIRE_ACTIVE);
 		}
-
-		user.setPassword(passwordEncoder.encode(request.password()));
-		User userSaved = userService.save(user);
-
-		var userId = userSaved.getId();
-		// this code use for test
-		roleOfUserRepository.save(RoleOfUser.builder().user(userSaved).role(Role.builder().id(2).build()).build());
-		//this code use for test
-
-		sendMailVerify(userId, request);
-		var userDetail = userDetailMapper.toUserDetail(request);
-		userDetail.setUserId(userId);
-		userDetailService.save(userDetail);
-		return RegisterResponse.builder().email(request.email()).build();
 	}
 
 	private void sendMailVerify(long userId, RegisterAccountRequest request) {
 		String opt = OtpUtil.generate(6);
 		registerCodeRedisManager.setCode(userId, opt);
-		iSendMailService.sendMailVerifyAccountCode(request.email(), opt);
+		sendMailService.sendMailVerifyAccountCode(request.getEmail(), opt);
 	}
 
 	@Override
@@ -121,16 +121,17 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 			throw ApplicationException.createException(ExceptionEnum.VERIFY_EXCEEDED_NUMBER);
 		String opt = OtpUtil.generate(accountVerification.getLength());
 		registerCodeRedisManager.setCode(userId, opt);
-		iSendMailService.sendMailVerifyAccountCode(email, opt);
+		sendMailService.sendMailVerifyAccountCode(email, opt);
 	}
 
 	@Override
-	public void login(String accessToken) {
+	public ProfileUserDto login(String accessToken) {
 		var jwtAccessToken = jwtTokenUtil.decodeToken(accessToken);
 		var payload = jwtTokenUtil.getPayload(jwtAccessToken);
 		var userId = payload.getUserId();
 		accessTokenRedisManager.setTokenId(userId, jwtAccessToken.getId());
 		refreshTokenRedisManager.setTokenId(userId, payload.getRefreshTokenId());
+		return profileUserGrpcClient.findById(userId);
 	}
 
 	@Override
@@ -163,7 +164,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
 		String opt = OtpUtil.generate(resetPasswordVerification.getLength());
 		resetPasswordCodeRedisManager.setCode(userId, opt);
-		iSendMailService.sendMailResetPasswordCode(email, opt);
+		sendMailService.sendMailResetPasswordCode(email, opt);
 	}
 
 	@Override
@@ -201,19 +202,19 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 		changePasswordRedisManager.setDateTimeChangePassword(simplePayload.getUserId(), LocalDateTime.now());
 	}
 
-	@Override
-	public Jwt renewAccessToken(String refreshToken) {
-		var jwt = jwtTokenUtil.decodeTokenNotVerify(refreshToken);
-		var simplePayload = jwtTokenUtil.getSimplePayloadNotVerify(jwt);
-		if (simplePayload.getType() != JwtType.REFRESH_TOKEN)
-			throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
-		if (refreshTokenRedisManager.existTokenIdInBlacklist(simplePayload.getUserId(), jwt.getId()))
-			throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
-		var user = userService.findById(simplePayload.getUserId());
-		var token = jwtTokenUtil.generateAccessToken(user, JWTPayload.generateForAccessToken(user, jwt.getId()));
-		accessTokenRedisManager.setTokenId(user.getId(), token.getId());
-		return token;
-	}
+    @Override
+    public Jwt renewAccessToken(String refreshToken) {
+        var jwt = jwtTokenUtil.decodeTokenNotVerify(refreshToken);
+        var simplePayload = jwtTokenUtil.getSimplePayloadNotVerify(jwt);
+        if (simplePayload.getType() != JwtType.REFRESH_TOKEN)
+            throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
+	    if (refreshTokenRedisManager.existTokenIdInBlacklist(simplePayload.getUserId(), jwt.getId()))
+		    throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
+        var user = userService.findById(simplePayload.getUserId());
+        var token = jwtTokenUtil.generateAccessToken(JWTPayload.generateForAccessToken(user, jwt.getId()));
+	    accessTokenRedisManager.setTokenId(user.getId(), token.getId());
+        return token;
+    }
 
 	@Override
 	public Jwt validate(String token) {

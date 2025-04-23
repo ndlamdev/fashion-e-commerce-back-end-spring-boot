@@ -32,6 +32,8 @@ public enum ExceptionEnum {
 	ADMIN_CAN_ADD_ROLE_FOR_MYSELF(90012, "Admin can not remove any role for myself!"),
 	LOGIN_FAIL(90012, "Admin can not remove any role for myself!"),
 	REQUIRE_ACTIVE(90013, "Require verify your account!"),
+	ADDRESS_NOT_FOUND(90014, "Address not found!"),
+	ADDRESS_LARGER_LIMITED(90015, "number of addresses larger than limited! !"),
 	;
 
 	int code;
