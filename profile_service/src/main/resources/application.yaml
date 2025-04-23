@@ -11,7 +11,3 @@ spring:
     config:
       username: ${CONFIG_USERNAME:}
       password: ${CONFIG_PASSWORD:}
-
-grpc:
-  server:
-    port: 8102
