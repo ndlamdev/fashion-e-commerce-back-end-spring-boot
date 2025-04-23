@@ -31,4 +31,10 @@ public class ApplicationProperty {
 
     @Value("${application.jwt.claim}")
     String jwtClaim;
+
+    @Value("${application.jwt.secret-key}")
+    String secretKey;
+
+    @Value("${application.path-file-manager}")
+    String pathFileManager;
 }
