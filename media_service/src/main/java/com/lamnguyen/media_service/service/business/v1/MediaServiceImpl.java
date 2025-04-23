@@ -36,9 +36,10 @@ public class MediaServiceImpl implements IMediaService {
 	public void upload(MultipartFile file) {
 		var result = uploadHelper(file).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.UPLOAD_FAILED));
 		var fileResult = new File(result);
-		var extend = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf("."));
 		mediaRepository.save(Media.builder()
 				.path(result)
+				.extend(fileResult.getName().substring(fileResult.getName().lastIndexOf(".") + 1))
+				.displayName(fileResult.getName().substring(0, fileResult.getName().lastIndexOf(".")))
 				.parentPath(fileResult.getAbsolutePath())
 				.fileName(fileResult.getName())
 				.build());
@@ -49,7 +50,7 @@ public class MediaServiceImpl implements IMediaService {
 		var fileName = applicationProperty.getPathFileManager() + File.separator + UUID.randomUUID() + extend;
 		try (
 				var is = new BufferedInputStream(file.getInputStream());
-				var os = new BufferedOutputStream(new FileOutputStream(fileName));
+				var os = new BufferedOutputStream(new FileOutputStream(fileName))
 		) {
 			var buffed = new byte[1024000];
 			var readed = 0;
@@ -64,7 +65,7 @@ public class MediaServiceImpl implements IMediaService {
 	}
 
 	@Override
-	public boolean existsById(long id) {
+	public boolean existsById(String id) {
 		return mediaRepository.existsById(id);
 	}
 }

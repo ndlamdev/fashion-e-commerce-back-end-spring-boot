@@ -1,40 +1,30 @@
 /**
- * Author: Nguyen Dinh Lam
+ * Nguyen Dinh Lam
  * Email: kiminonawa1305@gmail.com
  * Phone number: +84 855354919
- * Create at: 10:43 AM - 23/04/2025
+ * Create at: 3:54 PM-23/04/2025
  * User: kimin
  **/
 
 package com.lamnguyen.media_service.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.Table;
-import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "medias")
 @SuperBuilder
-@FieldDefaults(level = AccessLevel.PRIVATE)
-@RequiredArgsConstructor
 @Getter
 @Setter
-public class Media extends BaseEntity {
+@NoArgsConstructor
+@AllArgsConstructor
+@Document("medias")
+public class Media extends MongoBaseDocument {
 	String path;
 	String displayName;
 	String parentPath;
 	String extend;
 	String fileName;
-
-	@PrePersist
-	public void onCreate() {
-		this.extend = this.fileName.substring(fileName.lastIndexOf(".") + 1);
-		this.displayName = this.fileName.substring(0, fileName.lastIndexOf("."));
-	}
 }

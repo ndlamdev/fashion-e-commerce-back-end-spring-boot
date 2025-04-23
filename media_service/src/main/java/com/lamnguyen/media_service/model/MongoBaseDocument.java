@@ -1,15 +1,14 @@
 /**
- * Author: Nguyen Dinh Lam
+ * Nguyen Dinh Lam
  * Email: kiminonawa1305@gmail.com
  * Phone number: +84 855354919
- * Create at: 10:43 AM - 23/04/2025
+ * Create at: 3:52 PM-23/04/2025
  * User: kimin
  **/
 
 package com.lamnguyen.media_service.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +19,9 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.mongodb.core.mapping.FieldType;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.time.LocalDateTime;
 
@@ -28,15 +29,15 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PROTECTED)
-@MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
 @RequiredArgsConstructor
-public class BaseEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	long id;
+public class MongoBaseDocument {
+	@MongoId
+	@JsonProperty("id")
+	@Field(targetType = FieldType.STRING)
+	String id;
 
-	@Column(name = "is_lock", columnDefinition = "bit set default false not null")
+	@Field(name = "is_lock")
+	@JsonProperty("is_lock")
 	boolean lock;
 
 	@CreatedBy

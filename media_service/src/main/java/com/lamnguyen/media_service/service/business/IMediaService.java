@@ -13,5 +13,5 @@ import org.springframework.web.multipart.MultipartFile;
 public interface IMediaService {
 	void upload(MultipartFile file);
 
-	boolean existsById(long id);
+	boolean existsById(String id);
 }

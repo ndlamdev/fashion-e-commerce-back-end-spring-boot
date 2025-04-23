@@ -8,10 +8,10 @@
 
 package com.lamnguyen.media_service.service.grpc;
 
+import com.lamnguyen.media_service.protos.ImageCodeRequest;
+import com.lamnguyen.media_service.protos.ImageExistsResponse;
+import com.lamnguyen.media_service.protos.MediaCheckedServiceGrpc.MediaCheckedServiceImplBase;
 import com.lamnguyen.media_service.service.business.IMediaService;
-import com.lamnguyen.media_service.service.protos.ImageCodeRequest;
-import com.lamnguyen.media_service.service.protos.ImageExistsResponse;
-import com.lamnguyen.media_service.service.protos.MediaCheckedServiceGrpc.MediaCheckedServiceImplBase;
 import io.grpc.stub.StreamObserver;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

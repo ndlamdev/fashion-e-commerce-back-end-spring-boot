@@ -3,13 +3,13 @@ package com.lamnguyen.media_service.config;
 import lombok.NonNull;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Optional;
 
-@EnableJpaAuditing
+@EnableMongoAuditing
 @Configuration
 public class AuditorAwareImpl implements AuditorAware<String> {
 
