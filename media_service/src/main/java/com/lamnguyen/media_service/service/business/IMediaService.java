@@ -6,10 +6,12 @@
  * User: kimin
  **/
 
-package com.lamnguyen.media_service.service;
+package com.lamnguyen.media_service.service.business;
 
 import org.springframework.web.multipart.MultipartFile;
 
 public interface IMediaService {
 	void upload(MultipartFile file);
+
+	boolean existsById(long id);
 }

@@ -6,13 +6,13 @@
  * User: kimin
  **/
 
-package com.lamnguyen.media_service.service.impl;
+package com.lamnguyen.media_service.service.business.v1;
 
 import com.lamnguyen.media_service.config.exception.ApplicationException;
 import com.lamnguyen.media_service.config.exception.ExceptionEnum;
 import com.lamnguyen.media_service.model.Media;
 import com.lamnguyen.media_service.repository.IMediaRepository;
-import com.lamnguyen.media_service.service.IMediaService;
+import com.lamnguyen.media_service.service.business.IMediaService;
 import com.lamnguyen.media_service.utils.property.ApplicationProperty;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -61,5 +61,10 @@ public class MediaServiceImpl implements IMediaService {
 		}
 
 		return Optional.of(fileName);
+	}
+
+	@Override
+	public boolean existsById(long id) {
+		return mediaRepository.existsById(id);
 	}
 }

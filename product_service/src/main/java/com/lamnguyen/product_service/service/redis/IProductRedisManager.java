@@ -9,7 +9,6 @@
 package com.lamnguyen.product_service.service.redis;
 
 import com.lamnguyen.product_service.domain.dto.ProductDto;
-import com.lamnguyen.product_service.utils.redis.ICacheManage;
 
 public interface IProductRedisManager extends ICacheManage<ProductDto> {
 }

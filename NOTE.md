@@ -438,11 +438,11 @@ Các file .proto phải được ở folder src/main/proto/*.proto
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "com.lamnguyen.authentication_service.protos";
+option java_package = "com.lamnguyen.*.protos";
 option java_outer_classname = "HelloWorldProto";
 
 // The greeting service definition.
-service Simple {
+service HelloWorldService {
    // Sends a greeting
    rpc SayHello (HelloRequest) returns (HelloReply) {
    }
@@ -463,6 +463,33 @@ message HelloReply {
 ### Generate code
 
 \* Lưu ý: Nên clean trước khi build lại dự án
+
+### Extends service
+
+```java
+import io.grpc.stub.StreamObserver;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.log4j.Log4j2;
+import net.devh.boot.grpc.server.service.GrpcService;
+
+
+@GrpcService
+@RequiredArgsConstructor
+@Log4j2
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+public class HelloWorldServiceGrpcImpl extends HelloWorldServiceGrpc.HelloWorldServiceImplBase {
+
+	@Override
+	public void getUserProfile(ProfileUserRequest request, StreamObserver<ProfileUserResponse> responseObserver) {
+		var result = ""; // logic get data
+		responseObserver.onNext(result);
+		responseObserver.onCompleted();
+	}
+}
+
+```
 
 ## Cách triển khai 1 server kafka, redis, my-sql từ xa  bằng cloudflared
 

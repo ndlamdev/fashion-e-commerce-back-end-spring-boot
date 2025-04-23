@@ -31,7 +31,7 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	public ProductDto getProductDtoById(String id) {
 		return redisManager.get(id).orElseGet(() ->
-				redisManager.cache(id, id, id, (input) -> productRepository.findById(input).map(productMapper::toProductDto))
+				redisManager.cache(id, id, id, () -> productRepository.findById(id).map(productMapper::toProductDto))
 						.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.PRODUCT_NOT_FOUND))
 		);
 	}

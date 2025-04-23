@@ -6,7 +6,7 @@
  * User: kimin
  **/
 
-package com.lamnguyen.product_service.utils;
+package com.lamnguyen.product_service.utils.helper;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

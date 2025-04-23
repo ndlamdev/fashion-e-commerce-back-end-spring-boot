@@ -6,12 +6,12 @@
  * User: kimin
  **/
 
-package com.lamnguyen.product_service.service.redis.impl;
+package com.lamnguyen.product_service.service.redis.v1;
 
 import com.lamnguyen.product_service.domain.dto.ProductDto;
 import com.lamnguyen.product_service.service.redis.IProductRedisManager;
-import com.lamnguyen.product_service.utils.RedissionClientUtil;
-import com.lamnguyen.product_service.utils.redis.ACacheManage;
+import com.lamnguyen.product_service.utils.helper.RedissionClientUtil;
+import com.lamnguyen.product_service.service.redis.ACacheManage;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -29,7 +28,7 @@ public class ProductRedisManagerImple extends ACacheManage<ProductDto> implement
 	}
 
 	@Override
-	public <T> Optional<ProductDto> cache(String keyLock, String keyCache, T input, Function<T, Optional<ProductDto>> callDB) {
+	public <T> Optional<ProductDto> cache(String keyLock, String keyCache, T input, CallbackDB<ProductDto> callDB) {
 		return cache(keyLock, generateKeyCache(keyCache), input, callDB, 60, TimeUnit.MINUTES);
 	}
 

@@ -68,8 +68,8 @@ public class CollectionManageServiceImpl implements ICollectionManageService {
 
 	@Override
 	public List<ProductDto> getAllProductByCollectionId(String id) {
-		var collection = cacheManager.get(id).orElseGet(() -> cacheManager.cache(id, id, id, input -> {
-			var data = collectionRepository.findById(input);
+		var collection = cacheManager.get(id).orElseGet(() -> cacheManager.cache(id, id, id, () -> {
+			var data = collectionRepository.findById(id);
 			return data.map(collectionMapper::toCollectionSaveRedisDto);
 		}).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.COLLECTION_NOT_FOUND)));
 		return collection.getProducts().stream().map(productService::getProductDtoById).collect(Collectors.toList());

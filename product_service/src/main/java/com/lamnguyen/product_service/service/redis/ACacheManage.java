@@ -6,16 +6,15 @@
  * User: kimin
  **/
 
-package com.lamnguyen.product_service.utils.redis;
+package com.lamnguyen.product_service.service.redis;
 
-import com.lamnguyen.product_service.utils.RedissionClientUtil;
+import com.lamnguyen.product_service.utils.helper.RedissionClientUtil;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 
 @FieldDefaults(level = AccessLevel.PROTECTED, makeFinal = true)
 public abstract class ACacheManage<R> implements ICacheManage<R> {
@@ -38,14 +37,14 @@ public abstract class ACacheManage<R> implements ICacheManage<R> {
 	}
 
 	@Override
-	public final <T> Optional<R> cache(String keyLock, String keyCache, T input, Function<T, Optional<R>> callDB, long duration, TimeUnit unit) {
+	public final <T> Optional<R> cache(String keyLock, String keyCache, T input, CallbackDB<R> callDB, long duration, TimeUnit unit) {
 		return redissonClient.synchronize(keyLock, input, (s) -> {
 			var cached = get(keyCache);
 			if (cached.isPresent()) {
 				return cached;
 			}
 
-			var dto = callDB.apply(input);
+			var dto = callDB.call();
 			if (dto.isEmpty()) return Optional.empty();
 			save(keyCache, dto.get(), duration, unit);
 			return dto;

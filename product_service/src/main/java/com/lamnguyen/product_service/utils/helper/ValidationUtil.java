@@ -1,4 +1,4 @@
-package com.lamnguyen.product_service.utils;
+package com.lamnguyen.product_service.utils.helper;
 
 import com.lamnguyen.product_service.config.exception.ApplicationException;
 import com.lamnguyen.product_service.config.exception.ExceptionEnum;

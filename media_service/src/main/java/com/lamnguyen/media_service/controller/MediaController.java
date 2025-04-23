@@ -8,7 +8,7 @@
 
 package com.lamnguyen.media_service.controller;
 
-import com.lamnguyen.media_service.service.IMediaService;
+import com.lamnguyen.media_service.service.business.IMediaService;
 import com.lamnguyen.media_service.utils.annotation.ApiMessageResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

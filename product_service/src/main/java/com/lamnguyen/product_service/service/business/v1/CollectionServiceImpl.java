@@ -38,6 +38,6 @@ public class CollectionServiceImpl implements ICollectionService {
 	}
 
 	private Optional<CollectionSaveRedisDto> findInDb(String id) {
-		return manager.cache(id, id, id, s -> collectionRepository.findByIdAndLockIsFalse(s).map(collectionMapper::toCollectionSaveRedisDto));
+		return manager.cache(id, id, id, () -> collectionRepository.findByIdAndLockIsFalse(id).map(collectionMapper::toCollectionSaveRedisDto));
 	}
 }

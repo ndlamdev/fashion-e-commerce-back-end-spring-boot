@@ -16,7 +16,7 @@ import com.lamnguyen.product_service.repository.IProductRepository;
 import com.lamnguyen.product_service.service.business.ICollectionManageService;
 import com.lamnguyen.product_service.service.business.IProductManageService;
 import com.lamnguyen.product_service.service.redis.IProductRedisManager;
-import com.lamnguyen.product_service.utils.ValidationUtil;
+import com.lamnguyen.product_service.utils.helper.ValidationUtil;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
