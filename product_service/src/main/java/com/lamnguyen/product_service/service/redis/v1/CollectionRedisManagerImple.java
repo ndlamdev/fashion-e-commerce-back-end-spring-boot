@@ -9,9 +9,10 @@
 package com.lamnguyen.product_service.service.redis.v1;
 
 import com.lamnguyen.product_service.domain.dto.CollectionSaveRedisDto;
+import com.lamnguyen.product_service.service.redis.ACacheManage;
+import com.lamnguyen.product_service.service.redis.CallbackDB;
 import com.lamnguyen.product_service.service.redis.ICollectionRedisManager;
 import com.lamnguyen.product_service.utils.helper.RedissionClientUtil;
-import com.lamnguyen.product_service.service.redis.ACacheManage;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -28,8 +29,8 @@ public class CollectionRedisManagerImple extends ACacheManage<CollectionSaveRedi
 	}
 
 	@Override
-	public <T> Optional<CollectionSaveRedisDto> cache(String keyLock, String keyCache, T input, CallbackDB<CollectionSaveRedisDto> callDB) {
-		return cache(keyLock, generateKeyCache(keyCache), input, callDB, 60, TimeUnit.MINUTES);
+	public Optional<CollectionSaveRedisDto> cache(String keyLock, String keyCache, CallbackDB<CollectionSaveRedisDto> callDB) {
+		return cache(keyLock, generateKeyCache(keyCache), callDB, 60, TimeUnit.MINUTES);
 	}
 
 	@Override

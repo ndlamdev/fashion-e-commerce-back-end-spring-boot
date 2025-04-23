@@ -8,6 +8,7 @@
 
 package com.lamnguyen.product_service.utils.helper;
 
+import com.lamnguyen.product_service.service.redis.CallbackDB;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -17,7 +18,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 
 @Component
 @RequiredArgsConstructor
@@ -25,7 +25,7 @@ import java.util.function.Function;
 public class RedissionClientUtil {
 	RedissonClient redissonClient;
 
-	public <T, R> Optional<R> synchronize(String key, T input, Function<T, Optional<R>> callbackLocked, Function<T, Optional<R>> callbackUnlocked) {
+	public <R> Optional<R> synchronize(String key, CallbackDB<R> callbackLocked, CallbackDB<R> callbackUnlocked) {
 		String lockKey = "LOCK:" + key;
 		RLock lock = redissonClient.getLock(lockKey);
 
@@ -34,10 +34,10 @@ public class RedissionClientUtil {
 			isLocked = lock.tryLock(10, 30, TimeUnit.SECONDS);
 
 			if (isLocked) {
-				return callbackLocked.apply(input);
+				return callbackLocked.call();
 			} else {
 				Thread.sleep(100);
-				return callbackUnlocked.apply(input);
+				return callbackUnlocked.call();
 			}
 		} catch (InterruptedException e) {
 			return null;

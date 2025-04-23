@@ -40,7 +40,7 @@ public class CollectionManageServiceImpl implements ICollectionManageService {
 	IProductService productService;
 
 	@Override
-	public boolean existById(String id) {
+	public boolean existsById(String id) {
 		return collectionRepository.existsById(id);
 	}
 
@@ -68,7 +68,7 @@ public class CollectionManageServiceImpl implements ICollectionManageService {
 
 	@Override
 	public List<ProductDto> getAllProductByCollectionId(String id) {
-		var collection = cacheManager.get(id).orElseGet(() -> cacheManager.cache(id, id, id, () -> {
+		var collection = cacheManager.get(id).orElseGet(() -> cacheManager.cache(id, id, () -> {
 			var data = collectionRepository.findById(id);
 			return data.map(collectionMapper::toCollectionSaveRedisDto);
 		}).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.COLLECTION_NOT_FOUND)));
@@ -80,6 +80,15 @@ public class CollectionManageServiceImpl implements ICollectionManageService {
 	public void addProductId(String collectionId, String productId) {
 		var collection = collectionRepository.findById(collectionId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.COLLECTION_NOT_FOUND));
 		collection.getProducts().add(Product.builder().id(productId).build());
+		collectionRepository.save(collection);
+		cacheManager.delete(collectionId);
+	}
+
+	@Override
+	@Async
+	public void removeProductId(String collectionId, String productId) {
+		var collection = collectionRepository.findById(collectionId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.COLLECTION_NOT_FOUND));
+		collection.getProducts().removeIf(product -> product.getId().equals(productId));
 		collectionRepository.save(collection);
 		cacheManager.delete(collectionId);
 	}

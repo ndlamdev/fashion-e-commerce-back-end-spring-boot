@@ -37,8 +37,8 @@ public abstract class ACacheManage<R> implements ICacheManage<R> {
 	}
 
 	@Override
-	public final <T> Optional<R> cache(String keyLock, String keyCache, T input, CallbackDB<R> callDB, long duration, TimeUnit unit) {
-		return redissonClient.synchronize(keyLock, input, (s) -> {
+	public final Optional<R> cache(String keyLock, String keyCache, CallbackDB<R> callDB, long duration, TimeUnit unit) {
+		return redissonClient.synchronize(keyLock, () -> {
 			var cached = get(keyCache);
 			if (cached.isPresent()) {
 				return cached;
@@ -48,6 +48,6 @@ public abstract class ACacheManage<R> implements ICacheManage<R> {
 			if (dto.isEmpty()) return Optional.empty();
 			save(keyCache, dto.get(), duration, unit);
 			return dto;
-		}, (data) -> get(keyCache));
+		}, () -> get(keyCache));
 	}
 }

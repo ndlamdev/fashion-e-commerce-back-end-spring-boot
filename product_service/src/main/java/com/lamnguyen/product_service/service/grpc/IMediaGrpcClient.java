@@ -8,6 +8,11 @@
 
 package com.lamnguyen.product_service.service.grpc;
 
+import java.util.List;
+import java.util.Map;
+
 public interface IMediaGrpcClient {
 	boolean existsById(String id);
+
+	Map<String, Boolean> existsByIds(List<String> ids);
 }

@@ -9,11 +9,12 @@
 package com.lamnguyen.product_service.service.business;
 
 import com.lamnguyen.product_service.domain.request.CreateProductRequest;
+import com.lamnguyen.product_service.domain.request.UpdateProductRequest;
 
 public interface IProductManageService {
 	void create(CreateProductRequest request);
 
-	void update();
+	void update(UpdateProductRequest request);
 
 	void lock();
 }

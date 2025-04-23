@@ -14,17 +14,13 @@ import java.util.concurrent.TimeUnit;
 public interface ICacheManage<R> extends IRedisManager {
 	Optional<R> get(String key);
 
-	<T> Optional<R> cache(String keyLock, String keyCache, T input, CallbackDB<R> callDB);
+	Optional<R> cache(String keyLock, String keyCache, CallbackDB<R> callDB);
 
-	<T> Optional<R> cache(String keyLock, String keyCache, T input, CallbackDB<R> callDB, long duration, TimeUnit unit);
+	Optional<R> cache(String keyLock, String keyCache, CallbackDB<R> callDB, long duration, TimeUnit unit);
 
 	void delete(String key);
 
 	void save(String key, R data);
 
 	void save(String key, R data, long duration, TimeUnit unit);
-
-	interface CallbackDB<R> {
-		Optional<R> call();
-	}
 }

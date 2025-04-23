@@ -10,6 +10,7 @@ package com.lamnguyen.product_service.mapper;
 
 import com.lamnguyen.product_service.domain.dto.ProductDto;
 import com.lamnguyen.product_service.domain.request.CreateProductRequest;
+import com.lamnguyen.product_service.domain.request.UpdateProductRequest;
 import com.lamnguyen.product_service.model.Collection;
 import com.lamnguyen.product_service.model.Product;
 import org.mapstruct.Mapper;
@@ -24,6 +25,10 @@ public interface IProductMapper {
 	@Mapping(source = "collection", target = "collection", qualifiedByName = "toCollection")
 	@Mapping(source = "title", target = "seoAlias", qualifiedByName = "toSeoAlias")
 	Product toProduct(CreateProductRequest request);
+
+	@Mapping(source = "collection", target = "collection", qualifiedByName = "toCollection")
+	@Mapping(source = "title", target = "seoAlias", qualifiedByName = "toSeoAlias")
+	Product toProduct(UpdateProductRequest request);
 
 	@Mapping(source = "collection.id", target = "collection")
 	@Mapping(source = "iconThumbnail", target = "iconThumbnail", ignore = true)

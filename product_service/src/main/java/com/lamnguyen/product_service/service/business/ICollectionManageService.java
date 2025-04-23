@@ -17,7 +17,7 @@ import com.lamnguyen.product_service.domain.request.UpdateCollectionRequest;
 import java.util.List;
 
 public interface ICollectionManageService {
-	boolean existById(String id);
+	boolean existsById(String id);
 
 	void create(TitleCollectionRequest request);
 
@@ -30,4 +30,6 @@ public interface ICollectionManageService {
 	List<ProductDto> getAllProductByCollectionId(String id);
 
 	void addProductId(String collectionId, String productId);
+
+	void removeProductId(String collectionId, String productId);
 }
