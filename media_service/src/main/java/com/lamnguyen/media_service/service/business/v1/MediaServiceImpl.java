@@ -10,9 +10,11 @@ package com.lamnguyen.media_service.service.business.v1;
 
 import com.lamnguyen.media_service.config.exception.ApplicationException;
 import com.lamnguyen.media_service.config.exception.ExceptionEnum;
+import com.lamnguyen.media_service.mapper.IMediaMapper;
 import com.lamnguyen.media_service.model.Media;
 import com.lamnguyen.media_service.repository.IMediaRepository;
 import com.lamnguyen.media_service.service.business.IMediaService;
+import com.lamnguyen.media_service.service.redis.IMediaRedisManage;
 import com.lamnguyen.media_service.utils.property.ApplicationProperty;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +33,8 @@ import java.util.UUID;
 public class MediaServiceImpl implements IMediaService {
 	ApplicationProperty applicationProperty;
 	IMediaRepository mediaRepository;
+	IMediaRedisManage mediaManage;
+	IMediaMapper mediaMapper;
 
 	@Override
 	public void upload(MultipartFile file) {
@@ -66,6 +70,8 @@ public class MediaServiceImpl implements IMediaService {
 
 	@Override
 	public boolean existsById(String id) {
-		return mediaRepository.existsById(id);
+		return mediaManage.get(id)
+				.or(() -> mediaManage.cache(id, () -> mediaRepository.findById(id).map(mediaMapper::toDto)))
+				.isPresent();
 	}
 }

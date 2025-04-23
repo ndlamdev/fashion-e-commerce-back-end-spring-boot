@@ -9,8 +9,8 @@
 package com.lamnguyen.media_service.service.grpc;
 
 import com.lamnguyen.media_service.service.business.IMediaService;
-import com.lamnguyen.media_service.service.protos.ImageCodeRequest;
-import com.lamnguyen.media_service.service.protos.ImageExistsResponse;
+import com.lamnguyen.media_service.protos.ImageCodeRequest;
+import com.lamnguyen.media_service.protos.ImageExistsResponse;
 import io.grpc.stub.StreamObserver;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,7 +47,7 @@ class MediaGrpcServerImplTest {
     @Test
     void checkMediaExists_WhenMediaExists_ShouldReturnTrue() {
         // Arrange
-        long imageId = 123L;
+        String imageId = "123L";
         ImageCodeRequest request = ImageCodeRequest.newBuilder().setImageId(imageId).build();
 
         when(mediaService.existsById(imageId)).thenReturn(true);
@@ -69,7 +69,7 @@ class MediaGrpcServerImplTest {
     @Test
     void checkMediaExists_WhenMediaDoesNotExist_ShouldReturnFalse() {
         // Arrange
-        long imageId = 456L;
+        String imageId = "456L";
         ImageCodeRequest request = ImageCodeRequest.newBuilder().setImageId(imageId).build();
 
         when(mediaService.existsById(imageId)).thenReturn(false);

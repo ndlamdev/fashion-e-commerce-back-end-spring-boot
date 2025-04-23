@@ -9,6 +9,7 @@
 package com.lamnguyen.media_service.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lamnguyen.media_service.domain.dto.MediaDto;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -18,6 +19,7 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
@@ -56,6 +58,17 @@ public class RedisConfig {
 		template.setValueSerializer(new GenericJackson2JsonRedisSerializer());
 		template.setHashKeySerializer(new StringRedisSerializer());
 		template.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
+		template.setConnectionFactory(connectionFactory);
+		return template;
+	}
+
+	@Bean
+	RedisTemplate<String, MediaDto> mediaRedisTemplate(RedisConnectionFactory connectionFactory) {
+		RedisTemplate<String, MediaDto> template = new RedisTemplate<>();
+		template.setKeySerializer(new StringRedisSerializer());
+		template.setValueSerializer(new Jackson2JsonRedisSerializer<>(mapper, MediaDto.class));
+		template.setHashKeySerializer(new StringRedisSerializer());
+		template.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(mapper, MediaDto.class));
 		template.setConnectionFactory(connectionFactory);
 		return template;
 	}

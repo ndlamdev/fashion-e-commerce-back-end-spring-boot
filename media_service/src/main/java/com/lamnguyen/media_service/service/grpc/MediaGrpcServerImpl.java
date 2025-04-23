@@ -9,6 +9,8 @@
 package com.lamnguyen.media_service.service.grpc;
 
 import com.lamnguyen.media_service.protos.ImageCodeRequest;
+import com.lamnguyen.media_service.protos.ImageCodesExistsResponse;
+import com.lamnguyen.media_service.protos.ImageCodesRequest;
 import com.lamnguyen.media_service.protos.ImageExistsResponse;
 import com.lamnguyen.media_service.protos.MediaCheckedServiceGrpc.MediaCheckedServiceImplBase;
 import com.lamnguyen.media_service.service.business.IMediaService;
@@ -18,6 +20,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
 import net.devh.boot.grpc.server.service.GrpcService;
+
+import java.util.HashMap;
 
 @GrpcService
 @RequiredArgsConstructor
@@ -30,12 +34,20 @@ public class MediaGrpcServerImpl extends MediaCheckedServiceImplBase {
 	public void checkMediaExists(ImageCodeRequest request, StreamObserver<ImageExistsResponse> responseObserver) {
 		var result = mediaService.existsById(request.getImageId());
 		var response = ImageExistsResponse.newBuilder().setExists(result).build();
-		log.info("==============================================================================================================================================================================================");
-		log.info("gRPC method: {}", "checkMediaExists");
-		log.info("gRPC Request: {}", request.getImageId());
-		log.info("gRPC Response: {}", response.getExists());
-		log.info("==============================================================================================================================================================================================");
 		responseObserver.onNext(response);
+		responseObserver.onCompleted();
+	}
+
+	@Override
+	public void checkListMediaExists(ImageCodesRequest request, StreamObserver<ImageCodesExistsResponse> responseObserver) {
+		var resultData = new HashMap<String, Boolean>();
+		request.getIdsList().forEach(id -> {
+			resultData.put(id, mediaService.existsById(id));
+		});
+		var result = ImageCodesExistsResponse.newBuilder()
+				.putAllIdExistMap(resultData)
+				.build();
+		responseObserver.onNext(result);
 		responseObserver.onCompleted();
 	}
 }
