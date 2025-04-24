@@ -10,17 +10,8 @@ spring:
       username: ${CONFIG_USERNAME:}
       password: ${CONFIG_PASSWORD:}
 
-  kafka:
-    bootstrap-servers: ${KAFKA_SERVER:localhost:9092}
-    topic:
-      create-variant: create-variant
-    consumer:
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      properties:
-        spring:
-          json:
-            trusted:
-              packages: "create_variant_product"
-            type:
-              mapping: "create_variant_product:com.lamnguyen.inventory_service.message.CreateVariantEvent"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

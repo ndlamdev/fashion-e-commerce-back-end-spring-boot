@@ -8,6 +8,7 @@
 package com.lamnguyen.inventory_service.message.consumer;
 
 import com.lamnguyen.inventory_service.message.CreateVariantEvent;
+import com.lamnguyen.inventory_service.service.business.IInventoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -17,6 +18,8 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class VariantEventConsumer {
+
+    private final IInventoryService inventoryService;
 
     @KafkaListener(topics = "create_variant_product", groupId = "inventory-service-group")
     public void consumeCreateVariantEvent(CreateVariantEvent event) {
@@ -39,12 +42,7 @@ public class VariantEventConsumer {
                 return;
             }
 
-            // Process the event
-            // In a real implementation, this would:
-            // 1. Extract data from the event
-            // 2. Create or update inventory records
-            // 3. Perform any necessary business logic
-
+            // Process the event using the InventoryServiceImpl
             String variantId = event.id();
             log.info("Processing variant with ID: {}", variantId);
 
@@ -53,9 +51,8 @@ public class VariantEventConsumer {
                 log.info("Option type: {}, values: {}", option.type(), option.values());
             });
 
-            // Here you would implement the actual business logic
-            // For example:
-            // inventoryService.createInventoryForVariant(variantId, event.options());
+            // Process the event to create inventory records
+            inventoryService.createVariantProduct(event);
 
             log.info("Successfully processed CreateVariantEvent for variant ID: {}", variantId);
         } catch (Exception e) {

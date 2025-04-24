@@ -38,7 +38,8 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.authorizeHttpRequests(auth ->
-				auth.requestMatchers(applicationProperty.getWhiteList().toArray(String[]::new)).permitAll()
+				auth.requestMatchers("/actuator/**").permitAll()
+						.requestMatchers(applicationProperty.getWhiteList().toArray(String[]::new)).permitAll()
 						.anyRequest().permitAll()
 		);
 		httpSecurity.oauth2ResourceServer(oauth2ResourceServerConfig -> oauth2ResourceServerConfig
