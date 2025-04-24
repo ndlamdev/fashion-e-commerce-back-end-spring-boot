@@ -6,11 +6,11 @@
  * User: lam-nguyen
  **/
 
-package com.lamnguyen.authentication_service.service.business.user.v1;
+package com.lamnguyen.authentication_service.service.kafka.v1;
 
 import com.lamnguyen.authentication_service.event.SaveProfileUserEvent;
 import com.lamnguyen.authentication_service.event.UpdateAvatarUserEvent;
-import com.lamnguyen.authentication_service.service.business.user.IProfileUserService;
+import com.lamnguyen.authentication_service.service.kafka.IProfileUserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

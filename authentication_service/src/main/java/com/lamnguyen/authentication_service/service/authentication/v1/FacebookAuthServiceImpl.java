@@ -22,9 +22,8 @@ import com.lamnguyen.authentication_service.model.RoleOfUser;
 import com.lamnguyen.authentication_service.model.User;
 import com.lamnguyen.authentication_service.repository.IRoleOfUserRepository;
 import com.lamnguyen.authentication_service.service.authentication.IFacebookAuthService;
-import com.lamnguyen.authentication_service.service.authentication.IRedisManager;
 import com.lamnguyen.authentication_service.service.business.facebook.IFacebookGraphClient;
-import com.lamnguyen.authentication_service.service.business.user.IProfileUserService;
+import com.lamnguyen.authentication_service.service.kafka.IProfileUserService;
 import com.lamnguyen.authentication_service.service.business.user.IUserService;
 import com.lamnguyen.authentication_service.service.redis.IFacebookTokenRedisManager;
 import com.lamnguyen.authentication_service.utils.helper.JwtTokenUtil;
@@ -36,7 +35,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.Objects;
 
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)

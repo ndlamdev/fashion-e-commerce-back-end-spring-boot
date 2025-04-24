@@ -6,7 +6,7 @@
  * User: lam-nguyen
  **/
 
-package com.lamnguyen.authentication_service.service.business.user;
+package com.lamnguyen.authentication_service.service.kafka;
 
 import com.lamnguyen.authentication_service.event.SaveProfileUserEvent;
 import com.lamnguyen.authentication_service.event.UpdateAvatarUserEvent;

@@ -21,7 +21,7 @@ import com.lamnguyen.authentication_service.model.RoleOfUser;
 import com.lamnguyen.authentication_service.model.User;
 import com.lamnguyen.authentication_service.repository.IRoleOfUserRepository;
 import com.lamnguyen.authentication_service.service.authentication.IAuthenticationService;
-import com.lamnguyen.authentication_service.service.business.user.IProfileUserService;
+import com.lamnguyen.authentication_service.service.kafka.IProfileUserService;
 import com.lamnguyen.authentication_service.service.business.user.IUserService;
 import com.lamnguyen.authentication_service.service.grpc.IProfileUserGrpcClient;
 import com.lamnguyen.authentication_service.service.mail.ISendMailService;
