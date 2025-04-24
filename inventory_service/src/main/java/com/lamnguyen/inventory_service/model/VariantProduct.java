@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Map;
 
@@ -27,30 +28,28 @@ import java.util.Map;
 @Getter
 @Setter
 @Document(collection = "inventories")
-public class VariantInventory extends MongoBaseDocument {
-	/**
-	 * The ID of the product this inventory belongs to
-	 */
+public class VariantProduct extends MongoBaseDocument {
+	@Field(name = "product_id")
 	private String productId;
-
-	/**
-	 * A map of option types to their values for this specific variant
-	 * For example: {SIZE: "M", COLOR: "Red"}
-	 */
-	private Map<OptionType, String> options;
-
-	/**
-	 * Whether this variant is available for purchase
-	 */
-	private boolean available;
-
-	/**
-	 * The quantity available in stock
-	 */
-	private int quantity;
-
-	/**
-	 * The SKU (Stock Keeping Unit) for this variant
-	 */
+	private String title;
+	@Field(name = "regular_price")
+	private double regularPrice;
+	@Field(name = "compare_price")
+	private double comparePrice;
 	private String sku;
+	private int quantity;
+	private Map<OptionType, String> options;
+	private boolean hide;
+	private int pending;
+	@Field(name = "product_stoppage")
+	private boolean productStoppage;
+	@Field(name = "product_allow_buy_hidden")
+	private boolean productAllowBuyHidden;
+	@Field(name = "product_exclude_discount")
+	private boolean productExcludeDiscount;
+	private boolean available;
+	@Field(name = "product_apply_allowance_inventory")
+	private boolean productApplyAllowanceInventory;
+	@Field(name = "product_visibility")
+	private boolean productVisibility;
 }

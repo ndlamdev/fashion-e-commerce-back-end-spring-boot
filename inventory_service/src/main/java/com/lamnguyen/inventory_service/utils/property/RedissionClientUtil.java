@@ -6,7 +6,7 @@
  * User: kimin
  **/
 
-package com.lamnguyen.inventory_service.utils.helper;
+package com.lamnguyen.inventory_service.utils.property;
 
 import com.lamnguyen.inventory_service.service.redis.CallbackDB;
 import lombok.AccessLevel;

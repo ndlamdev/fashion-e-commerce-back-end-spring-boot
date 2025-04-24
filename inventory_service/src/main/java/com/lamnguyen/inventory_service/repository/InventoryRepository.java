@@ -7,7 +7,7 @@
  **/
 package com.lamnguyen.inventory_service.repository;
 
-import com.lamnguyen.inventory_service.model.VariantInventory;
+import com.lamnguyen.inventory_service.model.VariantProduct;
 import com.lamnguyen.inventory_service.utils.enums.OptionType;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
@@ -17,17 +17,17 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * Repository interface for VariantInventory document
+ * Repository interface for VariantProduct document
  */
 @Repository
-public interface InventoryRepository extends MongoRepository<VariantInventory, String> {
+public interface InventoryRepository extends MongoRepository<VariantProduct, String> {
     
     /**
      * Find inventory by product ID
      * @param productId the product ID
      * @return list of inventories for the product
      */
-    List<VariantInventory> findByProductId(String productId);
+    List<VariantProduct> findByProductId(String productId);
     
     /**
      * Find inventory by product ID and options
@@ -35,19 +35,19 @@ public interface InventoryRepository extends MongoRepository<VariantInventory, S
      * @param options the options map
      * @return the inventory if found
      */
-    Optional<VariantInventory> findByProductIdAndOptions(String productId, Map<OptionType, String> options);
+    Optional<VariantProduct> findByProductIdAndOptions(String productId, Map<OptionType, String> options);
     
     /**
      * Find available inventories by product ID
      * @param productId the product ID
      * @return list of available inventories for the product
      */
-    List<VariantInventory> findByProductIdAndAvailableTrue(String productId);
+    List<VariantProduct> findByProductIdAndAvailableTrue(String productId);
     
     /**
      * Find inventory by SKU
      * @param sku the SKU
      * @return the inventory if found
      */
-    Optional<VariantInventory> findBySku(String sku);
+    Optional<VariantProduct> findBySku(String sku);
 }

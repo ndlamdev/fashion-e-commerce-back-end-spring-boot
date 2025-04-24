@@ -8,7 +8,7 @@
 package com.lamnguyen.inventory_service.service.business;
 
 import com.lamnguyen.inventory_service.message.CreateVariantEvent;
-import com.lamnguyen.inventory_service.model.VariantInventory;
+import com.lamnguyen.inventory_service.model.VariantProduct;
 import com.lamnguyen.inventory_service.utils.enums.OptionType;
 
 import java.util.List;
@@ -39,12 +39,12 @@ public interface IInventoryService {
      * @param productId the product ID
      * @return list of available inventories
      */
-    List<VariantInventory> getAvailableInventory(String productId);
+    List<VariantProduct> getAvailableInventory(String productId);
     
     /**
      * Get all inventory for a product
      * @param productId the product ID
      * @return list of all inventories
      */
-    List<VariantInventory> getAllInventory(String productId);
+    List<VariantProduct> getAllInventory(String productId);
 }

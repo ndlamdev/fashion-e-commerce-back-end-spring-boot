@@ -8,7 +8,7 @@
 
 package com.lamnguyen.inventory_service.service.redis;
 
-import com.lamnguyen.inventory_service.utils.helper.RedissionClientUtil;
+import com.lamnguyen.inventory_service.utils.property.RedissionClientUtil;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.redis.core.RedisTemplate;

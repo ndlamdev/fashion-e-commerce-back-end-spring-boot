@@ -7,22 +7,23 @@
  **/
 package com.lamnguyen.inventory_service.service.business.v1;
 
+import com.lamnguyen.inventory_service.config.exception.ApplicationException;
+import com.lamnguyen.inventory_service.config.exception.ExceptionEnum;
 import com.lamnguyen.inventory_service.mapper.IInventoryMapper;
 import com.lamnguyen.inventory_service.message.CreateVariantEvent;
-import com.lamnguyen.inventory_service.model.VariantInventory;
+import com.lamnguyen.inventory_service.model.VariantProduct;
 import com.lamnguyen.inventory_service.repository.InventoryRepository;
 import com.lamnguyen.inventory_service.service.business.IInventoryService;
+import com.lamnguyen.inventory_service.service.redis.IVariantProductRedisManage;
 import com.lamnguyen.inventory_service.utils.enums.OptionType;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.common.errors.ApiException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Implementation of the inventory management service
@@ -32,9 +33,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class InventoryServiceImpl implements IInventoryService {
-
 	InventoryRepository inventoryRepository;
-	IInventoryMapper inventoryMapper;
+	IVariantProductRedisManage variantProductRedisManage;
 
 	/**
 	 * Process a CreateVariantEvent to create inventory records
@@ -54,12 +54,15 @@ public class InventoryServiceImpl implements IInventoryService {
 			inventoryRepository.findByProductIdAndOptions(productId, optionCombination)
 					.ifPresentOrElse(
 							// If exists, log it
-							inventory -> log.info("VariantInventory already exists for product {} with options {}", productId, optionCombination),
+							inventory -> log.info("VariantProduct already exists for product {} with options {}", productId, optionCombination),
 							// If not exists, create it
 							() -> {
-								VariantInventory inventory = VariantInventory.builder()
+								VariantProduct inventory = VariantProduct.builder()
 										.productId(event.id())
+										.comparePrice(event.comparePrice())
+										.regularPrice(event.regularPrice())
 										.options(optionCombination)
+										.title(optionCombination.values().stream().reduce("", (s, s2) -> s + "-" + s2).substring(1))
 										.sku(generateSku(productId, optionCombination))
 										.build();
 								inventoryRepository.save(inventory);
@@ -145,8 +148,9 @@ public class InventoryServiceImpl implements IInventoryService {
 	 * @param productId the product ID
 	 * @return list of available inventories
 	 */
-	public List<VariantInventory> getAvailableInventory(String productId) {
-		return inventoryRepository.findByProductIdAndAvailableTrue(productId);
+	public List<VariantProduct> getAvailableInventory(String productId) {
+		var data = getAllInventory(productId);
+		return data.stream().filter(VariantProduct::isAvailable).toList();
 	}
 
 	/**
@@ -155,8 +159,11 @@ public class InventoryServiceImpl implements IInventoryService {
 	 * @param productId the product ID
 	 * @return list of all inventories
 	 */
-	public List<VariantInventory> getAllInventory(String productId) {
-		return inventoryRepository.findByProductId(productId);
+	public List<VariantProduct> getAllInventory(String productId) {
+		return Arrays.stream(variantProductRedisManage
+				.get(productId)
+				.or(() -> variantProductRedisManage.cache(productId, () -> Optional.of(inventoryRepository.findByProductId(productId).toArray(VariantProduct[]::new))))
+				.orElseGet(() -> new VariantProduct[0])).toList();
 	}
 
 	/**
@@ -167,7 +174,6 @@ public class InventoryServiceImpl implements IInventoryService {
 		StringBuilder sku = new StringBuilder("SKU").append("-").append(productId);
 		// Add option values to SKU
 		options.forEach((key, value) -> sku.append("-").append(key).append("-").append(value));
-
-		return sku.toString();
+		return sku.toString().toUpperCase();
 	}
 }

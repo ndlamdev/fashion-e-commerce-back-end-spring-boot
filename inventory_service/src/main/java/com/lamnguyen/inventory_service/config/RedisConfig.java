@@ -9,6 +9,7 @@
 package com.lamnguyen.inventory_service.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lamnguyen.inventory_service.model.VariantProduct;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -17,7 +18,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
@@ -33,6 +37,18 @@ public class RedisConfig {
 		template.setValueSerializer(new GenericJackson2JsonRedisSerializer(mapper));
 		template.setHashKeySerializer(new StringRedisSerializer());
 		template.setHashValueSerializer(new GenericJackson2JsonRedisSerializer(mapper));
+		template.setConnectionFactory(connectionFactory);
+		return template;
+	}
+
+	@Bean
+	RedisTemplate<String, VariantProduct[]> listVariantProductTemplate(RedisConnectionFactory connectionFactory) {
+		RedisTemplate<String, VariantProduct[]> template = new RedisTemplate<>();
+
+		template.setKeySerializer(new StringRedisSerializer());
+		template.setValueSerializer(new Jackson2JsonRedisSerializer<>(mapper, VariantProduct[].class));
+		template.setHashKeySerializer(new StringRedisSerializer());
+		template.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(mapper, VariantProduct[].class));
 		template.setConnectionFactory(connectionFactory);
 		return template;
 	}
