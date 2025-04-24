@@ -6,27 +6,21 @@
  * User: lam-nguyen
  **/
 
-package com.lamnguyen.notification_service.service.impl;
+package com.lamnguyen.notification_service.service.kafka.v1;
 
-import brevo.ApiException;
 import brevoApi.TransactionalEmailsApi;
 import brevoModel.SendSmtpEmail;
 import brevoModel.SendSmtpEmailSender;
 import brevoModel.SendSmtpEmailTo;
 import com.lamnguyen.notification_service.message.SendMailVerifyMessage;
-import com.lamnguyen.notification_service.service.ISendMailService;
+import com.lamnguyen.notification_service.service.kafka.ISendMailService;
 import com.lamnguyen.notification_service.utils.enums.BrevoTemplate;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.kafka.annotation.KafkaHandler;
-import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.annotation.RetryableTopic;
-import org.springframework.retry.annotation.Backoff;
 import org.springframework.stereotype.Service;
 
-import java.net.SocketTimeoutException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -39,11 +33,6 @@ public class SendMailServiceImpl implements ISendMailService {
 	SendSmtpEmailSender sender;
 
 	@Override
-	@KafkaListener(topics = "send-mail-verify")
-	@RetryableTopic(
-			backoff = @Backoff(value = 3000L),
-			attempts = "5",
-			include = ApiException.class)
 	public void sendMailVerity(SendMailVerifyMessage message) {
 		log.info("Send mail have body: {}", message);
 		BrevoTemplate template = switch (message.type()) {
