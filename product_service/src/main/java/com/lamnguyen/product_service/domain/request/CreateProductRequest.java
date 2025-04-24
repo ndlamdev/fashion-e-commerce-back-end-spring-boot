@@ -69,4 +69,10 @@ public class CreateProductRequest {
 
 	@JsonProperty("icon_thumbnail")
 	String iconThumbnail; // Hình minh họa khuyến mãi
+
+	@JsonProperty("compare_price")
+	double comparePrice; // Giá so sánh
+
+	@JsonProperty("regular_price")
+	double regularPrice; // Giá thông thường
 }

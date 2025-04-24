@@ -13,5 +13,5 @@ import com.lamnguyen.product_service.event.CreateVariantEvent;
 import java.util.List;
 
 public interface IVariantService {
-	void saveVariant(String productId, List<CreateVariantEvent.Option> options);
+	void saveVariant(String productId, double comparePrice, double regularPrice, List<CreateVariantEvent.Option> options);
 }

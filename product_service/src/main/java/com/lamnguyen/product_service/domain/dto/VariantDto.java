@@ -2,6 +2,7 @@ package com.lamnguyen.product_service.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lamnguyen.product_service.model.MongoBaseDocument;
+import com.lamnguyen.product_service.utils.enums.OptionType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
+import java.util.Map;
 
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -30,14 +32,7 @@ public class VariantDto extends MongoBaseDocument implements Serializable {
 
 	Integer quantity;
 
-	@JsonProperty("option_id_1")
-	String option1;
-	@JsonProperty("option_id_2")
-	String option2;
-	@JsonProperty("option_id_3")
-	String option3;
-	@JsonProperty("option_id_4")
-	String option4;
+	Map<OptionType, String> options;
 
 	boolean hide;
 
@@ -59,7 +54,4 @@ public class VariantDto extends MongoBaseDocument implements Serializable {
 
 	@JsonProperty("product_apply_allowance_inventory")
 	boolean productApplyAllowanceInventory;
-
-	@JsonProperty("display_collections_variant")
-	Integer displayCollectionsVariant;
 }

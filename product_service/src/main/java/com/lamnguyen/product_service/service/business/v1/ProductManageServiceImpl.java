@@ -50,7 +50,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 		var inserted = productRepository.insert(product);
 		collectionManageService.addProductId(request.getCollection(), inserted.getId());
 		var options = optionMapper.toCreateVariantOptions(inserted.getOptions());
-		variantService.saveVariant(inserted.getId(), options);
+		variantService.saveVariant(inserted.getId(), request.getComparePrice(), request.getRegularPrice(), options);
 		redisManager.save(inserted.getId(), productMapper.toProductDto(inserted));
 	}
 
@@ -81,7 +81,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 		var imagesChecked = mediaGrpcClient.existsByIds(product.getImages());
 		var imagesExists = imagesChecked.entrySet().stream().filter(Map.Entry::getValue).map(Map.Entry::getKey).toList();
 		product.setImages(imagesExists);
-		if(product.getOptionsValues() != null) {
+		if (product.getOptionsValues() != null) {
 			product.getOptionsValues().forEach(optionsValue -> {
 				optionsValue.getOptions().forEach(option -> {
 					var imageOptionsChecked = mediaGrpcClient.existsByIds(option.getImages());

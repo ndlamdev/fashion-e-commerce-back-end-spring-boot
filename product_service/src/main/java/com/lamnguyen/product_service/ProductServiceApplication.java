@@ -9,7 +9,6 @@ import java.util.TimeZone;
 
 
 @SpringBootApplication
-@EnableMongoAuditing
 public class ProductServiceApplication {
 
 	public static void main(String[] args) {

@@ -12,8 +12,10 @@ import com.lamnguyen.product_service.config.exception.ApplicationException;
 import com.lamnguyen.product_service.config.exception.ExceptionEnum;
 import com.lamnguyen.product_service.domain.dto.ProductDto;
 import com.lamnguyen.product_service.mapper.IProductMapper;
+import com.lamnguyen.product_service.mapper.IVariantMapper;
 import com.lamnguyen.product_service.repository.IProductRepository;
 import com.lamnguyen.product_service.service.business.IProductService;
+import com.lamnguyen.product_service.service.grpc.IVariantGrpcClient;
 import com.lamnguyen.product_service.service.redis.IProductRedisManager;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -27,12 +29,20 @@ public class ProductServiceImpl implements IProductService {
 	IProductMapper productMapper;
 	IProductRepository productRepository;
 	IProductRedisManager redisManager;
+	IVariantGrpcClient variantService;
 
 	@Override
 	public ProductDto getProductDtoById(String id) {
-		return redisManager.get(id).orElseGet(() ->
-				redisManager.cache(id, id, () -> productRepository.findById(id).map(productMapper::toProductDto))
-						.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.PRODUCT_NOT_FOUND))
-		);
+		var start = System.currentTimeMillis();
+		var data = redisManager.get(id)
+				.or(() -> redisManager.cache(id, () -> productRepository.findById(id).map(productMapper::toProductDto)))
+				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.PRODUCT_NOT_FOUND));
+		var end = System.currentTimeMillis();
+		System.out.println("Time to get product from redis: " + (end - start) + "ms");
+		start = System.currentTimeMillis();
+		data.setVariants(variantService.getVariantsByProductId(id));
+		end = System.currentTimeMillis();
+		System.out.println("Time to get variants from grpc: " + (end - start) + "ms");
+		return data;
 	}
 }

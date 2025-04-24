@@ -24,8 +24,8 @@ public class VariantServiceImpl implements IVariantService {
 	private String topicCreateVariant;
 
 	@Override
-	public void saveVariant(String productId, List<CreateVariantEvent.Option> options) {
-		var event = new CreateVariantEvent(productId, options);
+	public void saveVariant(String productId, double comparePrice, double regularPrice, List<CreateVariantEvent.Option> options) {
+		var event = new CreateVariantEvent(productId, comparePrice, regularPrice, options);
 		kafkaTemplate.send(topicCreateVariant, event);
 	}
 }

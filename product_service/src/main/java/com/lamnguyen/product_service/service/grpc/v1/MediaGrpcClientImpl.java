@@ -10,7 +10,7 @@ package com.lamnguyen.product_service.service.grpc.v1;
 
 import com.lamnguyen.product_service.protos.ImageCodeRequest;
 import com.lamnguyen.product_service.protos.ImageCodesRequest;
-import com.lamnguyen.product_service.protos.MediaCheckedServiceGrpc;
+import com.lamnguyen.product_service.protos.MediaServiceGrpc;
 import com.lamnguyen.product_service.service.grpc.IMediaGrpcClient;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Service;
@@ -21,12 +21,12 @@ import java.util.Map;
 @Service
 public class MediaGrpcClientImpl implements IMediaGrpcClient {
 	@GrpcClient("fashion-e-commerce-media-service")
-	MediaCheckedServiceGrpc.MediaCheckedServiceBlockingStub mediaCheckedServiceBlockingStub;
+	MediaServiceGrpc.MediaServiceBlockingStub mediaServiceBlockingStub;
 
 	@Override
 	public boolean existsById(String id) {
 		var request = ImageCodeRequest.newBuilder().setImageId(id).build();
-		return mediaCheckedServiceBlockingStub.checkMediaExists(request).getExists();
+		return mediaServiceBlockingStub.checkMediaExists(request).getExists();
 	}
 
 	@Override
@@ -34,6 +34,6 @@ public class MediaGrpcClientImpl implements IMediaGrpcClient {
 		var request = ImageCodesRequest.newBuilder()
 				.addAllIds(ids)
 				.build();
-		return mediaCheckedServiceBlockingStub.checkListMediaExists(request).getIdExistMapMap();
+		return mediaServiceBlockingStub.checkListMediaExists(request).getIdExistMapMap();
 	}
 }

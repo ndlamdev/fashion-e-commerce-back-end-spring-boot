@@ -10,5 +10,8 @@ package com.lamnguyen.product_service.service.redis;
 
 import com.lamnguyen.product_service.domain.dto.ProductDto;
 
+import java.util.Optional;
+
 public interface IProductRedisManager extends ICacheManage<ProductDto> {
+	Optional<ProductDto> cache(String id, CallbackDB<ProductDto> callDB);
 }

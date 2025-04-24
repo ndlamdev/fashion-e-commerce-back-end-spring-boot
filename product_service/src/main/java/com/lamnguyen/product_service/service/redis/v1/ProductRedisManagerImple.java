@@ -46,4 +46,9 @@ public class ProductRedisManagerImple extends ACacheManage<ProductDto> implement
 	public String generateKeyCache(String keyCache) {
 		return generateHashKey("PRODUCT", keyCache);
 	}
+
+	@Override
+	public Optional<ProductDto> cache(String id, CallbackDB<ProductDto> callDB) {
+		return cache(id, id, callDB);
+	}
 }
