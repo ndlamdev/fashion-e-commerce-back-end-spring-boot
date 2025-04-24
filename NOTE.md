@@ -26,13 +26,13 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class MapperConfig {
-   @Bean
-   public ObjectMapper objectMapper() {
-      ObjectMapper mapper = new ObjectMapper();
-      mapper.registerModule(new JavaTimeModule());
-      mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-      return mapper;
-   }
+	@Bean
+	public ObjectMapper objectMapper() {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new JavaTimeModule());
+		mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+		return mapper;
+	}
 }
 ```
 
@@ -44,23 +44,23 @@ public class MapperConfig {
 
 ```yaml
 spring:
-   kafka:
-      bootstrap-servers: ${KAFKA_SERVER:localhost:9092}
-      producer:
-         key-serializer: org.apache.kafka.common.serialization.StringSerializer
-         value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVER:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 ```
 
 * Đối với Consumer
 
 ```yaml
 spring:
-   kafka:
-      bootstrap-servers: ${KAFKA_SERVER:localhost:9092}
-      consumer:
-         group-id: user-detail
-         key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-         value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVER:localhost:9092}
+    consumer:
+      group-id: user-detail
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
 ```
 
 ### Đặt tên cho các package
@@ -77,14 +77,14 @@ spring:
 
 ```yaml
 spring:
-   kafka:
-      bootstrap-servers: ${KAFKA_SERVER:localhost:9092}
-      producer:
-         properties:
-            spring:
-               json:
-                  type:
-                     mapping: "send_mail_verify:com.lamnguyen.authentication_service.event.SendMailVerifyEvent,save_user_detail:com.lamnguyen.authentication_service.event.SaveUserDetailEvent"
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVER:localhost:9092}
+    producer:
+      properties:
+        spring:
+          json:
+            type:
+              mapping: "send_mail_verify:com.lamnguyen.authentication_service.event.SendMailVerifyEvent,save_user_detail:com.lamnguyen.authentication_service.event.SaveUserDetailEvent"
 ```
 
 ```java
@@ -104,16 +104,16 @@ public record SendMailVerifyEvent(String email,
 
 ```yaml
 spring:
-   kafka:
-      bootstrap-servers: ${KAFKA_SERVER:localhost:9092}
-      consumer:
-         properties:
-            spring:
-               json:
-                  trusted:
-                     packages: "save_user_detail"
-                  type:
-                     mapping: "save_user_detail:com.lamnguyen.profile_service.message.SaveUserDetailMessage"
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVER:localhost:9092}
+    consumer:
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "save_user_detail"
+            type:
+              mapping: "save_user_detail:com.lamnguyen.profile_service.message.SaveUserDetailMessage"
 ```
 
 ```java
@@ -132,11 +132,11 @@ import java.time.LocalDate;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class SaveUserDetailMessage {
-   Long userId;
-   String fullName;
-   String phone;
-   SexEnum sexEnum;
-   LocalDate birthday;
+	Long userId;
+	String fullName;
+	String phone;
+	SexEnum sexEnum;
+	LocalDate birthday;
 }
 
 ```
@@ -188,15 +188,15 @@ implementation 'com.google.api-client:google-api-client:2.7.2'
 
 @Bean
 public GoogleAuthorizationCodeTokenRequest googleAuthorizationCodeTokenRequest() {
-   return new GoogleAuthorizationCodeTokenRequest(
-           new NetHttpTransport(),
-           new GsonFactory(),
-           "https://oauth2.googleapis.com/token",
-           "<client-id>",
-           "<client-secret>",
-           "", // Phần này nên điền chuổi rổng để khi nào muốn xác thực thì set vào
-           "postmessage" // or your redirect URI
-   );
+	return new GoogleAuthorizationCodeTokenRequest(
+			new NetHttpTransport(),
+			new GsonFactory(),
+			"https://oauth2.googleapis.com/token",
+			"<client-id>",
+			"<client-secret>",
+			"", // Phần này nên điền chuổi rổng để khi nào muốn xác thực thì set vào
+			"postmessage" // or your redirect URI
+	);
 }
 ```
 
@@ -206,9 +206,9 @@ public GoogleAuthorizationCodeTokenRequest googleAuthorizationCodeTokenRequest()
 
 @Bean
 public GoogleIdTokenVerifier googleIdTokenVerifier() {
-   return new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
-           .setAudience(Collections.singletonList("<client-id>"))
-           .build();
+	return new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
+			.setAudience(Collections.singletonList("<client-id>"))
+			.build();
 }
 ```
 
@@ -231,31 +231,31 @@ import java.security.GeneralSecurityException;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class GoogleAuthServiceImpl {
-   GoogleIdTokenVerifier googleIdTokenVerifier;
-   GoogleAuthorizationCodeTokenRequest googleAuthorizationCodeTokenRequest;
+	GoogleIdTokenVerifier googleIdTokenVerifier;
+	GoogleAuthorizationCodeTokenRequest googleAuthorizationCodeTokenRequest;
 
-   public GoogleTokenResponse verifyGoogleAuthCode(String authCode) {
-      try {
-         return googleAuthorizationCodeTokenRequest.setCode(authCode).execute();
-      } catch (IOException e) {
-         throw ApplicationException.createException(ExceptionEnum.UNAUTHORIZED);
-      }
-   }
+	public GoogleTokenResponse verifyGoogleAuthCode(String authCode) {
+		try {
+			return googleAuthorizationCodeTokenRequest.setCode(authCode).execute();
+		} catch (IOException e) {
+			throw ApplicationException.createException(ExceptionEnum.UNAUTHORIZED);
+		}
+	}
 
-   @Override
-   public GoogleIdToken.Payload getPayload(String idTokenString) throws GeneralSecurityException, IOException {
-      GoogleIdToken idToken = googleIdTokenVerifier.verify(idTokenString);
-      if (idToken == null) throw new RuntimeException("token is null");
-      return idToken.getPayload();
-   }
+	@Override
+	public GoogleIdToken.Payload getPayload(String idTokenString) throws GeneralSecurityException, IOException {
+		GoogleIdToken idToken = googleIdTokenVerifier.verify(idTokenString);
+		if (idToken == null) throw new RuntimeException("token is null");
+		return idToken.getPayload();
+	}
 
-   public LoginSuccessDto login(String authCode) {
-      var response = verifyGoogleAuthCode(authCode);
-      var payload = getPayload(response.getIdToken());
-      var avatar = payload.get("picture").toString();
-      var fullName = payload.get("name").toString();
-      // Triển khai theo logic mà bạn mong muốn 
-   }
+	public LoginSuccessDto login(String authCode) {
+		var response = verifyGoogleAuthCode(authCode);
+		var payload = getPayload(response.getIdToken());
+		var avatar = payload.get("picture").toString();
+		var fullName = payload.get("name").toString();
+		// Triển khai theo logic mà bạn mong muốn 
+	}
 }
 ```
 
@@ -295,9 +295,9 @@ thông tin public của user để phòng trường hợp lộ token cũng khôn
 @EnableFeignClients
 public class YourApplication {
 
-   public static void main(String[] args) {
-      SpringApplication.run(YourApplication.class, args);
-   }
+	public static void main(String[] args) {
+		SpringApplication.run(YourApplication.class, args);
+	}
 
 }
 ```
@@ -313,69 +313,69 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(value = "IFacebookGraphClient", url = "https://graph.facebook.com/v22.0/")
 public interface IFacebookGraphClient {
 
-   @GetMapping(value = "/debug_token?access_token={access_token}&input_token={access_token}&format=json&method=get&origin_graph_explorer=1&pretty=1&suppress_http_code=1&transport=cors", produces = "application/json")
-   DebugTokenResponse debugToken(@RequestParam("access_token") String token);
+	@GetMapping(value = "/debug_token?access_token={access_token}&input_token={access_token}&format=json&method=get&origin_graph_explorer=1&pretty=1&suppress_http_code=1&transport=cors", produces = "application/json")
+	DebugTokenResponse debugToken(@RequestParam("access_token") String token);
 
-   @GetMapping(value = "/oauth/access_token?grant_type=fb_exchange_token")
-   ExchangeTokenResponse exchangeToken(@RequestParam("client_id") String appId, @RequestParam("client_secret") String appSecret, @RequestParam("fb_exchange_token") String token);
+	@GetMapping(value = "/oauth/access_token?grant_type=fb_exchange_token")
+	ExchangeTokenResponse exchangeToken(@RequestParam("client_id") String appId, @RequestParam("client_secret") String appSecret, @RequestParam("fb_exchange_token") String token);
 
-   @GetMapping(value = "/me?fields=id%2Cname%2Cemail%2Cfirst_name%2Clast_name%2Cpicture%2Clocale%2Ctimezone")
-   ProfileUserFacebookResponse getProfile(@RequestParam("access_token") String accessToken);
+	@GetMapping(value = "/me?fields=id%2Cname%2Cemail%2Cfirst_name%2Clast_name%2Cpicture%2Clocale%2Ctimezone")
+	ProfileUserFacebookResponse getProfile(@RequestParam("access_token") String accessToken);
 
-   record DebugTokenResponse(
-           DataDebugTokenResponse data
-   ) {
-      public record DataDebugTokenResponse(
-              @JsonProperty("app_id")
-              String appId,
-              String type,
-              String application,
-              @JsonProperty("data_access_expires_at")
-              long dataAccessExpiresAt,
-              @JsonProperty("expires_at")
-              long expiresAt,
-              @JsonProperty("is_valid")
-              boolean valid,
-              @JsonProperty("user_id")
-              String userId,
-              String[] scopes
-      ) {
-      }
-   }
+	record DebugTokenResponse(
+			DataDebugTokenResponse data
+	) {
+		public record DataDebugTokenResponse(
+				@JsonProperty("app_id")
+				String appId,
+				String type,
+				String application,
+				@JsonProperty("data_access_expires_at")
+				long dataAccessExpiresAt,
+				@JsonProperty("expires_at")
+				long expiresAt,
+				@JsonProperty("is_valid")
+				boolean valid,
+				@JsonProperty("user_id")
+				String userId,
+				String[] scopes
+		) {
+		}
+	}
 
-   record ExchangeTokenResponse(
-           @JsonProperty("access_token")
-           String accessToken,
-           @JsonProperty("token_type")
-           String tokenType,
-           @JsonProperty("expires_in")
-           long expiresIn
-   ) {
-   }
+	record ExchangeTokenResponse(
+			@JsonProperty("access_token")
+			String accessToken,
+			@JsonProperty("token_type")
+			String tokenType,
+			@JsonProperty("expires_in")
+			long expiresIn
+	) {
+	}
 
-   record ProfileUserFacebookResponse(
-           String id,
-           String name,
-           @JsonProperty("first_name")
-           String firstName,
-           @JsonProperty("last_name")
-           String lastName,
-           @JsonProperty("picture")
-           Picture avatar
-   ) {
-      public record Picture(
-              PictureData data
-      ) {
-         public record PictureData(
-                 double height,
-                 double width,
-                 @JsonProperty("is_silhouette")
-                 boolean isSilhouette,
-                 String url
-         ) {
-         }
-      }
-   }
+	record ProfileUserFacebookResponse(
+			String id,
+			String name,
+			@JsonProperty("first_name")
+			String firstName,
+			@JsonProperty("last_name")
+			String lastName,
+			@JsonProperty("picture")
+			Picture avatar
+	) {
+		public record Picture(
+				PictureData data
+		) {
+			public record PictureData(
+					double height,
+					double width,
+					@JsonProperty("is_silhouette")
+					boolean isSilhouette,
+					String url
+			) {
+			}
+		}
+	}
 }
 ```
 
@@ -385,48 +385,48 @@ public interface IFacebookGraphClient {
 
 ```groovy
 plugins {
-   id "com.google.protobuf" version "0.9.5"
+    id "com.google.protobuf" version "0.9.5"
 }
 
 ext {
-   springGrpcVersion = "0.7.0"
+    springGrpcVersion = "0.7.0"
 }
 
 dependencies {
-   implementation 'net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE' // for server
-   implementation 'net.devh:grpc-client-spring-boot-starter:3.1.0.RELEASE' // for client
-   implementation 'javax.annotation:javax.annotation-api:1.3.2'
-   implementation 'com.google.protobuf:protobuf-java:4.30.2'
+    implementation 'net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE' // for server
+    implementation 'net.devh:grpc-client-spring-boot-starter:3.1.0.RELEASE' // for client
+    implementation 'javax.annotation:javax.annotation-api:1.3.2'
+    implementation 'com.google.protobuf:protobuf-java:4.30.2'
 }
 
 repositories {
-   gradlePluginPortal()
-   mavenCentral()
+    gradlePluginPortal()
+    mavenCentral()
 }
 
 dependencyManagement {
-   imports {
-      mavenBom "org.springframework.grpc:spring-grpc-dependencies:$springGrpcVersion"
-   }
+    imports {
+        mavenBom "org.springframework.grpc:spring-grpc-dependencies:$springGrpcVersion"
+    }
 }
 
 
 protobuf {
-   protoc {
-      artifact = "com.google.protobuf:protoc:4.30.2" // Hoặc bản mới hơn
-   }
-   plugins {
-      grpc {
-         artifact = "io.grpc:protoc-gen-grpc-java:1.72.0"
-      }
-   }
-   generateProtoTasks {
-      all().each { task ->
-         task.plugins {
-            grpc {}
-         }
-      }
-   }
+    protoc {
+        artifact = "com.google.protobuf:protoc:4.30.2" // Hoặc bản mới hơn
+    }
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:1.72.0"
+        }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.plugins {
+                grpc {}
+            }
+        }
+    }
 }
 ```
 
@@ -443,26 +443,29 @@ option java_outer_classname = "HelloWorldProto";
 
 // The greeting service definition.
 service HelloWorldService {
-   // Sends a greeting
-   rpc SayHello (HelloRequest) returns (HelloReply) {
-   }
-   rpc StreamHello(HelloRequest) returns (stream HelloReply) {}
+  // Sends a greeting
+  rpc SayHello (HelloRequest) returns (HelloReply) {
+  }
+  rpc StreamHello(HelloRequest) returns (stream HelloReply) {}
 }
 
 // The request message containing the user's name.
 message HelloRequest {
-   string name = 1;
+  string name = 1;
 }
 
 // The response message containing the greetings
 message HelloReply {
-   string message = 1;
+  string message = 1;
 }
 ```
 
 ### Generate code
 
-\* Lưu ý: Nên clean trước khi build lại dự án
+\* Lưu ý:
+
+- Nên clean trước khi build lại dự án
+- Phải có server thực sự chạy với cùng package thì client mới có thể gọi được
 
 ### Extends service
 
