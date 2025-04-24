@@ -6,7 +6,7 @@
  * User: kimin
  **/
 
-package com.lamnguyen.authentication_service.domain;
+package com.lamnguyen.authentication_service.domain.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
