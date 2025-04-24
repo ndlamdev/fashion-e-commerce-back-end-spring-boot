@@ -1,4 +1,4 @@
-package com.lamnguyen.profile_service.service.business.consumer;
+package com.lamnguyen.profile_service.service.kafka.consumer.v1;
 
 import com.lamnguyen.profile_service.config.exception.ApplicationException;
 import com.lamnguyen.profile_service.config.exception.ExceptionEnum;
@@ -6,6 +6,7 @@ import com.lamnguyen.profile_service.mapper.ICustomerMapper;
 import com.lamnguyen.profile_service.message.SaveProfileUserMessage;
 import com.lamnguyen.profile_service.message.UpdateAvatarUserMessage;
 import com.lamnguyen.profile_service.repository.ICustomerRepository;
+import com.lamnguyen.profile_service.service.kafka.consumer.IProfileConsumer;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -27,10 +28,11 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class CustomerConsumerImpl {
+public class ProfileConsumerImpl implements IProfileConsumer {
     ICustomerRepository customerRepository;
     ICustomerMapper mapper;
 
+    @Override
     @KafkaListener(topics = "save-profile", groupId = "profile-user")
     @RetryableTopic(
             backoff = @Backoff(value = 3000L),
@@ -48,6 +50,7 @@ public class CustomerConsumerImpl {
         context.setAuthentication(new AnonymousAuthenticationToken(Uuid.randomUuid().toString(), new User(email, "", roles), roles));
     }
 
+    @Override
     @KafkaListener(topics = "update-avatar-user", groupId = "profile-user")
     @RetryableTopic(
             backoff = @Backoff(value = 3000L),

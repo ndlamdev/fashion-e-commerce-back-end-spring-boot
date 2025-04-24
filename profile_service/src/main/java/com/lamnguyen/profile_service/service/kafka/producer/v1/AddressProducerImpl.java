@@ -1,6 +1,7 @@
-package com.lamnguyen.profile_service.service.business.producer;
+package com.lamnguyen.profile_service.service.kafka.producer.v1;
 
 import com.lamnguyen.profile_service.message.InfoAddressShipping;
+import com.lamnguyen.profile_service.service.kafka.producer.IAddressProducer;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -16,7 +17,7 @@ import static org.springframework.kafka.support.KafkaHeaders.TOPIC;
 @Service
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class CustomerProducerImpl {
+public class AddressProducerImpl implements IAddressProducer {
     KafkaTemplate<String, InfoAddressShipping> kafkaTemplate;
 
     public void sendInfoAddressShipping(InfoAddressShipping infoCustomer) {
