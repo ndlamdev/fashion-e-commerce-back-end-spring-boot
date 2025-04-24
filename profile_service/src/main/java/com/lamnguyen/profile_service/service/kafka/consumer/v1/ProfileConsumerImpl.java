@@ -33,11 +33,6 @@ public class ProfileConsumerImpl implements IProfileConsumer {
     ICustomerMapper mapper;
 
     @Override
-    @KafkaListener(topics = "save-profile", groupId = "profile-user")
-    @RetryableTopic(
-            backoff = @Backoff(value = 3000L),
-            attempts = "5",
-            include = ApiException.class)
     public void saveUserDetail(SaveProfileUserMessage message) {
         log.info("Consuming the message from save-profile Topic: {}", message);
         createAnonymousAuthentication(message.getEmail());
@@ -51,11 +46,6 @@ public class ProfileConsumerImpl implements IProfileConsumer {
     }
 
     @Override
-    @KafkaListener(topics = "update-avatar-user", groupId = "profile-user")
-    @RetryableTopic(
-            backoff = @Backoff(value = 3000L),
-            attempts = "5",
-            include = ApiException.class)
     public void updateAvatarUser(UpdateAvatarUserMessage message) {
         log.info("Consuming the message from update-avatar-user: {}", message);
         var profile = customerRepository.findByUserId(message.getUserId()).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_EXIST));
