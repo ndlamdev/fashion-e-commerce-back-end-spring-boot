@@ -1,13 +1,10 @@
 syntax = "proto3";
 
-package image;
-
 option java_multiple_files = true;
 option java_package = "com.lamnguyen.media_service.protos";
-option java_outer_classname = "MediaCheckedProto";
+option java_outer_classname = "MediaProto";
 
-service MediaCheckedService {
-  // Check if an image code exists
+service MediaService {
   rpc CheckMediaExists (ImageCodeRequest) returns (ImageExistsResponse);
   rpc CheckListMediaExists (ImageCodesRequest) returns (ImageCodesExistsResponse);
 }

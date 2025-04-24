@@ -37,7 +37,7 @@ public class MediaRedisManageImpl extends ACacheManage<MediaDto> implements IMed
 
 	@Override
 	public void save(String key, MediaDto data) {
-		this.template.opsForValue().set(generateKey(key), data, 60, TimeUnit.MINUTES);
+		save(generateKey(key), data, 60, TimeUnit.MINUTES);
 	}
 
 	private String generateKey(String key) {

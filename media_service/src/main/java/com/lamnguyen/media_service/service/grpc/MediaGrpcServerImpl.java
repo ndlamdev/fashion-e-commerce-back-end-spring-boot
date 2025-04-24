@@ -12,7 +12,7 @@ import com.lamnguyen.media_service.protos.ImageCodeRequest;
 import com.lamnguyen.media_service.protos.ImageCodesExistsResponse;
 import com.lamnguyen.media_service.protos.ImageCodesRequest;
 import com.lamnguyen.media_service.protos.ImageExistsResponse;
-import com.lamnguyen.media_service.protos.MediaCheckedServiceGrpc.MediaCheckedServiceImplBase;
+import com.lamnguyen.media_service.protos.MediaServiceGrpc.MediaServiceImplBase;
 import com.lamnguyen.media_service.service.business.IMediaService;
 import io.grpc.stub.StreamObserver;
 import lombok.AccessLevel;
@@ -27,7 +27,7 @@ import java.util.HashMap;
 @RequiredArgsConstructor
 @Log4j2
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class MediaGrpcServerImpl extends MediaCheckedServiceImplBase {
+public class MediaGrpcServerImpl extends MediaServiceImplBase {
 	IMediaService mediaService;
 
 	@Override
