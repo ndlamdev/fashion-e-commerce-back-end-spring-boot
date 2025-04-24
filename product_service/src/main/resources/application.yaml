@@ -9,3 +9,14 @@ spring:
     config:
       username: ${CONFIG_USERNAME:}
       password: ${CONFIG_PASSWORD:}
+
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVER:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring:
+          json:
+            type:
+              mapping: "create_variant_product:com.lamnguyen.product_service.event.CreateVariantEvent"

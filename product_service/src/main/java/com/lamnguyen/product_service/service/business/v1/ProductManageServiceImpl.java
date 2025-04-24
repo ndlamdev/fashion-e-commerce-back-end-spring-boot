@@ -12,12 +12,14 @@ import com.lamnguyen.product_service.config.exception.ApplicationException;
 import com.lamnguyen.product_service.config.exception.ExceptionEnum;
 import com.lamnguyen.product_service.domain.request.CreateProductRequest;
 import com.lamnguyen.product_service.domain.request.UpdateProductRequest;
+import com.lamnguyen.product_service.mapper.IOptionMapper;
 import com.lamnguyen.product_service.mapper.IProductMapper;
 import com.lamnguyen.product_service.model.Product;
 import com.lamnguyen.product_service.repository.IProductRepository;
 import com.lamnguyen.product_service.service.business.ICollectionManageService;
 import com.lamnguyen.product_service.service.business.IProductManageService;
 import com.lamnguyen.product_service.service.grpc.IMediaGrpcClient;
+import com.lamnguyen.product_service.service.kafka.producer.IVariantService;
 import com.lamnguyen.product_service.service.redis.IProductRedisManager;
 import com.lamnguyen.product_service.utils.helper.ValidationUtil;
 import lombok.AccessLevel;
@@ -38,6 +40,8 @@ public class ProductManageServiceImpl implements IProductManageService {
 	IMediaGrpcClient mediaGrpcClient;
 	ValidationUtil validationUtil;
 	private final ProductServiceImpl productServiceImpl;
+	IVariantService variantService;
+	IOptionMapper optionMapper;
 
 	@Override
 	public void create(CreateProductRequest request) {
@@ -45,6 +49,8 @@ public class ProductManageServiceImpl implements IProductManageService {
 		validateProduct(product);
 		var inserted = productRepository.insert(product);
 		collectionManageService.addProductId(request.getCollection(), inserted.getId());
+		var options = optionMapper.toCreateVariantOptions(inserted.getOptions());
+		variantService.saveVariant(inserted.getId(), options);
 		redisManager.save(inserted.getId(), productMapper.toProductDto(inserted));
 	}
 
