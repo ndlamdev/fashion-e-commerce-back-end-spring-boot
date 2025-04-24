@@ -10,7 +10,7 @@ package com.lamnguyen.product_service.service.grpc.v1;
 
 import com.lamnguyen.product_service.protos.ImageCodeRequest;
 import com.lamnguyen.product_service.protos.ImageExistsResponse;
-import com.lamnguyen.product_service.protos.MediaCheckedServiceGrpc;
+import com.lamnguyen.product_service.protos.MediaServiceGrpc;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,7 +28,7 @@ import static org.mockito.Mockito.*;
 class MediaGrpcClientImplTest {
 
 	@Mock
-	private MediaCheckedServiceGrpc.MediaCheckedServiceBlockingStub mediaCheckedServiceBlockingStub;
+	private MediaServiceGrpc.MediaServiceBlockingStub mediaServiceBlockingStub;
 
 	@InjectMocks
 	private MediaGrpcClientImpl mediaGrpcClient;
@@ -36,7 +36,7 @@ class MediaGrpcClientImplTest {
 	@BeforeEach
 	void setUp() {
 		// Set the mocked stub on the client
-		ReflectionTestUtils.setField(mediaGrpcClient, "mediaCheckedServiceBlockingStub", mediaCheckedServiceBlockingStub);
+		ReflectionTestUtils.setField(mediaGrpcClient, "mediaServiceBlockingStub", mediaServiceBlockingStub);
 	}
 
 	@Test
@@ -45,7 +45,7 @@ class MediaGrpcClientImplTest {
 		String imageId = "123L";
 		ImageExistsResponse response = ImageExistsResponse.newBuilder().setExists(true).build();
 
-		when(mediaCheckedServiceBlockingStub.checkMediaExists(any(ImageCodeRequest.class))).thenReturn(response);
+		when(mediaServiceBlockingStub.checkMediaExists(any(ImageCodeRequest.class))).thenReturn(response);
 
 		// Act
 		boolean result = mediaGrpcClient.existsById(imageId);
@@ -54,7 +54,7 @@ class MediaGrpcClientImplTest {
 		assertTrue(result);
 
 		// Verify that the stub was called with the correct request
-		verify(mediaCheckedServiceBlockingStub).checkMediaExists(argThat(request ->
+		verify(mediaServiceBlockingStub).checkMediaExists(argThat(request ->
 				request.getImageId().equals(imageId)
 		));
 	}
@@ -65,7 +65,7 @@ class MediaGrpcClientImplTest {
 		String imageId = "456L";
 		ImageExistsResponse response = ImageExistsResponse.newBuilder().setExists(false).build();
 
-		when(mediaCheckedServiceBlockingStub.checkMediaExists(any(ImageCodeRequest.class))).thenReturn(response);
+		when(mediaServiceBlockingStub.checkMediaExists(any(ImageCodeRequest.class))).thenReturn(response);
 
 		// Act
 		boolean result = mediaGrpcClient.existsById(imageId);
@@ -74,7 +74,7 @@ class MediaGrpcClientImplTest {
 		assertFalse(result);
 
 		// Verify that the stub was called with the correct request
-		verify(mediaCheckedServiceBlockingStub).checkMediaExists(argThat(request ->
+		verify(mediaServiceBlockingStub).checkMediaExists(argThat(request ->
 				request.getImageId().equals(imageId)
 		));
 	}
