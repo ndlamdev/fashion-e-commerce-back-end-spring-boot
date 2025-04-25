@@ -1,4 +1,4 @@
-package com.lamnguyen.product_service.domain.dto;
+package com.lamnguyen.product_service.domain.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lamnguyen.product_service.model.MongoBaseDocument;
@@ -18,7 +18,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class VariantDto extends MongoBaseDocument implements Serializable {
+public class VariantResponse extends MongoBaseDocument implements Serializable {
 	@JsonProperty("product_id")
 	String productId;
 

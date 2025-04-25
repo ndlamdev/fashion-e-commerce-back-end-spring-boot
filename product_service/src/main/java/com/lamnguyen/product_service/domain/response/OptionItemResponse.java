@@ -1,4 +1,4 @@
-package com.lamnguyen.product_service.domain.dto;
+package com.lamnguyen.product_service.domain.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -12,9 +12,9 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OptionItemDto implements Serializable {
+public class OptionItemResponse implements Serializable {
 	String title; // Xanh nhạt
 	String slug; // xanh-nhat
 	String label;
-	List<String> images;
+	List<ImageResponse> images;
 }

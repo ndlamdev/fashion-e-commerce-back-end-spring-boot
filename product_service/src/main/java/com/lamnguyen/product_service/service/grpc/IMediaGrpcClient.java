@@ -8,6 +8,8 @@
 
 package com.lamnguyen.product_service.service.grpc;
 
+import com.lamnguyen.product_service.domain.response.ImageResponse;
+
 import java.util.List;
 import java.util.Map;
 
@@ -15,4 +17,6 @@ public interface IMediaGrpcClient {
 	boolean existsById(String id);
 
 	Map<String, Boolean> existsByIds(List<String> ids);
+
+	Map<String, ImageResponse> getImageDto(List<String> ids);
 }

@@ -8,8 +8,8 @@
 
 package com.lamnguyen.product_service.service.business;
 
-import com.lamnguyen.product_service.domain.dto.ProductDto;
+import com.lamnguyen.product_service.domain.response.ProductResponse;
 
 public interface IProductService {
-	ProductDto getProductDtoById(String id);
+	ProductResponse getProductById(String id);
 }

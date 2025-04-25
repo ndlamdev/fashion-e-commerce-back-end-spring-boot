@@ -6,7 +6,7 @@
  * User: kimin
  **/
 
-package com.lamnguyen.product_service.domain.dto;
+package com.lamnguyen.product_service.domain.response;
 
 import com.lamnguyen.product_service.model.MongoBaseDocument;
 import lombok.AccessLevel;
@@ -23,6 +23,6 @@ import java.io.Serializable;
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class ImageDto extends MongoBaseDocument implements Serializable {
+public class ImageResponse extends MongoBaseDocument implements Serializable {
 	String src;
 }

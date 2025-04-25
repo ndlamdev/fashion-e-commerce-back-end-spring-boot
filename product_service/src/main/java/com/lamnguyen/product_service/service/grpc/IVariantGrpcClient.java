@@ -8,10 +8,10 @@
 
 package com.lamnguyen.product_service.service.grpc;
 
-import com.lamnguyen.product_service.domain.dto.VariantDto;
+import com.lamnguyen.product_service.domain.response.VariantResponse;
 
 import java.util.List;
 
 public interface IVariantGrpcClient {
-	List<VariantDto> getVariantsByProductId(String productId);
+	List<VariantResponse> getVariantsByProductId(String productId);
 }

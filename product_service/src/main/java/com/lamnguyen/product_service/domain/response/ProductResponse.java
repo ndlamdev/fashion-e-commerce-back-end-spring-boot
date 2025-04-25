@@ -6,9 +6,10 @@
  * User kimin
  **/
 
-package com.lamnguyen.product_service.domain.dto;
+package com.lamnguyen.product_service.domain.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.lamnguyen.product_service.domain.dto.*;
 import com.lamnguyen.product_service.model.Discount;
 import com.lamnguyen.product_service.model.MongoBaseDocument;
 import com.lamnguyen.product_service.utils.enums.GenderType;
@@ -25,7 +26,7 @@ import java.util.List;
 @Getter
 @Setter
 @SuperBuilder
-public class ProductDto extends MongoBaseDocument implements Serializable {
+public class ProductResponse extends MongoBaseDocument implements Serializable {
 	String title;
 
 	@JsonProperty("seo_alias")
@@ -38,9 +39,9 @@ public class ProductDto extends MongoBaseDocument implements Serializable {
 	List<OptionDto> options; // Các option để tạo ra biến thể
 
 	@JsonProperty("options_value")
-	List<ImageOptionsValueDto> optionsValues; // Các option có giá trị riêng thì dùng trường này.
+	List<ImageOptionsValueResponse> optionsValues; // Các option có giá trị riêng thì dùng trường này.
 
-	List<String> images; // Hình ảnh để show card
+	List<ImageResponse> images; // Hình ảnh để show card
 
 	@Builder.Default
 	boolean available = true; // Có khả dụng hay không
@@ -60,11 +61,16 @@ public class ProductDto extends MongoBaseDocument implements Serializable {
 	@JsonProperty("display_name_open")
 	String displayNameOpen; // Subtitle, hiển thị ở dưới title trong chi tiết sản phẩm
 
+	List<VariantResponse> variants; // Các biến thể. Phải được tạo ra từ các OptionValue của bản phẩm
+
 	Discount discount; // Khuyến mãi
 
 	@JsonProperty("gender_type")
 	GenderType genderType; // Dòng sản phẩm của nam hay nữ
 
 	@JsonProperty("icon_thumbnail")
-	String iconThumbnail; // Hình minh họa khuyến mãi
+	ImageResponse iconThumbnail; // Hình minh họa khuyến mãi
+
+	@Builder.Default
+	ReviewResponse review = ReviewResponse.builder().build();
 }

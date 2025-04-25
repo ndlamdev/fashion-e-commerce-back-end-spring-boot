@@ -8,7 +8,7 @@
 
 package com.lamnguyen.product_service.mapper;
 
-import com.lamnguyen.product_service.domain.dto.VariantDto;
+import com.lamnguyen.product_service.domain.response.VariantResponse;
 import com.lamnguyen.product_service.protos.VariantProductInfo;
 import org.mapstruct.Mapper;
 
@@ -16,7 +16,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface IVariantMapper {
-	VariantDto toVariantDto(VariantProductInfo variant);
+	VariantResponse toVariantResponse(VariantProductInfo variant);
 
-	List<VariantDto> toVariantDto(List<VariantProductInfo> variant);
+	List<VariantResponse> toVariantResponse(List<VariantProductInfo> variant);
 }

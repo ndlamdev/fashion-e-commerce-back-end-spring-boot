@@ -1,4 +1,4 @@
-package com.lamnguyen.product_service.domain.dto;
+package com.lamnguyen.product_service.domain.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReviewDto  implements Serializable {
+public class ReviewResponse implements Serializable {
 	@Builder.Default
 	Integer count = 0;
 

@@ -11,7 +11,7 @@ package com.lamnguyen.product_service.service.business.v1;
 import com.lamnguyen.product_service.config.exception.ApplicationException;
 import com.lamnguyen.product_service.config.exception.ExceptionEnum;
 import com.lamnguyen.product_service.domain.dto.CollectionDto;
-import com.lamnguyen.product_service.domain.dto.ProductDto;
+import com.lamnguyen.product_service.domain.response.ProductResponse;
 import com.lamnguyen.product_service.domain.request.IdCollectionRequest;
 import com.lamnguyen.product_service.domain.request.TitleCollectionRequest;
 import com.lamnguyen.product_service.domain.request.UpdateCollectionRequest;
@@ -67,12 +67,12 @@ public class CollectionManageServiceImpl implements ICollectionManageService {
 	}
 
 	@Override
-	public List<ProductDto> getAllProductByCollectionId(String id) {
+	public List<ProductResponse> getAllProductByCollectionId(String id) {
 		var collection = cacheManager.get(id).orElseGet(() -> cacheManager.cache(id, id, () -> {
 			var data = collectionRepository.findById(id);
 			return data.map(collectionMapper::toCollectionSaveRedisDto);
 		}).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.COLLECTION_NOT_FOUND)));
-		return collection.getProducts().stream().map(productService::getProductDtoById).collect(Collectors.toList());
+		return collection.getProducts().stream().map(productService::getProductById).collect(Collectors.toList());
 	}
 
 	@Override

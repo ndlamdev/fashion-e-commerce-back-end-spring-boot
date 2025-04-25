@@ -27,15 +27,18 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class RedisConfig {
 	ObjectMapper mapper;
+	StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
 
 	@Bean
 	RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
 		RedisTemplate<String, Object> template = new RedisTemplate<>();
 
-		template.setKeySerializer(new StringRedisSerializer());
-		template.setValueSerializer(new GenericJackson2JsonRedisSerializer(mapper));
-		template.setHashKeySerializer(new StringRedisSerializer());
-		template.setHashValueSerializer(new GenericJackson2JsonRedisSerializer(mapper));
+		var genericJackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer(mapper);
+
+		template.setKeySerializer(stringRedisSerializer);
+		template.setValueSerializer(genericJackson2JsonRedisSerializer);
+		template.setHashKeySerializer(stringRedisSerializer);
+		template.setHashValueSerializer(genericJackson2JsonRedisSerializer);
 		template.setConnectionFactory(connectionFactory);
 		return template;
 	}
@@ -44,10 +47,12 @@ public class RedisConfig {
 	RedisTemplate<String, CollectionSaveRedisDto> collectionDTORedisTemplate(RedisConnectionFactory connectionFactory) {
 		RedisTemplate<String, CollectionSaveRedisDto> template = new RedisTemplate<>();
 
-		template.setKeySerializer(new StringRedisSerializer());
-		template.setValueSerializer(new Jackson2JsonRedisSerializer<>(mapper, CollectionSaveRedisDto.class));
-		template.setHashKeySerializer(new StringRedisSerializer());
-		template.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(mapper, CollectionSaveRedisDto.class));
+		var jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(mapper, CollectionSaveRedisDto.class);
+
+		template.setKeySerializer(stringRedisSerializer);
+		template.setValueSerializer(jackson2JsonRedisSerializer);
+		template.setKeySerializer(stringRedisSerializer);
+		template.setHashValueSerializer(jackson2JsonRedisSerializer);
 		template.setConnectionFactory(connectionFactory);
 		return template;
 	}
@@ -56,10 +61,12 @@ public class RedisConfig {
 	RedisTemplate<String, ProductDto> productDTORedisTemplate(RedisConnectionFactory connectionFactory) {
 		RedisTemplate<String, ProductDto> template = new RedisTemplate<>();
 
+		var jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(mapper, ProductDto.class);
+
 		template.setKeySerializer(new StringRedisSerializer());
-		template.setValueSerializer(new Jackson2JsonRedisSerializer<>(mapper, ProductDto.class));
+		template.setValueSerializer(jackson2JsonRedisSerializer);
 		template.setHashKeySerializer(new StringRedisSerializer());
-		template.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(mapper, ProductDto.class));
+		template.setHashValueSerializer(jackson2JsonRedisSerializer);
 		template.setConnectionFactory(connectionFactory);
 		return template;
 	}

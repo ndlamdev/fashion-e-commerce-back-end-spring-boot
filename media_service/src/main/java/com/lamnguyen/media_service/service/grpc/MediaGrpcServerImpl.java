@@ -8,11 +8,8 @@
 
 package com.lamnguyen.media_service.service.grpc;
 
-import com.lamnguyen.media_service.protos.ImageCodeRequest;
-import com.lamnguyen.media_service.protos.ImageCodesExistsResponse;
-import com.lamnguyen.media_service.protos.ImageCodesRequest;
-import com.lamnguyen.media_service.protos.ImageExistsResponse;
-import com.lamnguyen.media_service.protos.MediaServiceGrpc.MediaServiceImplBase;
+import com.lamnguyen.media_service.mapper.IMediaMapper;
+import com.lamnguyen.media_service.protos.*;
 import com.lamnguyen.media_service.service.business.IMediaService;
 import io.grpc.stub.StreamObserver;
 import lombok.AccessLevel;
@@ -27,27 +24,39 @@ import java.util.HashMap;
 @RequiredArgsConstructor
 @Log4j2
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class MediaGrpcServerImpl extends MediaServiceImplBase {
+public class MediaGrpcServerImpl extends MediaServiceGrpc.MediaServiceImplBase {
 	IMediaService mediaService;
+	IMediaMapper mediaMapper;
 
 	@Override
-	public void checkMediaExists(ImageCodeRequest request, StreamObserver<ImageExistsResponse> responseObserver) {
-		var result = mediaService.existsById(request.getImageId());
-		var response = ImageExistsResponse.newBuilder().setExists(result).build();
+	public void checkMediaExists(MediaCodeRequest request, StreamObserver<MediaExistsResponse> responseObserver) {
+		var result = mediaService.existsById(request.getMediaId());
+		var response = MediaExistsResponse.newBuilder().setExists(result).build();
 		responseObserver.onNext(response);
 		responseObserver.onCompleted();
 	}
 
 	@Override
-	public void checkListMediaExists(ImageCodesRequest request, StreamObserver<ImageCodesExistsResponse> responseObserver) {
+	public void checkListMediaExists(MediaCodesRequest request, StreamObserver<MediaCodesExistsResponse> responseObserver) {
 		var resultData = new HashMap<String, Boolean>();
 		request.getIdsList().forEach(id -> {
 			resultData.put(id, mediaService.existsById(id));
 		});
-		var result = ImageCodesExistsResponse.newBuilder()
+		var result = MediaCodesExistsResponse.newBuilder()
 				.putAllIdExistMap(resultData)
 				.build();
 		responseObserver.onNext(result);
+		responseObserver.onCompleted();
+	}
+
+	@Override
+	public void getMedias(MediasRequest request, StreamObserver<MediaResponse> responseObserver) {
+		var builder = MediaResponse.newBuilder();
+		var data = mediaService.getAllById(request.getIdList());
+		data.forEach(mediaDto -> {
+			builder.putData(mediaDto.getId(), mediaMapper.toMediaInfo(mediaDto));
+		});
+		responseObserver.onNext(builder.build());
 		responseObserver.onCompleted();
 	}
 }

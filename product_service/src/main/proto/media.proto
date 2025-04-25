@@ -3,25 +3,45 @@ syntax = "proto3";
 option java_multiple_files = true;
 option java_package = "com.lamnguyen.product_service.protos";
 option java_outer_classname = "MediaProto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
 
 service MediaService {
-  // Check if an image code exists
-  rpc CheckMediaExists (ImageCodeRequest) returns (ImageExistsResponse);
-  rpc CheckListMediaExists (ImageCodesRequest) returns (ImageCodesExistsResponse);
+  rpc CheckMediaExists (MediaCodeRequest) returns (MediaExistsResponse);
+  rpc CheckListMediaExists (MediaCodesRequest) returns (MediaCodesExistsResponse);
+  rpc GetMedias (MediasRequest) returns (MediaResponse);
 }
 
-message ImageCodeRequest {
-  string image_id = 1; // mã hình ảnh
+message MediaCodeRequest {
+  string media_id = 1; // mã hình ảnh
 }
 
-message ImageCodesRequest {
+message MediaCodesRequest {
   repeated string ids = 1; // mã hình ảnh
 }
 
-message ImageCodesExistsResponse {
+message MediaCodesExistsResponse {
   map<string, bool> idExistMap = 1;
 }
 
-message ImageExistsResponse {
+message MediaExistsResponse {
   bool exists = 1;       // true nếu tồn tại, false nếu không
+}
+
+message MediasRequest{
+  repeated string id = 1;
+}
+
+message  MediaInfo {
+  string id = 1;
+  string src = 2;
+  bool lock = 3;
+  google.protobuf.StringValue create_by = 4;
+  google.protobuf.Timestamp create_at = 5;
+  google.protobuf.StringValue update_by = 6;
+  google.protobuf.Timestamp update_at = 7;
+}
+
+message MediaResponse {
+  map<string, MediaInfo> data = 1;
 }

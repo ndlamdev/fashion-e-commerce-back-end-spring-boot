@@ -8,7 +8,7 @@
 
 package com.lamnguyen.product_service.controller;
 
-import com.lamnguyen.product_service.domain.dto.ProductDto;
+import com.lamnguyen.product_service.domain.response.ProductResponse;
 import com.lamnguyen.product_service.service.business.IProductService;
 import com.lamnguyen.product_service.utils.annotation.ApiMessageResponse;
 import lombok.AccessLevel;
@@ -28,7 +28,7 @@ public class ProductController {
 
 	@GetMapping("/{id}")
 	@ApiMessageResponse("Get product success!")
-	public ProductDto getProductDetail(@PathVariable("id") String id) {
-		return productService.getProductDtoById(id);
+	public ProductResponse getProductDetail(@PathVariable("id") String id) {
+		return productService.getProductById(id);
 	}
 }

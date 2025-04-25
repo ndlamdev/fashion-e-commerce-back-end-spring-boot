@@ -8,7 +8,7 @@
 
 package com.lamnguyen.product_service.service.grpc.v1;
 
-import com.lamnguyen.product_service.domain.dto.VariantDto;
+import com.lamnguyen.product_service.domain.response.VariantResponse;
 import com.lamnguyen.product_service.mapper.IVariantMapper;
 import com.lamnguyen.product_service.protos.InventoryServiceGrpc;
 import com.lamnguyen.product_service.protos.VariantProductRequest;
@@ -27,9 +27,9 @@ public class VariantGrpcClientImpl implements IVariantGrpcClient {
 	private final IVariantMapper variantMapper;
 
 	@Override
-	public List<VariantDto> getVariantsByProductId(String productId) {
+	public List<VariantResponse> getVariantsByProductId(String productId) {
 		var request = VariantProductRequest.newBuilder().setProductId(productId).build();
 		var result = inventoryServiceBlockingStub.getVariantProduct(request);
-		return variantMapper.toVariantDto(result.getVariantsList());
+		return variantMapper.toVariantResponse(result.getVariantsList());
 	}
 }

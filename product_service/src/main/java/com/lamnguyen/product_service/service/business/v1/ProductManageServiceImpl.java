@@ -56,7 +56,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 
 	@Override
 	public void update(UpdateProductRequest request) {
-		var oldProduct = productServiceImpl.getProductDtoById(request.getId());
+		var oldProduct = productServiceImpl.getProductById(request.getId());
 		var product = productMapper.toProduct(request);
 
 		if (!oldProduct.getCollection().equals(product.getCollection().getId())) {

@@ -8,10 +8,17 @@
 
 package com.lamnguyen.media_service.service.business;
 
+import com.lamnguyen.media_service.domain.dto.MediaDto;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 public interface IMediaService {
 	void upload(MultipartFile file);
 
 	boolean existsById(String id);
+
+	MediaDto getById(String id);
+
+	List<MediaDto> getAllById(List<String> ids);
 }

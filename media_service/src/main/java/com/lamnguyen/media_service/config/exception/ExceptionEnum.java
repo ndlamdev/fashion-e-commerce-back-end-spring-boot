@@ -16,6 +16,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public enum ExceptionEnum {
 	UPLOAD_FAILED(70001, "Upload file failed"),
+	NOT_FOUND(70002, "Media not found"),
 	UNAUTHORIZED(70004, "Unauthorized"),
 	;
 

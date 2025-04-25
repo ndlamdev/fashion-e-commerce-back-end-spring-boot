@@ -9,7 +9,7 @@
 package com.lamnguyen.product_service.service.business;
 
 import com.lamnguyen.product_service.domain.dto.CollectionDto;
-import com.lamnguyen.product_service.domain.dto.ProductDto;
+import com.lamnguyen.product_service.domain.response.ProductResponse;
 import com.lamnguyen.product_service.domain.request.IdCollectionRequest;
 import com.lamnguyen.product_service.domain.request.TitleCollectionRequest;
 import com.lamnguyen.product_service.domain.request.UpdateCollectionRequest;
@@ -27,7 +27,7 @@ public interface ICollectionManageService {
 
 	void delete(IdCollectionRequest request);
 
-	List<ProductDto> getAllProductByCollectionId(String id);
+	List<ProductResponse> getAllProductByCollectionId(String id);
 
 	void addProductId(String collectionId, String productId);
 

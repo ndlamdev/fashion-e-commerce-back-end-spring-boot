@@ -10,6 +10,7 @@ package com.lamnguyen.media_service.service.business.v1;
 
 import com.lamnguyen.media_service.config.exception.ApplicationException;
 import com.lamnguyen.media_service.config.exception.ExceptionEnum;
+import com.lamnguyen.media_service.domain.dto.MediaDto;
 import com.lamnguyen.media_service.mapper.IMediaMapper;
 import com.lamnguyen.media_service.model.Media;
 import com.lamnguyen.media_service.repository.IMediaRepository;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -73,5 +75,23 @@ public class MediaServiceImpl implements IMediaService {
 		return mediaManage.get(id)
 				.or(() -> mediaManage.cache(id, () -> mediaRepository.findById(id).map(mediaMapper::toDto)))
 				.isPresent();
+	}
+
+	@Override
+	public MediaDto getById(String id) {
+		return mediaManage.get(id)
+				.or(() -> mediaManage.cache(id, () -> mediaRepository.findById(id).map(mediaMapper::toDto)))
+				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
+	}
+
+	@Override
+	public List<MediaDto> getAllById(List<String> ids) {
+		return ids.stream().map(id -> {
+			try {
+				return getById(id);
+			} catch (ApplicationException e) {
+				return null;
+			}
+		}).filter(Objects::nonNull).toList();
 	}
 }

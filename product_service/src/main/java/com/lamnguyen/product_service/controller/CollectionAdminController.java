@@ -8,7 +8,7 @@
 
 package com.lamnguyen.product_service.controller;
 
-import com.lamnguyen.product_service.domain.dto.ProductDto;
+import com.lamnguyen.product_service.domain.response.ProductResponse;
 import com.lamnguyen.product_service.domain.request.TitleCollectionRequest;
 import com.lamnguyen.product_service.service.business.ICollectionManageService;
 import com.lamnguyen.product_service.utils.annotation.ApiMessageResponse;
@@ -37,7 +37,7 @@ public class CollectionAdminController {
 
 	@GetMapping("/products/{id}")
 	@PreAuthorize("hasAnyAuthority('GET_ALL_PRODUCT_BY_COLLECION_ID','ROLE_ADMIN')")
-	List<ProductDto> getAllProductByCollectionId(@PathVariable("id") String id) {
+	List<ProductResponse> getAllProductByCollectionId(@PathVariable("id") String id) {
 		return collectionManageService.getAllProductByCollectionId(id);
 	}
 }

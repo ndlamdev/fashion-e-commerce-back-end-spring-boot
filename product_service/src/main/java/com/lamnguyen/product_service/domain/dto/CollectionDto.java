@@ -9,6 +9,7 @@
 package com.lamnguyen.product_service.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.lamnguyen.product_service.domain.response.ProductResponse;
 import com.lamnguyen.product_service.model.MongoBaseDocument;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -27,5 +28,5 @@ import java.util.Set;
 public class CollectionDto extends MongoBaseDocument implements Serializable {
 	String id;
 	String title;
-	Set<ProductDto> products;
+	Set<ProductResponse> products;
 }
