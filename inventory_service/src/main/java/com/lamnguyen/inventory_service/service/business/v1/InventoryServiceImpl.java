@@ -7,9 +7,6 @@
  **/
 package com.lamnguyen.inventory_service.service.business.v1;
 
-import com.lamnguyen.inventory_service.config.exception.ApplicationException;
-import com.lamnguyen.inventory_service.config.exception.ExceptionEnum;
-import com.lamnguyen.inventory_service.mapper.IInventoryMapper;
 import com.lamnguyen.inventory_service.message.CreateVariantEvent;
 import com.lamnguyen.inventory_service.model.VariantProduct;
 import com.lamnguyen.inventory_service.repository.InventoryRepository;
@@ -20,7 +17,6 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.common.errors.ApiException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -41,6 +37,7 @@ public class InventoryServiceImpl implements IInventoryService {
 	 *
 	 * @param event the CreateVariantEvent
 	 */
+	@Override
 	public void createVariantProduct(CreateVariantEvent event) {
 		String productId = event.id();
 		List<CreateVariantEvent.Option> options = event.options();
@@ -132,6 +129,7 @@ public class InventoryServiceImpl implements IInventoryService {
 	 * @param quantity  the new quantity
 	 * @return true if updated, false if not found
 	 */
+	@Override
 	public boolean updateInventoryQuantity(String productId, Map<OptionType, String> options, int quantity) {
 		return inventoryRepository.findByProductIdAndOptions(productId, options)
 				.map(inventory -> {
@@ -142,16 +140,6 @@ public class InventoryServiceImpl implements IInventoryService {
 				.orElse(false);
 	}
 
-	/**
-	 * Get available inventory for a product
-	 *
-	 * @param productId the product ID
-	 * @return list of available inventories
-	 */
-	public List<VariantProduct> getAvailableInventory(String productId) {
-		var data = getAllInventory(productId);
-		return data.stream().filter(VariantProduct::isAvailable).toList();
-	}
 
 	/**
 	 * Get all inventory for a product
@@ -159,10 +147,11 @@ public class InventoryServiceImpl implements IInventoryService {
 	 * @param productId the product ID
 	 * @return list of all inventories
 	 */
+	@Override
 	public List<VariantProduct> getAllInventory(String productId) {
 		return Arrays.stream(variantProductRedisManage
 				.get(productId)
-				.or(() -> variantProductRedisManage.cache(productId, () -> Optional.of(inventoryRepository.findByProductId(productId).toArray(VariantProduct[]::new))))
+				.or(() -> variantProductRedisManage.cache(productId, () -> Optional.of(inventoryRepository.findByProductIdAndDeleteFalseAndLockFalse(productId).toArray(VariantProduct[]::new))))
 				.orElseGet(() -> new VariantProduct[0])).toList();
 	}
 

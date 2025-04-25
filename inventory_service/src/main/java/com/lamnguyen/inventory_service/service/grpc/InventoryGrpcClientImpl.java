@@ -26,7 +26,7 @@ public class InventoryGrpcClientImpl extends InventoryServiceGrpc.InventoryServi
 	IInventoryMapper inventoryMapper;
 
 	@Override
-	public void getVariantProduct(VariantProductRequest request, StreamObserver<VariantProductResponse> responseObserver) {
+	public void getVariantProductNotDeleteAndProductNotLock(VariantProductRequest request, StreamObserver<VariantProductResponse> responseObserver) {
 		var data = inventoryService.getAllInventory(request.getProductId());
 		var response = inventoryMapper.toVariantProductInfo(data);
 		responseObserver.onNext(VariantProductResponse.newBuilder().addAllVariants(response).build());

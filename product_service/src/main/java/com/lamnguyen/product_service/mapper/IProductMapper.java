@@ -8,15 +8,15 @@
 
 package com.lamnguyen.product_service.mapper;
 
+import com.lamnguyen.product_service.config.exception.ApplicationException;
+import com.lamnguyen.product_service.config.exception.ExceptionEnum;
 import com.lamnguyen.product_service.domain.dto.ProductDto;
 import com.lamnguyen.product_service.domain.request.CreateProductRequest;
 import com.lamnguyen.product_service.domain.request.UpdateProductRequest;
 import com.lamnguyen.product_service.domain.response.ProductResponse;
 import com.lamnguyen.product_service.model.Collection;
 import com.lamnguyen.product_service.model.Product;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
+import org.mapstruct.*;
 
 import java.text.Normalizer;
 import java.util.regex.Pattern;
@@ -71,5 +71,37 @@ public interface IProductMapper {
 
 		// Bước 5: Thay khoảng trắng bằng dấu gạch dưới
 		return withoutDiacritics.replaceAll("\\s+", "_");
+	}
+
+	@AfterMapping
+	default void afterMappingProduct(@MappingTarget Product product, CreateProductRequest request) {
+		checkValueOptionHelper(product, request);
+		checkValueProductTagHelper(product, request);
+	}
+
+	default void checkValueOptionHelper(Product product, CreateProductRequest request) {
+		if (request.getOptions() == null) return;
+
+		if (request.getOptions().size() != product.getOptions().size()) {
+			throw ApplicationException.createException(ExceptionEnum.DUPLICATE, "Duplicate option");
+		}
+
+		a:
+		for (var requestOption : request.getOptions()) {
+			for (var productOption : product.getOptions()) {
+				if (requestOption.getType().equals(productOption.getType())) {
+					if (requestOption.getValues().size() != productOption.getValues().size()) {
+						throw ApplicationException.createException(ExceptionEnum.DUPLICATE, "Duplicate value in option " + productOption.getType());
+					}
+					continue a;
+				}
+			}
+		}
+	}
+
+	default void checkValueProductTagHelper(Product product, CreateProductRequest request) {
+		if (request.getTags() == null || request.getTags().size() == product.getTags().size()) return;
+
+		throw ApplicationException.createException(ExceptionEnum.DUPLICATE, "Duplicate tag");
 	}
 }

@@ -19,6 +19,7 @@ import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.List;
+import java.util.Set;
 
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -35,9 +36,9 @@ public class Product extends MongoBaseDocument {
 
 	String vendor; // người bán
 
-	List<ProductTag> tags; // bán chạy hay mới....
+	Set<ProductTag> tags; // bán chạy hay mới....
 
-	List<Option> options; // Các option để tạo ra biến thể
+	Set<Option> options; // Các option để tạo ra biến thể
 
 	@Field("options_values")
 	List<ImageOptionsValue> optionsValues; // Nếu các option có các giá trị riêng của nó thì dùng trường này. Ví dụ như các option liên quan đến màu thì cần dùng cái này để lưu hình ảnh sản phẩm theo màu đó.

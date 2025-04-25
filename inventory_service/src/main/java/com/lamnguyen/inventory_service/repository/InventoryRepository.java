@@ -12,6 +12,7 @@ import com.lamnguyen.inventory_service.utils.enums.OptionType;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -27,7 +28,7 @@ public interface InventoryRepository extends MongoRepository<VariantProduct, Str
      * @param productId the product ID
      * @return list of inventories for the product
      */
-    List<VariantProduct> findByProductId(String productId);
+    List<VariantProduct> findByProductIdAndDeleteFalseAndLockFalse(String productId);
     
     /**
      * Find inventory by product ID and options
@@ -42,7 +43,7 @@ public interface InventoryRepository extends MongoRepository<VariantProduct, Str
      * @param productId the product ID
      * @return list of available inventories for the product
      */
-    List<VariantProduct> findByProductIdAndAvailableTrue(String productId);
+    List<VariantProduct> findByProductIdAndDeleteIsFalse(String productId);
     
     /**
      * Find inventory by SKU

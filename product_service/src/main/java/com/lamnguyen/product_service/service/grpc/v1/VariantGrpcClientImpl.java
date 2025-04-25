@@ -29,7 +29,7 @@ public class VariantGrpcClientImpl implements IVariantGrpcClient {
 	@Override
 	public List<VariantResponse> getVariantsByProductId(String productId) {
 		var request = VariantProductRequest.newBuilder().setProductId(productId).build();
-		var result = inventoryServiceBlockingStub.getVariantProduct(request);
+		var result = inventoryServiceBlockingStub.getVariantProductNotDeleteAndProductNotLock(request);
 		return variantMapper.toVariantResponse(result.getVariantsList());
 	}
 }

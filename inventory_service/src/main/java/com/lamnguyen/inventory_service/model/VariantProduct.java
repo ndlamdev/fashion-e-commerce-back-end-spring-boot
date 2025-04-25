@@ -8,10 +8,7 @@
 package com.lamnguyen.inventory_service.model;
 
 import com.lamnguyen.inventory_service.utils.enums.OptionType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -39,17 +36,17 @@ public class VariantProduct extends MongoBaseDocument {
 	private String sku;
 	private int quantity;
 	private Map<OptionType, String> options;
-	private boolean hide;
-	private int pending;
-	@Field(name = "product_stoppage")
-	private boolean productStoppage;
-	@Field(name = "product_allow_buy_hidden")
-	private boolean productAllowBuyHidden;
+	@Field(name = "product_allow_buy_when_clocked")
+	private boolean productAllowBuyWhenClocked; // Cho phép mua khi đang lock
 	@Field(name = "product_exclude_discount")
-	private boolean productExcludeDiscount;
-	private boolean available;
+	private boolean productExcludeDiscount; // Cho phép áp dụng discount khi sản phẩm có discount
 	@Field(name = "product_apply_allowance_inventory")
-	private boolean productApplyAllowanceInventory;
+	private boolean productApplyAllowanceInventory; // Cho phép mua khi sản phẩm để hết
+	int pending; // Số lượng sản phẩm có thể đáp ứng khi cho phép người dùng mua khi biến thể của sản phẩm hết hàng. Dùng khi `productApplyAllowanceInventory` = true
 	@Field(name = "product_visibility")
-	private boolean productVisibility;
+	@Builder.Default
+	private boolean productVisibility = true; // sản phẩm có đang không bị lock không
+	@Field("is_delete")
+	private boolean delete; // Biến thể đã bị xóa khỏi sản phẩm
+
 }

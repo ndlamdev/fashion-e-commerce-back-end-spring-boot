@@ -35,13 +35,6 @@ public interface IInventoryService {
     boolean updateInventoryQuantity(String productId, Map<OptionType, String> options, int quantity);
     
     /**
-     * Get available inventory for a product
-     * @param productId the product ID
-     * @return list of available inventories
-     */
-    List<VariantProduct> getAvailableInventory(String productId);
-    
-    /**
      * Get all inventory for a product
      * @param productId the product ID
      * @return list of all inventories

@@ -25,33 +25,28 @@ public class VariantResponse extends MongoBaseDocument implements Serializable {
 	String title;
 
 	@JsonProperty("regular_price")
-	Integer regularPrice;
+	double regularPrice;
 
 	@JsonProperty("compare_price")
-	Integer comparePrice;
+	double comparePrice;
 
-	Integer quantity;
+	int quantity;
 
 	Map<OptionType, String> options;
-
-	boolean hide;
-
-	Integer pending;
-
-	@JsonProperty("product_stoppage")
-	boolean productStoppage;
 
 	@JsonProperty("product_visibility")
 	boolean productVisibility;
 
-	@JsonProperty("product_allow_buy_hidden")
-	boolean productAllowBuyHidden;
+	@JsonProperty("product_allow_buy_when_hidden")
+	boolean productAllowBuyWhenClocked;
 
 	@JsonProperty("product_exclude_discount")
 	boolean productExcludeDiscount;
 
-	boolean available;
-
 	@JsonProperty("product_apply_allowance_inventory")
 	boolean productApplyAllowanceInventory;
+
+	int pending;
+
+	boolean delete;
 }
