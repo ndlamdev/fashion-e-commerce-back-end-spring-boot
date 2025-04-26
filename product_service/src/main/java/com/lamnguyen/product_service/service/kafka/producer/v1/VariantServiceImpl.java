@@ -7,7 +7,7 @@
  **/
 package com.lamnguyen.product_service.service.kafka.producer.v1;
 
-import com.lamnguyen.product_service.event.CreateVariantEvent;
+import com.lamnguyen.product_service.event.DataVariantEvent;
 import com.lamnguyen.product_service.service.kafka.producer.IVariantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,10 +22,19 @@ public class VariantServiceImpl implements IVariantService {
 	private final KafkaTemplate<String, Object> kafkaTemplate;
 	@Value("${spring.kafka.topic.create-variant}")
 	private String topicCreateVariant;
+	@Value("spring.kafka.topic.update-variant")
+	private String topicUpdateVariant;
 
 	@Override
-	public void saveVariant(String productId, double comparePrice, double regularPrice, List<CreateVariantEvent.Option> options) {
-		var event = new CreateVariantEvent(productId, comparePrice, regularPrice, options);
+	public void saveVariant(String productId, double comparePrice, double regularPrice, List<DataVariantEvent.Option> options) {
+		var event = new DataVariantEvent(productId, comparePrice, regularPrice, options);
 		kafkaTemplate.send(topicCreateVariant, event);
 	}
+
+	@Override
+	public void updateVariant(String productId, double comparePrice, double regularPrice, List<DataVariantEvent.Option> options) {
+		var event = new DataVariantEvent(productId, comparePrice, regularPrice, options);
+		kafkaTemplate.send(topicCreateVariant, event);
+	}
+
 }

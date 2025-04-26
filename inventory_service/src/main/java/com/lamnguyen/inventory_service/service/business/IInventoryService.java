@@ -7,7 +7,7 @@
  **/
 package com.lamnguyen.inventory_service.service.business;
 
-import com.lamnguyen.inventory_service.message.CreateVariantEvent;
+import com.lamnguyen.inventory_service.message.DataVariantEvent;
 import com.lamnguyen.inventory_service.model.VariantProduct;
 import com.lamnguyen.inventory_service.utils.enums.OptionType;
 
@@ -20,10 +20,10 @@ import java.util.Map;
 public interface IInventoryService {
     
     /**
-     * Process a CreateVariantEvent to create inventory records
-     * @param event the CreateVariantEvent
+     * Process a DataVariantEvent to create inventory records
+     * @param event the DataVariantEvent
      */
-    void createVariantProduct(CreateVariantEvent event);
+    void createVariantProduct(DataVariantEvent event);
     
     /**
      * Update inventory quantity
@@ -40,4 +40,6 @@ public interface IInventoryService {
      * @return list of all inventories
      */
     List<VariantProduct> getAllInventory(String productId);
+
+    void updateVariantProduct(DataVariantEvent event);
 }

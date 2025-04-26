@@ -8,15 +8,19 @@
 
 package com.lamnguyen.product_service.mapper;
 
-import com.lamnguyen.product_service.event.CreateVariantEvent;
+import com.lamnguyen.product_service.domain.dto.OptionDto;
+import com.lamnguyen.product_service.event.DataVariantEvent;
 import com.lamnguyen.product_service.model.Option;
 import org.mapstruct.Mapper;
 
 import java.util.List;
+import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface IOptionMapper {
-	CreateVariantEvent.Option toCreateVariantOption(Option option);
+	DataVariantEvent.Option toCreateVariantOption(Option option);
 
-	List<CreateVariantEvent.Option> toCreateVariantOptions(List<Option> options);
+	List<DataVariantEvent.Option> toDataVariantOptions(Set<Option> options);
+
+	List<DataVariantEvent.Option> toDataVariantOptions(List<OptionDto> options);
 }

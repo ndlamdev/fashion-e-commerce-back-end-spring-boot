@@ -7,7 +7,7 @@
  **/
 package com.lamnguyen.inventory_service.service.business.v1;
 
-import com.lamnguyen.inventory_service.message.CreateVariantEvent;
+import com.lamnguyen.inventory_service.message.DataVariantEvent;
 import com.lamnguyen.inventory_service.model.VariantProduct;
 import com.lamnguyen.inventory_service.repository.InventoryRepository;
 import com.lamnguyen.inventory_service.service.business.IInventoryService;
@@ -33,14 +33,14 @@ public class InventoryServiceImpl implements IInventoryService {
 	IVariantProductRedisManage variantProductRedisManage;
 
 	/**
-	 * Process a CreateVariantEvent to create inventory records
+	 * Process a DataVariantEvent to create inventory records
 	 *
-	 * @param event the CreateVariantEvent
+	 * @param event the DataVariantEvent
 	 */
 	@Override
-	public void createVariantProduct(CreateVariantEvent event) {
+	public void createVariantProduct(DataVariantEvent event) {
 		String productId = event.id();
-		List<CreateVariantEvent.Option> options = event.options();
+		List<DataVariantEvent.Option> options = event.options();
 
 		// Generate all possible combinations of options
 		List<Map<OptionType, String>> optionCombinations = generateOptionCombinations(options);
@@ -76,7 +76,7 @@ public class InventoryServiceImpl implements IInventoryService {
 	 * @param options the list of options
 	 * @return list of all possible combinations
 	 */
-	private List<Map<OptionType, String>> generateOptionCombinations(List<CreateVariantEvent.Option> options) {
+	private List<Map<OptionType, String>> generateOptionCombinations(List<DataVariantEvent.Option> options) {
 		List<Map<OptionType, String>> result = new ArrayList<>();
 
 		// Start with an empty combination
@@ -95,7 +95,7 @@ public class InventoryServiceImpl implements IInventoryService {
 	 * @param result             the list to store all combinations
 	 */
 	private void generateCombinationsRecursive(
-			List<CreateVariantEvent.Option> options,
+			List<DataVariantEvent.Option> options,
 			int optionIndex,
 			Map<OptionType, String> currentCombination,
 			List<Map<OptionType, String>> result) {
@@ -107,7 +107,7 @@ public class InventoryServiceImpl implements IInventoryService {
 		}
 
 		// Get the current option
-		CreateVariantEvent.Option currentOption = options.get(optionIndex);
+		DataVariantEvent.Option currentOption = options.get(optionIndex);
 		OptionType optionType = currentOption.type();
 		List<String> values = currentOption.values();
 
@@ -153,6 +153,11 @@ public class InventoryServiceImpl implements IInventoryService {
 				.get(productId)
 				.or(() -> variantProductRedisManage.cache(productId, () -> Optional.of(inventoryRepository.findByProductIdAndDeleteFalseAndLockFalse(productId).toArray(VariantProduct[]::new))))
 				.orElseGet(() -> new VariantProduct[0])).toList();
+	}
+
+	@Override
+	public void updateVariantProduct(DataVariantEvent event) {
+
 	}
 
 	/**

@@ -1,6 +1,6 @@
 package com.lamnguyen.inventory_service.service.kafka.consumer.v1;
 
-import com.lamnguyen.inventory_service.message.CreateVariantEvent;
+import com.lamnguyen.inventory_service.message.DataVariantEvent;
 import com.lamnguyen.inventory_service.service.business.IInventoryService;
 import com.lamnguyen.inventory_service.service.kafka.consumer.IVariantProductConsumer;
 import lombok.AccessLevel;
@@ -17,8 +17,13 @@ public class VariantProductConsumerImpl implements IVariantProductConsumer {
 	IInventoryService inventoryService;
 
 	@Override
-	public void sendCreateVariantEvent(CreateVariantEvent event) {
-		log.info("Received CreateVariantEvent: {}", event);
+	public void createVariantEvent(DataVariantEvent event) {
+		log.info("Received DataVariantEvent: {}", event);
 		inventoryService.createVariantProduct(event);
+	}
+
+	@Override
+	public void updateVariantEvent(DataVariantEvent event) {
+		inventoryService.updateVariantProduct(event);
 	}
 }

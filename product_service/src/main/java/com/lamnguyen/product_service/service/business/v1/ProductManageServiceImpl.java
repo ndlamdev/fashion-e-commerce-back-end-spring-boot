@@ -49,24 +49,24 @@ public class ProductManageServiceImpl implements IProductManageService {
 		validateProduct(product);
 		var inserted = productRepository.insert(product);
 		collectionManageService.addProductId(request.getCollection(), inserted.getId());
-		var options = optionMapper.toCreateVariantOptions(inserted.getOptions().stream().toList());
+		var options = optionMapper.toDataVariantOptions(inserted.getOptions());
 		variantService.saveVariant(inserted.getId(), request.getComparePrice(), request.getRegularPrice(), options);
-		redisManager.save(inserted.getId(), productMapper.toProductDto(inserted));
 	}
 
 	@Override
 	public void update(UpdateProductRequest request) {
 		var oldProduct = productServiceImpl.getProductById(request.getId());
 		var product = productMapper.toProduct(request);
+		validateProduct(product);
 
 		if (!oldProduct.getCollection().equals(product.getCollection().getId())) {
 			collectionManageService.removeProductId(oldProduct.getCollection(), product.getId());
 			collectionManageService.addProductId(request.getCollection(), product.getId());
 		}
 
-		validateProduct(product);
 		productRepository.insert(product);
-		redisManager.save(product.getId(), productMapper.toProductDto(product));
+		var options = optionMapper.toDataVariantOptions(oldProduct.getOptions());
+		variantService.updateVariant(oldProduct.getId(), request.getComparePrice(), request.getRegularPrice(), options);
 	}
 
 	@Override

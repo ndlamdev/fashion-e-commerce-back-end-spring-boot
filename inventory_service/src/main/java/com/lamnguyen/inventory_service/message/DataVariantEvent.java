@@ -11,7 +11,7 @@ import com.lamnguyen.inventory_service.utils.enums.OptionType;
 
 import java.util.List;
 
-public record CreateVariantEvent(
+public record DataVariantEvent(
 		String id,
 		double comparePrice,
 		double regularPrice,
