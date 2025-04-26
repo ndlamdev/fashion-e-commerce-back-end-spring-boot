@@ -13,7 +13,7 @@ import com.lamnguyen.product_service.event.DataVariantEvent;
 import java.util.List;
 
 public interface IVariantService {
-	void saveVariant(String productId, double comparePrice, double regularPrice, List<DataVariantEvent.Option> options);
+	void createVariant(String productId, double comparePrice, double regularPrice, List<DataVariantEvent.Option> options);
 
 	void updateVariant(String productId, double comparePrice, double regularPrice, List<DataVariantEvent.Option> options);
 }

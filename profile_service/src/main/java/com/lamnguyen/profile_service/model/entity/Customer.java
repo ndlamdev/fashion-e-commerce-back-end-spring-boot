@@ -18,40 +18,39 @@ import java.util.List;
 @SuperBuilder
 @Table(name = "customers")
 public class Customer extends BaseEntity {
-    @Column(nullable = false)
-    Long userId;
+	@Column(nullable = false)
+	Long userId;
 
-    @Builder.Default
-    @Column(nullable = false)
-    String fullName = "";
+	@Builder.Default
+	@Column(nullable = false)
+	String fullName = "";
 
-    @Builder.Default
-    @Column(unique = true)
-    String email = "";
+	@Builder.Default
+	@Column(unique = true)
+	String email = "";
 
-    @Builder.Default
-    @Column(nullable = false)
-    String phone = "";
+	@Builder.Default
+	@Column(nullable = false)
+	String phone = "";
 
-    @Builder.Default
-    String avatar = "";
+	@Builder.Default
+	String avatar = "";
 
-    @Builder.Default
-    @Column(nullable = false)
-    String countryCode = "VN";
+	@Builder.Default
+	@Column(nullable = false)
+	String countryCode = "VN";
 
-    @Builder.Default
-    LocalDate birthday = LocalDate.now();
+	LocalDate birthday;
 
-    @Builder.Default
-    Double height = 0.0;
+	@Builder.Default
+	Double height = 0.0;
 
-    @Builder.Default
-    Double weight = 0.0;
+	@Builder.Default
+	Double weight = 0.0;
 
-    @Builder.Default
-    @Enumerated(EnumType.STRING)
-    SexEnum gender = SexEnum.MALE;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
-    List<Address> shippingAddresses;
+	@Builder.Default
+	@Enumerated(EnumType.STRING)
+	SexEnum gender = SexEnum.MALE;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+	List<Address> shippingAddresses;
 }

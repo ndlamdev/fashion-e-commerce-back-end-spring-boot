@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Implementation of the inventory management service
@@ -39,35 +40,83 @@ public class InventoryServiceImpl implements IInventoryService {
 	 */
 	@Override
 	public void createVariantProduct(DataVariantEvent event) {
-		String productId = event.id();
 		List<DataVariantEvent.Option> options = event.options();
 
 		// Generate all possible combinations of options
 		List<Map<OptionType, String>> optionCombinations = generateOptionCombinations(options);
 
 		// Create inventory records for each combination
-		optionCombinations.forEach(optionCombination -> {
-			// Check if inventory already exists
-			inventoryRepository.findByProductIdAndOptions(productId, optionCombination)
-					.ifPresentOrElse(
-							// If exists, log it
-							inventory -> log.info("VariantProduct already exists for product {} with options {}", productId, optionCombination),
-							// If not exists, create it
-							() -> {
-								VariantProduct inventory = VariantProduct.builder()
-										.productId(event.id())
-										.comparePrice(event.comparePrice())
-										.regularPrice(event.regularPrice())
-										.options(optionCombination)
-										.title(optionCombination.values().stream().reduce("", (s, s2) -> s + "-" + s2).substring(1))
-										.sku(generateSku(productId, optionCombination))
-										.build();
-								inventoryRepository.save(inventory);
-								log.info("Created inventory for product {} with options {}", productId, optionCombination);
-							}
-					);
-		});
+		optionCombinations.forEach(optionCombination -> insertNewVariant(event.id(), event.comparePrice(), event.regularPrice(), optionCombination));
+	}
 
+	/**
+	 * Update inventory quantity
+	 *
+	 * @param productId the product ID
+	 * @param options   the options map
+	 * @param quantity  the new quantity
+	 * @return true if updated, false if not found
+	 */
+	@Override
+	public boolean updateInventoryQuantity(String productId, Map<OptionType, String> options, int quantity) {
+		return inventoryRepository
+				.findByProductIdAndOptions(productId, options)
+				.map(inventory -> {
+					inventoryRepository.save(inventory);
+					log.info("Updated inventory quantity for product {} with options {} to {}", productId, options, quantity);
+					return true;
+				}).orElse(false);
+	}
+
+
+	/**
+	 * Get all inventory for a product
+	 *
+	 * @param productId the product ID
+	 * @return list of all inventories
+	 */
+	@Override
+	public List<VariantProduct> getAllInventory(String productId) {
+		return Arrays.stream(variantProductRedisManage.get(productId).or(() -> variantProductRedisManage
+						.cache(productId, () -> Optional.of(inventoryRepository
+								.findByProductIdAndDeleteFalseAndLockFalse(productId)
+								.toArray(VariantProduct[]::new))))
+				.orElseGet(() -> new VariantProduct[0])).toList();
+	}
+
+	@Override
+	public void updateVariantProduct(DataVariantEvent event) {
+		var oldVariantProduct = getAllInventory(event.id());
+		var mapOldVariantProduct = oldVariantProduct
+				.stream()
+				.collect(Collectors.toMap(VariantProduct::getSku, variantProduct -> variantProduct));
+		List<Map<OptionType, String>> optionCombinations = generateOptionCombinations(event.options());
+		var mapOptionCombinations = optionCombinations.stream()
+				.collect(Collectors.toMap(map -> generateSku(event.id(), map),
+						map -> map));
+		for (var entryOptionCombination : mapOptionCombinations.entrySet()) {
+			if (mapOldVariantProduct.containsKey(entryOptionCombination.getKey())) {
+				insertNewVariant(event.id(), event.comparePrice(), event.regularPrice(), entryOptionCombination.getValue());
+			}
+		}
+
+		for (var entryVariantProduct : mapOldVariantProduct.entrySet()) {
+			if (!mapOptionCombinations.containsKey(entryVariantProduct.getKey())) {
+				var result = inventoryRepository.deleteVariantById(entryVariantProduct.getValue().getId());
+				System.out.println(result);
+			}
+		}
+	}
+
+	/**
+	 * Generate a SKU based on product ID and options
+	 */
+	private String generateSku(String productId, Map<OptionType, String> options) {
+		if (options == null || options.isEmpty()) return "";
+		StringBuilder sku = new StringBuilder("SKU").append("-").append(productId);
+		// Add option values to SKU
+		options.forEach((key, value) -> sku.append("-").append(key).append("-").append(value));
+		return sku.toString().toUpperCase();
 	}
 
 	/**
@@ -94,11 +143,10 @@ public class InventoryServiceImpl implements IInventoryService {
 	 * @param currentCombination the current combination being built
 	 * @param result             the list to store all combinations
 	 */
-	private void generateCombinationsRecursive(
-			List<DataVariantEvent.Option> options,
-			int optionIndex,
-			Map<OptionType, String> currentCombination,
-			List<Map<OptionType, String>> result) {
+	private void generateCombinationsRecursive(List<DataVariantEvent.Option> options,
+	                                           int optionIndex,
+	                                           Map<OptionType, String> currentCombination,
+	                                           List<Map<OptionType, String>> result) {
 
 		// If we've processed all options, add the current combination to the result
 		if (optionIndex >= options.size()) {
@@ -121,53 +169,20 @@ public class InventoryServiceImpl implements IInventoryService {
 		currentCombination.remove(optionType);
 	}
 
-	/**
-	 * Update inventory quantity
-	 *
-	 * @param productId the product ID
-	 * @param options   the options map
-	 * @param quantity  the new quantity
-	 * @return true if updated, false if not found
-	 */
-	@Override
-	public boolean updateInventoryQuantity(String productId, Map<OptionType, String> options, int quantity) {
-		return inventoryRepository.findByProductIdAndOptions(productId, options)
-				.map(inventory -> {
-					inventoryRepository.save(inventory);
-					log.info("Updated inventory quantity for product {} with options {} to {}", productId, options, quantity);
-					return true;
-				})
-				.orElse(false);
+	private String generateTitleVariant(Map<OptionType, String> options) {
+		return options.values().stream().reduce("", (s, s2) -> s + "-" + s2).substring(1);
 	}
 
-
-	/**
-	 * Get all inventory for a product
-	 *
-	 * @param productId the product ID
-	 * @return list of all inventories
-	 */
-	@Override
-	public List<VariantProduct> getAllInventory(String productId) {
-		return Arrays.stream(variantProductRedisManage
-				.get(productId)
-				.or(() -> variantProductRedisManage.cache(productId, () -> Optional.of(inventoryRepository.findByProductIdAndDeleteFalseAndLockFalse(productId).toArray(VariantProduct[]::new))))
-				.orElseGet(() -> new VariantProduct[0])).toList();
-	}
-
-	@Override
-	public void updateVariantProduct(DataVariantEvent event) {
-
-	}
-
-	/**
-	 * Generate a SKU based on product ID and options
-	 */
-	private String generateSku(String productId, Map<OptionType, String> options) {
-		if (options == null || options.isEmpty()) return "";
-		StringBuilder sku = new StringBuilder("SKU").append("-").append(productId);
-		// Add option values to SKU
-		options.forEach((key, value) -> sku.append("-").append(key).append("-").append(value));
-		return sku.toString().toUpperCase();
+	private void insertNewVariant(String id, double comparePrice, double regularPrice, Map<OptionType, String> options) {
+		VariantProduct inventory = VariantProduct.builder()
+				.productId(id)
+				.comparePrice(comparePrice)
+				.regularPrice(regularPrice)
+				.options(options)
+				.title(generateTitleVariant(options))
+				.sku(generateSku(id, options))
+				.build();
+		inventoryRepository.save(inventory);
+		log.info("Created inventory for product {} with options {}", id, options);
 	}
 }

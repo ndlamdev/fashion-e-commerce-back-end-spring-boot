@@ -50,7 +50,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 		var inserted = productRepository.insert(product);
 		collectionManageService.addProductId(request.getCollection(), inserted.getId());
 		var options = optionMapper.toDataVariantOptions(inserted.getOptions());
-		variantService.saveVariant(inserted.getId(), request.getComparePrice(), request.getRegularPrice(), options);
+		variantService.createVariant(inserted.getId(), request.getComparePrice(), request.getRegularPrice(), options);
 	}
 
 	@Override

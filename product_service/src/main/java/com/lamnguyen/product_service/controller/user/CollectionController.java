@@ -6,7 +6,7 @@
  * User: kimin
  **/
 
-package com.lamnguyen.product_service.controller;
+package com.lamnguyen.product_service.controller.user;
 
 import com.lamnguyen.product_service.domain.dto.CollectionSaveRedisDto;
 import com.lamnguyen.product_service.service.business.ICollectionService;

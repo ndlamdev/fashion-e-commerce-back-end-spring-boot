@@ -26,7 +26,7 @@ public class VariantServiceImpl implements IVariantService {
 	private String topicUpdateVariant;
 
 	@Override
-	public void saveVariant(String productId, double comparePrice, double regularPrice, List<DataVariantEvent.Option> options) {
+	public void createVariant(String productId, double comparePrice, double regularPrice, List<DataVariantEvent.Option> options) {
 		var event = new DataVariantEvent(productId, comparePrice, regularPrice, options);
 		kafkaTemplate.send(topicCreateVariant, event);
 	}
@@ -34,7 +34,7 @@ public class VariantServiceImpl implements IVariantService {
 	@Override
 	public void updateVariant(String productId, double comparePrice, double regularPrice, List<DataVariantEvent.Option> options) {
 		var event = new DataVariantEvent(productId, comparePrice, regularPrice, options);
-		kafkaTemplate.send(topicCreateVariant, event);
+		kafkaTemplate.send(topicUpdateVariant, event);
 	}
 
 }

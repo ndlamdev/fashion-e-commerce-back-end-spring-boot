@@ -6,7 +6,7 @@
  * User: kimin
  **/
 
-package com.lamnguyen.product_service.controller;
+package com.lamnguyen.product_service.controller.admin;
 
 import com.lamnguyen.product_service.domain.request.CreateProductRequest;
 import com.lamnguyen.product_service.service.business.IProductManageService;

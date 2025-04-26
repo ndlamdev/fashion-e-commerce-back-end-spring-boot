@@ -22,7 +22,7 @@ public interface IVariantProductConsumer {
 			include = ApiException.class)
 	void createVariantEvent(DataVariantEvent event);
 
-	@KafkaListener(topics = "${spring.kafka.topic.create-variant}", groupId = "inventory-service-group")
+	@KafkaListener(topics = "${spring.kafka.topic.update-variant}", groupId = "inventory-service-group")
 	@RetryableTopic(
 			backoff = @Backoff(value = 3000L),
 			attempts = "5",

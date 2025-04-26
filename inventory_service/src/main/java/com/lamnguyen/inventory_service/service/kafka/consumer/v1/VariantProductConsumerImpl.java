@@ -18,12 +18,13 @@ public class VariantProductConsumerImpl implements IVariantProductConsumer {
 
 	@Override
 	public void createVariantEvent(DataVariantEvent event) {
-		log.info("Received DataVariantEvent: {}", event);
+		log.info("Create variant event: Received DataVariantEvent: {}", event);
 		inventoryService.createVariantProduct(event);
 	}
 
 	@Override
 	public void updateVariantEvent(DataVariantEvent event) {
+		log.info("Update Variant event: Received DataVariantEvent: {}", event);
 		inventoryService.updateVariantProduct(event);
 	}
 }
