@@ -20,7 +20,7 @@ public interface IGrpcMapper {
 	@Named("convertLocalDateTimeToStringValue")
 	default StringValue convertLocalDateTimeToStringValue(LocalDate value) {
 		if (value == null) {
-			return null;
+			return StringValue.getDefaultInstance();
 		}
 
 		return StringValue.of(value.toString());
@@ -29,7 +29,7 @@ public interface IGrpcMapper {
 	@Name("convertStringToStringValue")
 	default StringValue convertStringToStringValue(String value) {
 		if (value == null) {
-			return null;
+			return StringValue.getDefaultInstance();
 		}
 
 		return StringValue.of(value);

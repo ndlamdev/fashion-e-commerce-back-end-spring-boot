@@ -18,7 +18,7 @@ import java.time.LocalDate;
 public interface IGrpcMapper {
 	@Name("convertStringValueToLocalDateTime")
 	default LocalDate convertStringValueToLocalDateTime(StringValue value) {
-		if (value == null) {
+		if (value == null || value.getValue().isEmpty()) {
 			return null;
 		}
 
@@ -27,7 +27,7 @@ public interface IGrpcMapper {
 
 	@Name("convertStringValueToString")
 	default String convertStringValueToString(StringValue value) {
-		if (value == null) {
+		if (value == null || value.getValue().isEmpty()) {
 			return null;
 		}
 
