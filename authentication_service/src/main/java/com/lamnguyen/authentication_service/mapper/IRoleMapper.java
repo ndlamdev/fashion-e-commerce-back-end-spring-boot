@@ -12,8 +12,9 @@ import com.lamnguyen.authentication_service.domain.dto.RoleDto;
 import com.lamnguyen.authentication_service.model.Role;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {IPermissionMapper.class})
 public interface IRoleMapper {
-    RoleDto toRoleDto(Role role);
-    Role toRole(RoleDto roleDto);
+	RoleDto toRoleDto(Role role);
+
+	Role toRole(RoleDto roleDto);
 }

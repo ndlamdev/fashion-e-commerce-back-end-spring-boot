@@ -7,18 +7,32 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.mongodb.core.mapping.Field;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class Option extends MongoBaseEntity {
-	@Field("option_id")
-	OptionType optionType; // size | color
+public class Option {
+	OptionType type; // size | color
 
 	String title; // Màu  | Size
 
-	OptionsValue value;
+	Set<String> values; // Danh sách các giá trị của option này
+
+	@Override
+	public boolean equals(Object o) {
+		if (o == null || getClass() != o.getClass()) return false;
+		Option option = (Option) o;
+		return type == option.type;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(type, title, values);
+	}
 }

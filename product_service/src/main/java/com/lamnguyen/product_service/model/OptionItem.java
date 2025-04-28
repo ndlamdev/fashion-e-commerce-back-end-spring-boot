@@ -10,13 +10,13 @@ import lombok.experimental.SuperBuilder;
 import java.util.List;
 
 @SuperBuilder
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PROTECTED)
 @RequiredArgsConstructor
 @Getter
 @Setter
 public class OptionItem {
 	String title; // Xanh nhạt
 	String slug; // xanh-nhat
-	String label; // ""
-	List<Image> image; // Danh sách các hình đại diện cho màu đó.
+	String label;
+	List<String> images;
 }

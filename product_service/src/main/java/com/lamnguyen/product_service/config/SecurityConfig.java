@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -31,18 +32,21 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 	JwtAuthenticationConverterImpl jwtAuthenticationConverter;
 	CustomAuthenticationEntryPoint authenticationEntryPoint;
+	CorsConfigurationSourceImpl configurationSource;
 	ApplicationProperty applicationProperty;
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.authorizeHttpRequests(auth ->
 				auth.requestMatchers(applicationProperty.getWhiteList().toArray(String[]::new)).permitAll()
-						.anyRequest().authenticated()
+						.anyRequest().permitAll()
 		);
 		httpSecurity.oauth2ResourceServer(oauth2ResourceServerConfig -> oauth2ResourceServerConfig
 				.jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter))
 				.authenticationEntryPoint(authenticationEntryPoint)
 		);
+		httpSecurity.cors(con -> con.configurationSource(configurationSource));
+		httpSecurity.csrf(AbstractHttpConfigurer::disable);
 		httpSecurity.exceptionHandling(configurer -> configurer.authenticationEntryPoint(authenticationEntryPoint));
 		return httpSecurity.build();
 	}

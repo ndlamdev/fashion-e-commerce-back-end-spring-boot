@@ -8,9 +8,30 @@
 
 package com.lamnguyen.authentication_service.domain.dto;
 
-public record RoleDto(
-        long id,
-        String name,
-        boolean lock
-) {
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
+import java.io.Serializable;
+import java.util.List;
+
+@Builder
+@Getter
+@Setter
+@RequiredArgsConstructor
+public class RoleDto implements Serializable {
+	long id;
+	String name;
+	String describe;
+	List<PermissionDto> permissions;
+	boolean lock;
+
+	public RoleDto(long id, String name, String describe, List<PermissionDto> permissions, boolean lock) {
+		this.id = id;
+		this.name = name;
+		this.describe = describe;
+		this.permissions = permissions;
+		this.lock = lock;
+	}
 }

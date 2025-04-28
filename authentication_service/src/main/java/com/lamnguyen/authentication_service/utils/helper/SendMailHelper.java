@@ -8,13 +8,13 @@
 
 package com.lamnguyen.authentication_service.utils.helper;
 
-import com.lamnguyen.authentication_service.service.authentication.IRedisManager;
 import com.lamnguyen.authentication_service.service.mail.ISendMailService;
+import com.lamnguyen.authentication_service.service.redis.IVerifyCodeRedisManager;
 
 public class SendMailHelper {
-	public static void sendMailVerify(IRedisManager tokenManager, ISendMailService sendMailService, long userId, String email) {
+	public static void sendMailVerify(IVerifyCodeRedisManager tokenManager, ISendMailService sendMailService, long userId, String email) {
 		String opt = OtpUtil.generate(6);
-		tokenManager.setRegisterCode(userId, opt);
+		tokenManager.setCode(userId, opt);
 		sendMailService.sendMailVerifyAccountCode(email, opt);
 	}
 }

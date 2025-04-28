@@ -47,56 +47,28 @@ public class ApplicationProperty {
     @Value("${application.prefix.permission}")
     String permissionPrefix;
 
-    @Value("${application.token.access.key}")
-    String keyAccessToken;
-    @Value("${application.token.access.default-token}")
-    String defaultValueAccessToken;
-    @Value("${application.token.access.expire}")
-    int expireAccessToken;
-    @Value("${application.token.access.blacklist}")
-    String keyAccessTokenBlacklist;
-    @Value("${application.token.access.facebook.key}")
-    String keyAccessTokenFacebook;
+	@Value("${application.admin.email}")
+	String emailAdmin;
+	@Value("${application.admin.password}")
+	String passwordAdmin;
 
-    @Value("${application.token.refresh.key}")
-    String keyRefreshToken;
-    @Value("${application.token.refresh.default-token}")
-    String defaultValueRefreshToken;
-    @Value("${application.token.refresh.expire}")
-    int expireRefreshToken;
-    @Value("${application.token.refresh.blacklist}")
-    String keyRefreshTokenBlacklist;
-    
-    @Value("${application.token.reset-password.key}")
-    String keyResetPasswordToken;
-    @Value("${application.token.reset-password.default-token}")
-    String defaultValueResetPasswordToken;
-    @Value("${application.token.reset-password.expire}")
-    int expireResetPasswordToken;
-    @Value("${application.token.reset-password.blacklist}")
-    String keyResetPasswordTokenBlacklist;
-    @Value("${application.token.reset-password.change}")
-    String keyDateTimeChangePassword;
+	@Value("${spring.security.oauth2.client.registration.google.client-id}")
+	String clientId;
+	@Value("${spring.security.oauth2.client.registration.google.client-secret}")
+	String clientSecret;
 
-    @Value("${application.admin.email}")
-    String emailAdmin;
-    @Value("${application.admin.password}")
-    String passwordAdmin;
-    
-    @Value("${spring.security.oauth2.client.registration.google.client-id}")
-    String clientId;
-    @Value("${spring.security.oauth2.client.registration.google.client-secret}")
-    String clientSecret;
+	@Value("${application.facebook.app_id}")
+	String appIdFacebook;
+	@Value("${application.facebook.app_secret}")
+	String appSecretFacebook;
+	@Value("${application.token.register.facebook.key}")
+	String keyRegisterTokenUsingFacebook;
+	@Value("${application.token.access.facebook.key}")
+	String keyAccessTokenFacebook;
 
-    @Value("${application.facebook.app_id}")
-    String appIdFacebook;
-    @Value("${application.facebook.app_secret}")
-    String appSecretFacebook;
+	@Value("${application.token.register.expire}")
+	int expireRegisterToken;
+	@Value("${application.token.register.google.key}")
+	String keyRegisterTokenUsingGoogle;
 
-    @Value("${application.token.register.expire}")
-    int expireRegisterToken;
-    @Value("${application.token.register.facebook.key}")
-    String keyRegisterTokenUsingFacebook;
-    @Value("${application.token.register.google.key}")
-    String keyRegisterTokenUsingGoogle;
 }

@@ -20,21 +20,21 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {IGrpcMapper.class})
 public interface IProfileUserMapper {
-    SaveProfileUserEvent toSaveProfileUserEvent(RegisterAccountRequest request);
+	SaveProfileUserEvent toSaveProfileUserEvent(RegisterAccountRequest request);
 
-    SaveProfileUserEvent toSaveProfileUserEvent(RegisterAccountWithFacebookRequest request);
+	SaveProfileUserEvent toSaveProfileUserEvent(RegisterAccountWithFacebookRequest request);
 
-    SaveProfileUserEvent toSaveProfileUserEvent(GooglePayloadDto request);
+	SaveProfileUserEvent toSaveProfileUserEvent(GooglePayloadDto request);
 
-    ProfileUserDto toProfileUserDto(ProfileUserResponse request);
+	ProfileUserDto toProfileUserDto(ProfileUserResponse request);
 
-    @Mapping(source = "avatar.data", target = "avatar", qualifiedByName = "convertPictureObjectToUrl")
-    FacebookPayloadDto toFacebookPayloadDto(IFacebookGraphClient.ProfileUserFacebookResponse request);
+	@Mapping(source = "avatar.data", target = "avatar", qualifiedByName = "convertPictureObjectToUrl")
+	FacebookPayloadDto toFacebookPayloadDto(IFacebookGraphClient.ProfileUserFacebookResponse request);
 
-    @Named("convertPictureObjectToUrl")
-    default String convertPictureObjectToUrl(IFacebookGraphClient.ProfileUserFacebookResponse.Picture.PictureData pictureData) {
-        return pictureData.url() + "?height=" + pictureData.height() + "&width=" + pictureData.width() + "&is_silhouette=" + pictureData.isSilhouette();
-    }
+	@Named("convertPictureObjectToUrl")
+	default String convertPictureObjectToUrl(IFacebookGraphClient.ProfileUserFacebookResponse.Picture.PictureData pictureData) {
+		return pictureData.url() + "?height=" + pictureData.height() + "&width=" + pictureData.width() + "&is_silhouette=" + pictureData.isSilhouette();
+	}
 }

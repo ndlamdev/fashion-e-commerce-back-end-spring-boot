@@ -8,7 +8,7 @@
 
 package com.lamnguyen.authentication_service.controller;
 
-import com.lamnguyen.authentication_service.domain.GoogleAuthRequest;
+import com.lamnguyen.authentication_service.domain.request.GoogleAuthRequest;
 import com.lamnguyen.authentication_service.domain.dto.LoginSuccessDto;
 import com.lamnguyen.authentication_service.domain.reponse.LoginSuccessResponse;
 import com.lamnguyen.authentication_service.domain.reponse.TokenResponse;
@@ -17,7 +17,7 @@ import com.lamnguyen.authentication_service.service.authentication.IAuthenticati
 import com.lamnguyen.authentication_service.service.authentication.IFacebookAuthService;
 import com.lamnguyen.authentication_service.service.authentication.IGoogleAuthService;
 import com.lamnguyen.authentication_service.utils.annotation.ApiMessageResponse;
-import com.lamnguyen.authentication_service.utils.property.ApplicationProperty;
+import com.lamnguyen.authentication_service.utils.property.TokenProperty;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -26,12 +26,11 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
-import java.security.GeneralSecurityException;
+import reactor.core.publisher.Mono;
 
 @Slf4j
 @RestController
@@ -42,12 +41,13 @@ public class AuthenticationController {
     IAuthenticationService authenticationService;
     IGoogleAuthService googleAuthService;
     IFacebookAuthService facebookAuthService;
-    ApplicationProperty applicationProperty;
+	TokenProperty.AccessTokenProperty accessTokenProperty;
+    TokenProperty.RefreshTokenProperty getKeyRefreshToken;
 
     @PostMapping("/login")
     @ApiMessageResponse(value = "Login success!")
     public LoginSuccessResponse login(HttpSession session) {
-        var accessToken = (String) session.getAttribute(applicationProperty.getKeyAccessToken());
+        var accessToken = (String) session.getAttribute(accessTokenProperty.getTokenKey());
         var user = authenticationService.login(accessToken);
         return LoginSuccessResponse.builder()
                 .user(user)
@@ -115,6 +115,12 @@ public class AuthenticationController {
         authenticationService.setNewPassword(request);
     }
 
+	@GetMapping("/validate")
+	@ApiMessageResponse("Validate token success!")
+	public Mono<ResponseEntity<Void>> validateToken(@RequestHeader(HttpHeaders.AUTHORIZATION) String bearerToken) {
+		var jwt = authenticationService.validate(bearerToken);
+		return Mono.just(ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, jwt.getTokenValue()).body(null));
+	}
 
     @PostMapping("/google/login")
     @ApiMessageResponse("Login using google success")
@@ -144,8 +150,8 @@ public class AuthenticationController {
 
     private LoginSuccessResponse getLoginSuccessResponse(HttpServletResponse response, LoginSuccessDto token) {
         var user = authenticationService.login(token.accessToken());
-        Cookie refestTokenCookie = new Cookie(applicationProperty.getKeyRefreshToken(), token.refreshToken());
-        refestTokenCookie.setMaxAge(applicationProperty.getExpireRefreshToken() * 60000);
+        Cookie refestTokenCookie = new Cookie(getKeyRefreshToken.getTokenKey(), token.refreshToken());
+        refestTokenCookie.setMaxAge(getKeyRefreshToken.getExpireToken() * 60000);
         refestTokenCookie.setHttpOnly(true);
         refestTokenCookie.setSecure(true);
         response.addCookie(refestTokenCookie);

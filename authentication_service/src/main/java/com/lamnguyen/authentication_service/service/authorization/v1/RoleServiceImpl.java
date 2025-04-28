@@ -20,6 +20,7 @@ import com.lamnguyen.authentication_service.model.Role;
 import com.lamnguyen.authentication_service.repository.IPermissionRepository;
 import com.lamnguyen.authentication_service.repository.IRoleRepository;
 import com.lamnguyen.authentication_service.service.authorization.IRoleService;
+import com.lamnguyen.authentication_service.service.redis.IRoleRedisManager;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -27,6 +28,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -36,6 +38,7 @@ public class RoleServiceImpl implements IRoleService {
 	IRoleMapper roleMapper;
 	IPermissionMapper permissionMapper;
 	IPermissionRepository permissionRepository;
+	IRoleRedisManager roleRedisManager;
 
 	@Override
 	public List<RoleDto> getAllRole() {
@@ -78,7 +81,17 @@ public class RoleServiceImpl implements IRoleService {
 	}
 
 	@Override
-	public Role getByName(String role) {
-		return roleRepository.findByName(role).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ROLE_NOT_FOUND));
+	public RoleDto getByName(String name) {
+		return roleRedisManager.getRole(name)
+				.orElseGet(() -> getByNameDb(name)
+						.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ROLE_NOT_FOUND)));
+
+	}
+
+	public Optional<RoleDto> getByNameDb(String name) {
+		return roleRedisManager.cache(name, (value) -> {
+			var role = roleRepository.findByName(name);
+			return role.map(roleMapper::toRoleDto);
+		});
 	}
 }

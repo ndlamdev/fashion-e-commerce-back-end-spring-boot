@@ -26,7 +26,6 @@ configurations {
 }
 
 repositories {
-    gradlePluginPortal()
     mavenCentral()
 }
 
@@ -54,6 +53,7 @@ dependencies {
     implementation 'org.flywaydb:flyway-mysql'
     implementation 'org.springframework.kafka:spring-kafka'
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    implementation 'org.redisson:redisson-spring-boot-starter:3.45.1'
     implementation 'com.google.api-client:google-api-client:2.7.2'
     implementation 'net.devh:grpc-client-spring-boot-starter:3.1.0.RELEASE'
     implementation 'javax.annotation:javax.annotation-api:1.3.2'

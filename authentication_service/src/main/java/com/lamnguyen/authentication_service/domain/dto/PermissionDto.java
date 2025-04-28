@@ -8,10 +8,15 @@
 
 package com.lamnguyen.authentication_service.domain.dto;
 
+import lombok.Builder;
+
+import java.io.Serializable;
+
+@Builder
 public record PermissionDto(
-        long id,
-        String name,
-        String describe,
-        boolean lock
-) {
+		long id,
+		String name,
+		String describe,
+		boolean lock
+) implements Serializable {
 }

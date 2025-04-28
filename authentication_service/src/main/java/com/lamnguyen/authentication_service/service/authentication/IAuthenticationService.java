@@ -32,4 +32,6 @@ public interface IAuthenticationService {
     void setNewPassword(SetNewPasswordRequest request);
 
     Jwt renewAccessToken(String refreshToken);
+
+    Jwt validate(String token);
 }

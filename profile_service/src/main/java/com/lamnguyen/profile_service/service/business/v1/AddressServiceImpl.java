@@ -9,7 +9,7 @@ import com.lamnguyen.profile_service.model.entity.Address;
 import com.lamnguyen.profile_service.model.entity.Customer;
 import com.lamnguyen.profile_service.repository.IAddressRepository;
 import com.lamnguyen.profile_service.service.business.IAddressService;
-import com.lamnguyen.profile_service.service.business.producer.CustomerProducerImpl;
+import com.lamnguyen.profile_service.service.kafka.producer.v1.AddressProducerImpl;
 import com.lamnguyen.profile_service.utils.JwtTokenUtil;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,7 @@ public class AddressServiceImpl implements IAddressService {
     IAddressMapper mapper;
     IAddressRepository repository;
     JwtTokenUtil jwtTokenUtil;
-    CustomerProducerImpl customerProducer;
+    AddressProducerImpl customerProducer;
 
     @Override
     public AddressResponse saveAddress(SaveAddressRequest request, Long id, Long customerId) {

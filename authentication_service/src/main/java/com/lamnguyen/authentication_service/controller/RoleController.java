@@ -21,23 +21,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/role")
+@RequestMapping("/role/v1")
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class RoleController {
-    IRoleService iRoleService;
+	IRoleService iRoleService;
 
-    @GetMapping
-    @ApiMessageResponse("Get all role")
-    @PreAuthorize("hasAnyAuthority('GET_ALL_ROLE', 'ROLE_ADMIN')")
-    public List<RoleDto> getAll() {
-        return iRoleService.getAllRole();
-    }
+	@GetMapping
+	@ApiMessageResponse("Get all role")
+	@PreAuthorize("hasAnyAuthority('GET_ALL_ROLE', 'ROLE_ADMIN')")
+	public List<RoleDto> getAll() {
+		return iRoleService.getAllRole();
+	}
 
-    @PostMapping
-    @ApiMessageResponse("Create success")
-    @PreAuthorize("hasAnyAuthority('CREATE_ROLE', 'ROLE_ADMIN')")
-    public RoleDto getAll(@RequestBody CreateRoleRequest createRoleRequest) {
-        return iRoleService.createRole(createRoleRequest.name());
-    }
+	@PostMapping
+	@ApiMessageResponse("Create success")
+	@PreAuthorize("hasAnyAuthority('CREATE_ROLE', 'ROLE_ADMIN')")
+	public RoleDto getAll(@RequestBody CreateRoleRequest createRoleRequest) {
+		return iRoleService.createRole(createRoleRequest.name());
+	}
 }

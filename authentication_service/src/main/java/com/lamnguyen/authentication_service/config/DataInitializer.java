@@ -1,5 +1,6 @@
 package com.lamnguyen.authentication_service.config;
 
+import com.lamnguyen.authentication_service.model.Role;
 import com.lamnguyen.authentication_service.model.RoleOfUser;
 import com.lamnguyen.authentication_service.model.User;
 import com.lamnguyen.authentication_service.repository.IRoleOfUserRepository;
@@ -13,6 +14,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -28,6 +30,7 @@ public class DataInitializer implements CommandLineRunner {
 
 
 	@Override
+	@Transactional
 	public void run(String... args) {
 		var nameRoleAdmin = "ADMIN";
 		try {
@@ -39,7 +42,7 @@ public class DataInitializer implements CommandLineRunner {
 					.password(passwordEncoder.encode(applicationProperty.getPasswordAdmin()))
 					.active(true)
 					.build());
-			roleOfUserRepository.save(RoleOfUser.builder().user(admin).role(role).build());
+			roleOfUserRepository.save(RoleOfUser.builder().user(admin).role(Role.builder().id(role.getId()).build()).build());
 		}
 	}
 }

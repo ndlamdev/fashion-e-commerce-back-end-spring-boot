@@ -2,7 +2,6 @@
 
 **/.gradle
 **/build/
-**/gradle/wrapper/gradle-wrapper.jar
 **/src/main/**/build/
 **/src/test/**/build/
 
@@ -37,7 +36,6 @@
 ### VS Code ###
 **/.vscode/
 **/.idea/
-**/gradle/
 
 **/search_by_image_using_ai_service/search_app/data
 **/.evn

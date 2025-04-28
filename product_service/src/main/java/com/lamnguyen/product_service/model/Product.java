@@ -8,17 +8,18 @@
 
 package com.lamnguyen.product_service.model;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import com.lamnguyen.product_service.utils.annotation.CompareAmountImageOptionsValue;
+import com.lamnguyen.product_service.utils.enums.GenderType;
+import com.lamnguyen.product_service.utils.enums.ProductTag;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.*;
+import java.util.List;
+import java.util.Set;
 
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -26,123 +27,49 @@ import java.util.*;
 @Getter
 @Setter
 @Document(collection = "products")
-public class Product {
-	@Id
-	String id;
-
+@CompareAmountImageOptionsValue
+public class Product extends MongoBaseDocument {
 	String title;
 
-	@Field("apply_allowance_inventory")
-	boolean applyAllowanceInventory;
-
 	@Field("seo_alias")
-	String seoAlias;
+	String seoAlias; // path in url: product/seoAlias
 
-	String vendor;
+	String vendor; // người bán
 
-	Map<String, String> tags;
+	Set<ProductTag> tags; // bán chạy hay mới....
 
-	List<Option> options;
+	Set<Option> options; // Các option để tạo ra biến thể
 
-	@Field("options_ue")
-	List<OptionsValue> optionsValue;
+	@Field("options_values")
+	List<ImageOptionsValue> optionsValues; // Nếu các option có các giá trị riêng của nó thì dùng trường này. Ví dụ như các option liên quan đến màu thì cần dùng cái này để lưu hình ảnh sản phẩm theo màu đó.
 
-	List<Image> images;
+	List<String> images; // Hình ảnh để show card
 
-	@Field("on_sale")
-	boolean onSale;
+	@Builder.Default
+	boolean available = true; // Có khả dụng hay không
 
-	boolean available;
-
-	List<String> collections;
-
-	Integer price;
-
-	@Field("compare_price")
-	Integer comparePrice;
-
-	boolean preorder;
-
-	List<String> pricing;
-
-	@Field("is_pricing")
-	boolean isPricing;
-
-	@Field("is_combo")
-	boolean isCombo;
+	@Field("collection_id")
+	@DocumentReference(lazy = true)
+	Collection collection; // Thuộc danh sách nào
 
 	@Field("display_order")
-	Integer displayOrder;
-
-	@Field("sale_number")
-	Integer saleNumber;
-
-
-	@Field("is_color_image_option")
-	boolean isColorImageOption;
+	Integer displayOrder; // Thứ tự hiển thị
 
 	@Field("youtube_video")
-	String youtubeVideo;
-
-	@Field("addon_note")
-	String addonNote;
-
-	Review review;
+	String youtubeVideo; // Link video trên youtube cho chi tiết sản phẩm
 
 	@Field("coming_soon")
-	boolean comingSoon;
-
-	@Field("display_name")
-	String displayName;
+	boolean comingSoon; // Đánh dấu sản phẩm có phải mẫu sẽ xuất hiện sớm không
 
 	@Field("display_name_open")
-	String displayNameOpen;
+	String displayNameOpen; // Subtitle, hiển thị ở dưới title trong chi tiết sản phẩm
 
-	boolean wildcard;
-
-	@Field("size_chart")
-	String sizeChart;
-
-	List<Variant> variants;
-
-	Integer percent;
-
-	@Field("regular_price")
-	Integer regularPrice;
-
-	@Field("note_collections")
-	List<String> noteCollections;
+	Discount discount; // Khuyến mãi
 
 	@Field("gender_type")
-	String genderType;
-
-	@Field("pricing_policy")
-	List<String> pricingPolicy;
-
-	@Field("collection_pricing_policy")
-	List<CollectionPricingPolicy> collectionPricingPolicy;
+	GenderType genderType; // Dòng sản phẩm của nam hay nữ
 
 	@Field("icon_thumbnail")
-	Image iconThumbnail;
-
-	Integer indexOption;
-
-	List<String> uesInOption;
-
-	@Field("is_show_variant_color")
-	boolean isShowVariantColor;
-
-	List<String> sizes;
-
-	String color;
-
-	@Field("color_slug")
-	String colorSlug;
-
-	@Field("is_flattened")
-	boolean isFlattened;
-
-	@Field("display_collections_variant")
-	Integer displayCollectionsVariant;
+	String iconThumbnail; // Hình minh họa khuyến mãi
 }
 
