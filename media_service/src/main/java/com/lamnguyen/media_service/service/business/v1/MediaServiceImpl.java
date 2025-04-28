@@ -40,13 +40,15 @@ public class MediaServiceImpl implements IMediaService {
 
 	@Override
 	public void upload(MultipartFile file) {
+		if (file.getContentType() == null || !file.getContentType().startsWith("image"))
+			throw ApplicationException.createException(ExceptionEnum.ERROR_FILE_TYPE);
 		var result = uploadHelper(file).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.UPLOAD_FAILED));
 		var fileResult = new File(result);
 		mediaRepository.save(Media.builder()
-				.path(result)
+				.path(result.substring(result.lastIndexOf(File.separator) + 1))
 				.extend(fileResult.getName().substring(fileResult.getName().lastIndexOf(".") + 1))
 				.displayName(fileResult.getName().substring(0, fileResult.getName().lastIndexOf(".")))
-				.parentPath(fileResult.getAbsolutePath())
+				.parentPath(applicationProperty.getPathFileManager())
 				.fileName(fileResult.getName())
 				.build());
 	}

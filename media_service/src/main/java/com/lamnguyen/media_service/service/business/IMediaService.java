@@ -9,6 +9,7 @@
 package com.lamnguyen.media_service.service.business;
 
 import com.lamnguyen.media_service.domain.dto.MediaDto;
+import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

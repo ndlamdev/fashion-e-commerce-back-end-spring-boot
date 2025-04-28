@@ -17,6 +17,7 @@ import lombok.experimental.FieldDefaults;
 public enum ExceptionEnum {
 	UPLOAD_FAILED(70001, "Upload file failed"),
 	NOT_FOUND(70002, "Media not found"),
+	ERROR_FILE_TYPE(70003, "File type not support"),
 	UNAUTHORIZED(70004, "Unauthorized"),
 	;
 
