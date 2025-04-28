@@ -10,8 +10,7 @@ package com.lamnguyen.product_service.service.business.v1;
 
 import com.lamnguyen.product_service.config.exception.ApplicationException;
 import com.lamnguyen.product_service.config.exception.ExceptionEnum;
-import com.lamnguyen.product_service.domain.request.CreateProductRequest;
-import com.lamnguyen.product_service.domain.request.UpdateProductRequest;
+import com.lamnguyen.product_service.domain.request.DataProductRequest;
 import com.lamnguyen.product_service.mapper.IOptionMapper;
 import com.lamnguyen.product_service.mapper.IProductMapper;
 import com.lamnguyen.product_service.model.Product;
@@ -36,7 +35,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 	IProductRepository productRepository;
 	IProductMapper productMapper;
 	ICollectionManageService collectionManageService;
-	IProductRedisManager redisManager;
+	IProductRedisManager productRedisManager;
 	IMediaGrpcClient mediaGrpcClient;
 	ValidationUtil validationUtil;
 	private final ProductServiceImpl productServiceImpl;
@@ -44,7 +43,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 	IOptionMapper optionMapper;
 
 	@Override
-	public void create(CreateProductRequest request) {
+	public void create(DataProductRequest request) {
 		var product = productMapper.toProduct(request);
 		validateProduct(product);
 		var inserted = productRepository.insert(product);
@@ -54,9 +53,10 @@ public class ProductManageServiceImpl implements IProductManageService {
 	}
 
 	@Override
-	public void update(UpdateProductRequest request) {
-		var oldProduct = productServiceImpl.getProductById(request.getId());
+	public void update(String id, DataProductRequest request) {
+		var oldProduct = productServiceImpl.getProductById(id);
 		var product = productMapper.toProduct(request);
+		product.setId(id);
 		validateProduct(product);
 
 		if (!oldProduct.getCollection().equals(product.getCollection().getId())) {
@@ -64,9 +64,10 @@ public class ProductManageServiceImpl implements IProductManageService {
 			collectionManageService.addProductId(request.getCollection(), product.getId());
 		}
 
-		productRepository.insert(product);
-		var options = optionMapper.toDataVariantOptions(oldProduct.getOptions());
+		productRepository.save(product);
+		var options = optionMapper.toDataVariantOptions(request.getOptions());
 		variantService.updateVariant(oldProduct.getId(), request.getComparePrice(), request.getRegularPrice(), options);
+		productRedisManager.delete(id);
 	}
 
 	@Override

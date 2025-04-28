@@ -22,7 +22,7 @@ public class VariantServiceImpl implements IVariantService {
 	private final KafkaTemplate<String, Object> kafkaTemplate;
 	@Value("${spring.kafka.topic.create-variant}")
 	private String topicCreateVariant;
-	@Value("spring.kafka.topic.update-variant")
+	@Value("${spring.kafka.topic.update-variant}")
 	private String topicUpdateVariant;
 
 	@Override

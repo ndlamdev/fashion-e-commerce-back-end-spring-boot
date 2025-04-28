@@ -8,13 +8,12 @@
 
 package com.lamnguyen.product_service.service.business;
 
-import com.lamnguyen.product_service.domain.request.CreateProductRequest;
-import com.lamnguyen.product_service.domain.request.UpdateProductRequest;
+import com.lamnguyen.product_service.domain.request.DataProductRequest;
 
 public interface IProductManageService {
-	void create(CreateProductRequest request);
+	void create(DataProductRequest request);
 
-	void update(UpdateProductRequest request);
+	void update(String id, DataProductRequest request);
 
 	void lock();
 }

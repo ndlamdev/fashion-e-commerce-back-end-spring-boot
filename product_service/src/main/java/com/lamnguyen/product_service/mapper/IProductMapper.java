@@ -11,8 +11,7 @@ package com.lamnguyen.product_service.mapper;
 import com.lamnguyen.product_service.config.exception.ApplicationException;
 import com.lamnguyen.product_service.config.exception.ExceptionEnum;
 import com.lamnguyen.product_service.domain.dto.ProductDto;
-import com.lamnguyen.product_service.domain.request.CreateProductRequest;
-import com.lamnguyen.product_service.domain.request.UpdateProductRequest;
+import com.lamnguyen.product_service.domain.request.DataProductRequest;
 import com.lamnguyen.product_service.domain.response.ProductResponse;
 import com.lamnguyen.product_service.model.Collection;
 import com.lamnguyen.product_service.model.Product;
@@ -25,18 +24,14 @@ import java.util.regex.Pattern;
 public interface IProductMapper {
 	@Mapping(source = "collection", target = "collection", qualifiedByName = "toCollection")
 	@Mapping(source = "title", target = "seoAlias", qualifiedByName = "toSeoAlias")
-	Product toProduct(CreateProductRequest request);
-
-	@Mapping(source = "collection", target = "collection", qualifiedByName = "toCollection")
-	@Mapping(source = "title", target = "seoAlias", qualifiedByName = "toSeoAlias")
-	Product toProduct(UpdateProductRequest request);
+	Product toProduct(DataProductRequest request);
 
 	@Mapping(source = "collection.id", target = "collection")
 	@Mapping(source = "iconThumbnail", target = "iconThumbnail", qualifiedByName = "toImageDto")
 	@Mapping(source = "images", target = "images", qualifiedByName = "toImageDto")
 	ProductResponse toProductResponse(Product product);
 
-	@Mapping(source = "collection", target = "collection", ignore = true)
+	@Mapping(source = "collection", target = "collection")
 	@Mapping(source = "iconThumbnail", target = "iconThumbnail", ignore = true)
 	@Mapping(source = "images", target = "images", ignore = true)
 	ProductResponse toProductResponse(ProductDto product);
@@ -74,12 +69,12 @@ public interface IProductMapper {
 	}
 
 	@AfterMapping
-	default void afterMappingProduct(@MappingTarget Product product, CreateProductRequest request) {
+	default void afterMappingProduct(@MappingTarget Product product, DataProductRequest request) {
 		checkValueOptionHelper(product, request);
 		checkValueProductTagHelper(product, request);
 	}
 
-	default void checkValueOptionHelper(Product product, CreateProductRequest request) {
+	default void checkValueOptionHelper(Product product, DataProductRequest request) {
 		if (request.getOptions() == null) return;
 
 		if (request.getOptions().size() != product.getOptions().size()) {
@@ -99,7 +94,7 @@ public interface IProductMapper {
 		}
 	}
 
-	default void checkValueProductTagHelper(Product product, CreateProductRequest request) {
+	default void checkValueProductTagHelper(Product product, DataProductRequest request) {
 		if (request.getTags() == null || request.getTags().size() == product.getTags().size()) return;
 
 		throw ApplicationException.createException(ExceptionEnum.DUPLICATE, "Duplicate tag");

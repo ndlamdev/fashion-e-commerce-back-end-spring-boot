@@ -10,12 +10,9 @@ package com.lamnguyen.inventory_service.repository;
 import com.lamnguyen.inventory_service.model.VariantProduct;
 import com.lamnguyen.inventory_service.utils.enums.OptionType;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.Update;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -58,7 +55,4 @@ public interface InventoryRepository extends MongoRepository<VariantProduct, Str
 	 * @return the inventory if found
 	 */
 	Optional<VariantProduct> findBySku(String sku);
-
-	@Update(value = "{_id:  ?0} {$set:  {delete: true}}")
-	int deleteVariantById(String id);
 }

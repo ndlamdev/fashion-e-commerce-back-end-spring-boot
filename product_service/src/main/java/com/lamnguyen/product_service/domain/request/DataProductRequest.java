@@ -26,7 +26,7 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateProductRequest {
+public class DataProductRequest {
 	@NotBlank
 	String title;
 

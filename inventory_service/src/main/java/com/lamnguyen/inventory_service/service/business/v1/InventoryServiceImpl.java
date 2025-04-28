@@ -95,17 +95,17 @@ public class InventoryServiceImpl implements IInventoryService {
 				.collect(Collectors.toMap(map -> generateSku(event.id(), map),
 						map -> map));
 		for (var entryOptionCombination : mapOptionCombinations.entrySet()) {
-			if (mapOldVariantProduct.containsKey(entryOptionCombination.getKey())) {
-				insertNewVariant(event.id(), event.comparePrice(), event.regularPrice(), entryOptionCombination.getValue());
-			}
+			if (mapOldVariantProduct.containsKey(entryOptionCombination.getKey())) continue;
+			insertNewVariant(event.id(), event.comparePrice(), event.regularPrice(), entryOptionCombination.getValue());
 		}
 
 		for (var entryVariantProduct : mapOldVariantProduct.entrySet()) {
-			if (!mapOptionCombinations.containsKey(entryVariantProduct.getKey())) {
-				var result = inventoryRepository.deleteVariantById(entryVariantProduct.getValue().getId());
-				System.out.println(result);
-			}
+			if (mapOptionCombinations.containsKey(entryVariantProduct.getKey())) continue;
+			entryVariantProduct.getValue().setDelete(true);
+			var result = inventoryRepository.save(entryVariantProduct.getValue());
+			log.info("Delete inventory for product {} with options {}", event.id(), result);
 		}
+		variantProductRedisManage.delete(event.id());
 	}
 
 	/**
