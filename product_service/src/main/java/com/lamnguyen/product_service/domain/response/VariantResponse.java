@@ -18,7 +18,9 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class VariantResponse extends MongoBaseDocument implements Serializable {
+public class VariantResponse implements Serializable {
+	String id;
+
 	@JsonProperty("product_id")
 	String productId;
 

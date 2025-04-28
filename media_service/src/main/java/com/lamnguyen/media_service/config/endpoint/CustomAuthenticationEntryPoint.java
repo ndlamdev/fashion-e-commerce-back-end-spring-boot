@@ -43,7 +43,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 		ApiErrorResponse<Object> res = ApiErrorResponse.builder()
 				.code(ExceptionEnum.UNAUTHORIZED.getCode())
 				.error(ExceptionEnum.UNAUTHORIZED.name())
-				.detail(ExceptionEnum.UNAUTHORIZED.getMessage())
+				.detail(errorMessage)
 				.build();
 		objectMapper.writeValue(response.getWriter(), res);
 	}
