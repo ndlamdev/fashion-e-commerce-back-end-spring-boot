@@ -9,3 +9,4 @@ spring:
     config:
       username: ${CONFIG_USERNAME:}
       password: ${CONFIG_PASSWORD:}
+      name: fashion-e-commerce-authentication-service,eureka-config

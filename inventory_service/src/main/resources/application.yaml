@@ -9,9 +9,4 @@ spring:
     config:
       username: ${CONFIG_USERNAME:}
       password: ${CONFIG_PASSWORD:}
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
+      name: fashion-e-commerce-inventory-service,eureka-config
