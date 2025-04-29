@@ -34,9 +34,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-    // https://mvnrepository.com/artifact/com.brevo/brevo
     implementation 'com.brevo:brevo:1.0.0'
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
 }
 
 dependencyManagement {

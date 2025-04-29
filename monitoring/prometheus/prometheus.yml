@@ -1,0 +1,56 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: [ 'prometheus:9090' ]
+
+  - job_name: 'loki'
+    static_configs:
+      - targets: [ 'loki:3100' ]
+
+  - job_name: 'config server service'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: [ 'host.docker.internal:1306' ]
+
+  - job_name: 'api gateway service'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: [ 'host.docker.internal:8888' ]
+
+  - job_name: 'eureka service'
+    metrics_path: /fashion-e-commerce-eureka-server/actuator/prometheus
+    static_configs:
+      - targets: [ 'host.docker.internal:8761' ]
+
+  - job_name: 'notification service'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: [ 'host.docker.internal:8000' ]
+
+  - job_name: 'auth service'
+    metrics_path: /api/actuator/prometheus
+    static_configs:
+      - targets: [ 'host.docker.internal:8001' ]
+
+  - job_name: 'profile service'
+    metrics_path: /api/actuator/prometheus
+    static_configs:
+      - targets: [ 'host.docker.internal:8002' ]
+
+  - job_name: 'product service'
+    metrics_path: /api/actuator/prometheus
+    static_configs:
+      - targets: [ 'host.docker.internal:8003' ]
+
+  - job_name: 'media service'
+    metrics_path: /api/actuator/prometheus
+    static_configs:
+      - targets: [ 'host.docker.internal:8004' ]
+
+  - job_name: 'inventory service'
+    metrics_path: /api/actuator/prometheus
+    static_configs:
+      - targets: [ 'host.docker.internal:8005' ]

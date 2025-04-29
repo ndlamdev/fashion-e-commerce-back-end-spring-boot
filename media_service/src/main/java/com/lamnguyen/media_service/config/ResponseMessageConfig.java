@@ -31,7 +31,7 @@ public class ResponseMessageConfig implements ResponseBodyAdvice<Object> {
     @Override
     public Object beforeBodyWrite(Object body, @NonNull MethodParameter returnType, @NonNull MediaType selectedContentType, @NonNull Class<? extends HttpMessageConverter<?>> selectedConverterType, @NonNull ServerHttpRequest request, @NonNull ServerHttpResponse response) {
         var req = ((ServletServerHttpRequest) request).getServletRequest();
-        if (req.getProtocol().equalsIgnoreCase("http") || req.getProtocol().equalsIgnoreCase("https")) return body;
+        if (req.getProtocol().equalsIgnoreCase("http") || req.getProtocol().equalsIgnoreCase("https") || req.getServletPath().startsWith("/actuator")) return body;
         var res = ((ServletServerHttpResponse) response).getServletResponse();
         if (res.getStatus() >= 400) return body;
         var apiMessage = returnType.getMethodAnnotation(ApiMessageResponse.class);
