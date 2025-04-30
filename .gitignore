@@ -41,3 +41,4 @@
 **/.evn
 **/__pycache__/
 **/*.py[cod]
+/monitoring/tempo/tempo-data

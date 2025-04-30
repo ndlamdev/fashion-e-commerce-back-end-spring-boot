@@ -10,3 +10,16 @@ spring:
       username: ${CONFIG_USERNAME:}
       password: ${CONFIG_PASSWORD:}
       name: fashion-e-commerce-authentication-service,eureka-config
+
+management:
+  tracing:
+    enabled: true
+    sampling:
+      probability: 1.0
+  otlp:
+    tracing:
+      endpoint: http://localhost:4318/v1/traces
+
+#otel:
+#  propagation:
+#    propagators: tracecontext,baggage

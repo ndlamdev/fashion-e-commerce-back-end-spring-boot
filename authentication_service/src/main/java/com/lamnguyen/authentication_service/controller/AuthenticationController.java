@@ -8,7 +8,6 @@
 
 package com.lamnguyen.authentication_service.controller;
 
-import com.lamnguyen.authentication_service.domain.request.GoogleAuthRequest;
 import com.lamnguyen.authentication_service.domain.dto.LoginSuccessDto;
 import com.lamnguyen.authentication_service.domain.reponse.LoginSuccessResponse;
 import com.lamnguyen.authentication_service.domain.reponse.TokenResponse;
