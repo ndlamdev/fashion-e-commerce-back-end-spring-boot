@@ -545,103 +545,313 @@ monitoring/
 version: '3.8'
 
 services:
-  prometheus:
-    image: prom/prometheus:latest
-    container_name: prometheus_container
-    ports:
-      - "9090:9090"
-    volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-      - prometheus_data:/prometheus
-    restart: unless-stopped
-    networks:
-      - monitoring
+   prometheus:
+      image: prom/prometheus:latest
+      container_name: prometheus_container
+      ports:
+         - "9090:9090"
+      volumes:
+         - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+         - ./prometheus/data:/prometheus
+      restart: unless-stopped
+      networks:
+         - fashion_e_commerce_monitoring
 
-  grafana:
-    image: grafana/grafana:latest
-    container_name: grafana_container
-    ports:
-      - "3000:3000"
-    volumes:
-      - grafana_data:/var/lib/grafana
-      - ./grafana/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
-    environment:
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=admin
-    depends_on:
-      - prometheus
-      - loki
-      - tempo
-    restart: unless-stopped
-    networks:
-      - monitoring
+   grafana:
+      image: grafana/grafana:latest
+      container_name: grafana_container
+      ports:
+         - "3000:3000"
+      volumes:
+         - ./grafana/data:/var/lib/grafana
+         - ./grafana/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+      environment:
+         - GF_SECURITY_ADMIN_USER=admin
+         - GF_SECURITY_ADMIN_PASSWORD=admin
+      depends_on:
+         - prometheus
+         - loki
+         - tempo
+      restart: unless-stopped
+      networks:
+         - fashion_e_commerce_monitoring
 
-  loki:
-    image: grafana/loki:latest
-    container_name: loki_container
-    ports:
-      - "3100:3100"
-    command: -config.file=/etc/loki/local-config.yaml
-    restart: unless-stopped
-    networks:
-      - monitoring
+   loki:
+      image: grafana/loki:latest
+      container_name: loki_container
+      ports:
+         - "3100:3100"
+      command: -config.file=/etc/loki/local-config.yaml
+      restart: unless-stopped
+      networks:
+         - fashion_e_commerce_monitoring
 
-  promtail:
-    image: grafana/promtail:latest
-    container_name: promtail_container
-    volumes:
-      - /var/log:/var/log
-      - ./promtail/promtail-config.yml:/etc/promtail/promtail-config.yml
-    command: -config.file=/etc/promtail/promtail-config.yml
-    depends_on:
-      - loki
-    restart: unless-stopped
-    networks:
-      - monitoring
+   otel-collector:
+      image: otel/opentelemetry-collector-contrib:0.82.0
+      container_name: otel_container
+      restart: always
+      command:
+         - --config=/etc/otelcol-contrib/otel-collector.yml
+      volumes:
+         - ./opentelemetry/otel-collector.yml:/etc/otelcol-contrib/otel-collector.yml
+      ports:
+         - "1888:1888" # pprof extension
+         - "8888:8888" # Prometheus metrics exposed by the collector
+         - "8889:8889" # Prometheus exporter metrics
+         - "13133:13133" # health_check extension
+         - "4318:4318" # OTLP http receiver
+         - "4317:4317" # OTLP grpc receiver
+         - "55679:55679" # zpages extension
+      depends_on:
+         - tempo
+      networks:
+         - fashion_e_commerce_monitoring
 
-  otel-collector:
-    image: otel/opentelemetry-collector-contrib:0.82.0
-    container_name: otel_container
-    restart: always
-    command:
-      - --config=/etc/otelcol-contrib/otel-collector.yml
-    volumes:
-      - ./opentelemetry/otel-collector.yml:/etc/otelcol-contrib/otel-collector.yml
-    ports:
-      - "1888:1888" # pprof extension
-      - "8888:8888" # Prometheus metrics exposed by the collector
-      - "8889:8889" # Prometheus exporter metrics
-      - "13133:13133" # health_check extension
-      - "4318:4318" # OTLP http receiver
-      - "4317:4317" # OTLP grpc receiver
-      - "55679:55679" # zpages extension
-    depends_on:
-      - tempo
-    networks:
-      - monitoring
+   tempo:
+      image: grafana/tempo:latest
+      container_name: tempo_container
+      volumes:
+         - ./tempo/tempo.yaml:/etc/tempo.yaml
+      command: [ "-config.file=/etc/tempo.yaml" ]
+      ports:
+         - "3200:3200" # tempo
+         - "9095:9095" # tempo
+         - "4317" # otlp grpc
+         - "4318" # otlp grpc
+      networks:
+         - fashion_e_commerce_monitoring
+      depends_on:
+         - minio
 
-  tempo:
-    image: grafana/tempo:latest
-    container_name: tempo_container
-    volumes:
-      - ./tempo/tempo.yaml:/etc/tempo.yaml
-      - ./tempo/tempo-data:/tmp/tempo
-    command: [ "-config.file=/etc/tempo.yaml" ]
-    ports:
-      - "3200:3200"   # tempo
-      - "4317"  # otlp grpc
-      - "4318"  # otlp grpc
-    networks:
-      - monitoring
-
-volumes:
-  prometheus_data:
-  grafana_data:
+   minio:
+      image: quay.io/minio/minio:latest
+      container_name: minio_container
+      environment:
+         - MINIO_ROOT_USER=admin
+         - MINIO_ROOT_PASSWORD=LamNguyen@1305
+      command: server /home/shared --console-address ":9999"
+      ports:
+         - 9990:9000
+         - 9999:9999
+      restart: unless-stopped
+      volumes:
+         - ./minio/data:/home/shared
+      networks:
+         - fashion_e_commerce_monitoring
+      healthcheck:
+         test: [ "CMD", "curl", "-f", "http://localhost:9990/minio/health/live" ]
+         interval: 1m30s
+         timeout: 30s
+         retries: 5
 
 networks:
-  monitoring:
-    driver: bridge
+   fashion_e_commerce_monitoring:
+      driver: bridge
+```
 
+### Cấu hình file `grafana/grafana-datasources.yml`
+
+```yml
+apiVersion: 1
+
+datasources:
+   - name: Prometheus
+     type: prometheus
+     uid: prometheus
+     access: proxy
+     orgId: 1
+     url: http://prometheus:9090
+     basicAuth: false
+     isDefault: false
+     version: 1
+     editable: false
+     jsonData:
+        httpMethod: GET
+
+   - name: Loki
+     type: loki
+     uid: loki
+     access: proxy
+     orgId: 1
+     url: http://loki:3100
+     basicAuth: false
+     isDefault: false
+     version: 1
+     editable: false
+
+   - name: Tempo
+     type: tempo
+     uid: tempo
+     access: proxy
+     orgId: 1
+     url: http://tempo:3200
+     basicAuth: false
+     isDefault: true
+     version: 1
+     editable: false
+     apiVersion: 1
+     jsonData:
+        httpMethod: GET
+        tracesToLogsV2:
+           datasourceUid: loki
+           spanStartTimeShift: '-1h'
+           spanEndTimeShift: '1h'
+           filterByTraceID: true
+           filterBySpanID: true
+           tags:
+              - key: 'service.name'
+                value: 'job'
+        tracesToMetrics:
+           datasourceUid: 'prometheus'
+           spanStartTimeShift: '-1h'
+           spanEndTimeShift: '1h'
+           tags:
+              - key: 'service.name'
+                value: 'job'
+        serviceMap:
+           datasourceUid: 'prometheus'
+        nodeGraph:
+           enabled: true
+        search:
+           hide: false
+        traceQuery:
+           timeShiftEnabled: true
+           spanStartTimeShift: '-1h'
+           spanEndTimeShift: '1h'
+        spanBar:
+           type: 'Tag'
+           tag: 'http.path'
+        streamingEnabled:
+           search: false
+           metrics: false
+```
+
+### Cấu hình file `prometheus/prometheus.yml`
+
+```yml
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: [ 'prometheus:9090' ]
+        labels:
+          application: Prometheus Service
+
+  - job_name: 'loki'
+    static_configs:
+      - targets: [ 'loki:3100' ]
+        labels:
+          application: Loki Service
+
+  - job_name: 'config_server_service'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: [ 'host.docker.internal:1306' ]
+        labels:
+          application: Config Server Service
+
+  - job_name: 'api_gateway_service'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: [ 'host.docker.internal:8888' ]
+        labels:
+          application: Api Gateway Service
+
+  - job_name: 'eureka_server_service'
+    metrics_path: /fashion-e-commerce-eureka-server/actuator/prometheus
+    static_configs:
+      - targets: [ 'host.docker.internal:8761' ]
+        labels:
+          application: Eureka Server Service
+
+  - job_name: 'notification_service'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: [ 'host.docker.internal:8000' ]
+        labels:
+          application: Notification Service
+
+  - job_name: 'authentication_service'
+    metrics_path: /api/actuator/prometheus
+    static_configs:
+      - targets: [ 'host.docker.internal:8001' ]
+        labels:
+          application: Authentication Service
+
+  - job_name: 'profile_service'
+    metrics_path: /api/actuator/prometheus
+    static_configs:
+      - targets: [ 'host.docker.internal:8002' ]
+        labels:
+          application: Profile Service
+
+  - job_name: 'product_service'
+    metrics_path: /api/actuator/prometheus
+    static_configs:
+      - targets: [ 'host.docker.internal:8003' ]
+        labels:
+          application: Product Service
+
+  - job_name: 'media_service'
+    metrics_path: /api/actuator/prometheus
+    static_configs:
+      - targets: [ 'host.docker.internal:8004' ]
+        labels:
+          application: Media Service
+
+  - job_name: 'inventory_service'
+    metrics_path: /api/actuator/prometheus
+    static_configs:
+      - targets: [ 'host.docker.internal:8005' ]
+        labels:
+          application: Inventory Service
+
+```
+
+
+### Cấu hình file `tempo/tempo.yml`
+
+```yml
+auth_enabled: false
+
+server:
+  http_listen_port: 3200
+  grpc_listen_port: 9095
+
+distributor:
+  receivers:
+    otlp:
+      protocols:
+        grpc:
+          endpoint: 0.0.0.0:4317   # ✅ QUAN TRỌNG
+        http:
+          endpoint: 0.0.0.0:4318   # ✅ Nên thêm nếu dùng HTTP
+
+ingester:
+  trace_idle_period: 10s
+  max_block_duration: 5m
+
+compactor:
+  compaction:
+    compaction_window: 1h
+
+storage:
+  trace:
+    backend: s3
+    s3:
+      endpoint: minio:9000
+      insecure: true
+      bucket: tempo-trace
+      access_key: Tempo
+      secret_key: TempoTest
+      region: us-east-1
+
+metrics_generator:
+  registry:
+    external_labels:
+      source: tempo
 ```
 
 ## Cấu hình OpenTelemetry
@@ -669,6 +879,38 @@ Hướng dẫn chạy ứng dụng Java với **OpenTelemetry Java Agent** để
 
 ```bash
 curl -L https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar -o opentelemetry-javaagent.jar
+```
+
+2. **Cấu hình các thông số của OpenTelemetry**
+
+```yml
+receivers:
+   otlp:
+      protocols:
+         grpc:
+         http:
+
+exporters:
+   otlp:
+      endpoint: tempo:4317
+      tls:
+         insecure: true
+   logging:
+      loglevel: debug
+   loki:
+      endpoint: http://loki:3100/loki/api/v1/push
+
+service:
+   pipelines:
+      traces:
+         receivers: [ otlp ]
+         exporters: [ otlp ]
+      metrics:
+         receivers: [ otlp ]
+         exporters: [ logging ]
+      logs:
+         receivers: [ otlp ]
+         exporters: [ loki, logging ]
 ```
 
 3. **Chạy OpenTelemetry Java Agent**

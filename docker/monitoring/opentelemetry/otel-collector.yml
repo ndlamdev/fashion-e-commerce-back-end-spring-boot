@@ -21,7 +21,7 @@ service:
       exporters: [ otlp ]
     metrics:
       receivers: [ otlp ]
-      exporters: [ logging ]
+      exporters: [ logging,otlp ]
     logs:
       receivers: [ otlp ]
       exporters: [ loki, logging ]

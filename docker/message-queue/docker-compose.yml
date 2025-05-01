@@ -1,4 +1,4 @@
-version: '3.7'
+name: "fashion-e-commerce-message-queue"
 
 services:
   # Confluent Kafka broker
