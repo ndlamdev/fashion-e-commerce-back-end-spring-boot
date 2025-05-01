@@ -510,3 +510,231 @@ public class HelloWorldServiceGrpcImpl extends HelloWorldServiceGrpc.HelloWorldS
 9. Chon migration file cấu hình tunnel
 10. Tạo 1 public hostname đến máy tính và port của bạn với giao thức tcp
 11. Trên máy tính host, dừng và chạy lại lệnh run tunnel
+
+## Cài đặt phần mềm phục vụ Monitoring bằng docker compose
+
+### Câu thư mục
+
+monitoring/
+
+├── docker-compose.yml
+
+├── grafana/
+
+│ ── grafana-datasources.yml
+
+├── opentelemetry/
+
+│ └── otel-collector.yml
+
+├── prometheus/
+
+│ └── prometheus.yml
+
+├── promtail/
+
+│ └── promtail-config.yml
+
+└── tempo/
+
+│ └── tempo.yaml
+
+### Viết file docker compose
+
+```yml
+version: '3.8'
+
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus_container
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana_container
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - prometheus
+      - loki
+      - tempo
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+  loki:
+    image: grafana/loki:latest
+    container_name: loki_container
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+  promtail:
+    image: grafana/promtail:latest
+    container_name: promtail_container
+    volumes:
+      - /var/log:/var/log
+      - ./promtail/promtail-config.yml:/etc/promtail/promtail-config.yml
+    command: -config.file=/etc/promtail/promtail-config.yml
+    depends_on:
+      - loki
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.82.0
+    container_name: otel_container
+    restart: always
+    command:
+      - --config=/etc/otelcol-contrib/otel-collector.yml
+    volumes:
+      - ./opentelemetry/otel-collector.yml:/etc/otelcol-contrib/otel-collector.yml
+    ports:
+      - "1888:1888" # pprof extension
+      - "8888:8888" # Prometheus metrics exposed by the collector
+      - "8889:8889" # Prometheus exporter metrics
+      - "13133:13133" # health_check extension
+      - "4318:4318" # OTLP http receiver
+      - "4317:4317" # OTLP grpc receiver
+      - "55679:55679" # zpages extension
+    depends_on:
+      - tempo
+    networks:
+      - monitoring
+
+  tempo:
+    image: grafana/tempo:latest
+    container_name: tempo_container
+    volumes:
+      - ./tempo/tempo.yaml:/etc/tempo.yaml
+      - ./tempo/tempo-data:/tmp/tempo
+    command: [ "-config.file=/etc/tempo.yaml" ]
+    ports:
+      - "3200:3200"   # tempo
+      - "4317"  # otlp grpc
+      - "4318"  # otlp grpc
+    networks:
+      - monitoring
+
+volumes:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  monitoring:
+    driver: bridge
+
+```
+
+## Cấu hình OpenTelemetry
+
+### 🔍 OpenTelemetry là gì?
+
+**OpenTelemetry (OTel)** là một bộ công cụ **mã nguồn mở** được thiết kế để thu thập dữ liệu **telemetry** (logs,
+metrics, traces) từ hệ thống phần mềm nhằm phục vụ cho việc **quan sát hệ thống** (observability).
+
+> OpenTelemetry hỗ trợ nhiều ngôn ngữ (Java, Go, Python, v.v) và có thể thu thập dữ liệu từ các ứng dụng, sau đó gửi đến
+> các backend như Grafana, Jaeger, Tempo, Prometheus, Elasticsearch, v.v.
+
+---
+
+### 🚀 Mục tiêu
+
+Hướng dẫn chạy ứng dụng Java với **OpenTelemetry Java Agent** để tự động thu thập **trace, log, metric** và gửi về *
+*OpenTelemetry Collector** qua giao thức OTLP (gRPC hoặc HTTP).
+
+---
+
+### 🛠️ Cài đặt OpenTelemetry Java Agent
+
+1. **Tải OpenTelemetry Java Agent**
+
+```bash
+curl -L https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/latest/download/opentelemetry-javaagent.jar -o opentelemetry-javaagent.jar
+```
+
+3. **Chạy OpenTelemetry Java Agent**
+
+[Link tìm hiểu các cấu hình các instrumentation](https://github.com/open-telemetry/opentelemetry-java-instrumentation/tree/main/instrumentation)
+
+- Trên Intellij
+
+Cấu hình thêm VM options (Add VM options) trong phần cấu hình chạy dự án
+
+```VM options
+-javaagent:path\opentelemetry-javaagent.jar
+-Dotel.exporter.otlp.protocol=grpc
+-Dotel.exporter.otlp.endpoint=http://localhost:4317
+-Dotel.javaagent.debug=true //Bật chế độ debug
+```
+
+---Bắt đầu: Cấu hình chạy kèm với logs---
+
+[Link tìm hiểu các thông số logback](https://github.com/open-telemetry/opentelemetry-java-instrumentation/blob/main/instrumentation/logback/logback-appender-1.0/javaagent/README.md)
+
+```VM options
+-javaagent:path\opentelemetry-javaagent.jar
+-Dotel.exporter.otlp.protocol=grpc
+-Dotel.exporter.otlp.endpoint=http://localhost:4317
+-Dotel.javaagent.debug=true //Bật chế độ debug
+-Dotel.logs.exporter=otlp
+-Dotel.instrumentation.logback-appender.enabled=true
+-Dotel.instrumentation.logback-appender.experimental-log-attributes=true
+-Dotel.instrumentation.logback-appender.experimental.capture-code-attributes=true
+-Dotel.instrumentation.logback-appender.experimental.capture-marker-attribute=true
+-Dotel.instrumentation.logback-appender.experimental.capture-key-value-pair-attributes=true
+-Dotel.instrumentation.logback-appender.experimental.capture-logger-context-attributes=true
+-Dotel.instrumentation.logback-appender.experimental.capture-mdc-attributes=*
+```
+
+---Kết thức: Cấu hình chạy kèm với logs---
+
+- Bằng Terminal
+
+```VM options
+java -javaagent:path\opentelemetry-javaagent.jar \
+-Dotel.exporter.otlp.protocol=grpc \
+-Dotel.exporter.otlp.endpoint=http://localhost:4317 \
+-Dotel.javaagent.debug=true \ //Bật chế độ debug
+-jar target/your-application.jar
+```
+
+---Bắt đầu: Cấu hình chạy kèm với logs---
+
+[Link tìm hiểu các thông số logback](https://github.com/open-telemetry/opentelemetry-java-instrumentation/blob/main/instrumentation/logback/logback-appender-1.0/javaagent/README.md)
+
+```VM options
+java -javaagent:path\opentelemetry-javaagent.jar \
+-Dotel.exporter.otlp.protocol=grpc \
+-Dotel.exporter.otlp.endpoint=http://localhost:4317 \
+-Dotel.javaagent.debug=true \ //Bật chế độ debug
+-Dotel.logs.exporter=otlp \
+-Dotel.instrumentation.logback-appender.enabled=true \
+-Dotel.instrumentation.logback-appender.experimental-log-attributes=true \
+-Dotel.instrumentation.logback-appender.experimental.capture-code-attributes=true \
+-Dotel.instrumentation.logback-appender.experimental.capture-marker-attribute=true \
+-Dotel.instrumentation.logback-appender.experimental.capture-key-value-pair-attributes=true \
+-Dotel.instrumentation.logback-appender.experimental.capture-logger-context-attributes=true \
+-Dotel.instrumentation.logback-appender.experimental.capture-mdc-attributes=* \
+-jar target/your-application.jar
+```
+
+---Kết thức: Cấu hình chạy kèm với logs---
