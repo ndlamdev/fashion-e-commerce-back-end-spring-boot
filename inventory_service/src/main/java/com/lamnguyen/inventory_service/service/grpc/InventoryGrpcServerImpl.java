@@ -21,7 +21,7 @@ import net.devh.boot.grpc.server.service.GrpcService;
 @GrpcService
 @RequiredArgsConstructor
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE, makeFinal = true)
-public class InventoryGrpcClientImpl extends InventoryServiceGrpc.InventoryServiceImplBase {
+public class InventoryGrpcServerImpl extends InventoryServiceGrpc.InventoryServiceImplBase {
 	IInventoryService inventoryService;
 	IInventoryMapper inventoryMapper;
 
