@@ -1,0 +1,7 @@
+package com.lamnguyen.base_service.service.redis;
+
+import java.util.Optional;
+
+public interface CallbackDB<R> {
+	Optional<R> call();
+}
