@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class JwtAuthenticationConverterImpl implements Converter<Jwt, AbstractAuthenticationToken> {
 	ApplicationProperty applicationProperty;
-	IRoleService iRoleService;
+	IRoleService roleService;
 
 	@Override
 	@Transactional
@@ -50,8 +50,11 @@ public class JwtAuthenticationConverterImpl implements Converter<Jwt, AbstractAu
 				authorities.add(new SimpleGrantedAuthority(it));
 				return;
 			}
-			var roles = iRoleService.getByName(it.substring(applicationProperty.getRolePrefix().length()));
-			authorities.addAll(roles.getPermissions().stream().map(permission -> new SimpleGrantedAuthority(permission.name())).collect(Collectors.toSet()));
+			var role = roleService.getByName(it.substring(applicationProperty.getRolePrefix().length()));
+			authorities.addAll(role.getPermissions()
+					.stream()
+					.map(permission -> new SimpleGrantedAuthority(permission.name()))
+					.collect(Collectors.toSet()));
 		});
 		return new JwtAuthenticationToken(source, authorities);
 	}

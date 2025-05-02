@@ -9,8 +9,8 @@
 package com.lamnguyen.media_service.service.grpc;
 
 import com.lamnguyen.media_service.service.business.IMediaService;
-import com.lamnguyen.media_service.protos.ImageCodeRequest;
-import com.lamnguyen.media_service.protos.ImageExistsResponse;
+import com.lamnguyen.media_service.protos.MediaCodeRequest;
+import com.lamnguyen.media_service.protos.MediaExistsResponse;
 import io.grpc.stub.StreamObserver;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,10 +34,10 @@ class MediaGrpcServerImplTest {
     private MediaGrpcServerImpl mediaGrpcServer;
 
     @Captor
-    private ArgumentCaptor<ImageExistsResponse> responseCaptor;
+    private ArgumentCaptor<MediaExistsResponse> responseCaptor;
 
     @Mock
-    private StreamObserver<ImageExistsResponse> responseObserver;
+    private StreamObserver<MediaExistsResponse> responseObserver;
 
     @BeforeEach
     void setUp() {
@@ -48,7 +48,7 @@ class MediaGrpcServerImplTest {
     void checkMediaExists_WhenMediaExists_ShouldReturnTrue() {
         // Arrange
         String imageId = "123L";
-        ImageCodeRequest request = ImageCodeRequest.newBuilder().setImageId(imageId).build();
+        MediaCodeRequest request = MediaCodeRequest.newBuilder().setMediaId(imageId).build();
 
         when(mediaService.existsById(imageId)).thenReturn(true);
 
@@ -59,7 +59,7 @@ class MediaGrpcServerImplTest {
         verify(responseObserver).onNext(responseCaptor.capture());
         verify(responseObserver).onCompleted();
 
-        ImageExistsResponse response = responseCaptor.getValue();
+        MediaExistsResponse response = responseCaptor.getValue();
         assertTrue(response.getExists());
 
         verify(mediaService, times(1)).existsById(imageId);
@@ -70,7 +70,7 @@ class MediaGrpcServerImplTest {
     void checkMediaExists_WhenMediaDoesNotExist_ShouldReturnFalse() {
         // Arrange
         String imageId = "456L";
-        ImageCodeRequest request = ImageCodeRequest.newBuilder().setImageId(imageId).build();
+        MediaCodeRequest request = MediaCodeRequest.newBuilder().setMediaId(imageId).build();
 
         when(mediaService.existsById(imageId)).thenReturn(false);
 
@@ -81,7 +81,7 @@ class MediaGrpcServerImplTest {
         verify(responseObserver).onNext(responseCaptor.capture());
         verify(responseObserver).onCompleted();
 
-        ImageExistsResponse response = responseCaptor.getValue();
+        MediaExistsResponse response = responseCaptor.getValue();
         assertFalse(response.getExists());
 
         verify(mediaService, times(1)).existsById(imageId);

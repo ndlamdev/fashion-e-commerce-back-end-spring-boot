@@ -66,6 +66,7 @@ public class SecurityConfig {
 				.configurationSource(corsConfigurationSource)
 		);
 		httpSecurity.authorizeHttpRequests(authorization -> authorization
+				.requestMatchers("/actuator/**").permitAll()
 				.requestMatchers(applicationProperty.getWhiteList().toArray(String[]::new)).permitAll()
 				.requestMatchers("/**").authenticated()
 		);

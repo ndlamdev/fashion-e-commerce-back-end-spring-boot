@@ -1,3 +1,8 @@
+server:
+  servlet:
+    context-path: /fashion-e-commerce-config-server
+  port: 1305
+
 spring:
   profiles:
     active: dev
@@ -10,7 +15,11 @@ spring:
           uri: https://github.com/ndlamdev/fashion-e-commerce-config-server
           timeout: 5
 
-server:
-  servlet:
-    context-path: /fashion-e-commerce-config-server
-  port: 1305
+management:
+  server:
+    port: 1306
+    base-path: /fashion-e-commerce-config-server
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus, metrics

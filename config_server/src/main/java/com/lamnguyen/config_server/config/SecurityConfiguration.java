@@ -14,10 +14,9 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfiguration {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(authorization ->
-				authorization
-						.requestMatchers("/actuator/**").permitAll()
-						.anyRequest().authenticated()
+		http.authorizeHttpRequests(authorization -> authorization
+				.requestMatchers("/actuator/**").permitAll()
+				.anyRequest().authenticated()
 		);
 		http.cors(AbstractHttpConfigurer::disable);
 		http.csrf(AbstractHttpConfigurer::disable);

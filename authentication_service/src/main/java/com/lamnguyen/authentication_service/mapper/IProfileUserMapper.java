@@ -22,12 +22,20 @@ import org.mapstruct.Named;
 
 @Mapper(componentModel = "spring", uses = {IGrpcMapper.class})
 public interface IProfileUserMapper {
+	@Mapping(target = "userId", ignore = true)
+	@Mapping(target = "avatar", ignore = true)
 	SaveProfileUserEvent toSaveProfileUserEvent(RegisterAccountRequest request);
 
+	@Mapping(target = "userId", ignore = true)
+	@Mapping(target = "avatar", ignore = true)
+	@Mapping(target = "fullName", ignore = true)
 	SaveProfileUserEvent toSaveProfileUserEvent(RegisterAccountWithFacebookRequest request);
 
+	@Mapping(target = "userId", ignore = true)
+	@Mapping(target = "phone", ignore = true)
 	SaveProfileUserEvent toSaveProfileUserEvent(GooglePayloadDto request);
 
+	@Mapping(target = "width", ignore = true)
 	ProfileUserDto toProfileUserDto(ProfileUserResponse request);
 
 	@Mapping(source = "avatar.data", target = "avatar", qualifiedByName = "convertPictureObjectToUrl")
