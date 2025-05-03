@@ -44,7 +44,7 @@ public class CustomerController {
     @PutMapping()
     @PreAuthorize("hasAnyAuthority('USER_SAVE_PROFILE', 'ROLE_BASE', 'ROLE_ADMIN')")
     @ApiMessageResponse("save customer")
-    public SaveCustomerResponse saveCustomer(
+    public CustomerDto saveCustomer(
             @Valid @RequestBody SaveCustomerRequest saveCustomerRequest,
             @RequestHeader("Authorization") String token
     ) {

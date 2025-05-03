@@ -7,7 +7,7 @@ import com.lamnguyen.profile_service.domain.request.SaveCustomerRequest;
 import com.lamnguyen.profile_service.domain.response.SaveCustomerResponse;
 
 public interface ICustomerService {
-    SaveCustomerResponse saveCustomer(SaveCustomerRequest saveCustomerRequest, Long userId);
+    CustomerDto saveCustomer(SaveCustomerRequest saveCustomerRequest, Long userId);
 
     ApiPaging<CustomerDto> getCustomers(Integer page, Integer size);
 

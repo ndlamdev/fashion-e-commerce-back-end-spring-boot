@@ -8,11 +8,14 @@ import java.util.List;
 
 public record CustomerDto(
         Long id,
+        @JsonProperty("full_name")
         String fullName,
         String email,
         String phone,
+        @JsonProperty("country_code")
         String countryCode,
         LocalDate birthday,
+        @JsonProperty("shipping_addresses")
         List<AddressDto> shippingAddresses,
         Double height,
         Double weight,

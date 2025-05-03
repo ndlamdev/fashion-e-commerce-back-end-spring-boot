@@ -33,7 +33,7 @@ public class CustomerServiceImpl implements ICustomerService {
     ICustomerRedisManager customerRedisManager;
 
     @Override
-    public SaveCustomerResponse saveCustomer(SaveCustomerRequest saveCustomerRequest, Long userId) {
+    public CustomerDto saveCustomer(SaveCustomerRequest saveCustomerRequest, Long userId) {
         var customer = customerRepository.findByUserId(userId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND));
         var dataUpdate = mapper.toCustomer(saveCustomerRequest);
         dataUpdate.setId(customer.getId());
@@ -42,7 +42,9 @@ public class CustomerServiceImpl implements ICustomerService {
         dataUpdate.setEmail(customer.getEmail());
         dataUpdate.setCreateAt(customer.getCreateAt());
         dataUpdate.setCreateBy(customer.getCreateBy());
-        return mapper.toSaveCustomerResponse(customerRepository.save(dataUpdate));
+        var result = mapper.toCustomerDto(customerRepository.save(dataUpdate));
+        customerRedisManager.delete(String.valueOf(userId));
+        return result;
     }
 
     @Override
