@@ -34,27 +34,26 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public SaveCustomerResponse saveCustomer(SaveCustomerRequest saveCustomerRequest, Long userId) {
-        var customer = customerRepository.findById(userId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND));
-        customer =  mapper.toCustomer(saveCustomerRequest);
-        customer.setId(userId);
-        return mapper.toSaveCustomerResponse(customerRepository.save(customer));
+        var customer = customerRepository.findByUserId(userId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND));
+        var dataUpdate = mapper.toCustomer(saveCustomerRequest);
+        dataUpdate.setId(customer.getId());
+        dataUpdate.setUserId(userId);
+        dataUpdate.setAvatar(customer.getAvatar());
+        dataUpdate.setEmail(customer.getEmail());
+        dataUpdate.setCreateAt(customer.getCreateAt());
+        dataUpdate.setCreateBy(customer.getCreateBy());
+        return mapper.toSaveCustomerResponse(customerRepository.save(dataUpdate));
     }
 
     @Override
-    public ApiResponseSuccess<ApiPaging<CustomerDto>> getCustomers(Integer page, Integer size) {
+    public ApiPaging<CustomerDto> getCustomers(Integer page, Integer size) {
         var pageable = PageRequest.of(page, size);
         var customers = customerRepository.findAll(pageable);
-        var limited = ApiPaging.<CustomerDto>builder()
+        return ApiPaging.<CustomerDto>builder()
                 .content(mapper.toCustomerDTOs(customers.getContent()))
                 .current(customers.getNumber())
                 .size(customers.getSize())
                 .totalPage(customers.getTotalPages())
-                .build();
-
-        return ApiResponseSuccess.<ApiPaging<CustomerDto>>builder()
-                .data(limited)
-                .message(HttpStatus.OK.name())
-                .code(HttpStatus.OK.value())
                 .build();
     }
 

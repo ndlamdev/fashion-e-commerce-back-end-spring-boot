@@ -1,5 +1,7 @@
 package com.lamnguyen.profile_service.domain.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lamnguyen.profile_service.utils.annotation.ValidInternationalPhone;
 import com.lamnguyen.profile_service.utils.enums.SexEnum;
 import jakarta.persistence.Enumerated;
@@ -13,12 +15,14 @@ import java.time.LocalDate;
 @ValidInternationalPhone(phoneField = "phone", countryField = "countryCode")
 public record SaveCustomerRequest(
         @NotNull(message = "Require fullName is not null")
+        @JsonProperty("full_name")
         String fullName,
         @NotBlank
+        @JsonProperty("country_code")
         String countryCode,
         @NotBlank(message = "Require phoneNumber is not blank")
         String phone,
-        @Past
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
         LocalDate birthday,
         @Range(min = 140, max = 190)
         Double height,

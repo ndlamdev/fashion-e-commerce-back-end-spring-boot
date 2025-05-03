@@ -28,14 +28,14 @@ public class AddressController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('USER_GET_BY_ADDRESS_ID', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('USER_GET_BY_ADDRESS_ID', 'ROLE_BASE', 'ROLE_ADMIN')")
     @ApiMessageResponse("Get address by id")
     public AddressResponse getAddressById(@PathVariable("id") Long id) {
         return service.getAddressById(id);
     }
 
     @PatchMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('USER_SAVE_ADDRESS', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('USER_SAVE_ADDRESS', 'ROLE_BASE', 'ROLE_ADMIN')")
     @ApiMessageResponse("save address")
     public AddressResponse saveAddress(
             @RequestBody @Valid SaveAddressRequest request,
@@ -46,7 +46,7 @@ public class AddressController {
 
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('USER_ADD_ADDRESS', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('USER_ADD_ADDRESS', 'ROLE_BASE', 'ROLE_ADMIN')")
     @ApiMessageResponse("add address")
     public AddressResponse addAddress(
             @RequestBody @Valid SaveAddressRequest request
