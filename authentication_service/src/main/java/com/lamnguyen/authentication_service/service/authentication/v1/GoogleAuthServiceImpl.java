@@ -88,7 +88,7 @@ public class GoogleAuthServiceImpl implements IGoogleAuthService {
 
     @Override
     public void register(RegisterAccountWithGoogleRequest request) {
-        var payload = jwtTokenUtil.getGooglePayloadDtoNotVerify(request.token());
+        var payload = jwtTokenUtil.getGooglePayloadDto(request.token());
         if (!checkRegisterToken(payload, request.token())) {
             return;
         }

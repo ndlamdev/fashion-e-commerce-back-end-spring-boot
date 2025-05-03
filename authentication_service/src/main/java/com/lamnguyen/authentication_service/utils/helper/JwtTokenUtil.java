@@ -87,7 +87,7 @@ public class JwtTokenUtil {
 						.userId(user.getId())
 						.email(user.getEmail())
 						.build())
-				.expiresAt(now.plus(expire, ChronoUnit.SECONDS))
+				.expiresAt(now.plus(expire, ChronoUnit.MINUTES))
 				.build()));
 	}
 
@@ -99,7 +99,7 @@ public class JwtTokenUtil {
                 .subject(payload.getEmail())
                 .issuedAt(now)
                 .claim(applicationProperty.getJwtClaim(), payload)
-		        .expiresAt(now.plus(accessTokenProperty.getExpireToken(), ChronoUnit.SECONDS))
+		        .expiresAt(now.plus(accessTokenProperty.getExpireToken(), ChronoUnit.MINUTES))
                 .build()));
     }
 
@@ -119,7 +119,7 @@ public class JwtTokenUtil {
                 .build()));
     }
 
-    public GooglePayloadDto getGooglePayloadDtoNotVerify(String token) {
+    public GooglePayloadDto getGooglePayloadDto(String token) {
         var claims = jwtDecoder.decode(token).getClaim(applicationProperty.getJwtClaim());
         return objectMapper.convertValue(claims, GooglePayloadDto.class);
     }
@@ -135,8 +135,8 @@ public class JwtTokenUtil {
                 .build()));
     }
 
-    public FacebookPayloadDto getFacebookPayloadDtoNotVerify(String token) {
-        var claims = JWT.decode(token).getClaim(applicationProperty.getJwtClaim()).asMap();
+    public FacebookPayloadDto getFacebookPayloadDto(String token) {
+        var claims = jwtDecoder.decode(token).getClaim(applicationProperty.getJwtClaim());
         return objectMapper.convertValue(claims, FacebookPayloadDto.class);
     }
 
