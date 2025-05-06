@@ -72,7 +72,7 @@ public class CartServiceImpl implements ICartService {
 
 	@Override
 	public void addVariantToCart(long userId, String variantId) {
-		var cart = getCartByUserId(userId);
+		var cart = cartRepository.findByUserId(userId).map(cartMapper::toCartDto).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.CART_NOT_FOUND));
 		cartItemService.addCartItem(cart.getId(), variantId);
 		cartRedisManage.delete(String.valueOf(userId));
 	}

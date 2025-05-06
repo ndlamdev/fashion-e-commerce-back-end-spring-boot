@@ -35,13 +35,23 @@ public class CartItemServiceImpl implements ICartItemService {
 				.variantId(variantId)
 				.productId(inventoryGrpcClient.productIdOfVariant(variantId))
 				.build();
+
+		if (cartItemRepository.existsByCartIdAndVariantId(cartId, variantId)) {
+			plusQuantity(cartId, variantId, 1);
+			return;
+		}
+
 		try {
 			cartItemRepository.save(cartItem);
 		} catch (Exception ignored) {
-			var item = cartItemRepository.findByCartIdAndVariantId(cartId, variantId)
-					.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.CART_ITEM_NOT_FOUND));
-			item.setQuantity(item.getQuantity() + 1);
-			cartItemRepository.save(item);
+			plusQuantity(cartId, variantId, 1);
 		}
+	}
+
+	private void plusQuantity(long cartId, String variantId, int quantity) {
+		var item = cartItemRepository.findByCartIdAndVariantId(cartId, variantId)
+				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.CART_ITEM_NOT_FOUND));
+		item.setQuantity(item.getQuantity() + quantity);
+		cartItemRepository.save(item);
 	}
 }
