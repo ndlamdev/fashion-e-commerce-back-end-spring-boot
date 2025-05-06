@@ -2,7 +2,7 @@ package com.lamnguyen.cart_service.config;
 
 import lombok.NonNull;
 import org.springframework.data.domain.AuditorAware;
-import org.springframework.data.mongodb.config.EnableMongoAuditing;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-@EnableMongoAuditing
+@EnableJpaAuditing
 public class AuditorAwareImpl implements AuditorAware<String> {
 
 	@Override

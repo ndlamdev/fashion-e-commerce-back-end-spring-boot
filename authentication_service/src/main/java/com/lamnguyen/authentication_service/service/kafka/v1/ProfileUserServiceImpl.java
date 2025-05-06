@@ -17,7 +17,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-@Service("CustomUserDetailServiceImpl")
+@Service
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class ProfileUserServiceImpl implements IProfileUserService {

@@ -23,6 +23,7 @@ import com.lamnguyen.authentication_service.model.User;
 import com.lamnguyen.authentication_service.repository.IRoleOfUserRepository;
 import com.lamnguyen.authentication_service.service.authentication.IFacebookAuthService;
 import com.lamnguyen.authentication_service.service.business.facebook.IFacebookGraphClient;
+import com.lamnguyen.authentication_service.service.kafka.ICartService;
 import com.lamnguyen.authentication_service.service.kafka.IProfileUserService;
 import com.lamnguyen.authentication_service.service.business.user.IUserService;
 import com.lamnguyen.authentication_service.service.redis.IFacebookTokenRedisManager;
@@ -49,7 +50,8 @@ public class FacebookAuthServiceImpl implements IFacebookAuthService {
     IProfileUserMapper profileUserMapper;
     IFacebookTokenRedisManager tokenManager;
     IRoleOfUserRepository roleOfUserRepository;
-    private final ApplicationProperty applicationProperty;
+     ApplicationProperty applicationProperty;
+    ICartService cartService;
 
     @Override
     public LoginSuccessDto login(String accessTokenStr) {
@@ -112,6 +114,7 @@ public class FacebookAuthServiceImpl implements IFacebookAuthService {
         profileUser.setFullName(payload.name());
         profileUser.setAvatar(payload.avatar());
         profileUserService.save(profileUser);
+        cartService.createCart(userId);
         tokenManager.setRegisterTokenIdUsingFacebook(jwt.getId());
     }
 

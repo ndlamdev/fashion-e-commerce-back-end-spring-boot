@@ -17,10 +17,11 @@ import lombok.experimental.FieldDefaults;
 public enum ExceptionEnum {
 	UNAUTHORIZED(80001, "Unauthorized"),
 	COLLECTION_NOT_FOUND(80002, "Collection not found"),
-	PRODUCT_NOT_FOUND(80003, "Product not found"),
+	CART_NOT_FOUND(80003, "Cart not found"),
 	ID_PRODUCT_NOT_FOUND(80004, "ID product not found"),
 	DUPLICATE(80006, "Duplicate value"),
 	UNVALIDATED(88888, "Unvalidated"),
+	CART_ITEM_NOT_FOUND(80007, "Cart item not found"),
 	;
 
 	int code;

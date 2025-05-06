@@ -15,25 +15,38 @@ import com.lamnguyen.product_service.domain.request.DataProductRequest;
 import com.lamnguyen.product_service.domain.response.ProductResponse;
 import com.lamnguyen.product_service.model.Collection;
 import com.lamnguyen.product_service.model.Product;
+import com.lamnguyen.product_service.protos.ProductInCartDto;
 import org.mapstruct.*;
 
 import java.text.Normalizer;
 import java.util.regex.Pattern;
 
-@Mapper(componentModel = "spring", uses = {IImageOptionsValueMapper.class, ICollectionMapper.class, IImageMapper.class})
+@Mapper(componentModel = "spring", uses = {IImageOptionsValueMapper.class, ICollectionMapper.class, IImageMapper.class, IOptionMapper.class, IGrpcMapper.class})
 public interface IProductMapper {
-	@Mapping(source = "collection", target = "collection", qualifiedByName = "toCollection")
-	@Mapping(source = "title", target = "seoAlias", qualifiedByName = "toSeoAlias")
+	@Mappings({
+			@Mapping(target = "id", ignore = true),
+			@Mapping(target = "lock", ignore = true),
+			@Mapping(target = "createBy", ignore = true),
+			@Mapping(target = "createAt", ignore = true),
+			@Mapping(target = "updateBy", ignore = true),
+			@Mapping(target = "updateAt", ignore = true),
+			@Mapping(target = "available", ignore = true),
+			@Mapping(source = "collection", target = "collection", qualifiedByName = "toCollection"),
+			@Mapping(source = "title", target = "seoAlias", qualifiedByName = "toSeoAlias"),
+	})
 	Product toProduct(DataProductRequest request);
 
 	@Mapping(source = "collection.id", target = "collection")
 	@Mapping(source = "iconThumbnail", target = "iconThumbnail", qualifiedByName = "toImageDto")
 	@Mapping(source = "images", target = "images", qualifiedByName = "toImageDto")
+	@Mapping(target = "variants", ignore = true)
+	@Mapping(target = "review", ignore = true)
 	ProductResponse toProductResponse(Product product);
 
-	@Mapping(source = "collection", target = "collection")
 	@Mapping(source = "iconThumbnail", target = "iconThumbnail", ignore = true)
 	@Mapping(source = "images", target = "images", ignore = true)
+	@Mapping(target = "variants", ignore = true)
+	@Mapping(target = "review", ignore = true)
 	ProductResponse toProductResponse(ProductDto product);
 
 	@Mapping(source = "collection.id", target = "collection")
@@ -98,5 +111,58 @@ public interface IProductMapper {
 		if (request.getTags() == null || request.getTags().size() == product.getTags().size()) return;
 
 		throw ApplicationException.createException(ExceptionEnum.DUPLICATE, "Duplicate tag");
+	}
+
+	@BeanMapping(ignoreByDefault = true)
+	ProductInCartDto toProductInCartDto(
+			ProductResponse response,
+			IImageMapper imageMapper,
+			IOptionMapper optionMapper,
+			IGrpcMapper grpcMapper
+	);
+
+	@AfterMapping
+	default void afterMapping(
+			ProductResponse response,
+			@MappingTarget ProductInCartDto.Builder builder,
+			IOptionMapper optionMapper,
+			IImageMapper imageMapper,
+			IGrpcMapper grpcMapper
+	) {
+		if (response.getOptions() != null)
+			builder.addAllOptions(response.getOptions().stream().map(data -> optionMapper.toOptionDto(data, grpcMapper)).toList());
+		if (response.getImages() != null)
+			builder.addAllImages(response.getImages().stream().map(imageMapper::toImage).toList());
+
+	}
+
+	@BeanMapping(ignoreByDefault = true)
+	com.lamnguyen.product_service.protos.ProductDto toProductDto(
+			ProductResponse response,
+			IImageMapper imageMapper,
+			IImageOptionsValueMapper imageOptionsValueMapper,
+			IOptionMapper optionMapper,
+			IOptionItemMapper optionItemMapper,
+			IGrpcMapper grpcMapper
+	);
+
+	@AfterMapping
+	default void afterMapping(
+			ProductResponse response,
+			@MappingTarget com.lamnguyen.product_service.protos.ProductDto.Builder builder,
+			IImageMapper imageMapper,
+			IImageOptionsValueMapper imageOptionsValueMapper,
+			IOptionMapper optionMapper,
+			IOptionItemMapper optionItemMapper,
+			IGrpcMapper grpcMapper
+	) {
+		if (response.getImages() != null)
+			builder.addAllImages(response.getImages().stream().map(imageMapper::toImage).toList());
+		if (response.getOptions() != null)
+			builder.addAllOptions(response.getOptions().stream().map(data -> optionMapper.toOptionDto(data, grpcMapper)).toList());
+		if (response.getTags() != null)
+			builder.addAllTags(response.getTags().stream().map(data -> com.lamnguyen.product_service.protos.ProductTag.valueOf(data.name())).toList());
+		if (response.getOptionsValues() != null)
+			builder.addAllOptionsValue(response.getOptionsValues().stream().map(data -> imageOptionsValueMapper.toImageOptionsValueDto(data, imageMapper, optionItemMapper)).toList());
 	}
 }

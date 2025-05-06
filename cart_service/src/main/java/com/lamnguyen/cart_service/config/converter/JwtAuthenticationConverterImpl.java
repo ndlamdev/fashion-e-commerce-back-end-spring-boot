@@ -37,12 +37,7 @@ public class JwtAuthenticationConverterImpl implements Converter<Jwt, AbstractAu
 	@Transactional
 	public AbstractAuthenticationToken convert(@NonNull Jwt source) {
 		var payload = new ObjectMapper().convertValue(source.getClaimAsMap(applicationProperty.getJwtClaim()), JWTPayload.class);
-		Set<GrantedAuthority> authorities = new HashSet<>();
-		if (payload.getRoles().contains("ROLE_ADMIN")) {
-			authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-		} else {
-			authorities.addAll(payload.getRoles().stream().map(SimpleGrantedAuthority::new).toList());
-		}
+		Set<GrantedAuthority> authorities = new HashSet<>(payload.getRoles().stream().map(SimpleGrantedAuthority::new).toList());
 		return new JwtAuthenticationToken(source, authorities);
 	}
 }

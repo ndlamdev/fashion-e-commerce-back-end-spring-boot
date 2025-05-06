@@ -21,9 +21,10 @@ import com.lamnguyen.authentication_service.model.RoleOfUser;
 import com.lamnguyen.authentication_service.model.User;
 import com.lamnguyen.authentication_service.repository.IRoleOfUserRepository;
 import com.lamnguyen.authentication_service.service.authentication.IAuthenticationService;
-import com.lamnguyen.authentication_service.service.kafka.IProfileUserService;
 import com.lamnguyen.authentication_service.service.business.user.IUserService;
 import com.lamnguyen.authentication_service.service.grpc.IProfileUserGrpcClient;
+import com.lamnguyen.authentication_service.service.kafka.ICartService;
+import com.lamnguyen.authentication_service.service.kafka.IProfileUserService;
 import com.lamnguyen.authentication_service.service.mail.ISendMailService;
 import com.lamnguyen.authentication_service.service.redis.*;
 import com.lamnguyen.authentication_service.utils.enums.JwtType;
@@ -65,12 +66,13 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 	OtpProperty.AccountVerification accountVerification;
 	OtpProperty.ResetPasswordVerification resetPasswordVerification;
 	IProfileUserGrpcClient profileUserGrpcClient;
+	ICartService cartService;
 
 
 	@Override
 	public void register(RegisterAccountRequest request) {
 		var user = userMapper.toUser(request);
-		User oldUser = null;
+		User oldUser;
 		try {
 			oldUser = userService.findUserByEmail(user.getEmail());
 		} catch (ApplicationException ignored) {
@@ -86,6 +88,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 			var userDetail = userDetailMapper.toSaveProfileUserEvent(request);
 			userDetail.setUserId(userId);
 			userDetailService.save(userDetail);
+			cartService.createCart(userId);
 			return;
 		}
 		if (oldUser.isActive())
@@ -94,12 +97,6 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 			SendMailHelper.sendMailVerify(registerCodeRedisManager, sendMailService, oldUser.getId(), request.getEmail());
 			throw ApplicationException.createException(ExceptionEnum.REQUIRE_ACTIVE);
 		}
-	}
-
-	private void sendMailVerify(long userId, RegisterAccountRequest request) {
-		String opt = OtpUtil.generate(6);
-		registerCodeRedisManager.setCode(userId, opt);
-		sendMailService.sendMailVerifyAccountCode(request.getEmail(), opt);
 	}
 
 	@Override

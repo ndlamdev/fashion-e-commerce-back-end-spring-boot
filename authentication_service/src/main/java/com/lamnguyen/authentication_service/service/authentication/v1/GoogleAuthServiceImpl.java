@@ -18,8 +18,9 @@ import com.lamnguyen.authentication_service.model.RoleOfUser;
 import com.lamnguyen.authentication_service.model.User;
 import com.lamnguyen.authentication_service.repository.IRoleOfUserRepository;
 import com.lamnguyen.authentication_service.service.authentication.IGoogleAuthService;
-import com.lamnguyen.authentication_service.service.kafka.IProfileUserService;
 import com.lamnguyen.authentication_service.service.business.user.IUserService;
+import com.lamnguyen.authentication_service.service.kafka.ICartService;
+import com.lamnguyen.authentication_service.service.kafka.IProfileUserService;
 import com.lamnguyen.authentication_service.service.redis.IGoogleTokenRedisManager;
 import com.lamnguyen.authentication_service.utils.helper.JwtTokenUtil;
 import lombok.AccessLevel;
@@ -40,11 +41,12 @@ public class GoogleAuthServiceImpl implements IGoogleAuthService {
     JwtTokenUtil jwtTokenUtil;
     IUserMapper userMapper;
     PasswordEncoder passwordEncoder;
-    IProfileUserMapper userDetailMapper;
-    IProfileUserService userDetailService;
+    IProfileUserMapper profileUserMapper;
+    IProfileUserService profileUserService;
     GoogleAuthorizationCodeTokenRequest googleAuthorizationCodeTokenRequest;
     IRoleOfUserRepository roleOfUserRepository;
     IGoogleTokenRedisManager tokenManager;
+    ICartService cartService;
 
     public GoogleTokenResponse verifyGoogleAuthCode(String authCode) {
         try {
@@ -103,10 +105,11 @@ public class GoogleAuthServiceImpl implements IGoogleAuthService {
         // this code use for test
         roleOfUserRepository.save(RoleOfUser.builder().user(userSaved).role(Role.builder().id(2).build()).build());
         //this code use for test
-        var userDetail = userDetailMapper.toSaveProfileUserEvent(payload);
+        var userDetail = profileUserMapper.toSaveProfileUserEvent(payload);
         userDetail.setUserId(userSaved.getId());
         userDetail.setPhone(request.phone());
-        userDetailService.save(userDetail);
+        profileUserService.save(userDetail);
+        cartService.createCart(userSaved.getId());
         tokenManager.setRegisterTokenIdUsingGoogle(jwt.getId());
     }
 

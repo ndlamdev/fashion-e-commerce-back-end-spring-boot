@@ -9,6 +9,7 @@
 package com.lamnguyen.cart_service.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lamnguyen.cart_service.domain.dto.CartDto;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -17,6 +18,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
@@ -36,6 +38,20 @@ public class RedisConfig {
 		template.setValueSerializer(genericJackson2JsonRedisSerializer);
 		template.setHashKeySerializer(stringRedisSerializer);
 		template.setHashValueSerializer(genericJackson2JsonRedisSerializer);
+		template.setConnectionFactory(connectionFactory);
+		return template;
+	}
+
+	@Bean
+	RedisTemplate<String, CartDto> cartDtoRedisTemplate(RedisConnectionFactory connectionFactory) {
+		RedisTemplate<String, CartDto> template = new RedisTemplate<>();
+
+		var cartDtoJackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(mapper, CartDto.class);
+
+		template.setKeySerializer(stringRedisSerializer);
+		template.setValueSerializer(cartDtoJackson2JsonRedisSerializer);
+		template.setHashKeySerializer(stringRedisSerializer);
+		template.setHashValueSerializer(cartDtoJackson2JsonRedisSerializer);
 		template.setConnectionFactory(connectionFactory);
 		return template;
 	}
