@@ -27,7 +27,7 @@ public class CartRedisManageImpl extends ACacheManage<CartDto> implements ICartR
 
 	@Override
 	public Optional<CartDto> cache(String keyLock, String keyCache, CallbackDB<CartDto> callDB) {
-		return cache(keyLock, keyCache, callDB, 60, TimeUnit.MINUTES);
+		return cache(getCartKey(keyLock), getCartKey(keyLock), callDB, 60, TimeUnit.MINUTES);
 	}
 
 	@Override
