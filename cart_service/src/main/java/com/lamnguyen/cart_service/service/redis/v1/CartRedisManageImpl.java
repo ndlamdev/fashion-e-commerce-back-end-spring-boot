@@ -26,13 +26,18 @@ public class CartRedisManageImpl extends ACacheManage<CartDto> implements ICartR
 	}
 
 	@Override
+	public Optional<CartDto> get(String key) {
+		return super.get(getCartKey(key));
+	}
+
+	@Override
 	public Optional<CartDto> cache(String keyLock, String keyCache, CallbackDB<CartDto> callDB) {
 		return cache(getCartKey(keyLock), getCartKey(keyLock), callDB, 60, TimeUnit.MINUTES);
 	}
 
 	@Override
 	public void delete(String key) {
-		this.template.delete(getCartKey(key));
+		super.delete(getCartKey(key));
 	}
 
 	@Override
@@ -42,7 +47,7 @@ public class CartRedisManageImpl extends ACacheManage<CartDto> implements ICartR
 
 	@Override
 	public Optional<CartDto> getCartByUserId(long userId) {
-		return get(getCartKey(String.valueOf(userId)));
+		return get(String.valueOf(userId));
 	}
 
 	private String getCartKey(String userId) {

@@ -23,9 +23,14 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class ProductRedisManagerImple extends ACacheManage<ProductDto> implements IProductRedisManager {
-	public ProductRedisManagerImple(RedisTemplate<String, ProductDto> template, RedissionClientUtil redissonClient) {
+public class ProductRedisManagerImpl extends ACacheManage<ProductDto> implements IProductRedisManager {
+	public ProductRedisManagerImpl(RedisTemplate<String, ProductDto> template, RedissionClientUtil redissonClient) {
 		super(template, redissonClient);
+	}
+
+	@Override
+	public Optional<ProductDto> get(String key) {
+		return super.get(generateKeyCache(key));
 	}
 
 	@Override
@@ -40,7 +45,7 @@ public class ProductRedisManagerImple extends ACacheManage<ProductDto> implement
 
 	@Override
 	public void delete(String key) {
-		template.delete(generateKeyCache(key));
+		super.delete(generateKeyCache(key));
 	}
 
 	public String generateKeyCache(String keyCache) {

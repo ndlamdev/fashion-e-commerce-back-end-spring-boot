@@ -24,7 +24,7 @@ import java.util.function.Function;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class RoleRedisManagerImple implements IRoleRedisManager {
+public class RoleRedisManagerImpl implements IRoleRedisManager {
 	RedisTemplate<String, RoleDto> roleDtoRedisTemplate;
 	RedissionClientUtil redissonClient;
 

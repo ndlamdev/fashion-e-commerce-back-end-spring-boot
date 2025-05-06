@@ -26,6 +26,11 @@ public class VariantProductRedisManageImpl extends ACacheManage<VariantProduct[]
 	}
 
 	@Override
+	public Optional<VariantProduct[]> get(String key) {
+		return super.get(generateKey(key));
+	}
+
+	@Override
 	public Optional<VariantProduct[]> cache(String keyLock, String keyCache, CallbackDB<VariantProduct[]> callDB) {
 		return cache(generateKey(keyLock), generateKey(keyCache), callDB, 60, TimeUnit.MINUTES);
 	}
@@ -37,7 +42,7 @@ public class VariantProductRedisManageImpl extends ACacheManage<VariantProduct[]
 
 	@Override
 	public void delete(String productId) {
-		template.delete(generateKey(productId));
+		super.delete(generateKey(productId));
 	}
 
 	@Override

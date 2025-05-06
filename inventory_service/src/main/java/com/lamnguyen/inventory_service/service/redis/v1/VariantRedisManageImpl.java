@@ -25,15 +25,19 @@ public class VariantRedisManageImpl extends ACacheManage<VariantProduct> impleme
 		super(template, redissonClient);
 	}
 
+	@Override
+	public Optional<VariantProduct> get(String key) {
+		return super.get(generateKey(key));
+	}
 
 	@Override
 	public Optional<VariantProduct> cache(String keyLock, String keyCache, CallbackDB<VariantProduct> callDB) {
-		return cache(keyLock, keyCache, callDB, 60, TimeUnit.SECONDS);
+		return cache(generateKey(keyLock), generateKey(keyCache), callDB, 60, TimeUnit.SECONDS);
 	}
 
 	@Override
 	public void delete(String key) {
-		this.template.delete(generateKey(key));
+		super.delete(generateKey(key));
 	}
 
 	@Override

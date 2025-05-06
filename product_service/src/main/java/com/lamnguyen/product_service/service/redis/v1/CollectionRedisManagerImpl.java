@@ -9,6 +9,7 @@
 package com.lamnguyen.product_service.service.redis.v1;
 
 import com.lamnguyen.product_service.domain.dto.CollectionSaveRedisDto;
+import com.lamnguyen.product_service.domain.dto.ProductDto;
 import com.lamnguyen.product_service.service.redis.ACacheManage;
 import com.lamnguyen.product_service.service.redis.CallbackDB;
 import com.lamnguyen.product_service.service.redis.ICollectionRedisManager;
@@ -23,9 +24,14 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class CollectionRedisManagerImple extends ACacheManage<CollectionSaveRedisDto> implements ICollectionRedisManager {
-	public CollectionRedisManagerImple(RedisTemplate<String, CollectionSaveRedisDto> template, RedissionClientUtil redissonClient) {
+public class CollectionRedisManagerImpl extends ACacheManage<CollectionSaveRedisDto> implements ICollectionRedisManager {
+	public CollectionRedisManagerImpl(RedisTemplate<String, CollectionSaveRedisDto> template, RedissionClientUtil redissonClient) {
 		super(template, redissonClient);
+	}
+
+	@Override
+	public Optional<CollectionSaveRedisDto> get(String key) {
+		return super.get(generateKeyCache(key));
 	}
 
 	@Override
@@ -40,7 +46,7 @@ public class CollectionRedisManagerImple extends ACacheManage<CollectionSaveRedi
 
 	@Override
 	public void delete(String key) {
-		template.delete(generateKeyCache(key));
+		super.delete(generateKeyCache(key));
 	}
 
 	public String generateKeyCache(String keyCache) {

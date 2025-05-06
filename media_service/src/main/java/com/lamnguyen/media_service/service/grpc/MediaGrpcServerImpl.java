@@ -52,10 +52,8 @@ public class MediaGrpcServerImpl extends MediaServiceGrpc.MediaServiceImplBase {
 	@Override
 	public void getMedias(MediasRequest request, StreamObserver<MediaResponse> responseObserver) {
 		var builder = MediaResponse.newBuilder();
-		var data = mediaService.getAllById(request.getIdList());
-		data.forEach(mediaDto -> {
-			builder.putData(mediaDto.getId(), mediaMapper.toMediaInfo(mediaDto));
-		});
+		var data = mediaService.getMediaByIds(request.getIdList());
+		builder.putAllData(data);
 		responseObserver.onNext(builder.build());
 		responseObserver.onCompleted();
 	}

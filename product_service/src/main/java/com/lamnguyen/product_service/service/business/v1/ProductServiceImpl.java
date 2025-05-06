@@ -36,7 +36,7 @@ import java.util.List;
 public class ProductServiceImpl implements IProductService {
 	IProductMapper productMapper;
 	IProductRepository productRepository;
-	IProductRedisManager redisManager;
+	IProductRedisManager productRedisManager;
 	IVariantGrpcClient variantService;
 	IMediaGrpcClient mediaGrpcClient;
 	IImageOptionsValueMapper imageOptionsValueMapper;
@@ -47,8 +47,8 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public ProductResponse getProductById(String id) {
-		var productDto = redisManager.get(id)
-				.or(() -> redisManager.cache(id, () -> productRepository.findById(id).map(productMapper::toProductDto)))
+		var productDto = productRedisManager.get(id)
+				.or(() -> productRedisManager.cache(id, () -> productRepository.findById(id).map(productMapper::toProductDto)))
 				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.PRODUCT_NOT_FOUND));
 		var result = productMapper.toProductResponse(productDto);
 		result.setVariants(variantService.getVariantsByProductId(id));
@@ -102,8 +102,8 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public ProductInCartDto getProductInCartById(String id) {
-		var productDto = redisManager.get(id)
-				.or(() -> redisManager.cache(id, () -> productRepository.findById(id).map(productMapper::toProductDto)))
+		var productDto = productRedisManager.get(id)
+				.or(() -> productRedisManager.cache(id, () -> productRepository.findById(id).map(productMapper::toProductDto)))
 				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.PRODUCT_NOT_FOUND));
 		var result = productMapper.toProductResponse(productDto);
 		result.setVariants(variantService.getVariantsByProductId(id));

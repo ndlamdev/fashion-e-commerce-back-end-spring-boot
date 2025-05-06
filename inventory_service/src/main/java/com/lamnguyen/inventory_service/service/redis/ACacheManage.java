@@ -27,8 +27,13 @@ public abstract class ACacheManage<R> implements ICacheManage<R> {
 	}
 
 	@Override
-	public final Optional<R> get(String key) {
+	public Optional<R> get(String key) {
 		return Optional.ofNullable(template.opsForValue().get(key));
+	}
+
+	@Override
+	public void delete(String key) {
+		template.delete(key);
 	}
 
 	@Override
