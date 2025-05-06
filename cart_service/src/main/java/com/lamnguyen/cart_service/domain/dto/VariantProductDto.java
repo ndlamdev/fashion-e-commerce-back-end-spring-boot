@@ -38,6 +38,7 @@ public class VariantProductDto {
 	private boolean productApplyAllowanceInventory; // Cho phép mua khi sản phẩm để hết
 	int pending; // Số lượng sản phẩm có thể đáp ứng khi cho phép người dùng mua khi biến thể của sản phẩm hết hàng. Dùng khi `productApplyAllowanceInventory` = true
 	@JsonProperty("product_visibility")
+	@Builder.Default
 	private boolean productVisibility = true; // sản phẩm có đang không bị lock không
 	@JsonProperty("is_delete")
 	private boolean delete; // Biến thể đã bị xóa khỏi sản phẩm

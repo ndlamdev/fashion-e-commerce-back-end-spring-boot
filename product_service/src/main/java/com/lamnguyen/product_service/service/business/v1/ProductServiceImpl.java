@@ -91,7 +91,9 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	public ProductDto getProductProtoById(String id) {
 		var response = getProductById(id);
-		return productMapper.toProductDto(response, imageMapper,
+		return productMapper.toProductDto(
+				response,
+				imageMapper,
 				imageOptionsValueMapper,
 				optionMapper,
 				optionItemMapper,
@@ -111,6 +113,10 @@ public class ProductServiceImpl implements IProductService {
 			result.setImages(mediaResponse.values().stream().toList());
 		}
 
-		return productMapper.toProductInCartDto(result, imageMapper, optionMapper, grpcMapper);
+		return productMapper.toProductInCartDto(
+				result,
+				imageMapper,
+				optionMapper,
+				grpcMapper);
 	}
 }

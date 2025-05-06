@@ -28,6 +28,7 @@ import lombok.experimental.SuperBuilder;
 public class CartItem extends BaseEntity {
 	@Column(name = "variant_id")
 	String variantId;
+	String productId;
 	@Column(name = "quantity", columnDefinition = "int default 1 not null")
 	int quantity;
 	@ManyToOne()

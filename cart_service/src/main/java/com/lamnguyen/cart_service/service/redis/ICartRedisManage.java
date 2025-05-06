@@ -13,5 +13,5 @@ import com.lamnguyen.cart_service.domain.dto.CartDto;
 import java.util.Optional;
 
 public interface ICartRedisManage extends ICacheManage<CartDto> {
-	public Optional<CartDto> getCartByUserId(long userId);
+	Optional<CartDto> getCartByUserId(long userId);
 }

@@ -8,13 +8,11 @@
 
 package com.lamnguyen.cart_service.service.grpc;
 
+import com.lamnguyen.cart_service.domain.dto.ProductDto;
+
 import java.util.List;
 import java.util.Map;
 
-public interface IInventoryGrpcClient {
-	Map<String, Boolean> existInventory(List<String> ids);
-
-	boolean existInventory(String id);
-
-	String productIdOfVariant(String id);
+public interface IProductGrpcClient {
+	ProductDto getProductDto(String id);
 }

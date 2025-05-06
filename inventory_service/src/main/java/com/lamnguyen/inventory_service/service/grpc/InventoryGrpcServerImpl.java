@@ -9,14 +9,14 @@
 package com.lamnguyen.inventory_service.service.grpc;
 
 import com.lamnguyen.inventory_service.mapper.IInventoryMapper;
-import com.lamnguyen.inventory_service.protos.InventoryServiceGrpc;
-import com.lamnguyen.inventory_service.protos.VariantProductRequest;
-import com.lamnguyen.inventory_service.protos.VariantProductResponse;
+import com.lamnguyen.inventory_service.protos.*;
 import com.lamnguyen.inventory_service.service.business.IInventoryService;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import net.devh.boot.grpc.server.service.GrpcService;
+
+import java.util.stream.Collectors;
 
 @GrpcService
 @RequiredArgsConstructor
@@ -30,6 +30,22 @@ public class InventoryGrpcServerImpl extends InventoryServiceGrpc.InventoryServi
 		var data = inventoryService.getAllInventory(request.getProductId());
 		var response = inventoryMapper.toVariantProductInfo(data);
 		responseObserver.onNext(VariantProductResponse.newBuilder().addAllVariants(response).build());
+		responseObserver.onCompleted();
+	}
+
+	@Override
+	public void existsVariant(VariantProductExistRequest request, StreamObserver<VariantProductExistResponse> responseObserver) {
+		var data = request.getIdsList().stream().collect(Collectors.toMap(s -> s, inventoryService::existsVariantProduct));
+		var response = VariantProductExistResponse.newBuilder().putAllExistIds(data).build();
+		responseObserver.onNext(response);
+		responseObserver.onCompleted();
+	}
+
+	@Override
+	public void getProductIdOfVariantProduct(ProductIdOfVariantRequest request, StreamObserver<ProductIdOfVariantResponse> responseObserver) {
+		var productId = inventoryService.getProductId(request.getVariantId());
+		var response = ProductIdOfVariantResponse.newBuilder().setProductId(productId).build();
+		responseObserver.onNext(response);
 		responseObserver.onCompleted();
 	}
 }

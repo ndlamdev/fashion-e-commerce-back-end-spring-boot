@@ -14,6 +14,7 @@ import com.lamnguyen.cart_service.model.Cart;
 import com.lamnguyen.cart_service.model.CartItem;
 import com.lamnguyen.cart_service.repository.ICartItemRepository;
 import com.lamnguyen.cart_service.service.business.ICartItemService;
+import com.lamnguyen.cart_service.service.grpc.IInventoryGrpcClient;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -24,10 +25,16 @@ import org.springframework.stereotype.Service;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class CartItemServiceImpl implements ICartItemService {
 	ICartItemRepository cartItemRepository;
+	IInventoryGrpcClient inventoryGrpcClient;
 
 	@Override
 	public void addCartItem(long cartId, String variantId) {
-		var cartItem = CartItem.builder().cart(Cart.builder().id(cartId).build()).variantId(variantId).build();
+		if (!inventoryGrpcClient.existInventory(variantId)) return;
+		var cartItem = CartItem.builder()
+				.cart(Cart.builder().id(cartId).build())
+				.variantId(variantId)
+				.productId(inventoryGrpcClient.productIdOfVariant(variantId))
+				.build();
 		try {
 			cartItemRepository.save(cartItem);
 		} catch (Exception ignored) {

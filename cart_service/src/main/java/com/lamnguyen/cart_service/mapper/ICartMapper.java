@@ -9,12 +9,13 @@
 package com.lamnguyen.cart_service.mapper;
 
 import com.lamnguyen.cart_service.domain.dto.CartDto;
+import com.lamnguyen.cart_service.domain.response.CartResponse;
 import com.lamnguyen.cart_service.model.Cart;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {ICartItemMapper.class})
 public interface ICartMapper {
 	CartDto toCartDto(Cart cart);
 
@@ -23,4 +24,6 @@ public interface ICartMapper {
 			@Mapping(target = "updateBy", ignore = true),
 	})
 	Cart toCart(CartDto cart);
+
+	CartResponse toCartResponse(CartDto cart);
 }

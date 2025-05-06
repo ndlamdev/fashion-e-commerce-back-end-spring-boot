@@ -10,10 +10,9 @@ package com.lamnguyen.inventory_service.service.redis;
 
 import com.lamnguyen.inventory_service.model.VariantProduct;
 
-import java.util.List;
 import java.util.Optional;
 
-public interface IVariantProductRedisManage extends ICacheManage<VariantProduct[]> {
+public interface IVariantByProductIdRedisManage extends ICacheManage<VariantProduct[]> {
 	Optional<VariantProduct[]> cache(String productId, CallbackDB<VariantProduct[]> callDB);
 
 	void delete(String productId);

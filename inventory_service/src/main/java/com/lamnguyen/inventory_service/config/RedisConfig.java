@@ -53,4 +53,15 @@ public class RedisConfig {
 		return template;
 	}
 
+	@Bean
+	RedisTemplate<String, VariantProduct> variantProductTemplate(RedisConnectionFactory connectionFactory) {
+		RedisTemplate<String, VariantProduct> template = new RedisTemplate<>();
+
+		template.setKeySerializer(new StringRedisSerializer());
+		template.setValueSerializer(new Jackson2JsonRedisSerializer<>(mapper, VariantProduct.class));
+		template.setHashKeySerializer(new StringRedisSerializer());
+		template.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(mapper, VariantProduct.class));
+		template.setConnectionFactory(connectionFactory);
+		return template;
+	}
 }

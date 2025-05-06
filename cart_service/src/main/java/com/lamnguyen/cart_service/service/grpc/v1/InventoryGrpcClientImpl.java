@@ -9,6 +9,7 @@
 package com.lamnguyen.cart_service.service.grpc.v1;
 
 import com.lamnguyen.cart_service.protos.InventoryServiceGrpc;
+import com.lamnguyen.cart_service.protos.ProductIdOfVariantRequest;
 import com.lamnguyen.cart_service.protos.VariantProductExistRequest;
 import com.lamnguyen.cart_service.service.grpc.IInventoryGrpcClient;
 import lombok.AccessLevel;
@@ -36,5 +37,11 @@ public class InventoryGrpcClientImpl implements IInventoryGrpcClient {
 	@Override
 	public boolean existInventory(String id) {
 		return existInventory(List.of(id)).getOrDefault(id, false);
+	}
+
+	@Override
+	public String productIdOfVariant(String id) {
+		var request = ProductIdOfVariantRequest.newBuilder().setVariantId(id).build();
+		return inventoryServiceStub.getProductIdOfVariantProduct(request).getProductId();
 	}
 }

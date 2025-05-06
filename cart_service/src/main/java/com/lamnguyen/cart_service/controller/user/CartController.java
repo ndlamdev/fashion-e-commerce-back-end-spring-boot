@@ -9,6 +9,7 @@
 package com.lamnguyen.cart_service.controller.user;
 
 import com.lamnguyen.cart_service.domain.dto.CartDto;
+import com.lamnguyen.cart_service.domain.response.CartResponse;
 import com.lamnguyen.cart_service.service.business.ICartService;
 import com.lamnguyen.cart_service.utils.annotation.ApiMessageResponse;
 import com.lamnguyen.cart_service.utils.helper.JwtTokenUtil;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RequestMapping("/v1/cart")
-public class CartController {
+public class  CartController {
 	ICartService cartService;
 	JwtTokenUtil jwtTokenUtil;
 
@@ -37,7 +38,7 @@ public class CartController {
 	@GetMapping("/me")
 	@PreAuthorize("hasAnyAuthority('ROLE_BASE', 'ROLE_ADMIN', 'GET_CART_INFO')")
 	@ApiMessageResponse("Add product into cart success!")
-	public CartDto getCartInfo(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+	public CartResponse getCartInfo(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
 		return cartService.getCartByUserId(jwtTokenUtil.getUserIdNotVerify(token));
 	}
 }

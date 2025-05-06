@@ -9,9 +9,10 @@
 package com.lamnguyen.cart_service.service.business;
 
 import com.lamnguyen.cart_service.domain.dto.CartDto;
+import com.lamnguyen.cart_service.domain.response.CartResponse;
 
 public interface ICartService {
-	CartDto getCartByUserId(long userId);
+	CartResponse getCartByUserId(long userId);
 
 	CartDto createCart(long userId);
 

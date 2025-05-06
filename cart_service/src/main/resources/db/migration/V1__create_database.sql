@@ -7,6 +7,7 @@ CREATE TABLE cart_items
     update_by  VARCHAR(255)          NULL,
     update_at  datetime              NULL,
     variant_id VARCHAR(255)          NULL,
+    product_id VARCHAR(255)          NULL,
     quantity   INT DEFAULT 1         NOT NULL,
     cart_id    BIGINT                NULL,
     CONSTRAINT pk_cart_items PRIMARY KEY (id)

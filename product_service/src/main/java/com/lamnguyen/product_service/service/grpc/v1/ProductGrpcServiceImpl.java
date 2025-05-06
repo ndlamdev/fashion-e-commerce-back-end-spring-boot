@@ -26,12 +26,6 @@ import net.devh.boot.grpc.server.service.GrpcService;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ProductGrpcServiceImpl extends ProductServiceGrpc.ProductServiceImplBase {
 	IProductService productService;
-	IProductMapper mapper;
-	IImageMapper imageMapper;
-	IImageOptionsValueMapper imageOptionsValueMapper;
-	IOptionMapper optionMapper;
-	IOptionItemMapper optionItemMapper;
-	IGrpcMapper grpcMapper;
 
 	@Override
 	public void getProductById(ProductRequest request, StreamObserver<com.lamnguyen.product_service.protos.ProductDto> responseObserver) {

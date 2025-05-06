@@ -24,6 +24,7 @@ public class CartItemDto {
 	long id;
 	String variantId;
 	String productId;
+	int quantity;
 	boolean lock;
 	@JsonProperty("create_at")
 	LocalDateTime createAt;

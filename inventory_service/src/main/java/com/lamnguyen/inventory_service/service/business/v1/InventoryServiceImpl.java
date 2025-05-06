@@ -7,11 +7,14 @@
  **/
 package com.lamnguyen.inventory_service.service.business.v1;
 
+import com.lamnguyen.inventory_service.config.exception.ApplicationException;
+import com.lamnguyen.inventory_service.config.exception.ExceptionEnum;
 import com.lamnguyen.inventory_service.message.DataVariantEvent;
 import com.lamnguyen.inventory_service.model.VariantProduct;
 import com.lamnguyen.inventory_service.repository.InventoryRepository;
 import com.lamnguyen.inventory_service.service.business.IInventoryService;
-import com.lamnguyen.inventory_service.service.redis.IVariantProductRedisManage;
+import com.lamnguyen.inventory_service.service.redis.IVariantByProductIdRedisManage;
+import com.lamnguyen.inventory_service.service.redis.IVariantRedisManage;
 import com.lamnguyen.inventory_service.utils.enums.OptionType;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -31,13 +34,9 @@ import java.util.stream.Collectors;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class InventoryServiceImpl implements IInventoryService {
 	InventoryRepository inventoryRepository;
-	IVariantProductRedisManage variantProductRedisManage;
+	IVariantByProductIdRedisManage variantProductRedisManage;
+	IVariantRedisManage variantRedisManage;
 
-	/**
-	 * Process a DataVariantEvent to create inventory records
-	 *
-	 * @param event the DataVariantEvent
-	 */
 	@Override
 	public void createVariantProduct(DataVariantEvent event) {
 		List<DataVariantEvent.Option> options = event.options();
@@ -49,14 +48,6 @@ public class InventoryServiceImpl implements IInventoryService {
 		optionCombinations.forEach(optionCombination -> insertNewVariant(event.id(), event.comparePrice(), event.regularPrice(), optionCombination));
 	}
 
-	/**
-	 * Update inventory quantity
-	 *
-	 * @param productId the product ID
-	 * @param options   the options map
-	 * @param quantity  the new quantity
-	 * @return true if updated, false if not found
-	 */
 	@Override
 	public boolean updateInventoryQuantity(String productId, Map<OptionType, String> options, int quantity) {
 		return inventoryRepository
@@ -69,12 +60,6 @@ public class InventoryServiceImpl implements IInventoryService {
 	}
 
 
-	/**
-	 * Get all inventory for a product
-	 *
-	 * @param productId the product ID
-	 * @return list of all inventories
-	 */
 	@Override
 	public List<VariantProduct> getAllInventory(String productId) {
 		return Arrays.stream(variantProductRedisManage.get(productId).or(() -> variantProductRedisManage
@@ -108,9 +93,6 @@ public class InventoryServiceImpl implements IInventoryService {
 		variantProductRedisManage.delete(event.id());
 	}
 
-	/**
-	 * Generate a SKU based on product ID and options
-	 */
 	private String generateSku(String productId, Map<OptionType, String> options) {
 		if (options == null || options.isEmpty()) return "";
 		StringBuilder sku = new StringBuilder("SKU").append("-").append(productId);
@@ -119,12 +101,6 @@ public class InventoryServiceImpl implements IInventoryService {
 		return sku.toString().toUpperCase();
 	}
 
-	/**
-	 * Generate all possible combinations of options
-	 *
-	 * @param options the list of options
-	 * @return list of all possible combinations
-	 */
 	private List<Map<OptionType, String>> generateOptionCombinations(List<DataVariantEvent.Option> options) {
 		List<Map<OptionType, String>> result = new ArrayList<>();
 
@@ -135,14 +111,6 @@ public class InventoryServiceImpl implements IInventoryService {
 		return result;
 	}
 
-	/**
-	 * Recursive helper method to generate all possible combinations of options
-	 *
-	 * @param options            the list of options
-	 * @param optionIndex        the current option index
-	 * @param currentCombination the current combination being built
-	 * @param result             the list to store all combinations
-	 */
 	private void generateCombinationsRecursive(List<DataVariantEvent.Option> options,
 	                                           int optionIndex,
 	                                           Map<OptionType, String> currentCombination,
@@ -184,5 +152,21 @@ public class InventoryServiceImpl implements IInventoryService {
 				.build();
 		inventoryRepository.save(inventory);
 		log.info("Created inventory for product {} with options {}", id, options);
+	}
+
+	@Override
+	public boolean existsVariantProduct(String variantId) {
+		return variantRedisManage
+				.get(variantId)
+				.or(() -> variantRedisManage.cache(variantId, variantId, () -> inventoryRepository.findById(variantId)))
+				.isPresent();
+	}
+
+	@Override
+	public String getProductId(String variantId) {
+		return variantRedisManage
+				.get(variantId)
+				.or(() -> variantRedisManage.cache(variantId, variantId, () -> inventoryRepository.findById(variantId)))
+				.map(VariantProduct::getProductId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.PRODUCT_NOT_FOUND));
 	}
 }

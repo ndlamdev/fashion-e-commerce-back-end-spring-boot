@@ -11,17 +11,16 @@ package com.lamnguyen.inventory_service.service.redis.v1;
 import com.lamnguyen.inventory_service.model.VariantProduct;
 import com.lamnguyen.inventory_service.service.redis.ACacheManage;
 import com.lamnguyen.inventory_service.service.redis.CallbackDB;
-import com.lamnguyen.inventory_service.service.redis.IVariantProductRedisManage;
+import com.lamnguyen.inventory_service.service.redis.IVariantByProductIdRedisManage;
 import com.lamnguyen.inventory_service.utils.property.RedissionClientUtil;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class VariantProductRedisManageImpl extends ACacheManage<VariantProduct[]> implements IVariantProductRedisManage {
+public class VariantProductRedisManageImpl extends ACacheManage<VariantProduct[]> implements IVariantByProductIdRedisManage {
 	public VariantProductRedisManageImpl(RedisTemplate<String, VariantProduct[]> template, RedissionClientUtil redissonClient) {
 		super(template, redissonClient);
 	}

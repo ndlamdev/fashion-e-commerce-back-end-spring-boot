@@ -113,7 +113,6 @@ public interface IProductMapper {
 		throw ApplicationException.createException(ExceptionEnum.DUPLICATE, "Duplicate tag");
 	}
 
-	@BeanMapping(ignoreByDefault = true)
 	ProductInCartDto toProductInCartDto(
 			ProductResponse response,
 			IImageMapper imageMapper,
@@ -125,18 +124,16 @@ public interface IProductMapper {
 	default void afterMapping(
 			ProductResponse response,
 			@MappingTarget ProductInCartDto.Builder builder,
-			IOptionMapper optionMapper,
 			IImageMapper imageMapper,
+			IOptionMapper optionMapper,
 			IGrpcMapper grpcMapper
 	) {
 		if (response.getOptions() != null)
 			builder.addAllOptions(response.getOptions().stream().map(data -> optionMapper.toOptionDto(data, grpcMapper)).toList());
 		if (response.getImages() != null)
 			builder.addAllImages(response.getImages().stream().map(imageMapper::toImage).toList());
-
 	}
 
-	@BeanMapping(ignoreByDefault = true)
 	com.lamnguyen.product_service.protos.ProductDto toProductDto(
 			ProductResponse response,
 			IImageMapper imageMapper,
@@ -163,6 +160,6 @@ public interface IProductMapper {
 		if (response.getTags() != null)
 			builder.addAllTags(response.getTags().stream().map(data -> com.lamnguyen.product_service.protos.ProductTag.valueOf(data.name())).toList());
 		if (response.getOptionsValues() != null)
-			builder.addAllOptionsValue(response.getOptionsValues().stream().map(data -> imageOptionsValueMapper.toImageOptionsValueDto(data, imageMapper, optionItemMapper)).toList());
+			builder.addAllOptionsValues(response.getOptionsValues().stream().map(data -> imageOptionsValueMapper.toImageOptionsValueDto(data, imageMapper, optionItemMapper)).toList());
 	}
 }

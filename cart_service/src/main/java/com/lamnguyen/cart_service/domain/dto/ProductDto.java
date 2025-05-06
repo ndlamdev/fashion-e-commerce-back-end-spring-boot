@@ -35,7 +35,7 @@ public class ProductDto implements Serializable {
 
 	List<OptionDto> options;
 
-	List<String> images; // Hình ảnh để show card
+	List<ImageDto> images; // Hình ảnh để show card
 
 	@Builder.Default
 	boolean available = true; // Có khả dụng hay không
