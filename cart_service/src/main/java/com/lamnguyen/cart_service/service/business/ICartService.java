@@ -9,6 +9,7 @@
 package com.lamnguyen.cart_service.service.business;
 
 import com.lamnguyen.cart_service.domain.dto.CartDto;
+import com.lamnguyen.cart_service.domain.request.UpdateCartItemRequest;
 import com.lamnguyen.cart_service.domain.response.CartResponse;
 
 public interface ICartService {
@@ -17,4 +18,6 @@ public interface ICartService {
 	CartDto createCart(long userId);
 
 	void addVariantToCart(long userId, String variantId);
+
+	void updateCartItem(long userId, UpdateCartItemRequest request);
 }

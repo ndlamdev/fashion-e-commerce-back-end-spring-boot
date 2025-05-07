@@ -11,19 +11,18 @@ package com.lamnguyen.cart_service.service.business.v1;
 import com.lamnguyen.cart_service.config.exception.ApplicationException;
 import com.lamnguyen.cart_service.config.exception.ExceptionEnum;
 import com.lamnguyen.cart_service.domain.dto.CartDto;
+import com.lamnguyen.cart_service.domain.request.UpdateCartItemRequest;
 import com.lamnguyen.cart_service.domain.response.CartResponse;
 import com.lamnguyen.cart_service.mapper.ICartMapper;
 import com.lamnguyen.cart_service.model.Cart;
 import com.lamnguyen.cart_service.repository.ICartRepository;
 import com.lamnguyen.cart_service.service.business.ICartItemService;
 import com.lamnguyen.cart_service.service.business.ICartService;
-import com.lamnguyen.cart_service.service.grpc.IInventoryGrpcClient;
 import com.lamnguyen.cart_service.service.grpc.IProductGrpcClient;
 import com.lamnguyen.cart_service.service.redis.ICartRedisManage;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.Array;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -72,8 +71,15 @@ public class CartServiceImpl implements ICartService {
 
 	@Override
 	public void addVariantToCart(long userId, String variantId) {
-		var cart = cartRepository.findByUserId(userId).map(cartMapper::toCartDto).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.CART_NOT_FOUND));
+		var cart = getCartByUserId(userId);
 		cartItemService.addCartItem(cart.getId(), variantId);
+		cartRedisManage.delete(String.valueOf(userId));
+	}
+
+	@Override
+	public void updateCartItem(long userId, UpdateCartItemRequest request) {
+		var cart = getCartByUserId(userId);
+		cartItemService.updateQuantityCartItem(cart.getId(), request.id(), request.quantity());
 		cartRedisManage.delete(String.valueOf(userId));
 	}
 }

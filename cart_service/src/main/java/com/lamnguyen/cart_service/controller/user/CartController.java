@@ -8,7 +8,7 @@
 
 package com.lamnguyen.cart_service.controller.user;
 
-import com.lamnguyen.cart_service.domain.dto.CartDto;
+import com.lamnguyen.cart_service.domain.request.UpdateCartItemRequest;
 import com.lamnguyen.cart_service.domain.response.CartResponse;
 import com.lamnguyen.cart_service.service.business.ICartService;
 import com.lamnguyen.cart_service.utils.annotation.ApiMessageResponse;
@@ -37,8 +37,15 @@ public class  CartController {
 
 	@GetMapping("/me")
 	@PreAuthorize("hasAnyAuthority('ROLE_BASE', 'ROLE_ADMIN', 'GET_CART_INFO')")
-	@ApiMessageResponse("Add product into cart success!")
+	@ApiMessageResponse("Get my cart success!")
 	public CartResponse getCartInfo(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
 		return cartService.getCartByUserId(jwtTokenUtil.getUserIdNotVerify(token));
+	}
+
+	@PutMapping
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_BASE', 'CHANGE_QUANTITY_CART_ITEM')")
+	@ApiMessageResponse("Update cart items quantity success!")
+	public void updateCartItem(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody UpdateCartItemRequest request) {
+		cartService.updateCartItem(jwtTokenUtil.getUserIdNotVerify(token), request);
 	}
 }

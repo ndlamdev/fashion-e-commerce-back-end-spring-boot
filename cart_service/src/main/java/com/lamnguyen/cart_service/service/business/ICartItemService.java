@@ -10,4 +10,6 @@ package com.lamnguyen.cart_service.service.business;
 
 public interface ICartItemService {
 	void addCartItem(long cartId, String variantId);
+
+	void updateQuantityCartItem(long cartId, long id, int quantity);
 }

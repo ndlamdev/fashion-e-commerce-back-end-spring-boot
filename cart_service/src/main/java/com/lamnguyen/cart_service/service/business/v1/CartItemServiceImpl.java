@@ -29,29 +29,38 @@ public class CartItemServiceImpl implements ICartItemService {
 
 	@Override
 	public void addCartItem(long cartId, String variantId) {
-		if (!inventoryGrpcClient.existInventory(variantId)) return;
+		var variantProduct = inventoryGrpcClient.getVariantProductByVariantId(variantId);
 		var cartItem = CartItem.builder()
 				.cart(Cart.builder().id(cartId).build())
 				.variantId(variantId)
-				.productId(inventoryGrpcClient.productIdOfVariant(variantId))
+				.productId(variantProduct.getProductId())
 				.build();
 
 		if (cartItemRepository.existsByCartIdAndVariantId(cartId, variantId)) {
-			plusQuantity(cartId, variantId, 1);
+			plusQuantity(cartId, variantId, variantProduct.getQuantity(), 1);
 			return;
 		}
 
 		try {
 			cartItemRepository.save(cartItem);
 		} catch (Exception ignored) {
-			plusQuantity(cartId, variantId, 1);
+			plusQuantity(cartId, variantId, variantProduct.getQuantity(), 1);
 		}
 	}
 
-	private void plusQuantity(long cartId, String variantId, int quantity) {
+	private void plusQuantity(long cartId, String variantId, int inventory, int quantityPlus) {
 		var item = cartItemRepository.findByCartIdAndVariantId(cartId, variantId)
 				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.CART_ITEM_NOT_FOUND));
-		item.setQuantity(item.getQuantity() + quantity);
+		item.setQuantity(item.getQuantity() + quantityPlus);
+		if (item.getQuantity() + quantityPlus > inventory)
+			throw ApplicationException.createException(ExceptionEnum.NOT_ENOUGH_QUANTITY);
 		cartItemRepository.save(item);
+	}
+
+	@Override
+	public void updateQuantityCartItem(long cartId, long id, int quantity) {
+		var cartItem = cartItemRepository.findByIdAndCartId(id, cartId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.CART_ITEM_NOT_FOUND));
+		var variantProduct = inventoryGrpcClient.getVariantProductByVariantId(cartItem.getVariantId());
+		plusQuantity(cartId, cartItem.getVariantId(), variantProduct.getQuantity(), quantity);
 	}
 }

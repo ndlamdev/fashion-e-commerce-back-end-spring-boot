@@ -22,6 +22,7 @@ public enum ExceptionEnum {
 	DUPLICATE(80006, "Duplicate value"),
 	UNVALIDATED(88888, "Unvalidated"),
 	CART_ITEM_NOT_FOUND(80007, "Cart item not found"),
+	NOT_ENOUGH_QUANTITY(80008, "Not enough quantity"),
 	;
 
 	int code;

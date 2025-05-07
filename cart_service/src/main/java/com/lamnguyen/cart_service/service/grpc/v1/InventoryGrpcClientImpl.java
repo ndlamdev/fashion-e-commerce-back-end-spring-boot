@@ -10,7 +10,8 @@ package com.lamnguyen.cart_service.service.grpc.v1;
 
 import com.lamnguyen.cart_service.protos.InventoryServiceGrpc;
 import com.lamnguyen.cart_service.protos.ProductIdOfVariantRequest;
-import com.lamnguyen.cart_service.protos.VariantProductExistRequest;
+import com.lamnguyen.cart_service.protos.VariantIdsRequest;
+import com.lamnguyen.cart_service.protos.VariantProductInfo;
 import com.lamnguyen.cart_service.service.grpc.IInventoryGrpcClient;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
@@ -29,19 +31,31 @@ public class InventoryGrpcClientImpl implements IInventoryGrpcClient {
 	public InventoryServiceGrpc.InventoryServiceBlockingStub inventoryServiceStub;
 
 	@Override
-	public Map<String, Boolean> existInventory(List<String> ids) {
-		var request = VariantProductExistRequest.newBuilder().addAllIds(ids).build();
+	public Map<String, Boolean> existVariantProductByVariantIds(List<String> ids) {
+		var request = VariantIdsRequest.newBuilder().addAllVariantIds(ids).build();
 		return inventoryServiceStub.existsVariant(request).getExistIdsMap();
 	}
 
 	@Override
-	public boolean existInventory(String id) {
-		return existInventory(List.of(id)).getOrDefault(id, false);
+	public boolean existVariantProductByVariantId(String id) {
+		return existVariantProductByVariantIds(List.of(id)).getOrDefault(id, false);
 	}
 
 	@Override
-	public String productIdOfVariant(String id) {
-		var request = ProductIdOfVariantRequest.newBuilder().setVariantId(id).build();
+	public String getProductIdByVariantId(String variantId) {
+		var request = ProductIdOfVariantRequest.newBuilder().setVariantId(variantId).build();
 		return inventoryServiceStub.getProductIdOfVariantProduct(request).getProductId();
+	}
+
+	@Override
+	public VariantProductInfo getVariantProductByVariantId(String variantId) {
+		var result = getVariantProductByVariantIds(List.of(variantId));
+		return result.getOrDefault(variantId, null);
+	}
+
+	@Override
+	public Map<String, VariantProductInfo> getVariantProductByVariantIds(List<String> variantIds) {
+		var request = VariantIdsRequest.newBuilder().addAllVariantIds(variantIds).build();
+		return inventoryServiceStub.getVariantProductByVariantIdsIdsNotDeleteAndProductNotLock(request).getVariantsMap();
 	}
 }

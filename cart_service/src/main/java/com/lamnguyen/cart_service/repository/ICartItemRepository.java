@@ -19,4 +19,6 @@ public interface ICartItemRepository extends JpaRepository<CartItem, Long> {
 	Optional<CartItem> findByCartIdAndVariantId(long cartId, String variantId);
 
 	boolean existsByCartIdAndVariantId(long cartId, String variantId);
+
+	Optional<CartItem> findByIdAndCartId(long id, long cartId);
 }

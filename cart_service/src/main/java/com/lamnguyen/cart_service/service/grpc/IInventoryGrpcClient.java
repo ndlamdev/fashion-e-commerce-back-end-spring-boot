@@ -8,13 +8,19 @@
 
 package com.lamnguyen.cart_service.service.grpc;
 
+import com.lamnguyen.cart_service.protos.VariantProductInfo;
+
 import java.util.List;
 import java.util.Map;
 
 public interface IInventoryGrpcClient {
-	Map<String, Boolean> existInventory(List<String> ids);
+	Map<String, Boolean> existVariantProductByVariantIds(List<String> ids);
 
-	boolean existInventory(String id);
+	boolean existVariantProductByVariantId(String id);
 
-	String productIdOfVariant(String id);
+	String getProductIdByVariantId(String variantId);
+
+	VariantProductInfo getVariantProductByVariantId(String variantId);
+
+	Map<String, VariantProductInfo> getVariantProductByVariantIds(List<String> variantId);
 }
