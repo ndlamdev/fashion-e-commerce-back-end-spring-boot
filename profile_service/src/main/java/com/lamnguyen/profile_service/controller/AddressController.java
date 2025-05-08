@@ -21,7 +21,7 @@ public class AddressController {
     IAddressService service;
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('USER_GET_ALL_ADDRESS', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('USER_GET_ALL_ADDRESS', 'ROLE_BASE', 'ROLE_ADMIN')")
     @ApiMessageResponse("get addresses")
     public List<AddressResponse> getAll() {
         return service.getAddresses();
@@ -34,7 +34,7 @@ public class AddressController {
         return service.getAddressById(id);
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('USER_SAVE_ADDRESS', 'ROLE_BASE', 'ROLE_ADMIN')")
     @ApiMessageResponse("save address")
     public AddressResponse saveAddress(

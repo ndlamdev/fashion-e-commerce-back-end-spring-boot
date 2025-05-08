@@ -61,7 +61,7 @@ public class AddressServiceImpl implements IAddressService {
             throw ApplicationException.createException(ExceptionEnum.ADDRESS_LARGER_LIMITED);
         var address = mapper.toAddress(request);
         if (addresses.isEmpty())  address.setActive(true);
-        if(addressDefault != null) repository.inactiveAddress(addressDefault.id(), customerId);
+        if(addressDefault != null && address.getActive()) repository.inactiveAddress(addressDefault.id(), customerId);
         if(address.getActive()) customerProducer.sendInfoAddressShipping(mapper.toInfoAddressShipping(address)); // send info-address-topic
         address.setCustomer(Customer.builder().id(customerId).build());
         return mapper.toAddressResponse(repository.save(address));
