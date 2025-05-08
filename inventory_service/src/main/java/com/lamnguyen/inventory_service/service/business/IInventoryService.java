@@ -19,11 +19,13 @@ public interface IInventoryService {
 
 	boolean updateInventoryQuantity(String productId, Map<OptionType, String> options, int quantity);
 
-	List<VariantProduct> getAllInventory(String productId);
+	List<VariantProduct> getAllInventoryByProductId(String productId);
 
 	void updateVariantProduct(DataVariantEvent event);
 
-	boolean existsVariantProduct(String variantId);
+	boolean existsVariantProductId(String variantId);
 
 	String getProductId(String variantId);
+
+	VariantProduct getVariantProductById(String variantId);
 }

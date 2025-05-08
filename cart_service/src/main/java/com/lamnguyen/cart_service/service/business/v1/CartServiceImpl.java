@@ -11,8 +11,8 @@ package com.lamnguyen.cart_service.service.business.v1;
 import com.lamnguyen.cart_service.config.exception.ApplicationException;
 import com.lamnguyen.cart_service.config.exception.ExceptionEnum;
 import com.lamnguyen.cart_service.domain.dto.CartDto;
-import com.lamnguyen.cart_service.domain.request.UpdateCartItemRequest;
 import com.lamnguyen.cart_service.domain.response.CartResponse;
+import com.lamnguyen.cart_service.domain.response.UpdateCartItemResponse;
 import com.lamnguyen.cart_service.mapper.ICartMapper;
 import com.lamnguyen.cart_service.model.Cart;
 import com.lamnguyen.cart_service.repository.ICartRepository;
@@ -77,9 +77,10 @@ public class CartServiceImpl implements ICartService {
 	}
 
 	@Override
-	public void updateCartItem(long userId, UpdateCartItemRequest request) {
+	public UpdateCartItemResponse updateCartItem(long userId, long cartItemId, int quantity) {
 		var cart = getCartByUserId(userId);
-		cartItemService.updateQuantityCartItem(cart.getId(), request.id(), request.quantity());
+		var newQuantity = cartItemService.updateQuantityCartItem(cart.getId(), cartItemId, quantity);
 		cartRedisManage.delete(String.valueOf(userId));
+		return UpdateCartItemResponse.builder().cartItemId(cartItemId).quantity(newQuantity).build();
 	}
 }

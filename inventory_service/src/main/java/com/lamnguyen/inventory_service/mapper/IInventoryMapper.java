@@ -9,6 +9,7 @@
 package com.lamnguyen.inventory_service.mapper;
 
 import com.lamnguyen.inventory_service.model.VariantProduct;
+import com.lamnguyen.inventory_service.protos.VariantProductByVariantIdsResponse;
 import com.lamnguyen.inventory_service.protos.VariantProductInfo;
 import com.lamnguyen.inventory_service.utils.enums.OptionType;
 import org.mapstruct.*;

@@ -9,8 +9,8 @@
 package com.lamnguyen.cart_service.service.business;
 
 import com.lamnguyen.cart_service.domain.dto.CartDto;
-import com.lamnguyen.cart_service.domain.request.UpdateCartItemRequest;
 import com.lamnguyen.cart_service.domain.response.CartResponse;
+import com.lamnguyen.cart_service.domain.response.UpdateCartItemResponse;
 
 public interface ICartService {
 	CartResponse getCartByUserId(long userId);
@@ -19,5 +19,5 @@ public interface ICartService {
 
 	void addVariantToCart(long userId, String variantId);
 
-	void updateCartItem(long userId, UpdateCartItemRequest request);
+	UpdateCartItemResponse updateCartItem(long userId, long cartItemId, int quantity);
 }

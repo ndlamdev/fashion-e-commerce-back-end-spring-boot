@@ -8,7 +8,6 @@
 
 package com.lamnguyen.product_service.service.grpc.v1;
 
-import com.lamnguyen.product_service.mapper.*;
 import com.lamnguyen.product_service.protos.ProductInCartDto;
 import com.lamnguyen.product_service.protos.ProductRequest;
 import com.lamnguyen.product_service.protos.ProductServiceGrpc;
@@ -29,16 +28,11 @@ public class ProductGrpcServiceImpl extends ProductServiceGrpc.ProductServiceImp
 
 	@Override
 	public void getProductById(ProductRequest request, StreamObserver<com.lamnguyen.product_service.protos.ProductDto> responseObserver) {
+		log.info("Get product by id: {}", request.getProductId());
 		String productId = request.getProductId();
 
 		// Get product from the existing service
 		var protoProductDto = productService.getProductProtoById(productId);
-
-		// Log the request and response
-		log.info("==============================================================================================================================================================================================");
-		log.info("gRPC method: {}", "getProductById");
-		log.info("gRPC Request: {}", productId);
-		log.info("==============================================================================================================================================================================================");
 
 		// Send the response
 		responseObserver.onNext(protoProductDto);
@@ -47,16 +41,11 @@ public class ProductGrpcServiceImpl extends ProductServiceGrpc.ProductServiceImp
 
 	@Override
 	public void getProductInCartById(ProductRequest request, StreamObserver<ProductInCartDto> responseObserver) {
+		log.info("Get product in cart by id: {}", request.getProductId());
 		String productId = request.getProductId();
 
 		// Get product from the existing service
 		var protoProductDto = productService.getProductInCartById(productId);
-
-		// Log the request and response
-		log.info("==============================================================================================================================================================================================");
-		log.info("gRPC method: {}", "getProductInCartById");
-		log.info("gRPC Request: {}", productId);
-		log.info("==============================================================================================================================================================================================");
 
 		// Send the response
 		responseObserver.onNext(protoProductDto);

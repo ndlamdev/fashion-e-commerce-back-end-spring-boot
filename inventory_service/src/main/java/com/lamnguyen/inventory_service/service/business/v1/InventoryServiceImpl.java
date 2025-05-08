@@ -61,7 +61,7 @@ public class InventoryServiceImpl implements IInventoryService {
 
 
 	@Override
-	public List<VariantProduct> getAllInventory(String productId) {
+	public List<VariantProduct> getAllInventoryByProductId(String productId) {
 		return Arrays.stream(variantProductRedisManage.get(productId).or(() -> variantProductRedisManage
 						.cache(productId, () -> Optional.of(inventoryRepository
 								.findByProductIdAndDeleteFalseAndLockFalse(productId)
@@ -71,7 +71,7 @@ public class InventoryServiceImpl implements IInventoryService {
 
 	@Override
 	public void updateVariantProduct(DataVariantEvent event) {
-		var oldVariantProduct = getAllInventory(event.id());
+		var oldVariantProduct = getAllInventoryByProductId(event.id());
 		var mapOldVariantProduct = oldVariantProduct
 				.stream()
 				.collect(Collectors.toMap(VariantProduct::getSku, variantProduct -> variantProduct));
@@ -155,7 +155,7 @@ public class InventoryServiceImpl implements IInventoryService {
 	}
 
 	@Override
-	public boolean existsVariantProduct(String variantId) {
+	public boolean existsVariantProductId(String variantId) {
 		return variantRedisManage
 				.get(variantId)
 				.or(() -> variantRedisManage.cache(variantId, variantId, () -> inventoryRepository.findById(variantId)))
@@ -168,5 +168,13 @@ public class InventoryServiceImpl implements IInventoryService {
 				.get(variantId)
 				.or(() -> variantRedisManage.cache(variantId, variantId, () -> inventoryRepository.findById(variantId)))
 				.map(VariantProduct::getProductId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.PRODUCT_NOT_FOUND));
+	}
+
+	@Override
+	public VariantProduct getVariantProductById(String variantId) {
+		return variantRedisManage
+				.get(variantId)
+				.or(() -> variantRedisManage.cache(variantId, variantId, () -> inventoryRepository.findById(variantId)))
+				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.VARIANT_PRODUCT_NOT_FOUND));
 	}
 }

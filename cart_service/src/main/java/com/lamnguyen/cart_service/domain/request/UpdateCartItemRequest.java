@@ -7,8 +7,10 @@
  **/
 package com.lamnguyen.cart_service.domain.request;
 
+import jakarta.validation.constraints.NotNull;
+
 public record UpdateCartItemRequest(
-		long id,
-		int quantity
+		@NotNull
+		Integer quantity
 ) {
 }

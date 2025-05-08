@@ -10,9 +10,11 @@ package com.lamnguyen.cart_service.controller.user;
 
 import com.lamnguyen.cart_service.domain.request.UpdateCartItemRequest;
 import com.lamnguyen.cart_service.domain.response.CartResponse;
+import com.lamnguyen.cart_service.domain.response.UpdateCartItemResponse;
 import com.lamnguyen.cart_service.service.business.ICartService;
 import com.lamnguyen.cart_service.utils.annotation.ApiMessageResponse;
 import com.lamnguyen.cart_service.utils.helper.JwtTokenUtil;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -42,10 +44,10 @@ public class  CartController {
 		return cartService.getCartByUserId(jwtTokenUtil.getUserIdNotVerify(token));
 	}
 
-	@PutMapping
+	@PutMapping("/update/{cartItemId}")
 	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_BASE', 'CHANGE_QUANTITY_CART_ITEM')")
 	@ApiMessageResponse("Update cart items quantity success!")
-	public void updateCartItem(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @RequestBody UpdateCartItemRequest request) {
-		cartService.updateCartItem(jwtTokenUtil.getUserIdNotVerify(token), request);
+	public UpdateCartItemResponse updateCartItem(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable("cartItemId") long id, @Valid @RequestBody UpdateCartItemRequest request) {
+		return cartService.updateCartItem(jwtTokenUtil.getUserIdNotVerify(token), id, request.quantity());
 	}
 }
