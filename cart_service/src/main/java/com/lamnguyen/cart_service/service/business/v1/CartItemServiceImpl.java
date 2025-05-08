@@ -19,6 +19,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +35,7 @@ public class CartItemServiceImpl implements ICartItemService {
 				.cart(Cart.builder().id(cartId).build())
 				.variantId(variantId)
 				.productId(variantProduct.getProductId())
+				.quantity(1)
 				.build();
 
 		if (cartItemRepository.existsByCartIdAndVariantId(cartId, variantId)) {
@@ -48,14 +50,13 @@ public class CartItemServiceImpl implements ICartItemService {
 		}
 	}
 
-	private int modifyQuantity(long cartId, String variantId, int inventory, int quantityModify) {
+	int modifyQuantity(long cartId, String variantId, int inventory, int quantityModify) {
 		var item = cartItemRepository.findByCartIdAndVariantId(cartId, variantId)
 				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.CART_ITEM_NOT_FOUND));
 
 		var newQuantity = item.getQuantity() + quantityModify;
-		if (newQuantity > inventory || newQuantity < 0)
+		if (newQuantity > inventory || newQuantity < 1)
 			throw ApplicationException.createException(ExceptionEnum.NOT_ENOUGH_QUANTITY);
-
 		item.setQuantity(newQuantity);
 		cartItemRepository.save(item);
 		return newQuantity;
@@ -66,5 +67,12 @@ public class CartItemServiceImpl implements ICartItemService {
 		var cartItem = cartItemRepository.findByIdAndCartId(id, cartId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.CART_ITEM_NOT_FOUND));
 		var variantProduct = inventoryGrpcClient.getVariantProductByVariantId(cartItem.getVariantId());
 		return modifyQuantity(cartId, cartItem.getVariantId(), variantProduct.getQuantity(), quantity);
+	}
+
+	@Override
+	@Transactional
+	public void removeCartItem(long cartId, long id) {
+		if (cartItemRepository.removeByIdAndCartId(id, cartId) == 0)
+			throw ApplicationException.createException(ExceptionEnum.CART_ITEM_NOT_FOUND);
 	}
 }

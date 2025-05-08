@@ -12,4 +12,6 @@ public interface ICartItemService {
 	void addCartItem(long cartId, String variantId);
 
 	int updateQuantityCartItem(long cartId, long id, int quantity);
+
+	void removeCartItem(long cartId, long id);
 }

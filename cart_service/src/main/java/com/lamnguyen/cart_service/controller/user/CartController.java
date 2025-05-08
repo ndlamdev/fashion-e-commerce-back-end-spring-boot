@@ -50,4 +50,11 @@ public class  CartController {
 	public UpdateCartItemResponse updateCartItem(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable("cartItemId") long id, @Valid @RequestBody UpdateCartItemRequest request) {
 		return cartService.updateCartItem(jwtTokenUtil.getUserIdNotVerify(token), id, request.quantity());
 	}
+
+	@DeleteMapping("/remove/{cartItemId}")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_BASE', 'REMOVE_CART_ITEM')")
+	@ApiMessageResponse("Remove cart item success!")
+	public void deleteCartItem(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable("cartItemId") long id) {
+		cartService.removeCartItem(jwtTokenUtil.getUserIdNotVerify(token), id);
+	}
 }

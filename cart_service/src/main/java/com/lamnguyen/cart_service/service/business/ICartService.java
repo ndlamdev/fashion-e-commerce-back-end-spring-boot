@@ -20,4 +20,6 @@ public interface ICartService {
 	void addVariantToCart(long userId, String variantId);
 
 	UpdateCartItemResponse updateCartItem(long userId, long cartItemId, int quantity);
+
+	void removeCartItem(long userId, long cartItemId);
 }

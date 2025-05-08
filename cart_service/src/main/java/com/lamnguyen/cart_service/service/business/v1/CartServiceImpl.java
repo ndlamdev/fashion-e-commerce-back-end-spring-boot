@@ -83,4 +83,11 @@ public class CartServiceImpl implements ICartService {
 		cartRedisManage.delete(String.valueOf(userId));
 		return UpdateCartItemResponse.builder().cartItemId(cartItemId).quantity(newQuantity).build();
 	}
+
+	@Override
+	public void removeCartItem(long userId, long cartItemId) {
+		var cart = getCartByUserId(userId);
+		cartItemService.removeCartItem(cart.getId(), cartItemId);
+		cartRedisManage.delete(String.valueOf(userId));
+	}
 }
