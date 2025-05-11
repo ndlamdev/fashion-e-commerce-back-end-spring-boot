@@ -18,7 +18,7 @@ def load_index():
     index = faiss.read_index(index_path)
     with open(meta_path, "rb") as f:
         data = pickle.load(f)
-    return index, data["image_paths"], data["labels"]
+    return index, data["Image"], data["labels"]
 
 
 def find_similar_images(query_image_path, top_k=5):
@@ -29,13 +29,10 @@ def find_similar_images(query_image_path, top_k=5):
 
     print(f"\n🔍 Kết quả tìm kiếm cho ảnh '{query_image_path}':")
     for i, idx in enumerate(indices[0]):
-        category, product = labels[idx].split("___")
-        path = image_paths[idx]
-        print(f"{i + 1}. Category: {category} | Product: {product} | Distance: {distances[0][i]:.4f}")
+        print(f"{i + 1}. Image {labels[idx]} | Distance: {distances[0][i]:.4f}")
 
 
 if __name__ == "__main__":
-    default_path = "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources\\quan-short-nam"
     find_similar_images(
-        "../data/test_data/test_3.jpg",
+        "../data/test/test.jpg",
         top_k=10)

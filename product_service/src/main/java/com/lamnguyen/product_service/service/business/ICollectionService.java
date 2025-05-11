@@ -9,7 +9,13 @@
 package com.lamnguyen.product_service.service.business;
 
 import com.lamnguyen.product_service.domain.dto.CollectionSaveRedisDto;
+import com.lamnguyen.product_service.domain.response.ProductResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 
 public interface ICollectionService {
 	CollectionSaveRedisDto findById(String id);
+
+	Page<ProductResponse> getProducts(String id, Pageable pageable);
 }

@@ -19,7 +19,7 @@ import com.lamnguyen.product_service.service.business.ICollectionManageService;
 import com.lamnguyen.product_service.service.business.IProductManageService;
 import com.lamnguyen.product_service.service.grpc.IMediaGrpcClient;
 import com.lamnguyen.product_service.service.kafka.producer.IVariantService;
-import com.lamnguyen.product_service.service.redis.IProductRedisManager;
+import com.lamnguyen.product_service.service.redis.IProductResponseRedisManager;
 import com.lamnguyen.product_service.utils.helper.ValidationUtil;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +35,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 	IProductRepository productRepository;
 	IProductMapper productMapper;
 	ICollectionManageService collectionManageService;
-	IProductRedisManager productRedisManager;
+	IProductResponseRedisManager productResponseRedisManager;
 	IMediaGrpcClient mediaGrpcClient;
 	ValidationUtil validationUtil;
 	private final ProductServiceImpl productServiceImpl;
@@ -67,7 +67,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 		productRepository.save(product);
 		var options = optionMapper.toDataVariantOptions(request.getOptions());
 		variantService.updateVariant(oldProduct.getId(), request.getComparePrice(), request.getRegularPrice(), options);
-		productRedisManager.delete(id);
+		productResponseRedisManager.delete(id);
 	}
 
 	@Override

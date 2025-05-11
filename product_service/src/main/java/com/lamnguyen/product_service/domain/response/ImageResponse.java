@@ -8,7 +8,6 @@
 
 package com.lamnguyen.product_service.domain.response;
 
-import com.lamnguyen.product_service.model.MongoBaseDocument;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +22,7 @@ import java.io.Serializable;
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class ImageResponse extends MongoBaseDocument implements Serializable {
+public class ImageResponse implements Serializable {
+	String id;
 	String src;
 }

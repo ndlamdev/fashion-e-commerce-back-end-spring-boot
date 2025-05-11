@@ -8,10 +8,10 @@
 
 package com.lamnguyen.product_service.service.redis.v1;
 
-import com.lamnguyen.product_service.domain.dto.ProductDto;
+import com.lamnguyen.product_service.domain.response.ProductResponse;
 import com.lamnguyen.product_service.service.redis.ACacheManage;
 import com.lamnguyen.product_service.service.redis.CallbackDB;
-import com.lamnguyen.product_service.service.redis.IProductRedisManager;
+import com.lamnguyen.product_service.service.redis.IProductResponseRedisManager;
 import com.lamnguyen.product_service.utils.helper.RedissionClientUtil;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
@@ -23,23 +23,23 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class ProductRedisManagerImpl extends ACacheManage<ProductDto> implements IProductRedisManager {
-	public ProductRedisManagerImpl(RedisTemplate<String, ProductDto> template, RedissionClientUtil redissonClient) {
+public class ProductResponseRedisManagerImpl extends ACacheManage<ProductResponse> implements IProductResponseRedisManager {
+	public ProductResponseRedisManagerImpl(RedisTemplate<String, ProductResponse> template, RedissionClientUtil redissonClient) {
 		super(template, redissonClient);
 	}
 
 	@Override
-	public Optional<ProductDto> get(String key) {
+	public Optional<ProductResponse> get(String key) {
 		return super.get(generateKeyCache(key));
 	}
 
 	@Override
-	public Optional<ProductDto> cache(String keyLock, String keyCache, CallbackDB<ProductDto> callDB) {
+	public Optional<ProductResponse> cache(String keyLock, String keyCache, CallbackDB<ProductResponse> callDB) {
 		return cache(keyLock, generateKeyCache(keyCache), callDB, 60, TimeUnit.MINUTES);
 	}
 
 	@Override
-	public void save(String key, ProductDto data) {
+	public void save(String key, ProductResponse data) {
 		save(generateKeyCache(key), data, 60, TimeUnit.MINUTES);
 	}
 
@@ -53,7 +53,7 @@ public class ProductRedisManagerImpl extends ACacheManage<ProductDto> implements
 	}
 
 	@Override
-	public Optional<ProductDto> cache(String id, CallbackDB<ProductDto> callDB) {
+	public Optional<ProductResponse> cache(String id, CallbackDB<ProductResponse> callDB) {
 		return cache(id, id, callDB);
 	}
 }

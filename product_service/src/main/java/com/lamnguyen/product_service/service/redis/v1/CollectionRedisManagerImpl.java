@@ -9,7 +9,6 @@
 package com.lamnguyen.product_service.service.redis.v1;
 
 import com.lamnguyen.product_service.domain.dto.CollectionSaveRedisDto;
-import com.lamnguyen.product_service.domain.dto.ProductDto;
 import com.lamnguyen.product_service.service.redis.ACacheManage;
 import com.lamnguyen.product_service.service.redis.CallbackDB;
 import com.lamnguyen.product_service.service.redis.ICollectionRedisManager;
@@ -36,7 +35,7 @@ public class CollectionRedisManagerImpl extends ACacheManage<CollectionSaveRedis
 
 	@Override
 	public Optional<CollectionSaveRedisDto> cache(String keyLock, String keyCache, CallbackDB<CollectionSaveRedisDto> callDB) {
-		return cache(keyLock, generateKeyCache(keyCache), callDB, 60, TimeUnit.MINUTES);
+		return cache(generateKeyCache(keyLock), generateKeyCache(keyCache), callDB, 60, TimeUnit.MINUTES);
 	}
 
 	@Override

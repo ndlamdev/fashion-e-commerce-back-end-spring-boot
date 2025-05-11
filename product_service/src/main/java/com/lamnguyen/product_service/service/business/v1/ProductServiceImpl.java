@@ -14,21 +14,23 @@ import com.lamnguyen.product_service.domain.response.ImageOptionsValueResponse;
 import com.lamnguyen.product_service.domain.response.ImageResponse;
 import com.lamnguyen.product_service.domain.response.ProductResponse;
 import com.lamnguyen.product_service.mapper.*;
+import com.lamnguyen.product_service.model.Product;
 import com.lamnguyen.product_service.protos.ProductDto;
 import com.lamnguyen.product_service.protos.ProductInCartDto;
 import com.lamnguyen.product_service.repository.IProductRepository;
 import com.lamnguyen.product_service.service.business.IProductService;
 import com.lamnguyen.product_service.service.grpc.IMediaGrpcClient;
 import com.lamnguyen.product_service.service.grpc.IVariantGrpcClient;
-import com.lamnguyen.product_service.service.redis.IProductRedisManager;
+import com.lamnguyen.product_service.service.redis.IProductResponseRedisManager;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
@@ -36,7 +38,7 @@ import java.util.List;
 public class ProductServiceImpl implements IProductService {
 	IProductMapper productMapper;
 	IProductRepository productRepository;
-	IProductRedisManager productRedisManager;
+	IProductResponseRedisManager productResponseRedisManager;
 	IVariantGrpcClient variantService;
 	IMediaGrpcClient mediaGrpcClient;
 	IImageOptionsValueMapper imageOptionsValueMapper;
@@ -47,45 +49,99 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public ProductResponse getProductById(String id) {
-		var productDto = productRedisManager.get(id)
-				.or(() -> productRedisManager.cache(id, () -> productRepository.findById(id).map(productMapper::toProductDto)))
+		return productResponseRedisManager.get(id)
+				.or(() -> productResponseRedisManager.cache(id, () -> getProductByIdFromDb(id)))
 				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.PRODUCT_NOT_FOUND));
-		var result = productMapper.toProductResponse(productDto);
-		result.setVariants(variantService.getVariantsByProductId(id));
-		if (productDto.getIconThumbnail() != null) {
-			var iconThumbnail = productDto.getIconThumbnail();
+	}
+
+	private Optional<ProductResponse> getProductByIdFromDb(String id) {
+		var productOptional = productRepository.findById(id);
+		if (productOptional.isEmpty()) return Optional.empty();
+		var product = productOptional.get();
+
+		var result = productMapper.toProductResponse(product);
+
+		var listTask = new ArrayList<CompletableFuture>();
+
+		var task = CompletableFuture.runAsync(() -> {
+			result.setVariants(variantService.getVariantsByProductId(id));
+		});
+		listTask.add(task);
+
+		task = CompletableFuture.runAsync(() -> {
+			formatProductThumbnail(result, product);
+		});
+		listTask.add(task);
+
+		task = CompletableFuture.runAsync(() -> {
+			formatProductImages(result, product);
+		});
+		listTask.add(task);
+
+		task = CompletableFuture.runAsync(() -> {
+			formatProductOptionsValues(result, product);
+		});
+		listTask.add(task);
+
+		CompletableFuture.allOf(listTask.toArray(CompletableFuture[]::new)).join();
+
+
+		return Optional.of(result);
+	}
+
+	private void formatProductThumbnail(ProductResponse result, Product product) {
+		if (product.getIconThumbnail() != null) {
+			var iconThumbnail = product.getIconThumbnail();
 			var mediaResponse = mediaGrpcClient.getImageDto(List.of(iconThumbnail));
 			result.setIconThumbnail(mediaResponse.getOrDefault(iconThumbnail, null));
 		}
+	}
 
-		if (productDto.getImages() != null && !productDto.getImages().isEmpty()) {
-			var mediaResponse = mediaGrpcClient.getImageDto(productDto.getImages());
+	private void formatProductImages(ProductResponse result, Product product) {
+		if (product.getImages() != null && !product.getImages().isEmpty()) {
+			var mediaResponse = mediaGrpcClient.getImageDto(product.getImages());
 			result.setImages(mediaResponse.values().stream().toList());
 		}
+	}
 
-		if (productDto.getOptionsValues() != null && !productDto.getOptionsValues().isEmpty()) {
-			var imageOptionsValueResponseArrayList = new ArrayList<ImageOptionsValueResponse>();
-			productDto.getOptionsValues().forEach(imageOptionsValueDto -> {
-				var imageOptionsValueResponse = imageOptionsValueMapper.toImageOptionsValueResponse(imageOptionsValueDto);
-				var mapImageOptionItem = new HashMap<String, List<ImageResponse>>();
-				imageOptionsValueDto.getOptions().forEach(optionItemDto -> {
-					if (optionItemDto.getImages() == null || optionItemDto.getImages().isEmpty()) {
-						return;
-					}
-					var mediaResponse = mediaGrpcClient.getImageDto(optionItemDto.getImages());
-					mapImageOptionItem.put(optionItemDto.getTitle(), mediaResponse.values().stream().toList());
-				});
-
-				imageOptionsValueResponse.getOptions().forEach(optionItemDto -> {
-					var images = mapImageOptionItem.getOrDefault(optionItemDto.getTitle(), null);
-					if (images != null) optionItemDto.setImages(images);
-					imageOptionsValueResponseArrayList.add(imageOptionsValueResponse);
-				});
+	private void formatProductOptionsValues(ProductResponse result, Product product) {
+		if ((product.getOptionsValues() == null || product.getOptionsValues().isEmpty())) return;
+		var imageOptionsValueResponseArrayList = new ArrayList<ImageOptionsValueResponse>(20);
+		var listTask = new ArrayList<CompletableFuture>();
+		product.getOptionsValues().forEach(imageOptionsValueDto -> {
+			var task = CompletableFuture.runAsync(() -> {
+				var imageOptionsValueResponse = imageOptionsValueMapper
+						.toImageOptionsValueResponse(imageOptionsValueDto);
+				var listTaskOptionImage = formatOptionsImage(imageOptionsValueResponse);
+				CompletableFuture.allOf(listTaskOptionImage.toArray(CompletableFuture[]::new)).join();
+				imageOptionsValueResponseArrayList.add(imageOptionsValueResponse);
 			});
-			result.setOptionsValues(imageOptionsValueResponseArrayList);
-		}
+			listTask.add(task);
+		});
+		CompletableFuture.allOf(listTask.toArray(CompletableFuture[]::new)).join();
+		result.setOptionsValues(imageOptionsValueResponseArrayList);
+	}
 
-		return result;
+	private List<CompletableFuture> formatOptionsImage(ImageOptionsValueResponse imageOptionsValueResponse) {
+		var listTask = new ArrayList<CompletableFuture>();
+		imageOptionsValueResponse.getOptions()
+				.forEach(optionItemDto -> {
+					var task = CompletableFuture.runAsync(() -> {
+						if (optionItemDto.getImages() == null || optionItemDto.getImages().isEmpty())
+							return;
+
+						var mediaResponse = mediaGrpcClient.getImageDto(
+								optionItemDto
+										.getImages()
+										.stream()
+										.map(ImageResponse::getId)
+										.toList()
+						);
+						optionItemDto.setImages(mediaResponse.values().stream().toList());
+					});
+					listTask.add(task);
+				});
+		return listTask;
 	}
 
 	@Override
@@ -102,21 +158,29 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public ProductInCartDto getProductInCartById(String id) {
-		var productDto = productRedisManager.get(id)
-				.or(() -> productRedisManager.cache(id, () -> productRepository.findById(id).map(productMapper::toProductDto)))
-				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.PRODUCT_NOT_FOUND));
-		var result = productMapper.toProductResponse(productDto);
-		result.setVariants(variantService.getVariantsByProductId(id));
-
-		if (productDto.getImages() != null && !productDto.getImages().isEmpty()) {
-			var mediaResponse = mediaGrpcClient.getImageDto(productDto.getImages());
-			result.setImages(mediaResponse.values().stream().toList());
-		}
+		var result = getProductById(id);
 
 		return productMapper.toProductInCartDto(
 				result,
 				imageMapper,
 				optionMapper,
 				grpcMapper);
+	}
+
+	@Override
+	public List<ProductResponse> getProductByids(List<String> ids) {
+		var result = new ArrayList<ProductResponse>(20);
+		var listTask = new ArrayList<CompletableFuture>();
+		ids.forEach(id -> {
+			var task = CompletableFuture.runAsync(() -> {
+				try {
+					result.add(getProductById(id));
+				} catch (Exception ignored) {
+				}
+			});
+			listTask.add(task);
+		});
+		CompletableFuture.allOf(listTask.toArray(CompletableFuture[]::new)).join();
+		return result;
 	}
 }

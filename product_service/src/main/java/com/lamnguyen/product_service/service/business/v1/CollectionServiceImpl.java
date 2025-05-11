@@ -10,17 +10,23 @@ package com.lamnguyen.product_service.service.business.v1;
 
 import com.lamnguyen.product_service.config.exception.ApplicationException;
 import com.lamnguyen.product_service.config.exception.ExceptionEnum;
-import com.lamnguyen.product_service.domain.dto.CollectionDto;
 import com.lamnguyen.product_service.domain.dto.CollectionSaveRedisDto;
+import com.lamnguyen.product_service.domain.response.ProductResponse;
 import com.lamnguyen.product_service.mapper.ICollectionMapper;
 import com.lamnguyen.product_service.repository.ICollectionRepository;
+import com.lamnguyen.product_service.repository.IProductRepository;
 import com.lamnguyen.product_service.service.business.ICollectionService;
+import com.lamnguyen.product_service.service.business.IProductService;
 import com.lamnguyen.product_service.service.redis.ICollectionRedisManager;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Optional;
 
 @Service
@@ -29,15 +35,30 @@ import java.util.Optional;
 public class CollectionServiceImpl implements ICollectionService {
 	ICollectionRepository collectionRepository;
 	ICollectionMapper collectionMapper;
-	ICollectionRedisManager manager;
+	ICollectionRedisManager collectionRedisManager;
+	IProductService productService;
+	IProductRepository productRepository;
 
 	@Override
 	public CollectionSaveRedisDto findById(String id) {
-		return manager.get(id)
+		return collectionRedisManager.get(id)
 				.orElseGet(() -> findInDb(id).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.COLLECTION_NOT_FOUND)));
 	}
 
 	private Optional<CollectionSaveRedisDto> findInDb(String id) {
-		return manager.cache(id, id, () -> collectionRepository.findByIdAndLockIsFalse(id).map(collectionMapper::toCollectionSaveRedisDto));
+		return collectionRedisManager.cache(id, id, () -> {
+			var collection = collectionRepository.findById(id);
+			var collectionRedis = collection.map(collectionMapper::toCollectionSaveRedisDto);
+			return collectionRedis;
+		});
+	}
+
+	@Override
+	public Page<ProductResponse> getProducts(String id, Pageable pageable) {
+		var collection = findById(id);
+		var ids = collection.getProducts().stream().skip(pageable.getOffset()).limit(pageable.getPageSize()).toList();
+		var products = productService.getProductByids(ids);
+		var result = new PageImpl<>(products, pageable, collection.getProducts().size());
+		return result;
 	}
 }

@@ -72,9 +72,12 @@ public class MediaServiceImpl implements IMediaService {
 
 	@Override
 	public boolean existsById(String id) {
-		return mediaManage.get(id)
-				.or(() -> mediaManage.cache(id, () -> mediaRepository.findById(id).map(mediaMapper::toDto)))
-				.isPresent();
+		try {
+			getById(id);
+			return true;
+		} catch (ApplicationException ignored) {
+			return false;
+		}
 	}
 
 	@Override

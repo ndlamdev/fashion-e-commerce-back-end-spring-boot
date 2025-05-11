@@ -48,7 +48,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'train_image_model.urls'
+ROOT_URLCONF = 'search_app.urls'
 
 TEMPLATES = [
     {

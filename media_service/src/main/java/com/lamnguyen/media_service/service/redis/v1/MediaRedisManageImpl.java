@@ -37,7 +37,7 @@ public class MediaRedisManageImpl extends ACacheManage<MediaDto> implements IMed
 
 	@Override
 	public void delete(String key) {
-		this.template.delete(generateKey(key));
+		super.delete(generateKey(key));
 	}
 
 	@Override

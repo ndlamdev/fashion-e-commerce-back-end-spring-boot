@@ -9,14 +9,20 @@
 package com.lamnguyen.product_service.controller.user;
 
 import com.lamnguyen.product_service.domain.dto.CollectionSaveRedisDto;
+import com.lamnguyen.product_service.domain.response.ProductResponse;
 import com.lamnguyen.product_service.service.business.ICollectionService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 @RequestMapping("/collection/v1")
@@ -29,5 +35,10 @@ public class CollectionController {
 	@GetMapping("/{id}")
 	CollectionSaveRedisDto getCollectionByCollectionId(@PathVariable("id") String id) {
 		return collectionService.findById(id);
+	}
+
+	@GetMapping("/{id}/products")
+	Page<ProductResponse> getAllProductByCollectionId(@PathVariable("id") String id, @PageableDefault(sort = {"_id"}, page = 0, size = 10, direction = Sort.Direction.ASC) Pageable pageable) {
+		return collectionService.getProducts(id, pageable);
 	}
 }
