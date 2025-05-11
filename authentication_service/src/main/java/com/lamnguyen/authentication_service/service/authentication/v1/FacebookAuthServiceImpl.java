@@ -94,10 +94,10 @@ public class FacebookAuthServiceImpl implements IFacebookAuthService {
 
     @Override
     public void register(RegisterAccountWithFacebookRequest request) {
-        preprocessDataRegister(request);
+        preprocessDataRegister(request.getToken(),request.getEmail());
 
         var jwt = jwtTokenUtil.decodeTokenNotVerify(request.getToken());
-        var payload = jwtTokenUtil.getFacebookPayloadDtoNotVerify(request.getToken());
+        var payload = jwtTokenUtil.getFacebookPayloadDto(request.getToken());
         var user = userMapper.toUser(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setActive(true);
@@ -118,18 +118,18 @@ public class FacebookAuthServiceImpl implements IFacebookAuthService {
         tokenManager.setRegisterTokenIdUsingFacebook(jwt.getId());
     }
 
-    private void preprocessDataRegister(RegisterAccountWithFacebookRequest request) {
-        var jwt = jwtTokenUtil.decodeToken(request.getToken());
+    private void preprocessDataRegister(String token, String email) {
+        var jwt = jwtTokenUtil.decodeToken(token);
         if (tokenManager.existRegisterTokenIdUsingFacebook(jwt.getId())) {
             throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
         }
 
-        var payload = jwtTokenUtil.getFacebookPayloadDtoNotVerify(request.getToken());
+        var payload = jwtTokenUtil.getFacebookPayloadDto(token);
         if (userService.existsUserByFacebookUserId(payload.id()))
             throw ApplicationException.createException(ExceptionEnum.USER_EXIST);
         User oldUser;
         try {
-            oldUser = userService.findUserByEmail(request.getEmail());
+            oldUser = userService.findUserByEmail(email);
         } catch (Exception ignored) {
             return;
         }
@@ -140,6 +140,6 @@ public class FacebookAuthServiceImpl implements IFacebookAuthService {
         var updateAvatarUserEvent = UpdateAvatarUserEvent.builder().avatar(payload.avatar()).userId(oldUser.getId()).build();
         profileUserService.updateAvatar(updateAvatarUserEvent);
         tokenManager.setRegisterTokenIdUsingFacebook(jwt.getId());
-        throw ApplicationException.createException(ExceptionEnum.ACCOUNT_NOT_LINK, "Your account has been linked to email " + request.getEmail());
+        throw ApplicationException.createException(ExceptionEnum.ACCOUNT_NOT_LINK, "Your account has been linked to email " + email);
     }
 }

@@ -9,6 +9,7 @@
 package com.lamnguyen.authentication_service.service.redis.v1;
 
 import com.lamnguyen.authentication_service.service.redis.IFacebookTokenRedisManager;
+import com.lamnguyen.authentication_service.utils.property.ApplicationProperty;
 import com.lamnguyen.authentication_service.utils.property.OtherAuthProperty.FacebookProperty;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -16,30 +17,33 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.TimeUnit;
+
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class FacebookTokenRedisManagerImpl implements IFacebookTokenRedisManager {
 	RedisTemplate<String, Object> redisTemplate;
-	FacebookProperty applicationProperty;
+	FacebookProperty facebookProperty;
+	ApplicationProperty applicationProperty;
 
 	@Override
 	public void setRegisterTokenIdUsingFacebook(String id) {
-		redisTemplate.opsForValue().set(applicationProperty.keyRegisterTokenUsingFacebook() + id, 1);
+		redisTemplate.opsForValue().set(facebookProperty.keyRegisterTokenUsingFacebook() + id, 1, applicationProperty.getExpireRegisterToken(), TimeUnit.MINUTES);
 	}
 
 	@Override
 	public boolean existRegisterTokenIdUsingFacebook(String id) {
-		return redisTemplate.opsForValue().get(applicationProperty.keyRegisterTokenUsingFacebook() + id) != null;
+		return redisTemplate.opsForValue().get(facebookProperty.keyRegisterTokenUsingFacebook() + id) != null;
 	}
 
 	@Override
 	public void setAccessTokenFacebook(String token) {
-		redisTemplate.opsForValue().set(applicationProperty.keyAccessTokenFacebook() + token, 1);
+		redisTemplate.opsForValue().set(facebookProperty.keyAccessTokenFacebook() + token, 1, 5, TimeUnit.HOURS);
 	}
 
 	@Override
 	public boolean existAccessTokenFacebook(String token) {
-		return redisTemplate.opsForValue().get(applicationProperty.keyAccessTokenFacebook() + token) != null;
+		return redisTemplate.opsForValue().get(facebookProperty.keyAccessTokenFacebook() + token) != null;
 	}
 }

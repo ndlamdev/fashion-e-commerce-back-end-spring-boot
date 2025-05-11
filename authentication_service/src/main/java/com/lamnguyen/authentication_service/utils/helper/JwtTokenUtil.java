@@ -119,7 +119,7 @@ public class JwtTokenUtil {
                 .build()));
     }
 
-    public GooglePayloadDto getGooglePayloadDtoNotVerify(String token) {
+    public GooglePayloadDto getGooglePayloadDto(String token) {
         var claims = jwtDecoder.decode(token).getClaim(applicationProperty.getJwtClaim());
         return objectMapper.convertValue(claims, GooglePayloadDto.class);
     }
@@ -135,8 +135,8 @@ public class JwtTokenUtil {
                 .build()));
     }
 
-    public FacebookPayloadDto getFacebookPayloadDtoNotVerify(String token) {
-        var claims = JWT.decode(token).getClaim(applicationProperty.getJwtClaim()).asMap();
+    public FacebookPayloadDto getFacebookPayloadDto(String token) {
+        var claims = jwtDecoder.decode(token).getClaim(applicationProperty.getJwtClaim());
         return objectMapper.convertValue(claims, FacebookPayloadDto.class);
     }
 

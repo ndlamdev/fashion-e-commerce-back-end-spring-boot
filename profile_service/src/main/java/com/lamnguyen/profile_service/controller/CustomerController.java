@@ -6,6 +6,7 @@ import com.lamnguyen.profile_service.domain.dto.CustomerDto;
 import com.lamnguyen.profile_service.domain.request.SaveCustomerRequest;
 import com.lamnguyen.profile_service.domain.response.SaveCustomerResponse;
 import com.lamnguyen.profile_service.service.business.ICustomerService;
+import com.lamnguyen.profile_service.utils.JwtTokenUtil;
 import com.lamnguyen.profile_service.utils.annotation.ApiMessageResponse;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
@@ -21,35 +22,33 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1/profile")
 public class CustomerController {
     ICustomerService customerService;
+    JwtTokenUtil jwtTokenUtil;
 
     @GetMapping("/customers")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_BASE')")
     @ApiMessageResponse("Get customer by page")
-    public ResponseEntity<ApiResponseSuccess<ApiPaging<CustomerDto>>> getAllCustomers(
+    public ApiPaging<CustomerDto> getAllCustomers(
             @Valid @RequestParam(defaultValue = "0") Integer page,
             @Valid @RequestParam(defaultValue = "12") Integer size
     ) {
-        return ResponseEntity.ok(customerService.getCustomers(page, size));
+        return customerService.getCustomers(page, size);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('USER_GET_PROFILE', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('USER_GET_PROFILE', 'ROLE_BASE', 'ROLE_ADMIN')")
     @ApiMessageResponse("Get customer by id")
-    public ResponseEntity<CustomerDto> getCustomer(@PathVariable @Valid Long id) {
-
-        return ResponseEntity.ok(customerService.getCustomerById(id));
+    public CustomerDto getCustomer(@PathVariable @Valid Long id) {
+        return customerService.getCustomerById(id);
     }
 
-    @PatchMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('USER_SAVE_PROFILE', 'ROLE_ADMIN')")
+    @PutMapping()
+    @PreAuthorize("hasAnyAuthority('USER_SAVE_PROFILE', 'ROLE_BASE', 'ROLE_ADMIN')")
     @ApiMessageResponse("save customer")
-    public ResponseEntity<ApiResponseSuccess<SaveCustomerResponse>> saveCustomer(
+    public CustomerDto saveCustomer(
             @Valid @RequestBody SaveCustomerRequest saveCustomerRequest,
-            @Valid @PathVariable Long id
+            @RequestHeader("Authorization") String token
     ) {
-        var response = ApiResponseSuccess.<SaveCustomerResponse>builder()
-                .data(customerService.saveCustomer(saveCustomerRequest, id))
-                .build();
-        return ResponseEntity.ok(response);
+        var payload = jwtTokenUtil.getPayloadNotVerify(jwtTokenUtil.decodeTokenNotVerify(token.substring("Bearer ".length())));
+        return customerService.saveCustomer(saveCustomerRequest, payload.getUserId());
     }
 }

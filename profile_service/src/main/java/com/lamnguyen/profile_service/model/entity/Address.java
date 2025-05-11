@@ -17,25 +17,36 @@ public class Address extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "customer_id")
     Customer customer;
-    String fullName;
-    String phone;
-    String street;
+    @Builder.Default
     @Column(nullable = false)
-    String ward;
+    String fullName="";
+    @Builder.Default
     @Column(nullable = false)
-    String wardCode;
+    String phone = "";
+    @Builder.Default
+    String street = "";
     @Column(nullable = false)
-    String district;
+    @Builder.Default
+    String ward = "";
     @Column(nullable = false)
-    String districtCode;
+    @Builder.Default
+    String wardCode = "";
     @Column(nullable = false)
-    String city;
+    @Builder.Default
+    String district = "";
+    @Builder.Default
     @Column(nullable = false)
-    String cityCode;
+    String districtCode = "";
     @Column(nullable = false)
-    String country;
+    @Builder.Default
+    String city = "";
     @Column(nullable = false)
-    String countryCode;
+    @Builder.Default
+    String cityCode = "";
     @Column(nullable = false)
-    Boolean active; // dia chi mac dinh
+    @Builder.Default
+    String countryCode = "";
+    @Builder.Default
+    @Column(nullable = false)
+    Boolean active = false; // dia chi mac dinh
 }

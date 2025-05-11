@@ -16,7 +16,6 @@ CREATE TABLE addresses
     district_code VARCHAR(255)           NOT NULL,
     city          VARCHAR(255)           NOT NULL,
     city_code     VARCHAR(255)           NOT NULL,
-    country       VARCHAR(255)           NOT NULL,
     country_code  VARCHAR(255)           NOT NULL,
     active        BIT(1)                 NOT NULL,
     CONSTRAINT pk_addresses PRIMARY KEY (id)
