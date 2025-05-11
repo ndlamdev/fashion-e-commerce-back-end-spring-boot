@@ -8,6 +8,7 @@
 
 package com.lamnguyen.product_service.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.lamnguyen.product_service.utils.enums.OptionType;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -21,6 +22,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class OptionDto implements Serializable {
 	OptionType type; // size | color
 

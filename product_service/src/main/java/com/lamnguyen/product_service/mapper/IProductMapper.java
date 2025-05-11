@@ -77,8 +77,8 @@ public interface IProductMapper {
 		// Bước 4: Thay thế các ký tự đặc biệt riêng của tiếng Việt
 		withoutDiacritics = withoutDiacritics.replaceAll("đ", "d");
 
-		// Bước 5: Thay khoảng trắng bằng dấu gạch dưới
-		return withoutDiacritics.replaceAll("\\s+", "_");
+		// Bước 5: Thay khoảng trắng bằng dấu gạch ngang
+		return withoutDiacritics.replaceAll("\\s+", "-");
 	}
 
 	@AfterMapping

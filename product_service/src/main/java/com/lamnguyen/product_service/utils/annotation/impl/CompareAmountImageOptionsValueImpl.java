@@ -21,7 +21,7 @@ public class CompareAmountImageOptionsValueImpl implements ConstraintValidator<C
 			return true;
 		for (var option : value.getOptions()) {
 			for (var optionsValue : value.getOptionsValues()) {
-				if (option.getType().equals(optionsValue.getOption())) {
+				if (option.getType().equals(optionsValue.getType())) {
 					if (optionsValue.getOptions() == null || optionsValue.getOptions().isEmpty()) continue;
 					if (option.getValues().size() != optionsValue.getOptions().size()) return false;
 					for (var valueInOption : optionsValue.getOptions()) {

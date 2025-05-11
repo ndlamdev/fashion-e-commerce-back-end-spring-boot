@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface IMediaService {
-	void upload(MultipartFile file);
+	String upload(MultipartFile file);
 
 	boolean existsById(String id);
 
