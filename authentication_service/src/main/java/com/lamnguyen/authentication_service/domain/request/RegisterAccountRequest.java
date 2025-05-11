@@ -37,10 +37,10 @@ public class RegisterAccountRequest {
 	@Pattern(regexp = ".*[@$!%*?&].*", message = "Password must contain at least one special character (@$!%*?&)")
 	String password;
 	@NotBlank
-	@JsonProperty("confirm-password")
+	@JsonProperty("confirm_password")
 	String confirmPassword;
 	@NotBlank
-	@JsonProperty("full-name")
+	@JsonProperty("full_name")
 	String fullName;
 	@NotBlank
 	String phone;

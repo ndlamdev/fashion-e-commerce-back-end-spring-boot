@@ -30,6 +30,7 @@ public class MediaGrpcServerImpl extends MediaServiceGrpc.MediaServiceImplBase {
 
 	@Override
 	public void checkMediaExists(MediaCodeRequest request, StreamObserver<MediaExistsResponse> responseObserver) {
+		log.info("Check media exists with id: {}", request.getMediaId());
 		var result = mediaService.existsById(request.getMediaId());
 		var response = MediaExistsResponse.newBuilder().setExists(result).build();
 		responseObserver.onNext(response);
@@ -38,6 +39,7 @@ public class MediaGrpcServerImpl extends MediaServiceGrpc.MediaServiceImplBase {
 
 	@Override
 	public void checkListMediaExists(MediaCodesRequest request, StreamObserver<MediaCodesExistsResponse> responseObserver) {
+		log.info("Check list media exists with ids: {}", request.getIdsList());
 		var resultData = new HashMap<String, Boolean>();
 		request.getIdsList().forEach(id -> {
 			resultData.put(id, mediaService.existsById(id));
@@ -51,11 +53,10 @@ public class MediaGrpcServerImpl extends MediaServiceGrpc.MediaServiceImplBase {
 
 	@Override
 	public void getMedias(MediasRequest request, StreamObserver<MediaResponse> responseObserver) {
+		log.info("Get medias with ids: {}", request.getIdList());
 		var builder = MediaResponse.newBuilder();
-		var data = mediaService.getAllById(request.getIdList());
-		data.forEach(mediaDto -> {
-			builder.putData(mediaDto.getId(), mediaMapper.toMediaInfo(mediaDto));
-		});
+		var data = mediaService.getMediaByIds(request.getIdList());
+		builder.putAllData(data);
 		responseObserver.onNext(builder.build());
 		responseObserver.onCompleted();
 	}

@@ -14,32 +14,18 @@ import com.lamnguyen.inventory_service.utils.enums.OptionType;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Interface for inventory management service
- */
 public interface IInventoryService {
-    
-    /**
-     * Process a DataVariantEvent to create inventory records
-     * @param event the DataVariantEvent
-     */
-    void createVariantProduct(DataVariantEvent event);
-    
-    /**
-     * Update inventory quantity
-     * @param productId the product ID
-     * @param options the options map
-     * @param quantity the new quantity
-     * @return true if updated, false if not found
-     */
-    boolean updateInventoryQuantity(String productId, Map<OptionType, String> options, int quantity);
-    
-    /**
-     * Get all inventory for a product
-     * @param productId the product ID
-     * @return list of all inventories
-     */
-    List<VariantProduct> getAllInventory(String productId);
+	void createVariantProduct(DataVariantEvent event);
 
-    void updateVariantProduct(DataVariantEvent event);
+	boolean updateInventoryQuantity(String productId, Map<OptionType, String> options, int quantity);
+
+	List<VariantProduct> getAllInventoryByProductId(String productId);
+
+	void updateVariantProduct(DataVariantEvent event);
+
+	boolean existsVariantProductId(String variantId);
+
+	String getProductId(String variantId);
+
+	VariantProduct getVariantProductById(String variantId);
 }

@@ -5,10 +5,13 @@ option java_package = "com.lamnguyen.inventory_service.protos";
 option java_outer_classname = "InventoryProto";
 
 service InventoryService {
-  rpc GetVariantProductNotDeleteAndProductNotLock (VariantProductRequest) returns (VariantProductResponse);
+  rpc GetVariantProductByProductIdNotDeleteAndProductNotLock (ProductIdRequest) returns (VariantProductResponse);
+  rpc GetVariantProductByVariantIdsIdsNotDeleteAndProductNotLock (VariantIdsRequest) returns (VariantProductByVariantIdsResponse);
+  rpc ExistsVariant(VariantIdsRequest) returns (VariantProductExistResponse);
+  rpc GetProductIdOfVariantProduct(ProductIdOfVariantRequest) returns (ProductIdOfVariantResponse);
 }
 
-message VariantProductRequest {
+message ProductIdRequest {
   string product_id = 1; // mã sản phẩm
 }
 
@@ -32,4 +35,24 @@ message VariantProductInfo {
 
 message VariantProductResponse {
   repeated VariantProductInfo variants = 1; // danh sách mã biến thể
+}
+
+message VariantProductByVariantIdsResponse {
+  map<string, VariantProductInfo> variants = 1;
+}
+
+message VariantIdsRequest {
+  repeated string variant_ids = 1;
+}
+
+message VariantProductExistResponse {
+  map<string, bool> existIds = 1;
+}
+
+message ProductIdOfVariantRequest {
+  string variant_id = 1;
+}
+
+message ProductIdOfVariantResponse {
+  string product_id = 1;
 }

@@ -9,10 +9,11 @@
 package com.lamnguyen.media_service.service.business;
 
 import com.lamnguyen.media_service.domain.dto.MediaDto;
-import org.springframework.core.io.Resource;
+import com.lamnguyen.media_service.protos.MediaInfo;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IMediaService {
 	void upload(MultipartFile file);
@@ -22,4 +23,6 @@ public interface IMediaService {
 	MediaDto getById(String id);
 
 	List<MediaDto> getAllById(List<String> ids);
+
+	Map<String, MediaInfo> getMediaByIds(List<String> ids);
 }

@@ -9,7 +9,12 @@
 package com.lamnguyen.product_service.service.business;
 
 import com.lamnguyen.product_service.domain.response.ProductResponse;
+import com.lamnguyen.product_service.protos.ProductInCartDto;
 
 public interface IProductService {
 	ProductResponse getProductById(String id);
+
+	com.lamnguyen.product_service.protos.ProductDto getProductProtoById(String id);
+
+	ProductInCartDto getProductInCartById(String id);
 }

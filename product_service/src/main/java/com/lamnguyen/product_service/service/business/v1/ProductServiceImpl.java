@@ -13,8 +13,9 @@ import com.lamnguyen.product_service.config.exception.ExceptionEnum;
 import com.lamnguyen.product_service.domain.response.ImageOptionsValueResponse;
 import com.lamnguyen.product_service.domain.response.ImageResponse;
 import com.lamnguyen.product_service.domain.response.ProductResponse;
-import com.lamnguyen.product_service.mapper.IImageOptionsValueMapper;
-import com.lamnguyen.product_service.mapper.IProductMapper;
+import com.lamnguyen.product_service.mapper.*;
+import com.lamnguyen.product_service.protos.ProductDto;
+import com.lamnguyen.product_service.protos.ProductInCartDto;
 import com.lamnguyen.product_service.repository.IProductRepository;
 import com.lamnguyen.product_service.service.business.IProductService;
 import com.lamnguyen.product_service.service.grpc.IMediaGrpcClient;
@@ -35,15 +36,19 @@ import java.util.List;
 public class ProductServiceImpl implements IProductService {
 	IProductMapper productMapper;
 	IProductRepository productRepository;
-	IProductRedisManager redisManager;
+	IProductRedisManager productRedisManager;
 	IVariantGrpcClient variantService;
 	IMediaGrpcClient mediaGrpcClient;
 	IImageOptionsValueMapper imageOptionsValueMapper;
+	IImageMapper imageMapper;
+	IGrpcMapper grpcMapper;
+	IOptionMapper optionMapper;
+	IOptionItemMapper optionItemMapper;
 
 	@Override
 	public ProductResponse getProductById(String id) {
-		var productDto = redisManager.get(id)
-				.or(() -> redisManager.cache(id, () -> productRepository.findById(id).map(productMapper::toProductDto)))
+		var productDto = productRedisManager.get(id)
+				.or(() -> productRedisManager.cache(id, () -> productRepository.findById(id).map(productMapper::toProductDto)))
 				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.PRODUCT_NOT_FOUND));
 		var result = productMapper.toProductResponse(productDto);
 		result.setVariants(variantService.getVariantsByProductId(id));
@@ -81,5 +86,37 @@ public class ProductServiceImpl implements IProductService {
 		}
 
 		return result;
+	}
+
+	@Override
+	public ProductDto getProductProtoById(String id) {
+		var response = getProductById(id);
+		return productMapper.toProductDto(
+				response,
+				imageMapper,
+				imageOptionsValueMapper,
+				optionMapper,
+				optionItemMapper,
+				grpcMapper);
+	}
+
+	@Override
+	public ProductInCartDto getProductInCartById(String id) {
+		var productDto = productRedisManager.get(id)
+				.or(() -> productRedisManager.cache(id, () -> productRepository.findById(id).map(productMapper::toProductDto)))
+				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.PRODUCT_NOT_FOUND));
+		var result = productMapper.toProductResponse(productDto);
+		result.setVariants(variantService.getVariantsByProductId(id));
+
+		if (productDto.getImages() != null && !productDto.getImages().isEmpty()) {
+			var mediaResponse = mediaGrpcClient.getImageDto(productDto.getImages());
+			result.setImages(mediaResponse.values().stream().toList());
+		}
+
+		return productMapper.toProductInCartDto(
+				result,
+				imageMapper,
+				optionMapper,
+				grpcMapper);
 	}
 }

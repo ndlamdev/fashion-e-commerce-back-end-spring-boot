@@ -16,6 +16,7 @@ import com.lamnguyen.product_service.model.Collection;
 import com.lamnguyen.product_service.model.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 import org.mapstruct.Named;
 
 import java.util.Set;
@@ -23,8 +24,25 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", uses = {IProductMapper.class})
 public interface ICollectionMapper {
+	@Mappings({
+			@Mapping(target = "id", ignore = true),
+			@Mapping(target = "lock", ignore = true),
+			@Mapping(target = "createBy", ignore = true),
+			@Mapping(target = "createAt", ignore = true),
+			@Mapping(target = "updateBy", ignore = true),
+			@Mapping(target = "updateAt", ignore = true),
+			@Mapping(target = "products", ignore = true),
+	})
 	Collection toCollection(TitleCollectionRequest titleCollectionRequest);
 
+	@Mappings({
+			@Mapping(target = "id", ignore = true),
+			@Mapping(target = "createBy", ignore = true),
+			@Mapping(target = "createAt", ignore = true),
+			@Mapping(target = "updateBy", ignore = true),
+			@Mapping(target = "updateAt", ignore = true),
+			@Mapping(target = "products", ignore = true),
+	})
 	Collection toCollection(UpdateCollectionRequest updateCollectionRequest);
 
 	Collection toCollection(CollectionDto dto);

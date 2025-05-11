@@ -5,10 +5,10 @@ option java_package = "com.lamnguyen.product_service.protos";
 option java_outer_classname = "InventoryProto";
 
 service InventoryService {
-  rpc GetVariantProductNotDeleteAndProductNotLock (VariantProductRequest) returns (VariantProductResponse);
+  rpc GetVariantProductByProductIdNotDeleteAndProductNotLock (ProductIdRequest) returns (VariantProductResponse);
 }
 
-message VariantProductRequest {
+message ProductIdRequest {
   string product_id = 1; // mã sản phẩm
 }
 

@@ -13,6 +13,7 @@ import com.lamnguyen.media_service.config.exception.ExceptionEnum;
 import com.lamnguyen.media_service.domain.dto.MediaDto;
 import com.lamnguyen.media_service.mapper.IMediaMapper;
 import com.lamnguyen.media_service.model.Media;
+import com.lamnguyen.media_service.protos.MediaInfo;
 import com.lamnguyen.media_service.repository.IMediaRepository;
 import com.lamnguyen.media_service.service.business.IMediaService;
 import com.lamnguyen.media_service.service.redis.IMediaRedisManage;
@@ -24,10 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -88,12 +86,26 @@ public class MediaServiceImpl implements IMediaService {
 
 	@Override
 	public List<MediaDto> getAllById(List<String> ids) {
-		return ids.stream().map(id -> {
+		var result = new ArrayList<MediaDto>();
+		for (var id : ids) {
 			try {
-				return getById(id);
-			} catch (ApplicationException e) {
-				return null;
+				result.add(getById(id));
+			} catch (ApplicationException ignored) {
 			}
-		}).filter(Objects::nonNull).toList();
+		}
+		return result;
+	}
+
+	@Override
+	public Map<String, MediaInfo> getMediaByIds(List<String> ids) {
+		var result = new HashMap<String, MediaInfo>();
+		for (var id : ids) {
+			try {
+				result.put(id, mediaMapper.toMediaInfo(getById(id)));
+			} catch (ApplicationException ignored) {
+			}
+		}
+
+		return result;
 	}
 }

@@ -26,6 +26,11 @@ public class MediaRedisManageImpl extends ACacheManage<MediaDto> implements IMed
 	}
 
 	@Override
+	public Optional<MediaDto> get(String id) {
+		return super.get(generateKey(id));
+	}
+
+	@Override
 	public Optional<MediaDto> cache(String keyLock, String keyCache, CallbackDB<MediaDto> callDB) {
 		return cache(keyLock, keyCache, callDB, 60, TimeUnit.MINUTES);
 	}
