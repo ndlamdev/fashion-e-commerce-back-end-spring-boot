@@ -9,5 +9,5 @@
 package com.lamnguyen.product_service.utils.enums;
 
 public enum GenderType {
-	MALE, FEMALE
+	MALE, FEMALE, UNISEX
 }

@@ -16,7 +16,7 @@ import java.util.List;
 public class ImageOptionsValueDto implements Serializable {
 	String title;
 
-	OptionType option;
+	OptionType type;
 
 	List<OptionItemDto> options;
 }

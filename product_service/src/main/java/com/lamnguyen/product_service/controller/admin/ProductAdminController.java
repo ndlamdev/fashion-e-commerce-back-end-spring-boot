@@ -15,19 +15,23 @@ import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/product/admin/v1")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
+@Log4j2
 public class ProductAdminController {
 	IProductManageService productManageService;
 
 	@PostMapping()
 	@ApiMessageResponse("Create success!")
 	public void create(@Valid @RequestBody DataProductRequest request) {
+		log.info("create product: " + request.getTitle());
 		productManageService.create(request);
+		log.info("create product: " + request.getTitle() + " success!");
 	}
 
 	@PostMapping("/{id}")

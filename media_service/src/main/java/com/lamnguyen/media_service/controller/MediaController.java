@@ -30,9 +30,9 @@ public class MediaController {
 	@PostMapping
 	@ApiMessageResponse("Upload file success!")
 	@PreAuthorize("hasAnyAuthority('UPLOAD_FILE','ROLE_ADMIN')")
-	public void uploadFile(@RequestParam("file") MultipartFile file) {
+	public String uploadFile(@RequestParam("file") MultipartFile file) {
 		System.out.println(file.getOriginalFilename());
 		System.out.println(file.getSize());
-		mediaService.upload(file);
+		return mediaService.upload(file);
 	}
 }

@@ -22,6 +22,7 @@ message ProductRequest {
 enum GenderType {
   MALE = 0;
   FEMALE = 1;
+  UNISEX = 2;
 }
 
 // Enum for ProductTag
@@ -54,7 +55,7 @@ message OptionDto {
 // Message for ImageOptionsValueDto
 message ImageOptionsValueDto {
   google.protobuf.StringValue title = 1;
-  OptionType option = 2;
+  OptionType type = 2;
   repeated OptionItemDto options = 3;
 }
 

@@ -6,8 +6,10 @@
  * User: kimin
  **/
 
-package com.lamnguyen.product_service.domain.request;
+package com.lamnguyen.product_service.domain.unformat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lamnguyen.product_service.domain.dto.OptionDto;
 import com.lamnguyen.product_service.model.Discount;
@@ -22,6 +24,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -29,17 +32,19 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DataProductRequest {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class DataProductUnformat implements Serializable {
 	@NotBlank
 	String title;
 
 	@JsonProperty("seo_alias")
 	String seoAlias;
 
-	@NotNull
+	@NotBlank
 	String vendor; // Người bán
 
 	@NotNull
+	@NotEmpty
 	List<ProductTag> tags; // Bán chạy hay mới....
 
 	@NotNull
@@ -47,11 +52,13 @@ public class DataProductRequest {
 	List<OptionDto> options; // Các option để tạo ra biến thể
 
 	@JsonProperty("options_values")
-	List<CreateImageOptionsValueRequest> optionsValues;// Các giá trị bổ xung thêm cho option. Như detail của option.
+	List<ImageOptionsValueUnformat> optionsValues;// Các giá trị bổ xung thêm cho option. Như detail của option.
 
+	@JsonIgnore
 	List<String> images; // Hình ảnh để show card
 
 	@JsonProperty("collection_id")
+	@JsonIgnore
 	String collection; // Thuộc danh sách nào
 
 	@JsonProperty("display_order")
@@ -66,12 +73,14 @@ public class DataProductRequest {
 	@JsonProperty("display_name_open")
 	String displayNameOpen; // Subtitle; hiển thị ở dưới title trong chi tiết sản phẩm
 
+	@NotNull
 	Discount discount; // Khuyến mãi
 
 	@JsonProperty("gender_type")
 	GenderType genderType;// Dòng sản phẩm của nam hay nữ
 
 	@JsonProperty("icon_thumbnail")
+	@JsonIgnore
 	String iconThumbnail; // Hình minh họa khuyến mãi
 
 	@JsonProperty("compare_price")

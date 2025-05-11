@@ -8,12 +8,14 @@
 
 package com.lamnguyen.product_service.domain.request;
 
+import com.lamnguyen.product_service.utils.enums.OptionType;
+
 import java.util.List;
 
 public record CreateImageOptionsValueRequest(
 		String title,
 
-		String option,
+		OptionType type,
 
 		List<CreateOptionItemRequest> options
 ) {

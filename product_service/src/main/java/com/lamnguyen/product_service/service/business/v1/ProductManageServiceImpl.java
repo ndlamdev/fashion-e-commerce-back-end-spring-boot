@@ -91,7 +91,9 @@ public class ProductManageServiceImpl implements IProductManageService {
 				});
 			});
 		}
-		var thumbnailExits = mediaGrpcClient.existsById(product.getIconThumbnail());
-		if (!thumbnailExits) product.setIconThumbnail(null);
+		if (product.getIconThumbnail() != null) {
+			var thumbnailExits = mediaGrpcClient.existsById(product.getIconThumbnail());
+			if (!thumbnailExits) product.setIconThumbnail(null);
+		}
 	}
 }

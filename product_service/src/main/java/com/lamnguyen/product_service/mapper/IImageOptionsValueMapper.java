@@ -32,7 +32,6 @@ public interface IImageOptionsValueMapper {
 			@Mapping(target = "unknownFields", ignore = true),
 			@Mapping(target = "mergeUnknownFields", ignore = true),
 			@Mapping(target = "mergeTitle", ignore = true),
-			@Mapping(target = "optionValue", ignore = true),
 			@Mapping(target = "removeOptions", ignore = true),
 			@Mapping(target = "allFields", ignore = true),
 			@Mapping(target = "optionsList", ignore = true),

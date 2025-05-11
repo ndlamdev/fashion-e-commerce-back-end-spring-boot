@@ -18,7 +18,7 @@ import java.util.List;
 public class ImageOptionsValue {
 	String title;
 
-	OptionType option;
+	OptionType type;
 
 	List<OptionItem> options;
 }
