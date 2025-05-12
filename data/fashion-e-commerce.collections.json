@@ -1,0 +1,831 @@
+[{
+  "_id": "681ca18a2a59db3110ec0b87",
+  "title": "Áo ba lổ tank top nam",
+  "products": [
+    "681ddb23695ebf3087d4aeab",
+    "681ddb2b695ebf3087d4aeac",
+    "681ddb51695ebf3087d4aeb2",
+    "681ddb5d695ebf3087d4aeb5",
+    "681ddb5b695ebf3087d4aeb4",
+    "681ddb79695ebf3087d4aeba",
+    "681ddb57695ebf3087d4aeb3",
+    "681ddb74695ebf3087d4aeb9",
+    "681ddb4e695ebf3087d4aeb1",
+    "681ddb8e695ebf3087d4aec0",
+    "681ddb71695ebf3087d4aeb8",
+    "681ddb6a695ebf3087d4aeb7",
+    "681ddb42695ebf3087d4aeaf",
+    "681ddb82695ebf3087d4aebe",
+    "681ddb8b695ebf3087d4aebf",
+    "681ddbb7695ebf3087d4aec2",
+    "681ddbb4695ebf3087d4aec1",
+    "681ddb69695ebf3087d4aeb6",
+    "681ddb7d695ebf3087d4aebc",
+    "681ddb7b695ebf3087d4aebb",
+    "681ddb31695ebf3087d4aead",
+    "681ddb7f695ebf3087d4aebd",
+    "681ddb38695ebf3087d4aeae",
+    "681ddb46695ebf3087d4aeb0"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-08T12:20:26.176Z"
+  },
+  "updateBy": "anonymousUser",
+  "updateAt": {
+    "$date": "2025-05-11T09:21:37.516Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Collection"
+},
+{
+  "_id": "681ca1962a59db3110ec0b88",
+  "title": "Áo bra nữ",
+  "products": [
+    "681decdb7f24022aff73cfbf",
+    "681ded417f24022aff73cfc5",
+    "681decee7f24022aff73cfc0",
+    "681ded167f24022aff73cfc3",
+    "681decc07f24022aff73cfbd",
+    "681deccb7f24022aff73cfbe",
+    "681decfc7f24022aff73cfc1",
+    "681ded287f24022aff73cfc4",
+    "681ded067f24022aff73cfc2"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-08T12:20:38.681Z"
+  },
+  "updateBy": "anonymousUser",
+  "updateAt": {
+    "$date": "2025-05-11T09:22:25.879Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Collection"
+},
+{
+  "_id": "681ca1b32a59db3110ec0b89",
+  "title": "Áo cropped top",
+  "products": [
+    "681df2697f24022aff73cfce",
+    "681df2917f24022aff73cfd3",
+    "681df2a87f24022aff73cfd4",
+    "681df2787f24022aff73cfd0",
+    "681df27d7f24022aff73cfd2",
+    "681df26e7f24022aff73cfcf",
+    "681df27a7f24022aff73cfd1",
+    "681df2b87f24022aff73cfd5"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-08T12:21:07.256Z"
+  },
+  "updateBy": "anonymousUser",
+  "updateAt": {
+    "$date": "2025-05-11T09:22:34.297Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Collection"
+},
+{
+  "_id": "681ca1c12a59db3110ec0b8a",
+  "title": "Áo khoắc nam",
+  "products": [
+    "681df5d07f24022aff73cfd9",
+    "681df5dc7f24022aff73cfdc",
+    "681df5c97f24022aff73cfd8",
+    "681df5c57f24022aff73cfd7",
+    "681df5d47f24022aff73cfdb",
+    "681df5be7f24022aff73cfd6",
+    "681df5d27f24022aff73cfda"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-08T12:21:21.881Z"
+  },
+  "updateBy": "anonymousUser",
+  "updateAt": {
+    "$date": "2025-05-11T09:22:46.158Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Collection"
+},
+{
+  "_id": "681ca1cf2a59db3110ec0b8b",
+  "title": "Áo nam chơi thể thao",
+  "products": [
+    "681e24c5bb70283b8383aef0",
+    "681e239abb70283b8383aece",
+    "681e2491bb70283b8383aeea",
+    "681e24a4bb70283b8383aeec",
+    "681e24bebb70283b8383aeef",
+    "681e239bbb70283b8383aecf",
+    "681e24d7bb70283b8383aef4",
+    "681e23bebb70283b8383aed3",
+    "681e2366bb70283b8383aec9",
+    "681e24b5bb70283b8383aeee",
+    "681e244fbb70283b8383aedc",
+    "681e23a0bb70283b8383aed0",
+    "681e2454bb70283b8383aedd",
+    "681e247bbb70283b8383aee6",
+    "681e2480bb70283b8383aee7",
+    "681e2391bb70283b8383aecd",
+    "681e245fbb70283b8383aedf",
+    "681e24dabb70283b8383aef5",
+    "681e24a5bb70283b8383aeed",
+    "681e24a0bb70283b8383aeeb",
+    "681e2442bb70283b8383aeda",
+    "681e238ebb70283b8383aecb",
+    "681e244bbb70283b8383aedb",
+    "681e23ecbb70283b8383aed7",
+    "681e2423bb70283b8383aed8",
+    "681e24d3bb70283b8383aef3",
+    "681e2390bb70283b8383aecc",
+    "681e2464bb70283b8383aee1",
+    "681e2461bb70283b8383aee0",
+    "681e248ebb70283b8383aee9",
+    "681e2362bb70283b8383aec8",
+    "681e2438bb70283b8383aed9",
+    "681e2469bb70283b8383aee2",
+    "681e2479bb70283b8383aee5",
+    "681e2455bb70283b8383aede",
+    "681e2389bb70283b8383aeca",
+    "681e24cbbb70283b8383aef1",
+    "681e234cbb70283b8383aec7",
+    "681e23d4bb70283b8383aed5",
+    "681e2340bb70283b8383aec5",
+    "681e23b1bb70283b8383aed1",
+    "681e2488bb70283b8383aee8",
+    "681e24d0bb70283b8383aef2",
+    "681e23c9bb70283b8383aed4",
+    "681e2470bb70283b8383aee4",
+    "681e2344bb70283b8383aec6",
+    "681e23bcbb70283b8383aed2",
+    "681e23ddbb70283b8383aed6",
+    "681e246fbb70283b8383aee3"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-08T12:21:35.859Z"
+  },
+  "updateBy": "anonymousUser",
+  "updateAt": {
+    "$date": "2025-05-11T09:22:57.613Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Collection"
+},
+{
+  "_id": "681ca1e22a59db3110ec0b8c",
+  "title": "Áo polo nam",
+  "products": [
+    "681e21c1bb70283b8383aeb6",
+    "681e21c6bb70283b8383aeb7",
+    "681e21cdbb70283b8383aeb8",
+    "681e21d6bb70283b8383aeb9",
+    "681e21e2bb70283b8383aeba",
+    "681e21e7bb70283b8383aebb",
+    "681e21f1bb70283b8383aebc",
+    "681e21fcbb70283b8383aebd",
+    "681e2208bb70283b8383aebe",
+    "681e223ebb70283b8383aebf",
+    "681e2247bb70283b8383aec0",
+    "681e224ebb70283b8383aec1",
+    "681e2254bb70283b8383aec2",
+    "681e2259bb70283b8383aec3",
+    "681e226cbb70283b8383aec4"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-08T12:21:54.315Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-09T15:42:37.831Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Collection"
+},
+{
+  "_id": "681ca1f52a59db3110ec0b8d",
+  "title": "Áo singlet nữ",
+  "products": [
+    "681e25bbbb70283b8383aef6",
+    "681e25e5bb70283b8383aef7",
+    "681e25eabb70283b8383aef8",
+    "681e25f6bb70283b8383aef9",
+    "681e260bbb70283b8383aefa",
+    "681e261cbb70283b8383aefb",
+    "681e262ebb70283b8383aefc"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-08T12:22:13.981Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-09T15:58:38.472Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Collection"
+},
+{
+  "_id": "681ca2032a59db3110ec0b8e",
+  "title": "Áo sơ mi nam",
+  "products": [
+    "681fd3085654935614d7e163",
+    "681fd31f5654935614d7e164",
+    "681fd3265654935614d7e165",
+    "681fd3295654935614d7e166",
+    "681fd32c5654935614d7e167",
+    "681fd32f5654935614d7e168",
+    "681fd3335654935614d7e169",
+    "681fd3575654935614d7e16a",
+    "681fd35f5654935614d7e16b"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-08T12:22:27.126Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-10T22:29:52.097Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Collection"
+},
+{
+  "_id": "681ca20a2a59db3110ec0b8f",
+  "title": "Áo thun nam",
+  "products": [
+    "681fd82cc14f15554fdec260",
+    "681fd841c14f15554fdec261",
+    "681fd845c14f15554fdec262",
+    "681fd84cc14f15554fdec263",
+    "681fd861c14f15554fdec264",
+    "681fd862c14f15554fdec265",
+    "681fd866c14f15554fdec266",
+    "681fd867c14f15554fdec267",
+    "681fd86bc14f15554fdec268",
+    "681fd86cc14f15554fdec269",
+    "681fd86ec14f15554fdec26a",
+    "681fd86fc14f15554fdec26b",
+    "681fd870c14f15554fdec26c",
+    "681fd871c14f15554fdec26d",
+    "681fd875c14f15554fdec26e",
+    "681fd882c14f15554fdec26f",
+    "681fd88ac14f15554fdec270",
+    "681fd88cc14f15554fdec271",
+    "681fd893c14f15554fdec272",
+    "681fd894c14f15554fdec273",
+    "681fd895c14f15554fdec274",
+    "681fd896c14f15554fdec275",
+    "681fd896c14f15554fdec276",
+    "681fd8a0c14f15554fdec278",
+    "681fd8a2c14f15554fdec279",
+    "681fd8a6c14f15554fdec27a",
+    "681fd8a9c14f15554fdec27b",
+    "681fd8abc14f15554fdec27c",
+    "681fd8c8c14f15554fdec27d",
+    "681fd8d7c14f15554fdec27e",
+    "681fd8e5c14f15554fdec27f",
+    "681fd8ecc14f15554fdec280",
+    "681fd8f2c14f15554fdec281",
+    "681fd8f4c14f15554fdec282",
+    "681fd8f5c14f15554fdec283",
+    "681fd8f8c14f15554fdec284",
+    "681fd8fdc14f15554fdec285",
+    "681fd906c14f15554fdec286",
+    "681fd907c14f15554fdec287",
+    "681fd916c14f15554fdec288",
+    "681fd917c14f15554fdec289",
+    "681fd920c14f15554fdec28a",
+    "681fd926c14f15554fdec28b",
+    "681fd926c14f15554fdec28c",
+    "681fd92ac14f15554fdec28e",
+    "681fd92fc14f15554fdec28f",
+    "681fd936c14f15554fdec290",
+    "681fd943c14f15554fdec291",
+    "681fd945c14f15554fdec292",
+    "681fd950c14f15554fdec293",
+    "681fd957c14f15554fdec294",
+    "681fd95ac14f15554fdec295",
+    "681fd95ec14f15554fdec296",
+    "681fd961c14f15554fdec297",
+    "681fd967c14f15554fdec298",
+    "681fd96ac14f15554fdec299",
+    "681fd96bc14f15554fdec29a",
+    "681fd96dc14f15554fdec29b",
+    "681fd970c14f15554fdec29c",
+    "681fd974c14f15554fdec29d",
+    "681fd975c14f15554fdec29e",
+    "681fd977c14f15554fdec29f",
+    "681fd979c14f15554fdec2a0",
+    "681fd97cc14f15554fdec2a1",
+    "681fd97ec14f15554fdec2a2",
+    "681fd985c14f15554fdec2a3",
+    "681fd988c14f15554fdec2a4",
+    "681fd98bc14f15554fdec2a5",
+    "681fd98fc14f15554fdec2a7",
+    "681fd990c14f15554fdec2a8",
+    "681fd992c14f15554fdec2a9",
+    "681fd993c14f15554fdec2aa",
+    "681fd9adc14f15554fdec2ab",
+    "681fd9b0c14f15554fdec2ac",
+    "681fd9b9c14f15554fdec2ad",
+    "681fd9bac14f15554fdec2ae",
+    "681fd9bcc14f15554fdec2af",
+    "681fd9bec14f15554fdec2b0",
+    "681fd9c3c14f15554fdec2b1",
+    "681fd9c8c14f15554fdec2b2",
+    "681fd9cac14f15554fdec2b3",
+    "681fd9ccc14f15554fdec2b4",
+    "681fd9d7c14f15554fdec2b5",
+    "681fd9dec14f15554fdec2b6",
+    "681fd9e3c14f15554fdec2b7",
+    "681fd9e5c14f15554fdec2b8",
+    "681fd9e8c14f15554fdec2b9",
+    "681fd9ebc14f15554fdec2ba",
+    "681fd9edc14f15554fdec2bb",
+    "681fd9f1c14f15554fdec2bc",
+    "681fd9f7c14f15554fdec2bd",
+    "681fd9f9c14f15554fdec2be",
+    "681fda00c14f15554fdec2bf",
+    "681fda03c14f15554fdec2c0",
+    "681fda06c14f15554fdec2c1",
+    "681fda0bc14f15554fdec2c2",
+    "681fda0dc14f15554fdec2c3",
+    "681fda0ec14f15554fdec2c4",
+    "681fda13c14f15554fdec2c5",
+    "681fda14c14f15554fdec2c6",
+    "681fda1bc14f15554fdec2c8",
+    "681fda20c14f15554fdec2c9",
+    "681fda2ec14f15554fdec2ca",
+    "681fda33c14f15554fdec2cb",
+    "681fda39c14f15554fdec2cc",
+    "681fda3cc14f15554fdec2cd",
+    "681fda41c14f15554fdec2ce",
+    "681fda45c14f15554fdec2cf",
+    "681fda4ac14f15554fdec2d0",
+    "681fda4cc14f15554fdec2d1",
+    "681fda4fc14f15554fdec2d2",
+    "681fda53c14f15554fdec2d3",
+    "681fda56c14f15554fdec2d4",
+    "681fda5bc14f15554fdec2d5",
+    "681fda60c14f15554fdec2d6",
+    "681fda66c14f15554fdec2d8",
+    "681fda68c14f15554fdec2d9",
+    "681fda6cc14f15554fdec2da",
+    "681fda6fc14f15554fdec2db",
+    "681fda75c14f15554fdec2dd",
+    "681fda78c14f15554fdec2df",
+    "681fda7ac14f15554fdec2e0",
+    "681fda8bc14f15554fdec2e1",
+    "681fda9bc14f15554fdec2e2",
+    "681fdaacc14f15554fdec2e3",
+    "681fdabdc14f15554fdec2e4",
+    "681fdacec14f15554fdec2e5",
+    "681fdad2c14f15554fdec2e6",
+    "681fdad9c14f15554fdec2e7",
+    "681fdadcc14f15554fdec2e8",
+    "681fdae1c14f15554fdec2e9",
+    "681fdae5c14f15554fdec2ea",
+    "681fdae7c14f15554fdec2eb",
+    "681fdae9c14f15554fdec2ec",
+    "681fdaedc14f15554fdec2ed",
+    "681fdaf0c14f15554fdec2ef",
+    "681fdaf3c14f15554fdec2f0",
+    "681fdaf7c14f15554fdec2f2",
+    "681fdaf8c14f15554fdec2f3",
+    "681fdb01c14f15554fdec2f4",
+    "681fdb0bc14f15554fdec2f5",
+    "681fdb12c14f15554fdec2f6",
+    "681fdb19c14f15554fdec2f7",
+    "681fdb21c14f15554fdec2f8",
+    "681fdb29c14f15554fdec2f9",
+    "681fdb30c14f15554fdec2fa",
+    "681fdb34c14f15554fdec2fb",
+    "681fdb3bc14f15554fdec2fc",
+    "681fdb42c14f15554fdec2fd",
+    "681fdb45c14f15554fdec2ff",
+    "681fdb46c14f15554fdec300",
+    "681fdb4bc14f15554fdec301",
+    "681fdb66c14f15554fdec303",
+    "681fdb6ac14f15554fdec304",
+    "681fdb6bc14f15554fdec305",
+    "681fdb71c14f15554fdec307"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-08T12:22:34.438Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-10T23:04:21.712Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Collection"
+},
+{
+  "_id": "681ca20f2a59db3110ec0b90",
+  "title": "Áo thun nữ",
+  "products": [
+    "681fdc96c14f15554fdec30c",
+    "681fdcc2c14f15554fdec30f",
+    "681fdc79c14f15554fdec30a",
+    "681fdc69c14f15554fdec309",
+    "681fdc59c14f15554fdec308",
+    "681fdcaac14f15554fdec30e",
+    "681fdcebc14f15554fdec310",
+    "681fdc9bc14f15554fdec30d",
+    "681fdcfcc14f15554fdec311",
+    "681fdc93c14f15554fdec30b"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-08T12:22:39.877Z"
+  },
+  "updateBy": "anonymousUser",
+  "updateAt": {
+    "$date": "2025-05-11T11:46:10.812Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Collection"
+},
+{
+  "_id": "681ca21a2a59db3110ec0b91",
+  "title": "Phụ kiện nam",
+  "products": [
+    "681fdedcc14f15554fdec312",
+    "681fdeecc14f15554fdec313",
+    "681fdefac14f15554fdec314",
+    "681fdefbc14f15554fdec315",
+    "681fdf00c14f15554fdec316",
+    "681fdf03c14f15554fdec317",
+    "681fdf07c14f15554fdec318",
+    "681fdf08c14f15554fdec319",
+    "681fdf0ac14f15554fdec31a",
+    "681fdf0dc14f15554fdec31b",
+    "681fdf11c14f15554fdec31c",
+    "681fdf17c14f15554fdec31d",
+    "681fdf36c14f15554fdec31e",
+    "681fdf3fc14f15554fdec31f",
+    "681fdf47c14f15554fdec320",
+    "681fdf4ec14f15554fdec321",
+    "681fdf53c14f15554fdec322",
+    "681fdf56c14f15554fdec323",
+    "681fdf5dc14f15554fdec324",
+    "681fdf65c14f15554fdec325",
+    "681fdf68c14f15554fdec326",
+    "681fdf6bc14f15554fdec327",
+    "681fdf70c14f15554fdec328",
+    "681fdf77c14f15554fdec329",
+    "681fdf78c14f15554fdec32a",
+    "681fdf79c14f15554fdec32b",
+    "681fdf7dc14f15554fdec32c",
+    "681fdf83c14f15554fdec32d"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-08T12:22:50.072Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-10T23:21:40.039Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Collection"
+},
+{
+  "_id": "681ca22a2a59db3110ec0b92",
+  "title": "Quần biker short",
+  "products": [
+    "681fe067c14f15554fdec32e",
+    "681fe06fc14f15554fdec32f"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-08T12:23:06.918Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-10T23:25:36.195Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Collection"
+},
+{
+  "_id": "681ca2322a59db3110ec0b93",
+  "title": "Quần dài nam",
+  "products": [
+    "681fe16bc14f15554fdec330",
+    "681fe171c14f15554fdec331",
+    "681fe190c14f15554fdec332",
+    "681fe1acc14f15554fdec333",
+    "681fe1c6c14f15554fdec334",
+    "681fe1d4c14f15554fdec335",
+    "681fe1d8c14f15554fdec336",
+    "681fe1e3c14f15554fdec337",
+    "681fe1e5c14f15554fdec338",
+    "681fe1edc14f15554fdec339",
+    "681fe1f5c14f15554fdec33a",
+    "681fe1fac14f15554fdec33b",
+    "681fe1fdc14f15554fdec33c",
+    "681fe204c14f15554fdec33d",
+    "681fe205c14f15554fdec33e",
+    "681fe207c14f15554fdec33f",
+    "681fe20ec14f15554fdec340",
+    "681fe213c14f15554fdec341",
+    "681fe219c14f15554fdec342",
+    "681fe221c14f15554fdec343",
+    "681fe229c14f15554fdec344",
+    "681fe231c14f15554fdec345",
+    "681fe241c14f15554fdec346",
+    "681fe251c14f15554fdec347",
+    "681fe25ac14f15554fdec348",
+    "681fe25fc14f15554fdec349",
+    "681fe266c14f15554fdec34a",
+    "681fe26ac14f15554fdec34b"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-08T12:23:14.946Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-10T23:34:03.576Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Collection"
+},
+{
+  "_id": "681ca2712a59db3110ec0b94",
+  "title": "Quần jeans nam",
+  "products": [
+    "681fe303c14f15554fdec34c",
+    "681fe313c14f15554fdec34d",
+    "681fe31fc14f15554fdec34e",
+    "681fe322c14f15554fdec34f",
+    "681fe329c14f15554fdec350",
+    "681fe32fc14f15554fdec351"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-08T12:24:17.136Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-10T23:37:19.956Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Collection"
+},
+{
+  "_id": "681ca27b2a59db3110ec0b95",
+  "title": "Quần jogger nam",
+  "products": [
+    "681fe3c0c14f15554fdec352",
+    "681fe3c6c14f15554fdec353",
+    "681fe3c8c14f15554fdec354",
+    "681fe3cfc14f15554fdec355",
+    "681fe3cfc14f15554fdec356",
+    "681fe3d5c14f15554fdec357",
+    "681fe3e4c14f15554fdec358",
+    "681fe3e7c14f15554fdec359",
+    "681fe3ecc14f15554fdec35a"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-08T12:24:27.508Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-10T23:40:29.013Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Collection"
+},
+{
+  "_id": "681ca2852a59db3110ec0b96",
+  "title": "Quần legging",
+  "products": [
+    "681fe6fec14f15554fdec35d",
+    "681fe70ac14f15554fdec35e",
+    "681fe711c14f15554fdec35f",
+    "681fe719c14f15554fdec360",
+    "681fe730c14f15554fdec361",
+    "681fe732c14f15554fdec362",
+    "681fe73cc14f15554fdec363"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-08T12:24:37.135Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-10T23:54:36.910Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Collection"
+},
+{
+  "_id": "681ca29b2a59db3110ec0b97",
+  "title": "Quần lót nam boxer trunk",
+  "products": [
+    "681fe93ec14f15554fdec364",
+    "681fe948c14f15554fdec365",
+    "681fe955c14f15554fdec366",
+    "681fe95dc14f15554fdec367",
+    "681fe967c14f15554fdec368",
+    "681fe968c14f15554fdec369",
+    "681fe96ec14f15554fdec36a",
+    "681fe975c14f15554fdec36b",
+    "681fe97ac14f15554fdec36c",
+    "681fe983c14f15554fdec36d",
+    "681fe986c14f15554fdec36e",
+    "681fe994c14f15554fdec36f",
+    "681fe999c14f15554fdec370",
+    "681fe9abc14f15554fdec371",
+    "681fe9afc14f15554fdec372",
+    "681fe9b9c14f15554fdec373",
+    "681fe9c0c14f15554fdec374",
+    "681fe9c7c14f15554fdec375",
+    "681fe9d8c14f15554fdec376",
+    "681fe9dcc14f15554fdec377",
+    "681fe9e4c14f15554fdec378",
+    "681fe9eac14f15554fdec379",
+    "681fe9fbc14f15554fdec37a",
+    "681fea0ac14f15554fdec37b"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-08T12:24:59.397Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-11T00:06:34.887Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Collection"
+},
+{
+  "_id": "681ca2bf2a59db3110ec0b98",
+  "title": "Quần lót nam brief boxer dạng dài",
+  "products": [
+    "681fea9ac14f15554fdec37c",
+    "681fea9cc14f15554fdec37d",
+    "681fea9ec14f15554fdec37e",
+    "681feaa0c14f15554fdec37f",
+    "681feaa3c14f15554fdec380"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-08T12:25:35.369Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-11T00:09:08.154Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Collection"
+},
+{
+  "_id": "681ca2c72a59db3110ec0b99",
+  "title": "Quần lót nam brief tam giác",
+  "products": [
+    "681feb14c14f15554fdec381",
+    "681feb1dc14f15554fdec382",
+    "681feb23c14f15554fdec383",
+    "681feb25c14f15554fdec384",
+    "681feb2ec14f15554fdec385",
+    "681feb33c14f15554fdec386",
+    "681feb3ec14f15554fdec387",
+    "681feb40c14f15554fdec388"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-08T12:25:43.440Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-11T00:11:44.416Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Collection"
+},
+{
+  "_id": "681ca2e42a59db3110ec0b9a",
+  "title": "Quần lót nam lòng leg",
+  "products": [
+    "681febd0c14f15554fdec389"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-08T12:26:12.022Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-11T00:14:09.052Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Collection"
+},
+{
+  "_id": "681ca2ed2a59db3110ec0b9b",
+  "title": "Quần nam chơi thể thao",
+  "products": [
+    "681fed02c14f15554fdec38f",
+    "681fed0bc14f15554fdec390",
+    "681fed13c14f15554fdec391",
+    "681fed15c14f15554fdec392",
+    "681fed27c14f15554fdec393",
+    "681fed2bc14f15554fdec394",
+    "681fed38c14f15554fdec395",
+    "681fed3ec14f15554fdec396",
+    "681fed41c14f15554fdec397",
+    "681fed43c14f15554fdec398",
+    "681fed46c14f15554fdec399",
+    "681fed57c14f15554fdec39a",
+    "681fed5dc14f15554fdec39b",
+    "681fed61c14f15554fdec39c",
+    "681fed64c14f15554fdec39d",
+    "681fed6ac14f15554fdec39e",
+    "681fed6bc14f15554fdec39f",
+    "681fed6cc14f15554fdec3a0",
+    "681fed73c14f15554fdec3a1",
+    "681fed75c14f15554fdec3a2",
+    "681fed7cc14f15554fdec3a3",
+    "681fed81c14f15554fdec3a4",
+    "681feda1c14f15554fdec3a5",
+    "681feda6c14f15554fdec3a6",
+    "681fedabc14f15554fdec3a7",
+    "681fedaec14f15554fdec3a8",
+    "681fedb2c14f15554fdec3a9",
+    "681fedc4c14f15554fdec3aa",
+    "681fedc9c14f15554fdec3ab"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-08T12:26:21.517Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-11T00:22:34.066Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Collection"
+},
+{
+  "_id": "681ca2fc2a59db3110ec0b9c",
+  "title": "Quần short nam",
+  "products": [],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-08T12:26:36.979Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-08T12:26:36.979Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Collection"
+},
+{
+  "_id": "681ca31b2a59db3110ec0b9d",
+  "title": "Quần short nam mặc ở nhà",
+  "products": [
+    "681fee5bc14f15554fdec3ac",
+    "681feec7c14f15554fdec3ad"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-08T12:27:07.162Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-11T00:26:47.601Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Collection"
+},
+{
+  "_id": "681ca3252a59db3110ec0b9e",
+  "title": "Quần short nữ",
+  "products": [
+    "681fef43c14f15554fdec3ae",
+    "681fef4bc14f15554fdec3af",
+    "681fef53c14f15554fdec3b0",
+    "681fef66c14f15554fdec3b1",
+    "681fef69c14f15554fdec3b2"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-08T12:27:17.068Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-11T00:29:29.689Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Collection"
+}]
