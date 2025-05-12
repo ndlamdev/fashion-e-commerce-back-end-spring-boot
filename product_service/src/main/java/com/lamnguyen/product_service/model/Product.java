@@ -71,5 +71,8 @@ public class Product extends MongoBaseDocument {
 
 	@Field("icon_thumbnail")
 	String iconThumbnail; // Hình minh họa khuyến mãi
+
+	@Field("all_image_contains")
+	List<String> allImageContains;
 }
 

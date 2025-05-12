@@ -25,4 +25,6 @@ public interface IMediaService {
 	List<MediaDto> getAllById(List<String> ids);
 
 	Map<String, MediaInfo> getMediaByIds(List<String> ids);
+
+	Map<String, MediaInfo> getMediaByNames(List<String> names);
 }

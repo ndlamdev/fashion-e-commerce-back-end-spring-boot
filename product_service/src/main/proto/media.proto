@@ -10,6 +10,7 @@ service MediaService {
   rpc CheckMediaExists (MediaCodeRequest) returns (MediaExistsResponse);
   rpc CheckListMediaExists (MediaCodesRequest) returns (MediaCodesExistsResponse);
   rpc GetMedias (MediasRequest) returns (MediaResponse);
+  rpc GetMediasByFileName(FileNamesRequest)  returns (MediasByFileNameResponse);
 }
 
 message MediaCodeRequest {
@@ -38,5 +39,13 @@ message  MediaInfo {
 }
 
 message MediaResponse {
+  map<string, MediaInfo> data = 1;
+}
+
+message FileNamesRequest {
+  repeated string names = 1;
+}
+
+message MediasByFileNameResponse {
   map<string, MediaInfo> data = 1;
 }

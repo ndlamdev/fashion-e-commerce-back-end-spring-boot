@@ -83,8 +83,14 @@ public class MediaServiceImpl implements IMediaService {
 
 	@Override
 	public MediaDto getById(String id) {
-		return mediaManage.get(id)
-				.or(() -> mediaManage.cache(id, () -> mediaRepository.findById(id).map(mediaMapper::toDto)))
+		return mediaManage.getById(id)
+				.or(() -> mediaManage.cacheById(id, () -> mediaRepository.findById(id).map(mediaMapper::toDto)))
+				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
+	}
+
+	private MediaDto getByName(String name) {
+		return mediaManage.getByName(name)
+				.or(() -> mediaManage.cacheByName(name, () -> mediaRepository.findByFileName(name).map(mediaMapper::toDto)))
 				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
 	}
 
@@ -109,14 +115,30 @@ public class MediaServiceImpl implements IMediaService {
 	public Map<String, MediaInfo> getMediaByIds(List<String> ids) {
 		var result = new HashMap<String, MediaInfo>(ids.size());
 		var listTasks = new ArrayList<CompletableFuture>();
-		for (var id : ids) {
+		ids.forEach(id -> {
 			listTasks.add(CompletableFuture.runAsync(() -> {
 				try {
 					result.put(id, mediaMapper.toMediaInfo(getById(id)));
 				} catch (ApplicationException ignored) {
 				}
 			}));
-		}
+		});
+		CompletableFuture.allOf(listTasks.toArray(new CompletableFuture[0])).join();
+		return result;
+	}
+
+	@Override
+	public Map<String, MediaInfo> getMediaByNames(List<String> names) {
+		var result = new HashMap<String, MediaInfo>(names.size());
+		var listTasks = new ArrayList<CompletableFuture>();
+		names.forEach(name -> {
+			listTasks.add(CompletableFuture.runAsync(() -> {
+				try {
+					result.put(name, mediaMapper.toMediaInfo(getByName(name)));
+				} catch (ApplicationException ignored) {
+				}
+			}));
+		});
 		CompletableFuture.allOf(listTasks.toArray(new CompletableFuture[0])).join();
 		return result;
 	}

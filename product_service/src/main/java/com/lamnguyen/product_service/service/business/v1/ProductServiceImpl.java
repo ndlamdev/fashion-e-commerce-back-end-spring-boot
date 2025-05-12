@@ -19,14 +19,19 @@ import com.lamnguyen.product_service.protos.ProductDto;
 import com.lamnguyen.product_service.protos.ProductInCartDto;
 import com.lamnguyen.product_service.repository.IProductRepository;
 import com.lamnguyen.product_service.service.business.IProductService;
+import com.lamnguyen.product_service.service.grpc.IFileSearchGrpcClient;
 import com.lamnguyen.product_service.service.grpc.IMediaGrpcClient;
 import com.lamnguyen.product_service.service.grpc.IVariantGrpcClient;
 import com.lamnguyen.product_service.service.redis.IProductResponseRedisManager;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -46,6 +51,7 @@ public class ProductServiceImpl implements IProductService {
 	IGrpcMapper grpcMapper;
 	IOptionMapper optionMapper;
 	IOptionItemMapper optionItemMapper;
+	IFileSearchGrpcClient fileSearchGrpcClient;
 
 	@Override
 	public ProductResponse getProductById(String id) {
@@ -61,27 +67,29 @@ public class ProductServiceImpl implements IProductService {
 
 		var result = productMapper.toProductResponse(product);
 
-		var listTask = new ArrayList<CompletableFuture>();
+		var listTask = new ArrayList<CompletableFuture<Void>>();
 
-		var task = CompletableFuture.runAsync(() -> {
-			result.setVariants(variantService.getVariantsByProductId(id));
-		});
-		listTask.add(task);
+		listTask.add(
+				CompletableFuture
+						.runAsync(
+								() -> result.setVariants(
+										variantService
+												.getVariantsByProductId(id)
+								)
+						)
+		);
 
-		task = CompletableFuture.runAsync(() -> {
-			formatProductThumbnail(result, product);
-		});
-		listTask.add(task);
+		listTask.add(CompletableFuture.runAsync(() ->
+				formatProductThumbnail(result, product)
+		));
 
-		task = CompletableFuture.runAsync(() -> {
-			formatProductImages(result, product);
-		});
-		listTask.add(task);
+		listTask.add(CompletableFuture.runAsync(() ->
+				formatProductImages(result, product)
+		));
 
-		task = CompletableFuture.runAsync(() -> {
-			formatProductOptionsValues(result, product);
-		});
-		listTask.add(task);
+		listTask.add(CompletableFuture.runAsync(() ->
+				formatProductOptionsValues(result, product)
+		));
 
 		CompletableFuture.allOf(listTask.toArray(CompletableFuture[]::new)).join();
 
@@ -107,7 +115,7 @@ public class ProductServiceImpl implements IProductService {
 	private void formatProductOptionsValues(ProductResponse result, Product product) {
 		if ((product.getOptionsValues() == null || product.getOptionsValues().isEmpty())) return;
 		var imageOptionsValueResponseArrayList = new ArrayList<ImageOptionsValueResponse>(20);
-		var listTask = new ArrayList<CompletableFuture>();
+		var listTask = new ArrayList<CompletableFuture<Void>>();
 		product.getOptionsValues().forEach(imageOptionsValueDto -> {
 			var task = CompletableFuture.runAsync(() -> {
 				var imageOptionsValueResponse = imageOptionsValueMapper
@@ -122,8 +130,8 @@ public class ProductServiceImpl implements IProductService {
 		result.setOptionsValues(imageOptionsValueResponseArrayList);
 	}
 
-	private List<CompletableFuture> formatOptionsImage(ImageOptionsValueResponse imageOptionsValueResponse) {
-		var listTask = new ArrayList<CompletableFuture>();
+	private List<CompletableFuture<Void>> formatOptionsImage(ImageOptionsValueResponse imageOptionsValueResponse) {
+		var listTask = new ArrayList<CompletableFuture<Void>>();
 		imageOptionsValueResponse.getOptions()
 				.forEach(optionItemDto -> {
 					var task = CompletableFuture.runAsync(() -> {
@@ -170,16 +178,51 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	public List<ProductResponse> getProductByids(List<String> ids) {
 		var result = new ArrayList<ProductResponse>(20);
-		var listTask = new ArrayList<CompletableFuture>();
-		ids.forEach(id -> {
-			var task = CompletableFuture.runAsync(() -> {
+		var listTask = new ArrayList<CompletableFuture<Void>>();
+		ids.forEach(id ->
+				listTask.add(CompletableFuture.runAsync(() -> {
 				try {
 					result.add(getProductById(id));
 				} catch (Exception ignored) {
 				}
-			});
-			listTask.add(task);
-		});
+				}))
+		);
+		CompletableFuture.allOf(listTask.toArray(CompletableFuture[]::new)).join();
+		return result;
+	}
+
+	@Override
+	public Page<ProductResponse> searchByImage(File fileSearch) {
+		try {
+			var sameFileNamesWithFileSearch = fileSearchGrpcClient.searchFile(fileSearch);
+			var sameIdsWithFileSearch = mediaGrpcClient
+					.findImageByFileName(sameFileNamesWithFileSearch)
+					.values()
+					.stream()
+					.map(ImageResponse::getId)
+					.toList();
+			var pageable = Pageable.ofSize(10);
+			var products = productRepository
+					.findByAllImageContainsContains(sameIdsWithFileSearch, pageable)
+					.getContent();
+			return new PageImpl<>(getProductResponse(products), pageable, pageable.getPageSize());
+		} finally {
+			var ignored = fileSearch.delete();
+		}
+	}
+
+	private List<ProductResponse> getProductResponse(List<Product> products) {
+		var result = new ArrayList<ProductResponse>(20);
+		var listTask = new ArrayList<CompletableFuture<Void>>();
+		products.forEach(product ->
+				listTask.add(CompletableFuture.runAsync(() -> {
+					try {
+						result.add(getProductById(product.getId()));
+					} catch (Exception ignored) {
+					}
+				}))
+		);
+
 		CompletableFuture.allOf(listTask.toArray(CompletableFuture[]::new)).join();
 		return result;
 	}

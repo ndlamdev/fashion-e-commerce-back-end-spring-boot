@@ -14,6 +14,9 @@ import com.lamnguyen.product_service.protos.MediaInfo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Named;
 
+import java.util.List;
+import java.util.Map;
+
 @Mapper(componentModel = "spring", uses = {IGrpcMapper.class})
 public interface IImageMapper {
 	@Named("toImageId")

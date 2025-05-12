@@ -10,10 +10,7 @@ package com.lamnguyen.product_service.service.grpc.v1;
 
 import com.lamnguyen.product_service.domain.response.ImageResponse;
 import com.lamnguyen.product_service.mapper.IImageMapper;
-import com.lamnguyen.product_service.protos.MediaCodeRequest;
-import com.lamnguyen.product_service.protos.MediaCodesRequest;
-import com.lamnguyen.product_service.protos.MediaServiceGrpc;
-import com.lamnguyen.product_service.protos.MediasRequest;
+import com.lamnguyen.product_service.protos.*;
 import com.lamnguyen.product_service.service.grpc.IMediaGrpcClient;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.client.inject.GrpcClient;
@@ -52,6 +49,18 @@ public class MediaGrpcClientImpl implements IMediaGrpcClient {
 			var data = dataMap.getOrDefault(id, null);
 			if (data == null) result.put(id, null);
 			else result.put(id, imageMapper.toImageResponse(data));
+		});
+		return result;
+	}
+
+	@Override
+	public Map<String, ImageResponse> findImageByFileName(List<String> fileNames) {
+		var dataMap = mediaServiceBlockingStub.getMediasByFileName(FileNamesRequest.newBuilder().addAllNames(fileNames).build()).getDataMap();
+		var result = new HashMap<String, ImageResponse>();
+		fileNames.forEach(name -> {
+			var data = dataMap.getOrDefault(name, null);
+			if (data == null) result.put(name, null);
+			else result.put(name, imageMapper.toImageResponse(data));
 		});
 		return result;
 	}
