@@ -20,4 +20,6 @@ public interface IProductRepository extends MongoRepository<Product, String> {
 	List<Product> findByCollection(Collection collection);
 
 	Page<Product> findByAllImageContainsContains(List<String> ids, Pageable pageable);
+
+	Page<Product> findAllByTitleSearchRegex(String title, Pageable pageable);
 }

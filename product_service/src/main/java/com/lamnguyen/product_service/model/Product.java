@@ -74,5 +74,8 @@ public class Product extends MongoBaseDocument {
 
 	@Field("all_image_contains")
 	List<String> allImageContains;
+
+	@Field("title_search")
+	String titleSearch;
 }
 

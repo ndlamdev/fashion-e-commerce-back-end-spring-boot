@@ -66,37 +66,8 @@ public class ProductServiceImpl implements IProductService {
 		var productOptional = productRepository.findById(id);
 		if (productOptional.isEmpty()) return Optional.empty();
 		var product = productOptional.get();
-
-		var result = productMapper.toProductResponse(product);
-
-		var listTask = new ArrayList<CompletableFuture<Void>>();
-
-		listTask.add(
-				CompletableFuture
-						.runAsync(
-								() -> result.setVariants(
-										variantService
-												.getVariantsByProductId(id)
-								)
-						)
-		);
-
-		listTask.add(CompletableFuture.runAsync(() ->
-				formatProductThumbnail(result, product)
-		));
-
-		listTask.add(CompletableFuture.runAsync(() ->
-				formatProductImages(result, product)
-		));
-
-		listTask.add(CompletableFuture.runAsync(() ->
-				formatProductOptionsValues(result, product)
-		));
-
-		CompletableFuture.allOf(listTask.toArray(CompletableFuture[]::new)).join();
-
-
-		return Optional.of(result);
+		setAllProperty(product);
+		return Optional.of(productMapper.toProductResponse(product));
 	}
 
 	private void formatProductThumbnail(ProductResponse result, Product product) {
@@ -207,19 +178,61 @@ public class ProductServiceImpl implements IProductService {
 			var products = productRepository
 					.findByAllImageContainsContains(sameIdsWithFileSearch, pageable)
 					.getContent();
-			return new PageImpl<>(getProductResponse(products), pageable, pageable.getPageSize());
+			return new PageImpl<>(getProductResponses(products), pageable, pageable.getPageSize());
 		} finally {
 			var ignored = fileSearch.delete();
 		}
 	}
 
-	private List<ProductResponse> getProductResponse(List<Product> products) {
-		var result = new ArrayList<ProductResponse>(20);
+	private void setAllProperty(Product product) {
+		var result = productMapper.toProductResponse(product);
+
+		var listTask = new ArrayList<CompletableFuture<Void>>();
+
+		listTask.add(
+				CompletableFuture
+						.runAsync(
+								() -> result.setVariants(
+										variantService
+												.getVariantsByProductId(product.getId())
+								)
+						)
+		);
+
+		listTask.add(CompletableFuture.runAsync(() ->
+				formatProductThumbnail(result, product)
+		));
+
+		listTask.add(CompletableFuture.runAsync(() ->
+				formatProductImages(result, product)
+		));
+
+		listTask.add(CompletableFuture.runAsync(() ->
+				formatProductOptionsValues(result, product)
+		));
+
+		CompletableFuture.allOf(listTask.toArray(CompletableFuture[]::new)).join();
+	}
+
+	@Override
+	public Page<ProductResponse> search(String query, Pageable pageable) {
+		query = productMapper.toSeoAlias(query).replaceAll("-", ".*");
+		var allProducts = productRepository.findAllByTitleSearchRegex(query, pageable);
+		return new PageImpl<>(getProductResponses(allProducts.getContent()), pageable, allProducts.getTotalElements());
+	}
+
+	private List<ProductResponse> getProductResponses(List<Product> products) {
+		var result = new ArrayList<ProductResponse>(products.size());
 		var listTask = new ArrayList<CompletableFuture<Void>>();
 		products.forEach(product ->
 				listTask.add(CompletableFuture.runAsync(() -> {
 					try {
-						result.add(getProductById(product.getId()));
+						var response = productResponseRedisManager.get(product.getId())
+								.or(() -> productResponseRedisManager.cache(product.getId(), () -> {
+									setAllProperty(product);
+									return Optional.of(productMapper.toProductResponse(product));
+								})).orElseThrow();
+						result.add(response);
 					} catch (Exception ignored) {
 					}
 				}))
