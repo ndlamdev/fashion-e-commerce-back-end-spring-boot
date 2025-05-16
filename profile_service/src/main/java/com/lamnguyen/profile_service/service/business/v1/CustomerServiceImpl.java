@@ -3,20 +3,18 @@ package com.lamnguyen.profile_service.service.business.v1;
 import com.lamnguyen.profile_service.config.exception.ApplicationException;
 import com.lamnguyen.profile_service.config.exception.ExceptionEnum;
 import com.lamnguyen.profile_service.domain.ApiPaging;
-import com.lamnguyen.profile_service.domain.ApiResponseSuccess;
 import com.lamnguyen.profile_service.domain.dto.CustomerDto;
 import com.lamnguyen.profile_service.domain.request.SaveCustomerRequest;
-import com.lamnguyen.profile_service.domain.response.SaveCustomerResponse;
 import com.lamnguyen.profile_service.mapper.ICustomerMapper;
 import com.lamnguyen.profile_service.repository.ICustomerRepository;
 import com.lamnguyen.profile_service.service.business.ICustomerService;
 import com.lamnguyen.profile_service.service.redis.ICustomerRedisManager;
+import com.lamnguyen.profile_service.utils.helper.JwtTokenUtil;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,9 +29,11 @@ public class CustomerServiceImpl implements ICustomerService {
     ICustomerRepository customerRepository;
     ICustomerMapper mapper;
     ICustomerRedisManager customerRedisManager;
+    JwtTokenUtil jwtTokenUtil;
 
     @Override
-    public CustomerDto saveCustomer(SaveCustomerRequest saveCustomerRequest, Long userId) {
+    public CustomerDto saveCustomer(SaveCustomerRequest saveCustomerRequest) {
+        var userId = jwtTokenUtil.getUserId();
         var customer = customerRepository.findByUserId(userId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND));
         var dataUpdate = mapper.toCustomer(saveCustomerRequest);
         dataUpdate.setId(customer.getId());
@@ -85,5 +85,11 @@ public class CustomerServiceImpl implements ICustomerService {
     private Optional<CustomerDto> cacheByUserId(long id) {
         var data = customerRepository.findByUserId(id).map(mapper::toCustomerDto);
         return customerRedisManager.cacheByUserId(id, () -> data, 60, TimeUnit.MINUTES);
+    }
+
+    @Override
+    @Transactional
+    public CustomerDto getCustomer() {
+        return getCustomerById(jwtTokenUtil.getUserId());
     }
 }

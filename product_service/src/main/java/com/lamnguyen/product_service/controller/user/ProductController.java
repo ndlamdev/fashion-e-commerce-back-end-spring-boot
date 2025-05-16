@@ -11,6 +11,7 @@ package com.lamnguyen.product_service.controller.user;
 import com.lamnguyen.product_service.config.exception.ApplicationException;
 import com.lamnguyen.product_service.config.exception.ExceptionEnum;
 import com.lamnguyen.product_service.domain.response.ProductResponse;
+import com.lamnguyen.product_service.service.business.IGeminiService;
 import com.lamnguyen.product_service.service.business.IProductService;
 import com.lamnguyen.product_service.utils.annotation.ApiMessageResponse;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -31,6 +32,7 @@ import java.util.UUID;
 @MultipartConfig(maxFileSize = 1024 * 1024 * 10)
 public class ProductController {
 	IProductService productService;
+	IGeminiService geminiService;
 
 	@GetMapping("/{id}")
 	@ApiMessageResponse("Get product success!")
@@ -45,6 +47,13 @@ public class ProductController {
 			throw ApplicationException.createException(ExceptionEnum.ERROR_FILE_TYPE);
 		if (file.isEmpty()) throw ApplicationException.createException(ExceptionEnum.EMPTY_FILE);
 		return productService.searchByImage(saveFile(file));
+	}
+
+	@GetMapping("/search")
+	@ApiMessageResponse("Search with title")
+	public Page<ProductResponse> getProductsUsingFileImage(@RequestParam("query") String query) throws IOException {
+		System.out.println(geminiService.analysisQuery(query));
+		return null;
 	}
 
 	private File saveFile(MultipartFile file) throws IOException {

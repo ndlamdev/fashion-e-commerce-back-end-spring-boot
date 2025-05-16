@@ -20,7 +20,7 @@ def load_index():
 
 index_in_model, image_in_model, labels_in_model = load_index()
 
-def find_similar_images(query_image_path: str, top_k=5) -> list[str]:
+def find_same_images(query_image_path: str, top_k=5) -> list[str]:
     model = config_model(pretrained_model=False)
     query_emb = extract_embedding(query_image_path, model).reshape(1, -1).astype("float32")
     distances, indices = index_in_model.search(query_emb, top_k)
@@ -28,6 +28,8 @@ def find_similar_images(query_image_path: str, top_k=5) -> list[str]:
     print(f"\n🔍 Kết quả tìm kiếm cho ảnh '{query_image_path}':")
     result = []
     for i, idx in enumerate(indices[0]):
+        if distances[0][i] > 100:
+            continue
         result.append(image_in_model[idx])
         print(f"{i + 1}. Image {image_in_model[idx]} | Distance: {distances[0][i]:.4f}")
 
@@ -35,6 +37,6 @@ def find_similar_images(query_image_path: str, top_k=5) -> list[str]:
 
 
 if __name__ == "__main__":
-    find_similar_images(
+    find_same_images(
         "../data/test/test.jpg",
         top_k=10)

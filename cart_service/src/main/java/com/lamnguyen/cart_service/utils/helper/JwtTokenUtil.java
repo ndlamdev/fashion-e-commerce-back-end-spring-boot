@@ -17,6 +17,8 @@ import com.lamnguyen.cart_service.utils.property.ApplicationProperty;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -57,5 +59,10 @@ public class JwtTokenUtil {
 	public long getUserIdNotVerify(String token) {
 		var jwt = decodeTokenNotVerify(token);
 		return getPayloadNotVerify(jwt).getUserId();
+	}
+
+	public long getUserId() {
+		var authentication = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+		return getUserIdNotVerify(authentication.getToken().getTokenValue());
 	}
 }

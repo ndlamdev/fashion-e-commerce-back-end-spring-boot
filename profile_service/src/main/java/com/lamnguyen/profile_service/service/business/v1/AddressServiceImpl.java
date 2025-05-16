@@ -10,13 +10,11 @@ import com.lamnguyen.profile_service.model.entity.Customer;
 import com.lamnguyen.profile_service.repository.IAddressRepository;
 import com.lamnguyen.profile_service.service.business.IAddressService;
 import com.lamnguyen.profile_service.service.kafka.producer.v1.AddressProducerImpl;
-import com.lamnguyen.profile_service.utils.JwtTokenUtil;
+import com.lamnguyen.profile_service.utils.helper.JwtTokenUtil;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -47,7 +45,7 @@ public class AddressServiceImpl implements IAddressService {
 
     @Override
     public AddressResponse saveAddress(SaveAddressRequest request, Long addressId) {
-        return saveAddress(request, addressId, getUserIdFromToken());
+        return saveAddress(request, addressId, jwtTokenUtil.getUserId());
     }
 
     @Override
@@ -69,7 +67,7 @@ public class AddressServiceImpl implements IAddressService {
 
     @Override
     public AddressResponse addAddress(SaveAddressRequest request) {
-        return addAddress(request, getUserIdFromToken());
+        return addAddress(request, jwtTokenUtil.getUserId());
     }
 
 
@@ -81,7 +79,7 @@ public class AddressServiceImpl implements IAddressService {
 
     @Override
     public List<AddressResponse> getAddresses() {
-        return getAddresses(getUserIdFromToken());
+        return getAddresses(jwtTokenUtil.getUserId());
     }
 
     @Override
@@ -92,7 +90,7 @@ public class AddressServiceImpl implements IAddressService {
 
     @Override
     public AddressResponse getAddressById(Long id) {
-        return getAddressById(id, getUserIdFromToken());
+        return getAddressById(id, jwtTokenUtil.getUserId());
     }
 
     @Override
@@ -114,7 +112,7 @@ public class AddressServiceImpl implements IAddressService {
 
     @Override
     public void deleteAddressById(Long id) {
-        deleteAddressById(id, getUserIdFromToken());
+        deleteAddressById(id, jwtTokenUtil.getUserId());
     }
 
     @Override
@@ -124,7 +122,7 @@ public class AddressServiceImpl implements IAddressService {
 
     @Override
     public void setDefaultAddress(Long oldId, Long newId) {
-        setDefaultAddress(oldId, newId, getUserIdFromToken());
+        setDefaultAddress(oldId, newId, jwtTokenUtil.getUserId());
     }
 
     @Override
@@ -132,11 +130,5 @@ public class AddressServiceImpl implements IAddressService {
         Optional.ofNullable(repository.findAddressByIdAndLockAndCustomer_Id(oldId, false, customerId)).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
         Optional.ofNullable(repository.findAddressByIdAndLockAndCustomer_Id(newId, false, customerId)).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
         repository.setDefaultAddress(oldId, newId, customerId);
-    }
-
-    private Long getUserIdFromToken() {
-        var authentication = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-        var jwtPayload = jwtTokenUtil.getPayloadNotVerify(jwtTokenUtil.decodeTokenNotVerify(authentication.getToken().getTokenValue()));
-        return jwtPayload.getUserId();
     }
 }
