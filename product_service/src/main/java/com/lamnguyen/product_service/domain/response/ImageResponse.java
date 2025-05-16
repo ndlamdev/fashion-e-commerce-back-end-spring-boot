@@ -8,10 +8,7 @@
 
 package com.lamnguyen.product_service.domain.response;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
@@ -22,6 +19,7 @@ import java.io.Serializable;
 @RequiredArgsConstructor
 @Getter
 @Setter
+@ToString
 public class ImageResponse implements Serializable {
 	String id;
 	String src;

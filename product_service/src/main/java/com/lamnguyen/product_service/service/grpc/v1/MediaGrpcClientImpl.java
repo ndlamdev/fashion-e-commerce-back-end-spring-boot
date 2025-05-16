@@ -12,6 +12,7 @@ import com.lamnguyen.product_service.domain.response.ImageResponse;
 import com.lamnguyen.product_service.mapper.IImageMapper;
 import com.lamnguyen.product_service.protos.*;
 import com.lamnguyen.product_service.service.grpc.IMediaGrpcClient;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Service;
@@ -44,23 +45,21 @@ public class MediaGrpcClientImpl implements IMediaGrpcClient {
 	@Override
 	public Map<String, ImageResponse> getImageDto(List<String> ids) {
 		var dataMap = mediaServiceBlockingStub.getMedias(MediasRequest.newBuilder().addAllId(ids).build()).getDataMap();
-		var result = new HashMap<String, ImageResponse>();
-		ids.forEach(id -> {
-			var data = dataMap.getOrDefault(id, null);
-			if (data == null) result.put(id, null);
-			else result.put(id, imageMapper.toImageResponse(data));
-		});
-		return result;
+		return getStringImageResponseMap(ids, dataMap);
 	}
 
 	@Override
 	public Map<String, ImageResponse> findImageByFileName(List<String> fileNames) {
 		var dataMap = mediaServiceBlockingStub.getMediasByFileName(FileNamesRequest.newBuilder().addAllNames(fileNames).build()).getDataMap();
+		return getStringImageResponseMap(fileNames, dataMap);
+	}
+
+	@NotNull
+	private Map<String, ImageResponse> getStringImageResponseMap(List<String> fileNames, Map<String, MediaInfo> dataMap) {
 		var result = new HashMap<String, ImageResponse>();
 		fileNames.forEach(name -> {
 			var data = dataMap.getOrDefault(name, null);
-			if (data == null) result.put(name, null);
-			else result.put(name, imageMapper.toImageResponse(data));
+			if (data != null) result.put(name, imageMapper.toImageResponse(data));
 		});
 		return result;
 	}
