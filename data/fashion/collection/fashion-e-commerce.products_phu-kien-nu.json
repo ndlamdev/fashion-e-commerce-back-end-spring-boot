@@ -1,0 +1,1136 @@
+[{
+  "_id": "682603a7213ef202c0fd2020",
+  "title": "Băng đeo cổ tay thể thao",
+  "seo_alias": "bang-deo-co-tay-the-thao",
+  "vendor": "5c482438000c695cfa6f8d22",
+  "tags": [
+    "NEW"
+  ],
+  "options": [
+    {
+      "type": "COLOR",
+      "title": "Màu sắc",
+      "values": [
+        "Trắng"
+      ]
+    },
+    {
+      "type": "SIZE",
+      "title": "Size",
+      "values": []
+    }
+  ],
+  "options_values": [
+    {
+      "title": "Màu sắc",
+      "type": "COLOR",
+      "options": [
+        {
+          "title": "Trắng",
+          "slug": "trang",
+          "label": "",
+          "images": [
+            "682603a70b61125185462a6a",
+            "682603a70b61125185462a69",
+            "682603a70b61125185462a68"
+          ]
+        }
+      ]
+    }
+  ],
+  "images": [
+    "682603a60b61125185462a65",
+    "682603a60b61125185462a66",
+    "682603a70b61125185462a67"
+  ],
+  "available": true,
+  "collection_id": "6825e9c68eaaa408c6aaf620",
+  "display_order": 0,
+  "youtube_video": "",
+  "coming_soon": false,
+  "display_name_open": "",
+  "gender_type": "FEMALE",
+  "all_image_contains": [
+    "682603a60b61125185462a65",
+    "682603a60b61125185462a66",
+    "682603a70b61125185462a67",
+    "682603a70b61125185462a6a",
+    "682603a70b61125185462a69",
+    "682603a70b61125185462a68"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T15:09:27.895Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T15:09:27.895Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Product"
+},
+{
+  "_id": "682603ab213ef202c0fd2021",
+  "title": "Tất thể thao nữ cổ trung",
+  "seo_alias": "tat-the-thao-nu-co-trung",
+  "vendor": "5c482438000c695cfa6f8d22",
+  "tags": [
+    "NEW"
+  ],
+  "options": [
+    {
+      "type": "COLOR",
+      "title": "Màu sắc",
+      "values": [
+        "Đen",
+        "Trắng"
+      ]
+    },
+    {
+      "type": "SIZE",
+      "title": "Size",
+      "values": []
+    }
+  ],
+  "options_values": [
+    {
+      "title": "Màu sắc",
+      "type": "COLOR",
+      "options": [
+        {
+          "title": "Đen",
+          "slug": "den",
+          "label": "",
+          "images": [
+            "682603a90b61125185462a78",
+            "682603a90b61125185462a79",
+            "682603a90b61125185462a76",
+            "682603a90b61125185462a77",
+            "682603a80b61125185462a75"
+          ]
+        },
+        {
+          "title": "Trắng",
+          "slug": "trang",
+          "label": "",
+          "images": [
+            "682603a90b61125185462a7a",
+            "682603a90b61125185462a7d",
+            "682603a90b61125185462a7e",
+            "682603a90b61125185462a7b",
+            "682603a90b61125185462a7c"
+          ]
+        }
+      ]
+    }
+  ],
+  "images": [
+    "682603a80b61125185462a70",
+    "682603a80b61125185462a71",
+    "682603a80b61125185462a72",
+    "682603a80b61125185462a6b",
+    "682603a80b61125185462a73",
+    "682603a80b61125185462a6c",
+    "682603a80b61125185462a74",
+    "682603a80b61125185462a6d",
+    "682603a80b61125185462a6e",
+    "682603a80b61125185462a6f"
+  ],
+  "available": true,
+  "collection_id": "6825e9c68eaaa408c6aaf620",
+  "display_order": 0,
+  "youtube_video": "",
+  "coming_soon": false,
+  "display_name_open": "",
+  "gender_type": "FEMALE",
+  "all_image_contains": [
+    "682603a80b61125185462a70",
+    "682603a80b61125185462a71",
+    "682603a80b61125185462a72",
+    "682603a80b61125185462a6b",
+    "682603a80b61125185462a73",
+    "682603a80b61125185462a6c",
+    "682603a80b61125185462a74",
+    "682603a80b61125185462a6d",
+    "682603a80b61125185462a6e",
+    "682603a80b61125185462a6f",
+    "682603a90b61125185462a78",
+    "682603a90b61125185462a79",
+    "682603a90b61125185462a76",
+    "682603a90b61125185462a77",
+    "682603a80b61125185462a75",
+    "682603a90b61125185462a7a",
+    "682603a90b61125185462a7d",
+    "682603a90b61125185462a7e",
+    "682603a90b61125185462a7b",
+    "682603a90b61125185462a7c"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T15:09:31.328Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T15:09:31.328Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Product"
+},
+{
+  "_id": "682603ae213ef202c0fd2022",
+  "title": "Tất cổ trung chạy bộ nữ",
+  "seo_alias": "tat-co-trung-chay-bo-nu",
+  "vendor": "5c482438000c695cfa6f8d22",
+  "tags": [
+    "NEW"
+  ],
+  "options": [
+    {
+      "type": "COLOR",
+      "title": "Màu sắc",
+      "values": [
+        "Hồng",
+        "Trắng"
+      ]
+    },
+    {
+      "type": "SIZE",
+      "title": "Size",
+      "values": []
+    }
+  ],
+  "options_values": [
+    {
+      "title": "Màu sắc",
+      "type": "COLOR",
+      "options": [
+        {
+          "title": "Hồng",
+          "slug": "hong",
+          "label": "",
+          "images": [
+            "682603ac0b61125185462a8a",
+            "682603ac0b61125185462a8b",
+            "682603ac0b61125185462a88",
+            "682603ac0b61125185462a89"
+          ]
+        },
+        {
+          "title": "Trắng",
+          "slug": "trang",
+          "label": "",
+          "images": [
+            "682603ac0b61125185462a90",
+            "682603ac0b61125185462a8c",
+            "682603ac0b61125185462a8d",
+            "682603ac0b61125185462a8e",
+            "682603ac0b61125185462a8f"
+          ]
+        }
+      ]
+    }
+  ],
+  "images": [
+    "682603ab0b61125185462a84",
+    "682603ab0b61125185462a85",
+    "682603ab0b61125185462a82",
+    "682603ab0b61125185462a83",
+    "682603ab0b61125185462a80",
+    "682603ab0b61125185462a81",
+    "682603ac0b61125185462a86",
+    "682603ac0b61125185462a87",
+    "682603ab0b61125185462a7f"
+  ],
+  "available": true,
+  "collection_id": "6825e9c68eaaa408c6aaf620",
+  "display_order": 0,
+  "youtube_video": "",
+  "coming_soon": false,
+  "display_name_open": "",
+  "gender_type": "FEMALE",
+  "all_image_contains": [
+    "682603ab0b61125185462a84",
+    "682603ab0b61125185462a85",
+    "682603ab0b61125185462a82",
+    "682603ab0b61125185462a83",
+    "682603ab0b61125185462a80",
+    "682603ab0b61125185462a81",
+    "682603ac0b61125185462a86",
+    "682603ac0b61125185462a87",
+    "682603ab0b61125185462a7f",
+    "682603ac0b61125185462a8a",
+    "682603ac0b61125185462a8b",
+    "682603ac0b61125185462a88",
+    "682603ac0b61125185462a89",
+    "682603ac0b61125185462a90",
+    "682603ac0b61125185462a8c",
+    "682603ac0b61125185462a8d",
+    "682603ac0b61125185462a8e",
+    "682603ac0b61125185462a8f"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T15:09:34.305Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T15:09:34.305Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Product"
+},
+{
+  "_id": "682603af213ef202c0fd2023",
+  "title": "Tất cổ dài chạy bộ nữ",
+  "seo_alias": "tat-co-dai-chay-bo-nu",
+  "vendor": "5c482438000c695cfa6f8d22",
+  "tags": [
+    "NEW"
+  ],
+  "options": [
+    {
+      "type": "COLOR",
+      "title": "Màu sắc",
+      "values": [
+        "Trắng"
+      ]
+    }
+  ],
+  "options_values": [
+    {
+      "title": "Màu sắc",
+      "type": "COLOR",
+      "options": [
+        {
+          "title": "Trắng",
+          "slug": "trang",
+          "label": "",
+          "images": [
+            "682603ae0b61125185462a93",
+            "682603ae0b61125185462a94",
+            "682603ae0b61125185462a95",
+            "682603ae0b61125185462a96",
+            "682603ae0b61125185462a97"
+          ]
+        }
+      ]
+    }
+  ],
+  "images": [
+    "682603ae0b61125185462a91",
+    "682603ae0b61125185462a92"
+  ],
+  "available": true,
+  "collection_id": "6825e9c68eaaa408c6aaf620",
+  "display_order": 0,
+  "youtube_video": "",
+  "coming_soon": false,
+  "display_name_open": "Thoáng khí",
+  "gender_type": "FEMALE",
+  "all_image_contains": [
+    "682603ae0b61125185462a91",
+    "682603ae0b61125185462a92",
+    "682603ae0b61125185462a93",
+    "682603ae0b61125185462a94",
+    "682603ae0b61125185462a95",
+    "682603ae0b61125185462a96",
+    "682603ae0b61125185462a97"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T15:09:35.613Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T15:09:35.613Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Product"
+},
+{
+  "_id": "682603b3213ef202c0fd2024",
+  "title": "Tất cổ ngắn chạy bộ nữ",
+  "seo_alias": "tat-co-ngan-chay-bo-nu",
+  "vendor": "5c482438000c695cfa6f8d22",
+  "tags": [
+    "NEW"
+  ],
+  "options": [
+    {
+      "type": "COLOR",
+      "title": "Màu sắc",
+      "values": [
+        "Cam",
+        "Hồng",
+        "Tím",
+        "Đen"
+      ]
+    }
+  ],
+  "options_values": [
+    {
+      "title": "Màu sắc",
+      "type": "COLOR",
+      "options": [
+        {
+          "title": "Cam",
+          "slug": "cam",
+          "label": "",
+          "images": [
+            "682603b00b61125185462a9e",
+            "682603b00b61125185462a9d",
+            "682603b00b61125185462aa1",
+            "682603b00b61125185462aa0",
+            "682603b00b61125185462a9f"
+          ]
+        },
+        {
+          "title": "Hồng",
+          "slug": "hong",
+          "label": "",
+          "images": [
+            "682603b00b61125185462aa5",
+            "682603b00b61125185462aa4",
+            "682603b00b61125185462aa3",
+            "682603b00b61125185462aa2",
+            "682603b00b61125185462aa6"
+          ]
+        },
+        {
+          "title": "Tím",
+          "slug": "tim",
+          "label": "",
+          "images": [
+            "682603b10b61125185462aa9",
+            "682603b10b61125185462aa8",
+            "682603b10b61125185462aa7",
+            "682603b10b61125185462aab",
+            "682603b10b61125185462aaa"
+          ]
+        },
+        {
+          "title": "Đen",
+          "slug": "den",
+          "label": "",
+          "images": [
+            "682603b10b61125185462ab0",
+            "682603b10b61125185462aaf",
+            "682603b10b61125185462aae",
+            "682603b10b61125185462aad",
+            "682603b10b61125185462aac"
+          ]
+        }
+      ]
+    }
+  ],
+  "images": [
+    "682603af0b61125185462a99",
+    "682603af0b61125185462a98",
+    "682603af0b61125185462a9a",
+    "682603af0b61125185462a9b",
+    "682603b00b61125185462a9c"
+  ],
+  "available": true,
+  "collection_id": "6825e9c68eaaa408c6aaf620",
+  "display_order": 0,
+  "youtube_video": "",
+  "coming_soon": false,
+  "display_name_open": "Thoáng khí",
+  "gender_type": "FEMALE",
+  "all_image_contains": [
+    "682603af0b61125185462a99",
+    "682603af0b61125185462a98",
+    "682603af0b61125185462a9a",
+    "682603af0b61125185462a9b",
+    "682603b00b61125185462a9c",
+    "682603b00b61125185462a9e",
+    "682603b00b61125185462a9d",
+    "682603b00b61125185462aa1",
+    "682603b00b61125185462aa0",
+    "682603b00b61125185462a9f",
+    "682603b00b61125185462aa5",
+    "682603b00b61125185462aa4",
+    "682603b00b61125185462aa3",
+    "682603b00b61125185462aa2",
+    "682603b00b61125185462aa6",
+    "682603b10b61125185462aa9",
+    "682603b10b61125185462aa8",
+    "682603b10b61125185462aa7",
+    "682603b10b61125185462aab",
+    "682603b10b61125185462aaa",
+    "682603b10b61125185462ab0",
+    "682603b10b61125185462aaf",
+    "682603b10b61125185462aae",
+    "682603b10b61125185462aad",
+    "682603b10b61125185462aac"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T15:09:39.652Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T15:09:39.652Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Product"
+},
+{
+  "_id": "682603bf213ef202c0fd2025",
+  "title": "Băng đô Headband",
+  "seo_alias": "bang-do-headband",
+  "vendor": "5c482438000c695cfa6f8d22",
+  "tags": [
+    "NEW"
+  ],
+  "options": [
+    {
+      "type": "COLOR",
+      "title": "Màu sắc",
+      "values": [
+        "Be",
+        "Navy",
+        "Cam",
+        "Xám",
+        "Xanh Colony",
+        "Tím",
+        "Nâu",
+        "Trắng"
+      ]
+    },
+    {
+      "type": "SIZE",
+      "title": "Size",
+      "values": []
+    }
+  ],
+  "options_values": [
+    {
+      "title": "Màu sắc",
+      "type": "COLOR",
+      "options": [
+        {
+          "title": "Be",
+          "slug": "be",
+          "label": "",
+          "images": [
+            "682603b70b61125185462ad6",
+            "682603b70b61125185462ad7",
+            "682603b70b61125185462ad8",
+            "682603b70b61125185462ad9",
+            "682603b60b61125185462ad5"
+          ]
+        },
+        {
+          "title": "Navy",
+          "slug": "navy",
+          "label": "",
+          "images": [
+            "682603b70b61125185462ada",
+            "682603b70b61125185462adb",
+            "682603b70b61125185462adc",
+            "682603b70b61125185462add"
+          ]
+        },
+        {
+          "title": "Cam",
+          "slug": "cam",
+          "label": "",
+          "images": [
+            "682603b70b61125185462adf",
+            "682603b70b61125185462ae0",
+            "682603b70b61125185462ae1",
+            "682603b70b61125185462ade"
+          ]
+        },
+        {
+          "title": "Xám",
+          "slug": "xam",
+          "label": "",
+          "images": [
+            "682603b80b61125185462ae4",
+            "682603b80b61125185462ae5",
+            "682603b80b61125185462ae2",
+            "682603b80b61125185462ae3"
+          ]
+        },
+        {
+          "title": "Xanh Colony",
+          "slug": "xanh-colony",
+          "label": "",
+          "images": [
+            "682603b80b61125185462aea",
+            "682603b80b61125185462ae8",
+            "682603b80b61125185462ae9",
+            "682603b80b61125185462ae6",
+            "682603b80b61125185462ae7"
+          ]
+        },
+        {
+          "title": "Tím",
+          "slug": "tim",
+          "label": "",
+          "images": [
+            "682603b90b61125185462aee",
+            "682603b90b61125185462aef",
+            "682603b80b61125185462aeb",
+            "682603b80b61125185462aec",
+            "682603b90b61125185462aed"
+          ]
+        },
+        {
+          "title": "Nâu",
+          "slug": "nau",
+          "label": "",
+          "images": [
+            "682603b90b61125185462af2",
+            "682603b90b61125185462af3",
+            "682603b90b61125185462af4",
+            "682603b90b61125185462af0",
+            "682603b90b61125185462af1"
+          ]
+        },
+        {
+          "title": "Trắng",
+          "slug": "trang",
+          "label": "",
+          "images": [
+            "682603b90b61125185462af6",
+            "682603ba0b61125185462af8",
+            "682603b90b61125185462af7",
+            "682603b90b61125185462af5"
+          ]
+        }
+      ]
+    }
+  ],
+  "images": [
+    "682603b40b61125185462ab9",
+    "682603b40b61125185462ab7",
+    "682603b40b61125185462ab8",
+    "682603b50b61125185462aca",
+    "682603b40b61125185462ab5",
+    "682603b40b61125185462ab6",
+    "682603b50b61125185462ac3",
+    "682603b50b61125185462ac4",
+    "682603b50b61125185462ac5",
+    "682603b50b61125185462ac6",
+    "682603b50b61125185462ac0",
+    "682603b50b61125185462ac1",
+    "682603b50b61125185462ac2",
+    "682603b40b61125185462aba",
+    "682603b40b61125185462abb",
+    "682603b60b61125185462ad3",
+    "682603b60b61125185462ad4",
+    "682603b40b61125185462abe",
+    "682603b50b61125185462ac7",
+    "682603b60b61125185462ad1",
+    "682603b40b61125185462abf",
+    "682603b50b61125185462ac8",
+    "682603b60b61125185462ad2",
+    "682603b40b61125185462abc",
+    "682603b50b61125185462ac9",
+    "682603b40b61125185462abd",
+    "682603b60b61125185462ad0",
+    "682603b30b61125185462ab1",
+    "682603b30b61125185462ab2",
+    "682603b30b61125185462ab3",
+    "682603b30b61125185462ab4",
+    "682603b60b61125185462acf",
+    "682603b60b61125185462acd",
+    "682603b60b61125185462ace",
+    "682603b60b61125185462acb",
+    "682603b60b61125185462acc"
+  ],
+  "available": true,
+  "collection_id": "6825e9c68eaaa408c6aaf620",
+  "display_order": 0,
+  "youtube_video": "",
+  "coming_soon": false,
+  "display_name_open": "",
+  "gender_type": "FEMALE",
+  "all_image_contains": [
+    "682603b40b61125185462ab9",
+    "682603b40b61125185462ab7",
+    "682603b40b61125185462ab8",
+    "682603b50b61125185462aca",
+    "682603b40b61125185462ab5",
+    "682603b40b61125185462ab6",
+    "682603b50b61125185462ac3",
+    "682603b50b61125185462ac4",
+    "682603b50b61125185462ac5",
+    "682603b50b61125185462ac6",
+    "682603b50b61125185462ac0",
+    "682603b50b61125185462ac1",
+    "682603b50b61125185462ac2",
+    "682603b40b61125185462aba",
+    "682603b40b61125185462abb",
+    "682603b60b61125185462ad3",
+    "682603b60b61125185462ad4",
+    "682603b40b61125185462abe",
+    "682603b50b61125185462ac7",
+    "682603b60b61125185462ad1",
+    "682603b40b61125185462abf",
+    "682603b50b61125185462ac8",
+    "682603b60b61125185462ad2",
+    "682603b40b61125185462abc",
+    "682603b50b61125185462ac9",
+    "682603b40b61125185462abd",
+    "682603b60b61125185462ad0",
+    "682603b30b61125185462ab1",
+    "682603b30b61125185462ab2",
+    "682603b30b61125185462ab3",
+    "682603b30b61125185462ab4",
+    "682603b60b61125185462acf",
+    "682603b60b61125185462acd",
+    "682603b60b61125185462ace",
+    "682603b60b61125185462acb",
+    "682603b60b61125185462acc",
+    "682603b70b61125185462ad6",
+    "682603b70b61125185462ad7",
+    "682603b70b61125185462ad8",
+    "682603b70b61125185462ad9",
+    "682603b60b61125185462ad5",
+    "682603b70b61125185462ada",
+    "682603b70b61125185462adb",
+    "682603b70b61125185462adc",
+    "682603b70b61125185462add",
+    "682603b70b61125185462adf",
+    "682603b70b61125185462ae0",
+    "682603b70b61125185462ae1",
+    "682603b70b61125185462ade",
+    "682603b80b61125185462ae4",
+    "682603b80b61125185462ae5",
+    "682603b80b61125185462ae2",
+    "682603b80b61125185462ae3",
+    "682603b80b61125185462aea",
+    "682603b80b61125185462ae8",
+    "682603b80b61125185462ae9",
+    "682603b80b61125185462ae6",
+    "682603b80b61125185462ae7",
+    "682603b90b61125185462aee",
+    "682603b90b61125185462aef",
+    "682603b80b61125185462aeb",
+    "682603b80b61125185462aec",
+    "682603b90b61125185462aed",
+    "682603b90b61125185462af2",
+    "682603b90b61125185462af3",
+    "682603b90b61125185462af4",
+    "682603b90b61125185462af0",
+    "682603b90b61125185462af1",
+    "682603b90b61125185462af6",
+    "682603ba0b61125185462af8",
+    "682603b90b61125185462af7",
+    "682603b90b61125185462af5"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T15:09:51.112Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T15:09:51.112Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Product"
+},
+{
+  "_id": "682603c3213ef202c0fd2026",
+  "title": "Tất Yoga & Pilates Grib Socks",
+  "seo_alias": "tat-yoga-&-pilates-grib-socks",
+  "vendor": "5c482438000c695cfa6f8d22",
+  "tags": [
+    "NEW"
+  ],
+  "options": [
+    {
+      "type": "COLOR",
+      "title": "Màu sắc",
+      "values": [
+        "Hồng",
+        "Tím",
+        "Trắng",
+        "Đen"
+      ]
+    }
+  ],
+  "options_values": [
+    {
+      "title": "Màu sắc",
+      "type": "COLOR",
+      "options": [
+        {
+          "title": "Hồng",
+          "slug": "hong",
+          "label": "",
+          "images": [
+            "682603bf0b61125185462afd",
+            "682603bf0b61125185462afe",
+            "682603bf0b61125185462aff",
+            "682603bf0b61125185462b00",
+            "682603bf0b61125185462b01"
+          ]
+        },
+        {
+          "title": "Tím",
+          "slug": "tim",
+          "label": "",
+          "images": [
+            "682603c00b61125185462b05",
+            "682603c00b61125185462b02",
+            "682603c00b61125185462b04",
+            "682603c00b61125185462b03"
+          ]
+        },
+        {
+          "title": "Trắng",
+          "slug": "trang",
+          "label": "",
+          "images": [
+            "682603c00b61125185462b06",
+            "682603c00b61125185462b08",
+            "682603c00b61125185462b07",
+            "682603c00b61125185462b0b",
+            "682603c00b61125185462b0a",
+            "682603c00b61125185462b09"
+          ]
+        },
+        {
+          "title": "Đen",
+          "slug": "den",
+          "label": "",
+          "images": [
+            "682603c10b61125185462b10",
+            "682603c10b61125185462b0f",
+            "682603c10b61125185462b0e",
+            "682603c10b61125185462b0d",
+            "682603c10b61125185462b0c"
+          ]
+        }
+      ]
+    }
+  ],
+  "images": [
+    "682603bf0b61125185462af9",
+    "682603bf0b61125185462afa",
+    "682603bf0b61125185462afb",
+    "682603bf0b61125185462afc"
+  ],
+  "available": true,
+  "collection_id": "6825e9c68eaaa408c6aaf620",
+  "display_order": 0,
+  "youtube_video": "",
+  "coming_soon": false,
+  "display_name_open": "Thoáng khí",
+  "gender_type": "FEMALE",
+  "all_image_contains": [
+    "682603bf0b61125185462af9",
+    "682603bf0b61125185462afa",
+    "682603bf0b61125185462afb",
+    "682603bf0b61125185462afc",
+    "682603bf0b61125185462afd",
+    "682603bf0b61125185462afe",
+    "682603bf0b61125185462aff",
+    "682603bf0b61125185462b00",
+    "682603bf0b61125185462b01",
+    "682603c00b61125185462b05",
+    "682603c00b61125185462b02",
+    "682603c00b61125185462b04",
+    "682603c00b61125185462b03",
+    "682603c00b61125185462b06",
+    "682603c00b61125185462b08",
+    "682603c00b61125185462b07",
+    "682603c00b61125185462b0b",
+    "682603c00b61125185462b0a",
+    "682603c00b61125185462b09",
+    "682603c10b61125185462b10",
+    "682603c10b61125185462b0f",
+    "682603c10b61125185462b0e",
+    "682603c10b61125185462b0d",
+    "682603c10b61125185462b0c"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T15:09:55.241Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T15:09:55.241Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Product"
+},
+{
+  "_id": "682603c4213ef202c0fd2027",
+  "title": "Tất Yoga & Pilates chống trượt Ruffles Socks",
+  "seo_alias": "tat-yoga-&-pilates-chong-truot-ruffles-socks",
+  "vendor": "5c482438000c695cfa6f8d22",
+  "tags": [
+    "NEW"
+  ],
+  "options": [
+    {
+      "type": "COLOR",
+      "title": "Màu sắc",
+      "values": [
+        "Trắng"
+      ]
+    }
+  ],
+  "options_values": [
+    {
+      "title": "Màu sắc",
+      "type": "COLOR",
+      "options": [
+        {
+          "title": "Trắng",
+          "slug": "trang",
+          "label": "",
+          "images": [
+            "682603c30b61125185462b15",
+            "682603c30b61125185462b16",
+            "682603c30b61125185462b13",
+            "682603c30b61125185462b14"
+          ]
+        }
+      ]
+    }
+  ],
+  "images": [
+    "682603c30b61125185462b11",
+    "682603c30b61125185462b12"
+  ],
+  "available": true,
+  "collection_id": "6825e9c68eaaa408c6aaf620",
+  "display_order": 0,
+  "youtube_video": "",
+  "coming_soon": false,
+  "display_name_open": "Chống trượt - Thoáng khí",
+  "gender_type": "FEMALE",
+  "all_image_contains": [
+    "682603c30b61125185462b11",
+    "682603c30b61125185462b12",
+    "682603c30b61125185462b15",
+    "682603c30b61125185462b16",
+    "682603c30b61125185462b13",
+    "682603c30b61125185462b14"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T15:09:56.335Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T15:09:56.335Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Product"
+},
+{
+  "_id": "682603c8213ef202c0fd2028",
+  "title": "Tất Yoga & Pilates chống trượt cổ trung",
+  "seo_alias": "tat-yoga-&-pilates-chong-truot-co-trung",
+  "vendor": "5c482438000c695cfa6f8d22",
+  "tags": [
+    "NEW"
+  ],
+  "options": [
+    {
+      "type": "COLOR",
+      "title": "Màu sắc",
+      "values": [
+        "Trắng",
+        "Xám",
+        "Hồng",
+        "Đen"
+      ]
+    }
+  ],
+  "options_values": [
+    {
+      "title": "Màu sắc",
+      "type": "COLOR",
+      "options": [
+        {
+          "title": "Trắng",
+          "slug": "trang",
+          "label": "",
+          "images": [
+            "682603c50b61125185462b20",
+            "682603c40b61125185462b1b",
+            "682603c40b61125185462b1c",
+            "682603c40b61125185462b1d",
+            "682603c50b61125185462b1e",
+            "682603c50b61125185462b1f"
+          ]
+        },
+        {
+          "title": "Xám",
+          "slug": "xam",
+          "label": "",
+          "images": [
+            "682603c50b61125185462b24",
+            "682603c50b61125185462b25",
+            "682603c50b61125185462b22",
+            "682603c50b61125185462b23",
+            "682603c50b61125185462b21"
+          ]
+        },
+        {
+          "title": "Hồng",
+          "slug": "hong",
+          "label": "",
+          "images": [
+            "682603c60b61125185462b2a",
+            "682603c60b61125185462b2b",
+            "682603c50b61125185462b28",
+            "682603c60b61125185462b29",
+            "682603c50b61125185462b26",
+            "682603c50b61125185462b27"
+          ]
+        },
+        {
+          "title": "Đen",
+          "slug": "den",
+          "label": "",
+          "images": [
+            "682603c60b61125185462b30",
+            "682603c60b61125185462b2c",
+            "682603c60b61125185462b2d",
+            "682603c60b61125185462b2e",
+            "682603c60b61125185462b2f"
+          ]
+        }
+      ]
+    }
+  ],
+  "images": [
+    "682603c40b61125185462b17",
+    "682603c40b61125185462b18",
+    "682603c40b61125185462b19",
+    "682603c40b61125185462b1a"
+  ],
+  "available": true,
+  "collection_id": "6825e9c68eaaa408c6aaf620",
+  "display_order": 0,
+  "youtube_video": "",
+  "coming_soon": false,
+  "display_name_open": "Chống trượt - Thoáng khí",
+  "gender_type": "FEMALE",
+  "all_image_contains": [
+    "682603c40b61125185462b17",
+    "682603c40b61125185462b18",
+    "682603c40b61125185462b19",
+    "682603c40b61125185462b1a",
+    "682603c50b61125185462b20",
+    "682603c40b61125185462b1b",
+    "682603c40b61125185462b1c",
+    "682603c40b61125185462b1d",
+    "682603c50b61125185462b1e",
+    "682603c50b61125185462b1f",
+    "682603c50b61125185462b24",
+    "682603c50b61125185462b25",
+    "682603c50b61125185462b22",
+    "682603c50b61125185462b23",
+    "682603c50b61125185462b21",
+    "682603c60b61125185462b2a",
+    "682603c60b61125185462b2b",
+    "682603c50b61125185462b28",
+    "682603c60b61125185462b29",
+    "682603c50b61125185462b26",
+    "682603c50b61125185462b27",
+    "682603c60b61125185462b30",
+    "682603c60b61125185462b2c",
+    "682603c60b61125185462b2d",
+    "682603c60b61125185462b2e",
+    "682603c60b61125185462b2f"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T15:10:00.571Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T15:10:00.571Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Product"
+},
+{
+  "_id": "682603ca213ef202c0fd2029",
+  "title": "Cặp Gaiter Chạy Bộ Bọc Chân ",
+  "seo_alias": "cap-gaiter-chay-bo-boc-chan-",
+  "vendor": "5c482438000c695cfa6f8d22",
+  "tags": [],
+  "options": [
+    {
+      "type": "COLOR",
+      "title": "Màu sắc",
+      "values": [
+        "Vàng - Vàng"
+      ]
+    }
+  ],
+  "options_values": [
+    {
+      "title": "Màu sắc",
+      "type": "COLOR",
+      "options": [
+        {
+          "title": "Vàng - Vàng",
+          "slug": "vang-vang",
+          "label": "",
+          "images": [
+            "682603c90b61125185462b3d",
+            "682603c90b61125185462b3c",
+            "682603c90b61125185462b3b",
+            "682603c90b61125185462b3a"
+          ]
+        }
+      ]
+    }
+  ],
+  "images": [
+    "682603c90b61125185462b38",
+    "682603c80b61125185462b31",
+    "682603c90b61125185462b37",
+    "682603c80b61125185462b32",
+    "682603c80b61125185462b33",
+    "682603c90b61125185462b39",
+    "682603c90b61125185462b36",
+    "682603c90b61125185462b35",
+    "682603c80b61125185462b34"
+  ],
+  "available": true,
+  "collection_id": "6825e9c68eaaa408c6aaf620",
+  "display_order": 252,
+  "youtube_video": "https://media.coolmate.me/uploads/videos/footgaiter.mp4",
+  "coming_soon": false,
+  "display_name_open": "",
+  "gender_type": "UNISEX",
+  "all_image_contains": [
+    "682603c90b61125185462b38",
+    "682603c80b61125185462b31",
+    "682603c90b61125185462b37",
+    "682603c80b61125185462b32",
+    "682603c80b61125185462b33",
+    "682603c90b61125185462b39",
+    "682603c90b61125185462b36",
+    "682603c90b61125185462b35",
+    "682603c80b61125185462b34",
+    "682603c90b61125185462b3d",
+    "682603c90b61125185462b3c",
+    "682603c90b61125185462b3b",
+    "682603c90b61125185462b3a"
+  ],
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T15:10:02.803Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T15:10:02.803Z"
+  },
+  "_class": "com.lamnguyen.product_service.model.Product"
+}]

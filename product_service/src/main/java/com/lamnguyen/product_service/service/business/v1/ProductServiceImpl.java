@@ -178,7 +178,7 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	@Override
-	public List<ProductResponse> getProductByids(List<String> ids) {
+	public List<ProductResponse> getProductByIds(List<String> ids) {
 		var result = new ArrayList<ProductResponse>(20);
 		var listTask = new ArrayList<CompletableFuture<Void>>();
 		ids.forEach(id ->

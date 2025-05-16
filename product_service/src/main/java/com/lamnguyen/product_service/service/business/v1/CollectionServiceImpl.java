@@ -13,6 +13,7 @@ import com.lamnguyen.product_service.config.exception.ExceptionEnum;
 import com.lamnguyen.product_service.domain.dto.CollectionSaveRedisDto;
 import com.lamnguyen.product_service.domain.response.ProductResponse;
 import com.lamnguyen.product_service.mapper.ICollectionMapper;
+import com.lamnguyen.product_service.model.MongoBaseDocument;
 import com.lamnguyen.product_service.repository.ICollectionRepository;
 import com.lamnguyen.product_service.service.business.ICollectionService;
 import com.lamnguyen.product_service.service.business.IProductService;
@@ -55,7 +56,7 @@ public class CollectionServiceImpl implements ICollectionService {
 	public Page<ProductResponse> getProducts(String id, Pageable pageable) {
 		var collection = findById(id);
 		var ids = collection.getProducts().stream().skip(pageable.getOffset()).limit(pageable.getPageSize()).toList();
-		var products = productService.getProductByids(ids);
+		var products = productService.getProductByIds(ids);
 		return new PageImpl<>(products, pageable, collection.getProducts().size());
 	}
 
@@ -65,15 +66,23 @@ public class CollectionServiceImpl implements ICollectionService {
 		var listTask = new ArrayList<CompletableFuture<Void>>();
 		for (var type : CollectionType.values()) {
 			listTask.add(CompletableFuture.runAsync(() -> {
-				result.put(type, getProductByCollectionTypeInDb(type));
+				result.put(type, getProductByCollectionType(type));
 			}));
 		}
 		CompletableFuture.allOf(listTask.toArray(new CompletableFuture[0])).join();
 		return result;
 	}
 
+	@Override
+	public Page<ProductResponse> getProducts(CollectionType type, Pageable pageable) {
+		var allProducts = collectionRedisManager.getByCollectionType(type).stream().flatMap(collectionSaveRedisDto -> collectionSaveRedisDto.getProducts().stream()).toList();
+		var ids = allProducts.stream().skip(pageable.getOffset()).limit(pageable.getPageSize());
+		var products = productService.getProductByIds(ids.toList());
+		return new PageImpl<>(products, pageable, allProducts.size());
+	}
 
-	private List<CollectionSaveRedisDto> getProductByCollectionTypeInDb(CollectionType type) {
+
+	private List<CollectionSaveRedisDto> getProductByCollectionType(CollectionType type) {
 		var result = collectionRedisManager.getByCollectionType(type);
 		if (result != null && !result.isEmpty()) return result;
 		return collectionRedisManager.cache(type, () -> Optional.ofNullable(collectionRepository.findAllByType(type)));

@@ -49,4 +49,9 @@ public class CollectionController {
 	Page<ProductResponse> getAllProductByCollectionId(@PathVariable("id") String id, @PageableDefault(sort = {"_id"}, page = 0, size = 10, direction = Sort.Direction.ASC) Pageable pageable) {
 		return collectionService.getProducts(id, pageable);
 	}
+
+	@GetMapping("/type/{type}/products")
+	Page<ProductResponse> getAllProductByCollectionType(@PathVariable("type") String type, @PageableDefault(sort = {"_id"}, page = 0, size = 10, direction = Sort.Direction.ASC) Pageable pageable) {
+		return collectionService.getProducts(CollectionType.valueOf(type.toUpperCase()), pageable);
+	}
 }

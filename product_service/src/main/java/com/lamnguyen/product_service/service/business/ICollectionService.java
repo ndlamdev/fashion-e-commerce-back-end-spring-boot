@@ -24,4 +24,6 @@ public interface ICollectionService {
 	Page<ProductResponse> getProducts(String id, Pageable pageable);
 
 	Map<CollectionType, List<CollectionSaveRedisDto>> getCollections();
+
+	Page<ProductResponse> getProducts(CollectionType type, Pageable pageable);
 }

@@ -11,7 +11,6 @@ package com.lamnguyen.product_service.service.business;
 import com.lamnguyen.product_service.domain.response.ProductResponse;
 import com.lamnguyen.product_service.protos.ProductInCartDto;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.io.File;
 import java.util.List;
@@ -23,7 +22,7 @@ public interface IProductService {
 
 	ProductInCartDto getProductInCartById(String id);
 
-	List<ProductResponse> getProductByids(List<String> ids);
+	List<ProductResponse> getProductByIds(List<String> ids);
 
 	Page<ProductResponse> searchByImage(File file);
 }

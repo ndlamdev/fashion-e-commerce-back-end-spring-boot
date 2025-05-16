@@ -1,0 +1,3344 @@
+[{
+  "_id": "6826040b1bd0a01c950acc01",
+  "product_id": "6826040b213ef202c0fd202a",
+  "title": "39-42-Đen-Trắng",
+  "regular_price": 60000,
+  "compare_price": 60000,
+  "sku": "SKU-6826040B213EF202C0FD202A-SIZE-39-42-COLOR-ĐEN-TRẮNG",
+  "quantity": 0,
+  "options": {
+    "SIZE": "39-42",
+    "COLOR": "Đen-Trắng"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:07.481Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:07.481Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826040b1bd0a01c950acc02",
+  "product_id": "6826040b213ef202c0fd202a",
+  "title": "43-46-Đen-Trắng",
+  "regular_price": 60000,
+  "compare_price": 60000,
+  "sku": "SKU-6826040B213EF202C0FD202A-SIZE-43-46-COLOR-ĐEN-TRẮNG",
+  "quantity": 0,
+  "options": {
+    "SIZE": "43-46",
+    "COLOR": "Đen-Trắng"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:07.564Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:07.564Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826040b1bd0a01c950acc03",
+  "product_id": "6826040b213ef202c0fd202a",
+  "title": "39-42-Đen-Đỏ",
+  "regular_price": 60000,
+  "compare_price": 60000,
+  "sku": "SKU-6826040B213EF202C0FD202A-SIZE-39-42-COLOR-ĐEN-ĐỎ",
+  "quantity": 0,
+  "options": {
+    "SIZE": "39-42",
+    "COLOR": "Đen-Đỏ"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:07.691Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:07.691Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826040b1bd0a01c950acc04",
+  "product_id": "6826040b213ef202c0fd202a",
+  "title": "43-46-Đen-Đỏ",
+  "regular_price": 60000,
+  "compare_price": 60000,
+  "sku": "SKU-6826040B213EF202C0FD202A-SIZE-43-46-COLOR-ĐEN-ĐỎ",
+  "quantity": 0,
+  "options": {
+    "SIZE": "43-46",
+    "COLOR": "Đen-Đỏ"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:07.770Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:07.770Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826040b1bd0a01c950acc05",
+  "product_id": "6826040b213ef202c0fd202a",
+  "title": "39-42-Xanh",
+  "regular_price": 60000,
+  "compare_price": 60000,
+  "sku": "SKU-6826040B213EF202C0FD202A-SIZE-39-42-COLOR-XANH",
+  "quantity": 0,
+  "options": {
+    "SIZE": "39-42",
+    "COLOR": "Xanh"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:07.841Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:07.841Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826040b1bd0a01c950acc06",
+  "product_id": "6826040b213ef202c0fd202a",
+  "title": "43-46-Xanh",
+  "regular_price": 60000,
+  "compare_price": 60000,
+  "sku": "SKU-6826040B213EF202C0FD202A-SIZE-43-46-COLOR-XANH",
+  "quantity": 0,
+  "options": {
+    "SIZE": "43-46",
+    "COLOR": "Xanh"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:07.912Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:07.912Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604131bd0a01c950acc07",
+  "product_id": "68260413213ef202c0fd202b",
+  "title": "S-Xanh Poseidon",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260413213EF202C0FD202B-SIZE-S-COLOR-XANH POSEIDON",
+  "quantity": 0,
+  "options": {
+    "SIZE": "S",
+    "COLOR": "Xanh Poseidon"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:15.383Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:15.383Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604131bd0a01c950acc08",
+  "product_id": "68260413213ef202c0fd202b",
+  "title": "M-Xanh Poseidon",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260413213EF202C0FD202B-SIZE-M-COLOR-XANH POSEIDON",
+  "quantity": 0,
+  "options": {
+    "SIZE": "M",
+    "COLOR": "Xanh Poseidon"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:15.512Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:15.512Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604131bd0a01c950acc09",
+  "product_id": "68260413213ef202c0fd202b",
+  "title": "L-Xanh Poseidon",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260413213EF202C0FD202B-SIZE-L-COLOR-XANH POSEIDON",
+  "quantity": 0,
+  "options": {
+    "SIZE": "L",
+    "COLOR": "Xanh Poseidon"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:15.601Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:15.601Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604131bd0a01c950acc0a",
+  "product_id": "68260413213ef202c0fd202b",
+  "title": "XL-Xanh Poseidon",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260413213EF202C0FD202B-SIZE-XL-COLOR-XANH POSEIDON",
+  "quantity": 0,
+  "options": {
+    "SIZE": "XL",
+    "COLOR": "Xanh Poseidon"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:15.675Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:15.675Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604131bd0a01c950acc0b",
+  "product_id": "68260413213ef202c0fd202b",
+  "title": "2XL-Xanh Poseidon",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260413213EF202C0FD202B-SIZE-2XL-COLOR-XANH POSEIDON",
+  "quantity": 0,
+  "options": {
+    "SIZE": "2XL",
+    "COLOR": "Xanh Poseidon"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:15.787Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:15.787Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604131bd0a01c950acc0c",
+  "product_id": "68260413213ef202c0fd202b",
+  "title": "3XL-Xanh Poseidon",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260413213EF202C0FD202B-SIZE-3XL-COLOR-XANH POSEIDON",
+  "quantity": 0,
+  "options": {
+    "SIZE": "3XL",
+    "COLOR": "Xanh Poseidon"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:15.872Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:15.872Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604131bd0a01c950acc0d",
+  "product_id": "68260413213ef202c0fd202b",
+  "title": "S-Xanh Diva",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260413213EF202C0FD202B-SIZE-S-COLOR-XANH DIVA",
+  "quantity": 0,
+  "options": {
+    "SIZE": "S",
+    "COLOR": "Xanh Diva"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:15.954Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:15.954Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604141bd0a01c950acc0e",
+  "product_id": "68260413213ef202c0fd202b",
+  "title": "M-Xanh Diva",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260413213EF202C0FD202B-SIZE-M-COLOR-XANH DIVA",
+  "quantity": 0,
+  "options": {
+    "SIZE": "M",
+    "COLOR": "Xanh Diva"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:16.024Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:16.024Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604141bd0a01c950acc0f",
+  "product_id": "68260413213ef202c0fd202b",
+  "title": "L-Xanh Diva",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260413213EF202C0FD202B-SIZE-L-COLOR-XANH DIVA",
+  "quantity": 0,
+  "options": {
+    "SIZE": "L",
+    "COLOR": "Xanh Diva"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:16.098Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:16.098Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604141bd0a01c950acc10",
+  "product_id": "68260413213ef202c0fd202b",
+  "title": "XL-Xanh Diva",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260413213EF202C0FD202B-SIZE-XL-COLOR-XANH DIVA",
+  "quantity": 0,
+  "options": {
+    "SIZE": "XL",
+    "COLOR": "Xanh Diva"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:16.178Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:16.178Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604141bd0a01c950acc11",
+  "product_id": "68260413213ef202c0fd202b",
+  "title": "2XL-Xanh Diva",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260413213EF202C0FD202B-SIZE-2XL-COLOR-XANH DIVA",
+  "quantity": 0,
+  "options": {
+    "SIZE": "2XL",
+    "COLOR": "Xanh Diva"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:16.271Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:16.271Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604141bd0a01c950acc12",
+  "product_id": "68260413213ef202c0fd202b",
+  "title": "3XL-Xanh Diva",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260413213EF202C0FD202B-SIZE-3XL-COLOR-XANH DIVA",
+  "quantity": 0,
+  "options": {
+    "SIZE": "3XL",
+    "COLOR": "Xanh Diva"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:16.369Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:16.369Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604141bd0a01c950acc13",
+  "product_id": "68260413213ef202c0fd202b",
+  "title": "S-Đỏ Rhythmic",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260413213EF202C0FD202B-SIZE-S-COLOR-ĐỎ RHYTHMIC",
+  "quantity": 0,
+  "options": {
+    "SIZE": "S",
+    "COLOR": "Đỏ Rhythmic"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:16.445Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:16.445Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604141bd0a01c950acc14",
+  "product_id": "68260413213ef202c0fd202b",
+  "title": "M-Đỏ Rhythmic",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260413213EF202C0FD202B-SIZE-M-COLOR-ĐỎ RHYTHMIC",
+  "quantity": 0,
+  "options": {
+    "SIZE": "M",
+    "COLOR": "Đỏ Rhythmic"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:16.533Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:16.533Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604141bd0a01c950acc15",
+  "product_id": "68260413213ef202c0fd202b",
+  "title": "L-Đỏ Rhythmic",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260413213EF202C0FD202B-SIZE-L-COLOR-ĐỎ RHYTHMIC",
+  "quantity": 0,
+  "options": {
+    "SIZE": "L",
+    "COLOR": "Đỏ Rhythmic"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:16.630Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:16.630Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604141bd0a01c950acc16",
+  "product_id": "68260413213ef202c0fd202b",
+  "title": "XL-Đỏ Rhythmic",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260413213EF202C0FD202B-SIZE-XL-COLOR-ĐỎ RHYTHMIC",
+  "quantity": 0,
+  "options": {
+    "SIZE": "XL",
+    "COLOR": "Đỏ Rhythmic"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:16.711Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:16.711Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604141bd0a01c950acc17",
+  "product_id": "68260413213ef202c0fd202b",
+  "title": "2XL-Đỏ Rhythmic",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260413213EF202C0FD202B-SIZE-2XL-COLOR-ĐỎ RHYTHMIC",
+  "quantity": 0,
+  "options": {
+    "SIZE": "2XL",
+    "COLOR": "Đỏ Rhythmic"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:16.783Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:16.783Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604141bd0a01c950acc18",
+  "product_id": "68260413213ef202c0fd202b",
+  "title": "3XL-Đỏ Rhythmic",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260413213EF202C0FD202B-SIZE-3XL-COLOR-ĐỎ RHYTHMIC",
+  "quantity": 0,
+  "options": {
+    "SIZE": "3XL",
+    "COLOR": "Đỏ Rhythmic"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:16.869Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:16.869Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604191bd0a01c950acc19",
+  "product_id": "68260419213ef202c0fd202c",
+  "title": "S-Đen",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260419213EF202C0FD202C-SIZE-S-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "S",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:21.587Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:21.587Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604191bd0a01c950acc1a",
+  "product_id": "68260419213ef202c0fd202c",
+  "title": "M-Đen",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260419213EF202C0FD202C-SIZE-M-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "M",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:21.678Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:21.678Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604191bd0a01c950acc1b",
+  "product_id": "68260419213ef202c0fd202c",
+  "title": "L-Đen",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260419213EF202C0FD202C-SIZE-L-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "L",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:21.753Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:21.753Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604191bd0a01c950acc1c",
+  "product_id": "68260419213ef202c0fd202c",
+  "title": "XL-Đen",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260419213EF202C0FD202C-SIZE-XL-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "XL",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:21.824Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:21.824Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604191bd0a01c950acc1d",
+  "product_id": "68260419213ef202c0fd202c",
+  "title": "2XL-Đen",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260419213EF202C0FD202C-SIZE-2XL-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "2XL",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:21.889Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:21.889Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604191bd0a01c950acc1e",
+  "product_id": "68260419213ef202c0fd202c",
+  "title": "3XL-Đen",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260419213EF202C0FD202C-SIZE-3XL-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "3XL",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:21.973Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:21.973Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826041a1bd0a01c950acc1f",
+  "product_id": "68260419213ef202c0fd202c",
+  "title": "S-Đỏ Rhythmic",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260419213EF202C0FD202C-SIZE-S-COLOR-ĐỎ RHYTHMIC",
+  "quantity": 0,
+  "options": {
+    "SIZE": "S",
+    "COLOR": "Đỏ Rhythmic"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:22.043Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:22.043Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826041a1bd0a01c950acc20",
+  "product_id": "68260419213ef202c0fd202c",
+  "title": "M-Đỏ Rhythmic",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260419213EF202C0FD202C-SIZE-M-COLOR-ĐỎ RHYTHMIC",
+  "quantity": 0,
+  "options": {
+    "SIZE": "M",
+    "COLOR": "Đỏ Rhythmic"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:22.113Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:22.113Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826041a1bd0a01c950acc21",
+  "product_id": "68260419213ef202c0fd202c",
+  "title": "L-Đỏ Rhythmic",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260419213EF202C0FD202C-SIZE-L-COLOR-ĐỎ RHYTHMIC",
+  "quantity": 0,
+  "options": {
+    "SIZE": "L",
+    "COLOR": "Đỏ Rhythmic"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:22.186Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:22.186Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826041a1bd0a01c950acc22",
+  "product_id": "68260419213ef202c0fd202c",
+  "title": "XL-Đỏ Rhythmic",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260419213EF202C0FD202C-SIZE-XL-COLOR-ĐỎ RHYTHMIC",
+  "quantity": 0,
+  "options": {
+    "SIZE": "XL",
+    "COLOR": "Đỏ Rhythmic"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:22.261Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:22.261Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826041a1bd0a01c950acc23",
+  "product_id": "68260419213ef202c0fd202c",
+  "title": "2XL-Đỏ Rhythmic",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260419213EF202C0FD202C-SIZE-2XL-COLOR-ĐỎ RHYTHMIC",
+  "quantity": 0,
+  "options": {
+    "SIZE": "2XL",
+    "COLOR": "Đỏ Rhythmic"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:22.335Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:22.335Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826041a1bd0a01c950acc24",
+  "product_id": "68260419213ef202c0fd202c",
+  "title": "3XL-Đỏ Rhythmic",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260419213EF202C0FD202C-SIZE-3XL-COLOR-ĐỎ RHYTHMIC",
+  "quantity": 0,
+  "options": {
+    "SIZE": "3XL",
+    "COLOR": "Đỏ Rhythmic"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:22.404Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:22.404Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826041a1bd0a01c950acc25",
+  "product_id": "68260419213ef202c0fd202c",
+  "title": "S-Trắng",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260419213EF202C0FD202C-SIZE-S-COLOR-TRẮNG",
+  "quantity": 0,
+  "options": {
+    "SIZE": "S",
+    "COLOR": "Trắng"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:22.478Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:22.478Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826041a1bd0a01c950acc26",
+  "product_id": "68260419213ef202c0fd202c",
+  "title": "M-Trắng",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260419213EF202C0FD202C-SIZE-M-COLOR-TRẮNG",
+  "quantity": 0,
+  "options": {
+    "SIZE": "M",
+    "COLOR": "Trắng"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:22.550Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:22.550Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826041a1bd0a01c950acc27",
+  "product_id": "68260419213ef202c0fd202c",
+  "title": "L-Trắng",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260419213EF202C0FD202C-SIZE-L-COLOR-TRẮNG",
+  "quantity": 0,
+  "options": {
+    "SIZE": "L",
+    "COLOR": "Trắng"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:22.622Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:22.622Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826041a1bd0a01c950acc28",
+  "product_id": "68260419213ef202c0fd202c",
+  "title": "XL-Trắng",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260419213EF202C0FD202C-SIZE-XL-COLOR-TRẮNG",
+  "quantity": 0,
+  "options": {
+    "SIZE": "XL",
+    "COLOR": "Trắng"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:22.726Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:22.726Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826041a1bd0a01c950acc29",
+  "product_id": "68260419213ef202c0fd202c",
+  "title": "2XL-Trắng",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260419213EF202C0FD202C-SIZE-2XL-COLOR-TRẮNG",
+  "quantity": 0,
+  "options": {
+    "SIZE": "2XL",
+    "COLOR": "Trắng"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:22.801Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:22.801Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826041a1bd0a01c950acc2a",
+  "product_id": "68260419213ef202c0fd202c",
+  "title": "3XL-Trắng",
+  "regular_price": 219000,
+  "compare_price": 249000,
+  "sku": "SKU-68260419213EF202C0FD202C-SIZE-3XL-COLOR-TRẮNG",
+  "quantity": 0,
+  "options": {
+    "SIZE": "3XL",
+    "COLOR": "Trắng"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:22.878Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:22.878Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604231bd0a01c950acc2b",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "M-Đen",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-M-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "M",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:31.980Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:31.980Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604241bd0a01c950acc2c",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "L-Đen",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-L-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "L",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:32.072Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:32.072Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604241bd0a01c950acc2d",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "XL-Đen",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-XL-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "XL",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:32.156Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:32.156Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604241bd0a01c950acc2e",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "2XL-Đen",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-2XL-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "2XL",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:32.274Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:32.274Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604241bd0a01c950acc2f",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "3XL-Đen",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-3XL-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "3XL",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:32.365Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:32.365Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604241bd0a01c950acc30",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "M-Be",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-M-COLOR-BE",
+  "quantity": 0,
+  "options": {
+    "SIZE": "M",
+    "COLOR": "Be"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:32.437Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:32.437Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604241bd0a01c950acc31",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "L-Be",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-L-COLOR-BE",
+  "quantity": 0,
+  "options": {
+    "SIZE": "L",
+    "COLOR": "Be"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:32.509Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:32.509Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604241bd0a01c950acc32",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "XL-Be",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-XL-COLOR-BE",
+  "quantity": 0,
+  "options": {
+    "SIZE": "XL",
+    "COLOR": "Be"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:32.579Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:32.579Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604241bd0a01c950acc33",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "2XL-Be",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-2XL-COLOR-BE",
+  "quantity": 0,
+  "options": {
+    "SIZE": "2XL",
+    "COLOR": "Be"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:32.648Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:32.648Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604241bd0a01c950acc34",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "3XL-Be",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-3XL-COLOR-BE",
+  "quantity": 0,
+  "options": {
+    "SIZE": "3XL",
+    "COLOR": "Be"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:32.718Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:32.718Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604241bd0a01c950acc35",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "M-Xám đen",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-M-COLOR-XÁM ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "M",
+    "COLOR": "Xám đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:32.798Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:32.798Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604241bd0a01c950acc36",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "L-Xám đen",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-L-COLOR-XÁM ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "L",
+    "COLOR": "Xám đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:32.876Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:32.876Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604241bd0a01c950acc37",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "XL-Xám đen",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-XL-COLOR-XÁM ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "XL",
+    "COLOR": "Xám đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:32.948Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:32.948Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604251bd0a01c950acc38",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "2XL-Xám đen",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-2XL-COLOR-XÁM ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "2XL",
+    "COLOR": "Xám đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:33.018Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:33.018Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604251bd0a01c950acc39",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "3XL-Xám đen",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-3XL-COLOR-XÁM ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "3XL",
+    "COLOR": "Xám đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:33.090Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:33.090Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604251bd0a01c950acc3a",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "M-Xanh Navy",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-M-COLOR-XANH NAVY",
+  "quantity": 0,
+  "options": {
+    "SIZE": "M",
+    "COLOR": "Xanh Navy"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:33.161Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:33.161Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604251bd0a01c950acc3b",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "L-Xanh Navy",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-L-COLOR-XANH NAVY",
+  "quantity": 0,
+  "options": {
+    "SIZE": "L",
+    "COLOR": "Xanh Navy"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:33.226Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:33.226Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604251bd0a01c950acc3c",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "XL-Xanh Navy",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-XL-COLOR-XANH NAVY",
+  "quantity": 0,
+  "options": {
+    "SIZE": "XL",
+    "COLOR": "Xanh Navy"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:33.302Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:33.302Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604251bd0a01c950acc3d",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "2XL-Xanh Navy",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-2XL-COLOR-XANH NAVY",
+  "quantity": 0,
+  "options": {
+    "SIZE": "2XL",
+    "COLOR": "Xanh Navy"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:33.373Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:33.373Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604251bd0a01c950acc3e",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "3XL-Xanh Navy",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-3XL-COLOR-XANH NAVY",
+  "quantity": 0,
+  "options": {
+    "SIZE": "3XL",
+    "COLOR": "Xanh Navy"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:33.445Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:33.445Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604251bd0a01c950acc3f",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "M-Nâu",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-M-COLOR-NÂU",
+  "quantity": 0,
+  "options": {
+    "SIZE": "M",
+    "COLOR": "Nâu"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:33.517Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:33.517Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604251bd0a01c950acc40",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "L-Nâu",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-L-COLOR-NÂU",
+  "quantity": 0,
+  "options": {
+    "SIZE": "L",
+    "COLOR": "Nâu"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:33.590Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:33.590Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604251bd0a01c950acc41",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "XL-Nâu",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-XL-COLOR-NÂU",
+  "quantity": 0,
+  "options": {
+    "SIZE": "XL",
+    "COLOR": "Nâu"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:33.663Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:33.663Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604251bd0a01c950acc42",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "2XL-Nâu",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-2XL-COLOR-NÂU",
+  "quantity": 0,
+  "options": {
+    "SIZE": "2XL",
+    "COLOR": "Nâu"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:33.735Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:33.735Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604251bd0a01c950acc43",
+  "product_id": "68260423213ef202c0fd202d",
+  "title": "3XL-Nâu",
+  "regular_price": 169000,
+  "compare_price": 198000,
+  "sku": "SKU-68260423213EF202C0FD202D-SIZE-3XL-COLOR-NÂU",
+  "quantity": 0,
+  "options": {
+    "SIZE": "3XL",
+    "COLOR": "Nâu"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:33.807Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:33.807Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604291bd0a01c950acc44",
+  "product_id": "68260429213ef202c0fd202e",
+  "title": "M-Nâu",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260429213EF202C0FD202E-SIZE-M-COLOR-NÂU",
+  "quantity": 0,
+  "options": {
+    "SIZE": "M",
+    "COLOR": "Nâu"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:37.184Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:37.184Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604291bd0a01c950acc45",
+  "product_id": "68260429213ef202c0fd202e",
+  "title": "L-Nâu",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260429213EF202C0FD202E-SIZE-L-COLOR-NÂU",
+  "quantity": 0,
+  "options": {
+    "SIZE": "L",
+    "COLOR": "Nâu"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:37.291Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:37.291Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604291bd0a01c950acc46",
+  "product_id": "68260429213ef202c0fd202e",
+  "title": "XL-Nâu",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260429213EF202C0FD202E-SIZE-XL-COLOR-NÂU",
+  "quantity": 0,
+  "options": {
+    "SIZE": "XL",
+    "COLOR": "Nâu"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:37.441Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:37.441Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604291bd0a01c950acc47",
+  "product_id": "68260429213ef202c0fd202e",
+  "title": "2XL-Nâu",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260429213EF202C0FD202E-SIZE-2XL-COLOR-NÂU",
+  "quantity": 0,
+  "options": {
+    "SIZE": "2XL",
+    "COLOR": "Nâu"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:37.549Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:37.549Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604291bd0a01c950acc48",
+  "product_id": "68260429213ef202c0fd202e",
+  "title": "3XL-Nâu",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260429213EF202C0FD202E-SIZE-3XL-COLOR-NÂU",
+  "quantity": 0,
+  "options": {
+    "SIZE": "3XL",
+    "COLOR": "Nâu"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:37.620Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:37.620Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604291bd0a01c950acc49",
+  "product_id": "68260429213ef202c0fd202e",
+  "title": "M-Xanh Navy",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260429213EF202C0FD202E-SIZE-M-COLOR-XANH NAVY",
+  "quantity": 0,
+  "options": {
+    "SIZE": "M",
+    "COLOR": "Xanh Navy"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:37.748Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:37.748Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604291bd0a01c950acc4a",
+  "product_id": "68260429213ef202c0fd202e",
+  "title": "L-Xanh Navy",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260429213EF202C0FD202E-SIZE-L-COLOR-XANH NAVY",
+  "quantity": 0,
+  "options": {
+    "SIZE": "L",
+    "COLOR": "Xanh Navy"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:37.824Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:37.824Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604291bd0a01c950acc4b",
+  "product_id": "68260429213ef202c0fd202e",
+  "title": "XL-Xanh Navy",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260429213EF202C0FD202E-SIZE-XL-COLOR-XANH NAVY",
+  "quantity": 0,
+  "options": {
+    "SIZE": "XL",
+    "COLOR": "Xanh Navy"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:37.896Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:37.896Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604291bd0a01c950acc4c",
+  "product_id": "68260429213ef202c0fd202e",
+  "title": "2XL-Xanh Navy",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260429213EF202C0FD202E-SIZE-2XL-COLOR-XANH NAVY",
+  "quantity": 0,
+  "options": {
+    "SIZE": "2XL",
+    "COLOR": "Xanh Navy"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:37.983Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:37.983Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826042a1bd0a01c950acc4d",
+  "product_id": "68260429213ef202c0fd202e",
+  "title": "3XL-Xanh Navy",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260429213EF202C0FD202E-SIZE-3XL-COLOR-XANH NAVY",
+  "quantity": 0,
+  "options": {
+    "SIZE": "3XL",
+    "COLOR": "Xanh Navy"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:38.102Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:38.102Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826042a1bd0a01c950acc4e",
+  "product_id": "68260429213ef202c0fd202e",
+  "title": "M-Đen",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260429213EF202C0FD202E-SIZE-M-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "M",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:38.180Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:38.180Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826042a1bd0a01c950acc4f",
+  "product_id": "68260429213ef202c0fd202e",
+  "title": "L-Đen",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260429213EF202C0FD202E-SIZE-L-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "L",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:38.263Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:38.263Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826042a1bd0a01c950acc50",
+  "product_id": "68260429213ef202c0fd202e",
+  "title": "XL-Đen",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260429213EF202C0FD202E-SIZE-XL-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "XL",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:38.337Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:38.337Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826042a1bd0a01c950acc51",
+  "product_id": "68260429213ef202c0fd202e",
+  "title": "2XL-Đen",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260429213EF202C0FD202E-SIZE-2XL-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "2XL",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:38.441Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:38.441Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826042a1bd0a01c950acc52",
+  "product_id": "68260429213ef202c0fd202e",
+  "title": "3XL-Đen",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260429213EF202C0FD202E-SIZE-3XL-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "3XL",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:38.540Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:38.540Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826042c1bd0a01c950acc53",
+  "product_id": "6826042c213ef202c0fd202f",
+  "title": "39-42-Đen",
+  "regular_price": 59000,
+  "compare_price": 69000,
+  "sku": "SKU-6826042C213EF202C0FD202F-SIZE-39-42-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "39-42",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:40.896Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:40.896Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826042c1bd0a01c950acc54",
+  "product_id": "6826042c213ef202c0fd202f",
+  "title": "43-46-Đen",
+  "regular_price": 59000,
+  "compare_price": 69000,
+  "sku": "SKU-6826042C213EF202C0FD202F-SIZE-43-46-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "43-46",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:40.978Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:40.978Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826042d1bd0a01c950acc55",
+  "product_id": "6826042c213ef202c0fd202f",
+  "title": "39-42-Trắng",
+  "regular_price": 59000,
+  "compare_price": 69000,
+  "sku": "SKU-6826042C213EF202C0FD202F-SIZE-39-42-COLOR-TRẮNG",
+  "quantity": 0,
+  "options": {
+    "SIZE": "39-42",
+    "COLOR": "Trắng"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:41.054Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:41.054Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826042d1bd0a01c950acc56",
+  "product_id": "6826042c213ef202c0fd202f",
+  "title": "43-46-Trắng",
+  "regular_price": 59000,
+  "compare_price": 69000,
+  "sku": "SKU-6826042C213EF202C0FD202F-SIZE-43-46-COLOR-TRẮNG",
+  "quantity": 0,
+  "options": {
+    "SIZE": "43-46",
+    "COLOR": "Trắng"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:41.124Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:41.124Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604301bd0a01c950acc57",
+  "product_id": "68260430213ef202c0fd2030",
+  "title": "39-42-Trắng",
+  "regular_price": 59000,
+  "compare_price": 69000,
+  "sku": "SKU-68260430213EF202C0FD2030-SIZE-39-42-COLOR-TRẮNG",
+  "quantity": 0,
+  "options": {
+    "SIZE": "39-42",
+    "COLOR": "Trắng"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:44.286Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:44.286Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604301bd0a01c950acc58",
+  "product_id": "68260430213ef202c0fd2030",
+  "title": "43-46-Trắng",
+  "regular_price": 59000,
+  "compare_price": 69000,
+  "sku": "SKU-68260430213EF202C0FD2030-SIZE-43-46-COLOR-TRẮNG",
+  "quantity": 0,
+  "options": {
+    "SIZE": "43-46",
+    "COLOR": "Trắng"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:44.362Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:44.362Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604301bd0a01c950acc59",
+  "product_id": "68260430213ef202c0fd2030",
+  "title": "39-42-Đen",
+  "regular_price": 59000,
+  "compare_price": 69000,
+  "sku": "SKU-68260430213EF202C0FD2030-SIZE-39-42-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "39-42",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:44.439Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:44.439Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604301bd0a01c950acc5a",
+  "product_id": "68260430213ef202c0fd2030",
+  "title": "43-46-Đen",
+  "regular_price": 59000,
+  "compare_price": 69000,
+  "sku": "SKU-68260430213EF202C0FD2030-SIZE-43-46-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "43-46",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:44.517Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:44.517Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604371bd0a01c950acc5b",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "S-Đen",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-S-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "S",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:51.358Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:51.358Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604371bd0a01c950acc5c",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "M-Đen",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-M-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "M",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:51.431Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:51.431Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604371bd0a01c950acc5d",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "L-Đen",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-L-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "L",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:51.509Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:51.509Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604371bd0a01c950acc5e",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "XL-Đen",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-XL-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "XL",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:51.604Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:51.604Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604371bd0a01c950acc5f",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "2XL-Đen",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-2XL-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "2XL",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:51.676Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:51.676Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604371bd0a01c950acc60",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "3XL-Đen",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-3XL-COLOR-ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "3XL",
+    "COLOR": "Đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:51.795Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:51.795Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604371bd0a01c950acc61",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "S-Xanh Navy",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-S-COLOR-XANH NAVY",
+  "quantity": 0,
+  "options": {
+    "SIZE": "S",
+    "COLOR": "Xanh Navy"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:51.877Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:51.877Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604371bd0a01c950acc62",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "M-Xanh Navy",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-M-COLOR-XANH NAVY",
+  "quantity": 0,
+  "options": {
+    "SIZE": "M",
+    "COLOR": "Xanh Navy"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:51.974Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:51.974Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604381bd0a01c950acc63",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "L-Xanh Navy",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-L-COLOR-XANH NAVY",
+  "quantity": 0,
+  "options": {
+    "SIZE": "L",
+    "COLOR": "Xanh Navy"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:52.084Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:52.084Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604381bd0a01c950acc64",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "XL-Xanh Navy",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-XL-COLOR-XANH NAVY",
+  "quantity": 0,
+  "options": {
+    "SIZE": "XL",
+    "COLOR": "Xanh Navy"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:52.174Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:52.174Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604381bd0a01c950acc65",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "2XL-Xanh Navy",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-2XL-COLOR-XANH NAVY",
+  "quantity": 0,
+  "options": {
+    "SIZE": "2XL",
+    "COLOR": "Xanh Navy"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:52.256Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:52.256Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604381bd0a01c950acc66",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "3XL-Xanh Navy",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-3XL-COLOR-XANH NAVY",
+  "quantity": 0,
+  "options": {
+    "SIZE": "3XL",
+    "COLOR": "Xanh Navy"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:52.328Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:52.328Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604381bd0a01c950acc67",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "S-Xanh bóng đêm",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-S-COLOR-XANH BÓNG ĐÊM",
+  "quantity": 0,
+  "options": {
+    "SIZE": "S",
+    "COLOR": "Xanh bóng đêm"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:52.404Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:52.404Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604381bd0a01c950acc68",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "M-Xanh bóng đêm",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-M-COLOR-XANH BÓNG ĐÊM",
+  "quantity": 0,
+  "options": {
+    "SIZE": "M",
+    "COLOR": "Xanh bóng đêm"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:52.499Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:52.499Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604381bd0a01c950acc69",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "L-Xanh bóng đêm",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-L-COLOR-XANH BÓNG ĐÊM",
+  "quantity": 0,
+  "options": {
+    "SIZE": "L",
+    "COLOR": "Xanh bóng đêm"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:52.603Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:52.603Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604381bd0a01c950acc6a",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "XL-Xanh bóng đêm",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-XL-COLOR-XANH BÓNG ĐÊM",
+  "quantity": 0,
+  "options": {
+    "SIZE": "XL",
+    "COLOR": "Xanh bóng đêm"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:52.677Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:52.677Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604381bd0a01c950acc6b",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "2XL-Xanh bóng đêm",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-2XL-COLOR-XANH BÓNG ĐÊM",
+  "quantity": 0,
+  "options": {
+    "SIZE": "2XL",
+    "COLOR": "Xanh bóng đêm"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:52.759Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:52.759Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604381bd0a01c950acc6c",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "3XL-Xanh bóng đêm",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-3XL-COLOR-XANH BÓNG ĐÊM",
+  "quantity": 0,
+  "options": {
+    "SIZE": "3XL",
+    "COLOR": "Xanh bóng đêm"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:52.843Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:52.843Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604381bd0a01c950acc6d",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "S-Xanh Aqua",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-S-COLOR-XANH AQUA",
+  "quantity": 0,
+  "options": {
+    "SIZE": "S",
+    "COLOR": "Xanh Aqua"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:52.940Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:52.940Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604391bd0a01c950acc6e",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "M-Xanh Aqua",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-M-COLOR-XANH AQUA",
+  "quantity": 0,
+  "options": {
+    "SIZE": "M",
+    "COLOR": "Xanh Aqua"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:53.072Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:53.072Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604391bd0a01c950acc6f",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "L-Xanh Aqua",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-L-COLOR-XANH AQUA",
+  "quantity": 0,
+  "options": {
+    "SIZE": "L",
+    "COLOR": "Xanh Aqua"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:53.150Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:53.150Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604391bd0a01c950acc70",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "XL-Xanh Aqua",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-XL-COLOR-XANH AQUA",
+  "quantity": 0,
+  "options": {
+    "SIZE": "XL",
+    "COLOR": "Xanh Aqua"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:53.238Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:53.238Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604391bd0a01c950acc71",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "2XL-Xanh Aqua",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-2XL-COLOR-XANH AQUA",
+  "quantity": 0,
+  "options": {
+    "SIZE": "2XL",
+    "COLOR": "Xanh Aqua"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:53.314Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:53.314Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604391bd0a01c950acc72",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "3XL-Xanh Aqua",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-3XL-COLOR-XANH AQUA",
+  "quantity": 0,
+  "options": {
+    "SIZE": "3XL",
+    "COLOR": "Xanh Aqua"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:53.390Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:53.390Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604391bd0a01c950acc73",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "S-Xám đen",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-S-COLOR-XÁM ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "S",
+    "COLOR": "Xám đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:53.476Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:53.476Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604391bd0a01c950acc74",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "M-Xám đen",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-M-COLOR-XÁM ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "M",
+    "COLOR": "Xám đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:53.565Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:53.565Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604391bd0a01c950acc75",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "L-Xám đen",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-L-COLOR-XÁM ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "L",
+    "COLOR": "Xám đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:53.673Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:53.673Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604391bd0a01c950acc76",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "XL-Xám đen",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-XL-COLOR-XÁM ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "XL",
+    "COLOR": "Xám đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:53.756Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:53.756Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604391bd0a01c950acc77",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "2XL-Xám đen",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-2XL-COLOR-XÁM ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "2XL",
+    "COLOR": "Xám đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:53.831Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:53.831Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "682604391bd0a01c950acc78",
+  "product_id": "68260437213ef202c0fd2031",
+  "title": "3XL-Xám đen",
+  "regular_price": 169000,
+  "compare_price": 189000,
+  "sku": "SKU-68260437213EF202C0FD2031-SIZE-3XL-COLOR-XÁM ĐEN",
+  "quantity": 0,
+  "options": {
+    "SIZE": "3XL",
+    "COLOR": "Xám đen"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:53.920Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:53.920Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826043c1bd0a01c950acc79",
+  "product_id": "6826043c213ef202c0fd2032",
+  "title": "Xám",
+  "regular_price": 98000,
+  "compare_price": 98000,
+  "sku": "SKU-6826043C213EF202C0FD2032-COLOR-XÁM",
+  "quantity": 0,
+  "options": {
+    "COLOR": "Xám"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:56.471Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:56.471Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826043c1bd0a01c950acc7a",
+  "product_id": "6826043c213ef202c0fd2032",
+  "title": "Xanh lá",
+  "regular_price": 98000,
+  "compare_price": 98000,
+  "sku": "SKU-6826043C213EF202C0FD2032-COLOR-XANH LÁ",
+  "quantity": 0,
+  "options": {
+    "COLOR": "Xanh lá"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:56.546Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:56.546Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826043c1bd0a01c950acc7b",
+  "product_id": "6826043c213ef202c0fd2032",
+  "title": "Xanh Navy",
+  "regular_price": 98000,
+  "compare_price": 98000,
+  "sku": "SKU-6826043C213EF202C0FD2032-COLOR-XANH NAVY",
+  "quantity": 0,
+  "options": {
+    "COLOR": "Xanh Navy"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:56.618Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:56.618Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+},
+{
+  "_id": "6826043f1bd0a01c950acc7c",
+  "product_id": "6826043f213ef202c0fd2033",
+  "title": "Trắng",
+  "regular_price": 108000,
+  "compare_price": 119000,
+  "sku": "SKU-6826043F213EF202C0FD2033-COLOR-TRẮNG",
+  "quantity": 0,
+  "options": {
+    "COLOR": "Trắng"
+  },
+  "product_allow_buy_when_clocked": false,
+  "product_exclude_discount": false,
+  "product_apply_allowance_inventory": false,
+  "pending": 0,
+  "product_visibility": true,
+  "is_delete": false,
+  "is_lock": false,
+  "createAt": {
+    "$date": "2025-05-15T15:11:59.539Z"
+  },
+  "updateAt": {
+    "$date": "2025-05-15T15:11:59.539Z"
+  },
+  "_class": "com.lamnguyen.inventory_service.model.VariantProduct"
+}]

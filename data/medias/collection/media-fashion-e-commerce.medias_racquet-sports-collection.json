@@ -1,0 +1,4752 @@
+[{
+  "_id": "682613110b6112518546457a",
+  "path": "da578219-6742-4b1d-81be-f082d663a75d.jpg",
+  "displayName": "da578219-6742-4b1d-81be-f082d663a75d",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "da578219-6742-4b1d-81be-f082d663a75d.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:13.313Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:13.313Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613110b6112518546457b",
+  "path": "61927074-22e1-4546-81a8-2e9384a681f7.jpg",
+  "displayName": "61927074-22e1-4546-81a8-2e9384a681f7",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "61927074-22e1-4546-81a8-2e9384a681f7.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:13.454Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:13.454Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613110b6112518546457c",
+  "path": "4ac7f444-2646-4b60-8c5a-be28cfa7856e.jpg",
+  "displayName": "4ac7f444-2646-4b60-8c5a-be28cfa7856e",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "4ac7f444-2646-4b60-8c5a-be28cfa7856e.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:13.553Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:13.553Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613110b6112518546457d",
+  "path": "8c814bde-a191-4e9a-9177-97d9c06bd366.jpg",
+  "displayName": "8c814bde-a191-4e9a-9177-97d9c06bd366",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "8c814bde-a191-4e9a-9177-97d9c06bd366.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:13.656Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:13.656Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613110b6112518546457e",
+  "path": "3b0bd880-dd2a-4e6a-8823-0361a74e550d.jpg",
+  "displayName": "3b0bd880-dd2a-4e6a-8823-0361a74e550d",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "3b0bd880-dd2a-4e6a-8823-0361a74e550d.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:13.748Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:13.748Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613110b6112518546457f",
+  "path": "9864cfb9-59bb-4d2e-a6d2-d9b4d1e5ab09.jpg",
+  "displayName": "9864cfb9-59bb-4d2e-a6d2-d9b4d1e5ab09",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "9864cfb9-59bb-4d2e-a6d2-d9b4d1e5ab09.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:13.841Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:13.841Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613110b61125185464580",
+  "path": "7a3467d8-783b-4d28-86b5-ae7a96fce4b5.jpg",
+  "displayName": "7a3467d8-783b-4d28-86b5-ae7a96fce4b5",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "7a3467d8-783b-4d28-86b5-ae7a96fce4b5.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:13.918Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:13.918Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613120b61125185464581",
+  "path": "77b06488-139f-4f57-a157-24927062a002.jpg",
+  "displayName": "77b06488-139f-4f57-a157-24927062a002",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "77b06488-139f-4f57-a157-24927062a002.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:14.010Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:14.010Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613120b61125185464582",
+  "path": "ea88b0ca-f8f1-4905-9b91-8c45f8b7702e.jpg",
+  "displayName": "ea88b0ca-f8f1-4905-9b91-8c45f8b7702e",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "ea88b0ca-f8f1-4905-9b91-8c45f8b7702e.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:14.122Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:14.122Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613120b61125185464583",
+  "path": "c290ff8a-1a8b-4e1d-9752-fd059ddd47a3.jpg",
+  "displayName": "c290ff8a-1a8b-4e1d-9752-fd059ddd47a3",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "c290ff8a-1a8b-4e1d-9752-fd059ddd47a3.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:14.205Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:14.205Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613120b61125185464584",
+  "path": "419c8bd2-8ade-4a61-be78-be9be7b98ad0.jpg",
+  "displayName": "419c8bd2-8ade-4a61-be78-be9be7b98ad0",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "419c8bd2-8ade-4a61-be78-be9be7b98ad0.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:14.304Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:14.304Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613120b61125185464585",
+  "path": "df61140f-b73e-4792-8445-02173c71981a.jpg",
+  "displayName": "df61140f-b73e-4792-8445-02173c71981a",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "df61140f-b73e-4792-8445-02173c71981a.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:14.392Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:14.392Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613120b61125185464586",
+  "path": "a4234b92-93c8-4c0b-bc4e-24dc8ab4371e.jpg",
+  "displayName": "a4234b92-93c8-4c0b-bc4e-24dc8ab4371e",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "a4234b92-93c8-4c0b-bc4e-24dc8ab4371e.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:14.465Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:14.465Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613120b61125185464587",
+  "path": "86f9c8e5-c34b-4f4a-b8bf-70cc331c7a0e.jpg",
+  "displayName": "86f9c8e5-c34b-4f4a-b8bf-70cc331c7a0e",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "86f9c8e5-c34b-4f4a-b8bf-70cc331c7a0e.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:14.556Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:14.556Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613120b61125185464588",
+  "path": "9e248aca-a3fa-4b2f-8ca6-c4e8d1d44d57.jpg",
+  "displayName": "9e248aca-a3fa-4b2f-8ca6-c4e8d1d44d57",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "9e248aca-a3fa-4b2f-8ca6-c4e8d1d44d57.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:14.640Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:14.640Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613120b61125185464589",
+  "path": "34c39d19-e9cb-4676-b1b6-9ffd3e190344.jpg",
+  "displayName": "34c39d19-e9cb-4676-b1b6-9ffd3e190344",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "34c39d19-e9cb-4676-b1b6-9ffd3e190344.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:14.719Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:14.719Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613120b6112518546458a",
+  "path": "42ef10d8-1da1-4f27-a20d-4af473346492.jpg",
+  "displayName": "42ef10d8-1da1-4f27-a20d-4af473346492",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "42ef10d8-1da1-4f27-a20d-4af473346492.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:14.830Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:14.830Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613120b6112518546458b",
+  "path": "141fba04-bedd-4ebd-97a5-e53e0033bdde.jpg",
+  "displayName": "141fba04-bedd-4ebd-97a5-e53e0033bdde",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "141fba04-bedd-4ebd-97a5-e53e0033bdde.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:14.907Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:14.907Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613120b6112518546458c",
+  "path": "6ef20f7c-3f3d-412f-848f-a6d65259d264.jpg",
+  "displayName": "6ef20f7c-3f3d-412f-848f-a6d65259d264",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "6ef20f7c-3f3d-412f-848f-a6d65259d264.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:14.994Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:14.994Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613130b6112518546458d",
+  "path": "843b42cb-cade-4a14-8c28-6131da02977c.jpg",
+  "displayName": "843b42cb-cade-4a14-8c28-6131da02977c",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "843b42cb-cade-4a14-8c28-6131da02977c.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:15.068Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:15.068Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613130b6112518546458e",
+  "path": "645c24d5-39a5-4f72-b031-4cd307a706d1.jpg",
+  "displayName": "645c24d5-39a5-4f72-b031-4cd307a706d1",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "645c24d5-39a5-4f72-b031-4cd307a706d1.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:15.142Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:15.142Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613130b6112518546458f",
+  "path": "7b606fbe-ca0b-4393-a134-16491d29a4a9.jpg",
+  "displayName": "7b606fbe-ca0b-4393-a134-16491d29a4a9",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "7b606fbe-ca0b-4393-a134-16491d29a4a9.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:15.233Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:15.233Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613130b61125185464590",
+  "path": "821dd55d-7103-48d9-bda1-3a38fa166d93.jpg",
+  "displayName": "821dd55d-7103-48d9-bda1-3a38fa166d93",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "821dd55d-7103-48d9-bda1-3a38fa166d93.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:15.313Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:15.313Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613130b61125185464591",
+  "path": "1ae788fd-5855-48c2-b792-f7522f424c58.jpg",
+  "displayName": "1ae788fd-5855-48c2-b792-f7522f424c58",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "1ae788fd-5855-48c2-b792-f7522f424c58.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:15.389Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:15.389Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613130b61125185464592",
+  "path": "fd6d02c4-ceb8-4e36-974e-7596b7099e67.jpg",
+  "displayName": "fd6d02c4-ceb8-4e36-974e-7596b7099e67",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "fd6d02c4-ceb8-4e36-974e-7596b7099e67.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:15.468Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:15.468Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613130b61125185464593",
+  "path": "7e683d60-c251-449c-823e-446edf722bfb.jpg",
+  "displayName": "7e683d60-c251-449c-823e-446edf722bfb",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "7e683d60-c251-449c-823e-446edf722bfb.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:15.593Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:15.593Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613130b61125185464594",
+  "path": "47f7e461-ef7a-4c66-aaae-63dfcf1b8df7.jpg",
+  "displayName": "47f7e461-ef7a-4c66-aaae-63dfcf1b8df7",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "47f7e461-ef7a-4c66-aaae-63dfcf1b8df7.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:15.676Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:15.676Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613130b61125185464595",
+  "path": "de63f522-f2bb-4e0a-98c0-604e1a6a2628.jpg",
+  "displayName": "de63f522-f2bb-4e0a-98c0-604e1a6a2628",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "de63f522-f2bb-4e0a-98c0-604e1a6a2628.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:15.754Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:15.754Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613130b61125185464596",
+  "path": "b8d4f1d1-7a59-4213-9e48-171d8fe783fe.jpg",
+  "displayName": "b8d4f1d1-7a59-4213-9e48-171d8fe783fe",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "b8d4f1d1-7a59-4213-9e48-171d8fe783fe.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:15.824Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:15.824Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613130b61125185464597",
+  "path": "02dc9652-134e-4c25-bc8a-e328cbef457f.jpg",
+  "displayName": "02dc9652-134e-4c25-bc8a-e328cbef457f",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "02dc9652-134e-4c25-bc8a-e328cbef457f.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:15.909Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:15.909Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613130b61125185464598",
+  "path": "218853af-e57c-4628-a19e-54f7710eaf3c.jpg",
+  "displayName": "218853af-e57c-4628-a19e-54f7710eaf3c",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "218853af-e57c-4628-a19e-54f7710eaf3c.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:15.986Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:15.986Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613140b61125185464599",
+  "path": "02fd3589-e5ba-4f2c-9114-40e0dad54832.jpg",
+  "displayName": "02fd3589-e5ba-4f2c-9114-40e0dad54832",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "02fd3589-e5ba-4f2c-9114-40e0dad54832.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:16.067Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:16.067Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613140b6112518546459a",
+  "path": "30d274ec-acf3-4e51-9028-08edc732bdc2.jpg",
+  "displayName": "30d274ec-acf3-4e51-9028-08edc732bdc2",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "30d274ec-acf3-4e51-9028-08edc732bdc2.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:16.139Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:16.139Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613140b6112518546459b",
+  "path": "d6c43039-9ad6-4130-b28a-0613123b346e.jpg",
+  "displayName": "d6c43039-9ad6-4130-b28a-0613123b346e",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "d6c43039-9ad6-4130-b28a-0613123b346e.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:16.221Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:16.221Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613140b6112518546459c",
+  "path": "73dcd35f-97ae-41da-8ad4-872a85cd7e1f.jpg",
+  "displayName": "73dcd35f-97ae-41da-8ad4-872a85cd7e1f",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "73dcd35f-97ae-41da-8ad4-872a85cd7e1f.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:16.332Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:16.332Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613140b6112518546459d",
+  "path": "259cf95a-64ec-49ee-8f95-d8e70db19d39.jpg",
+  "displayName": "259cf95a-64ec-49ee-8f95-d8e70db19d39",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "259cf95a-64ec-49ee-8f95-d8e70db19d39.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:16.416Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:16.416Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613140b6112518546459e",
+  "path": "d0981abb-7e16-4086-9744-7f7736e1b743.jpg",
+  "displayName": "d0981abb-7e16-4086-9744-7f7736e1b743",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "d0981abb-7e16-4086-9744-7f7736e1b743.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:16.501Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:16.501Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613140b6112518546459f",
+  "path": "f959f4ca-cd85-49ce-bed5-2706fd79ef3e.jpg",
+  "displayName": "f959f4ca-cd85-49ce-bed5-2706fd79ef3e",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "f959f4ca-cd85-49ce-bed5-2706fd79ef3e.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:16.601Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:16.601Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613140b611251854645a0",
+  "path": "b8486240-92bd-4439-8f3f-4ae6cf2e7362.jpg",
+  "displayName": "b8486240-92bd-4439-8f3f-4ae6cf2e7362",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "b8486240-92bd-4439-8f3f-4ae6cf2e7362.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:16.688Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:16.688Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613140b611251854645a1",
+  "path": "4b1d86de-2d66-4f2f-a3e5-9948574bffee.jpg",
+  "displayName": "4b1d86de-2d66-4f2f-a3e5-9948574bffee",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "4b1d86de-2d66-4f2f-a3e5-9948574bffee.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:16.913Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:16.913Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613150b611251854645a2",
+  "path": "2778c6aa-a798-4e57-a846-909ca2e287cb.jpg",
+  "displayName": "2778c6aa-a798-4e57-a846-909ca2e287cb",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "2778c6aa-a798-4e57-a846-909ca2e287cb.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:17.019Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:17.019Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613180b611251854645a3",
+  "path": "cc7cfd28-8140-4b78-939e-779c67a3e9a7.jpg",
+  "displayName": "cc7cfd28-8140-4b78-939e-779c67a3e9a7",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "cc7cfd28-8140-4b78-939e-779c67a3e9a7.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:20.275Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:20.275Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613180b611251854645a4",
+  "path": "7c551a03-d83c-44e6-87ce-fe557f549e13.jpg",
+  "displayName": "7c551a03-d83c-44e6-87ce-fe557f549e13",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "7c551a03-d83c-44e6-87ce-fe557f549e13.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:20.378Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:20.378Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613180b611251854645a5",
+  "path": "bdc067f6-1654-4a94-8d61-d2203d406e8a.jpg",
+  "displayName": "bdc067f6-1654-4a94-8d61-d2203d406e8a",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "bdc067f6-1654-4a94-8d61-d2203d406e8a.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:20.484Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:20.484Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613180b611251854645a6",
+  "path": "da22d1b7-a010-4044-a936-8fd2e5d9ef14.jpg",
+  "displayName": "da22d1b7-a010-4044-a936-8fd2e5d9ef14",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "da22d1b7-a010-4044-a936-8fd2e5d9ef14.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:20.596Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:20.596Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613180b611251854645a7",
+  "path": "8f632753-cca1-4485-91ad-1525476cac10.jpg",
+  "displayName": "8f632753-cca1-4485-91ad-1525476cac10",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "8f632753-cca1-4485-91ad-1525476cac10.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:20.717Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:20.717Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613180b611251854645a8",
+  "path": "383f1e86-afa9-4d1a-950c-3a7cc1de64d1.jpg",
+  "displayName": "383f1e86-afa9-4d1a-950c-3a7cc1de64d1",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "383f1e86-afa9-4d1a-950c-3a7cc1de64d1.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:20.835Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:20.835Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613180b611251854645a9",
+  "path": "7597878b-cbb7-4fc4-ad39-9e9332430cc4.jpg",
+  "displayName": "7597878b-cbb7-4fc4-ad39-9e9332430cc4",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "7597878b-cbb7-4fc4-ad39-9e9332430cc4.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:20.932Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:20.932Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613190b611251854645aa",
+  "path": "43def036-d953-48d8-9522-3eda3a369a01.jpg",
+  "displayName": "43def036-d953-48d8-9522-3eda3a369a01",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "43def036-d953-48d8-9522-3eda3a369a01.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:21.049Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:21.049Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613190b611251854645ab",
+  "path": "8a57e43c-bfe9-413d-8721-225735a14ca5.jpg",
+  "displayName": "8a57e43c-bfe9-413d-8721-225735a14ca5",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "8a57e43c-bfe9-413d-8721-225735a14ca5.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:21.149Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:21.149Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613190b611251854645ac",
+  "path": "ff28b4c5-ff5c-47fe-a0c4-f03892f56cd6.jpg",
+  "displayName": "ff28b4c5-ff5c-47fe-a0c4-f03892f56cd6",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "ff28b4c5-ff5c-47fe-a0c4-f03892f56cd6.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:21.262Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:21.262Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613190b611251854645ad",
+  "path": "95d584da-47f9-4e8f-a489-12f0bf80b12d.jpg",
+  "displayName": "95d584da-47f9-4e8f-a489-12f0bf80b12d",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "95d584da-47f9-4e8f-a489-12f0bf80b12d.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:21.356Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:21.356Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613190b611251854645ae",
+  "path": "d728bd6d-15d9-4d52-952f-b96c4e175614.jpg",
+  "displayName": "d728bd6d-15d9-4d52-952f-b96c4e175614",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "d728bd6d-15d9-4d52-952f-b96c4e175614.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:21.502Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:21.502Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613190b611251854645af",
+  "path": "be8386c4-923f-46c1-aabb-63edef303daa.jpg",
+  "displayName": "be8386c4-923f-46c1-aabb-63edef303daa",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "be8386c4-923f-46c1-aabb-63edef303daa.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:21.596Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:21.596Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613190b611251854645b0",
+  "path": "4923dd1d-34a7-40e2-8c93-3cb86aa29f1f.jpg",
+  "displayName": "4923dd1d-34a7-40e2-8c93-3cb86aa29f1f",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "4923dd1d-34a7-40e2-8c93-3cb86aa29f1f.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:21.684Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:21.684Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613190b611251854645b1",
+  "path": "be6f5de9-cc95-4455-97a7-c34c3078b536.jpg",
+  "displayName": "be6f5de9-cc95-4455-97a7-c34c3078b536",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "be6f5de9-cc95-4455-97a7-c34c3078b536.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:21.790Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:21.790Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131a0b611251854645b2",
+  "path": "f1334422-e6ab-4cfc-afa5-0fdfb731ff6c.jpg",
+  "displayName": "f1334422-e6ab-4cfc-afa5-0fdfb731ff6c",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "f1334422-e6ab-4cfc-afa5-0fdfb731ff6c.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:22.075Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:22.075Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131a0b611251854645b3",
+  "path": "d39d0629-a9b7-4e5e-bd39-50dad93c718f.jpg",
+  "displayName": "d39d0629-a9b7-4e5e-bd39-50dad93c718f",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "d39d0629-a9b7-4e5e-bd39-50dad93c718f.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:22.174Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:22.174Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131a0b611251854645b4",
+  "path": "273878fd-fd14-43c9-b620-6fee8ab9a610.jpg",
+  "displayName": "273878fd-fd14-43c9-b620-6fee8ab9a610",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "273878fd-fd14-43c9-b620-6fee8ab9a610.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:22.269Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:22.269Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131a0b611251854645b5",
+  "path": "e56b1eea-6342-40b3-9051-85c72ec7fcc2.jpg",
+  "displayName": "e56b1eea-6342-40b3-9051-85c72ec7fcc2",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "e56b1eea-6342-40b3-9051-85c72ec7fcc2.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:22.346Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:22.346Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131a0b611251854645b6",
+  "path": "f3ba35f6-133b-4dad-9b74-2ed1bbede657.jpg",
+  "displayName": "f3ba35f6-133b-4dad-9b74-2ed1bbede657",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "f3ba35f6-133b-4dad-9b74-2ed1bbede657.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:22.445Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:22.445Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131a0b611251854645b7",
+  "path": "58216eb9-80a4-4e00-b00e-418e3ea76546.jpg",
+  "displayName": "58216eb9-80a4-4e00-b00e-418e3ea76546",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "58216eb9-80a4-4e00-b00e-418e3ea76546.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:22.531Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:22.531Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131c0b611251854645b8",
+  "path": "44844d8b-7987-439a-806b-502e6f6c7c65.jpg",
+  "displayName": "44844d8b-7987-439a-806b-502e6f6c7c65",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "44844d8b-7987-439a-806b-502e6f6c7c65.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:24.095Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:24.095Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131c0b611251854645b9",
+  "path": "b094acbc-366c-47df-b3ff-1f3f4118ad57.jpg",
+  "displayName": "b094acbc-366c-47df-b3ff-1f3f4118ad57",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "b094acbc-366c-47df-b3ff-1f3f4118ad57.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:24.193Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:24.193Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131c0b611251854645ba",
+  "path": "64cebe7b-ccca-4d50-8e71-7854c709e36b.jpg",
+  "displayName": "64cebe7b-ccca-4d50-8e71-7854c709e36b",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "64cebe7b-ccca-4d50-8e71-7854c709e36b.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:24.290Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:24.290Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131c0b611251854645bb",
+  "path": "b23b7394-ab71-4b21-96ae-d520a2dddec8.jpg",
+  "displayName": "b23b7394-ab71-4b21-96ae-d520a2dddec8",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "b23b7394-ab71-4b21-96ae-d520a2dddec8.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:24.383Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:24.383Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131c0b611251854645bc",
+  "path": "ee841665-1b58-44d0-8692-b1fa2c3e3d1c.jpg",
+  "displayName": "ee841665-1b58-44d0-8692-b1fa2c3e3d1c",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "ee841665-1b58-44d0-8692-b1fa2c3e3d1c.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:24.526Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:24.526Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131c0b611251854645bd",
+  "path": "15ae5430-ada7-448c-9712-e0dd6eb5ceb2.jpg",
+  "displayName": "15ae5430-ada7-448c-9712-e0dd6eb5ceb2",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "15ae5430-ada7-448c-9712-e0dd6eb5ceb2.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:24.607Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:24.607Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131c0b611251854645be",
+  "path": "1199887b-4f9d-48af-b2c1-43d86fb2321f.jpg",
+  "displayName": "1199887b-4f9d-48af-b2c1-43d86fb2321f",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "1199887b-4f9d-48af-b2c1-43d86fb2321f.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:24.704Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:24.704Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131c0b611251854645bf",
+  "path": "fa598a33-3488-4a75-8e87-6144ec6c62d9.jpg",
+  "displayName": "fa598a33-3488-4a75-8e87-6144ec6c62d9",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "fa598a33-3488-4a75-8e87-6144ec6c62d9.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:24.777Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:24.777Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131c0b611251854645c0",
+  "path": "c50da550-92bc-4ff7-929e-746b61fe8dbb.jpg",
+  "displayName": "c50da550-92bc-4ff7-929e-746b61fe8dbb",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "c50da550-92bc-4ff7-929e-746b61fe8dbb.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:24.849Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:24.849Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131c0b611251854645c1",
+  "path": "d468c2f8-2c2c-44df-aec3-5db2aeb40d06.jpg",
+  "displayName": "d468c2f8-2c2c-44df-aec3-5db2aeb40d06",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "d468c2f8-2c2c-44df-aec3-5db2aeb40d06.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:24.947Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:24.947Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131d0b611251854645c2",
+  "path": "05f39cd5-36c3-490c-88e0-cf88a35706c9.jpg",
+  "displayName": "05f39cd5-36c3-490c-88e0-cf88a35706c9",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "05f39cd5-36c3-490c-88e0-cf88a35706c9.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:25.027Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:25.027Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131d0b611251854645c3",
+  "path": "bd757cf7-43c3-4ad8-afb6-7d0040d0fcb5.jpg",
+  "displayName": "bd757cf7-43c3-4ad8-afb6-7d0040d0fcb5",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "bd757cf7-43c3-4ad8-afb6-7d0040d0fcb5.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:25.123Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:25.123Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131d0b611251854645c4",
+  "path": "f0e98927-2d80-48bd-8f76-157cdb2f991d.jpg",
+  "displayName": "f0e98927-2d80-48bd-8f76-157cdb2f991d",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "f0e98927-2d80-48bd-8f76-157cdb2f991d.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:25.212Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:25.212Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131d0b611251854645c5",
+  "path": "0dd0f5dc-5078-4639-b056-d1ad6107829d.jpg",
+  "displayName": "0dd0f5dc-5078-4639-b056-d1ad6107829d",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "0dd0f5dc-5078-4639-b056-d1ad6107829d.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:25.381Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:25.381Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131d0b611251854645c6",
+  "path": "82f4a787-5079-4f74-890f-9242870c9a36.jpg",
+  "displayName": "82f4a787-5079-4f74-890f-9242870c9a36",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "82f4a787-5079-4f74-890f-9242870c9a36.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:25.472Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:25.472Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131d0b611251854645c7",
+  "path": "dec6034d-53f1-4f0e-8142-b7165ae8a9c3.jpg",
+  "displayName": "dec6034d-53f1-4f0e-8142-b7165ae8a9c3",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "dec6034d-53f1-4f0e-8142-b7165ae8a9c3.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:25.576Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:25.576Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131d0b611251854645c8",
+  "path": "aab18647-9d09-45a3-ba20-407d26cfa3d2.jpg",
+  "displayName": "aab18647-9d09-45a3-ba20-407d26cfa3d2",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "aab18647-9d09-45a3-ba20-407d26cfa3d2.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:25.673Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:25.673Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131d0b611251854645c9",
+  "path": "5dcd6f30-efe9-49af-8ed0-abd809525af7.jpg",
+  "displayName": "5dcd6f30-efe9-49af-8ed0-abd809525af7",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "5dcd6f30-efe9-49af-8ed0-abd809525af7.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:25.759Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:25.759Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131d0b611251854645ca",
+  "path": "1b569857-549f-44cb-81f2-2abd727af168.jpg",
+  "displayName": "1b569857-549f-44cb-81f2-2abd727af168",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "1b569857-549f-44cb-81f2-2abd727af168.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:25.856Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:25.856Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131d0b611251854645cb",
+  "path": "d93c43df-6b05-4fb9-a25a-939d502c70ec.jpg",
+  "displayName": "d93c43df-6b05-4fb9-a25a-939d502c70ec",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "d93c43df-6b05-4fb9-a25a-939d502c70ec.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:25.974Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:25.974Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131f0b611251854645cc",
+  "path": "d02b4c24-bda0-478d-a0be-7a49a374bb99.jpg",
+  "displayName": "d02b4c24-bda0-478d-a0be-7a49a374bb99",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "d02b4c24-bda0-478d-a0be-7a49a374bb99.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:27.493Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:27.493Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131f0b611251854645cd",
+  "path": "b4af96be-8509-490b-818b-a8a59559a1de.jpg",
+  "displayName": "b4af96be-8509-490b-818b-a8a59559a1de",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "b4af96be-8509-490b-818b-a8a59559a1de.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:27.578Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:27.578Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131f0b611251854645ce",
+  "path": "8c8a9b79-d38e-4641-9976-58614448386c.jpg",
+  "displayName": "8c8a9b79-d38e-4641-9976-58614448386c",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "8c8a9b79-d38e-4641-9976-58614448386c.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:27.674Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:27.674Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131f0b611251854645cf",
+  "path": "883c0d00-92c3-41b9-aa9e-655e25dfa09c.jpg",
+  "displayName": "883c0d00-92c3-41b9-aa9e-655e25dfa09c",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "883c0d00-92c3-41b9-aa9e-655e25dfa09c.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:27.761Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:27.761Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131f0b611251854645d0",
+  "path": "b1605073-79ef-49fd-8002-cc19fe0f7f6e.jpg",
+  "displayName": "b1605073-79ef-49fd-8002-cc19fe0f7f6e",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "b1605073-79ef-49fd-8002-cc19fe0f7f6e.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:27.886Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:27.886Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826131f0b611251854645d1",
+  "path": "005394cb-26bf-4628-aaeb-acbf2390b58a.jpg",
+  "displayName": "005394cb-26bf-4628-aaeb-acbf2390b58a",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "005394cb-26bf-4628-aaeb-acbf2390b58a.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:27.986Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:27.986Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613200b611251854645d2",
+  "path": "0f6c1811-15b4-4b24-8a21-a9065dddb934.jpg",
+  "displayName": "0f6c1811-15b4-4b24-8a21-a9065dddb934",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "0f6c1811-15b4-4b24-8a21-a9065dddb934.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:28.067Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:28.067Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613200b611251854645d3",
+  "path": "2d78f362-8819-4079-b5d4-da6d2ceafc64.jpg",
+  "displayName": "2d78f362-8819-4079-b5d4-da6d2ceafc64",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "2d78f362-8819-4079-b5d4-da6d2ceafc64.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:28.165Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:28.165Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613200b611251854645d4",
+  "path": "2c4e7f1c-cea3-4592-822d-03dc5e86588e.jpg",
+  "displayName": "2c4e7f1c-cea3-4592-822d-03dc5e86588e",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "2c4e7f1c-cea3-4592-822d-03dc5e86588e.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:28.826Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:28.826Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613210b611251854645d5",
+  "path": "38f50591-0ca4-45d4-a175-792b56fa5762.jpg",
+  "displayName": "38f50591-0ca4-45d4-a175-792b56fa5762",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "38f50591-0ca4-45d4-a175-792b56fa5762.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:29.147Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:29.147Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613210b611251854645d6",
+  "path": "d539b97d-c101-4c7e-8ff4-0eabe5f61935.jpg",
+  "displayName": "d539b97d-c101-4c7e-8ff4-0eabe5f61935",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "d539b97d-c101-4c7e-8ff4-0eabe5f61935.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:29.260Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:29.260Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613210b611251854645d7",
+  "path": "45db20a1-b7e1-4e3d-b1e7-d0c23e1c995e.jpg",
+  "displayName": "45db20a1-b7e1-4e3d-b1e7-d0c23e1c995e",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "45db20a1-b7e1-4e3d-b1e7-d0c23e1c995e.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:29.346Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:29.346Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613210b611251854645d8",
+  "path": "7897093b-5307-4000-957a-08e6dbdb46d4.jpg",
+  "displayName": "7897093b-5307-4000-957a-08e6dbdb46d4",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "7897093b-5307-4000-957a-08e6dbdb46d4.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:29.436Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:29.436Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613210b611251854645d9",
+  "path": "e6715843-9bce-4e0d-96f0-83459fd08295.jpg",
+  "displayName": "e6715843-9bce-4e0d-96f0-83459fd08295",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "e6715843-9bce-4e0d-96f0-83459fd08295.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:29.554Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:29.554Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613210b611251854645da",
+  "path": "4b92b7ec-1853-4942-95d5-5d9425373754.jpg",
+  "displayName": "4b92b7ec-1853-4942-95d5-5d9425373754",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "4b92b7ec-1853-4942-95d5-5d9425373754.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:29.697Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:29.697Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613210b611251854645db",
+  "path": "578cc7f0-df86-48e7-ae5b-d17fa74692fa.jpg",
+  "displayName": "578cc7f0-df86-48e7-ae5b-d17fa74692fa",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "578cc7f0-df86-48e7-ae5b-d17fa74692fa.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:29.782Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:29.782Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613220b611251854645dc",
+  "path": "b102007d-f71a-4f3c-9c6b-021ac9903a3d.jpg",
+  "displayName": "b102007d-f71a-4f3c-9c6b-021ac9903a3d",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "b102007d-f71a-4f3c-9c6b-021ac9903a3d.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:30.514Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:30.514Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613220b611251854645dd",
+  "path": "64cda8ba-8002-4293-869c-b23bd87a5f59.jpg",
+  "displayName": "64cda8ba-8002-4293-869c-b23bd87a5f59",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "64cda8ba-8002-4293-869c-b23bd87a5f59.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:30.595Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:30.595Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613220b611251854645de",
+  "path": "759a3d40-173b-4db8-b72a-6dd133a8d304.jpg",
+  "displayName": "759a3d40-173b-4db8-b72a-6dd133a8d304",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "759a3d40-173b-4db8-b72a-6dd133a8d304.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:30.696Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:30.696Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613230b611251854645df",
+  "path": "6deac7b0-9b6e-4398-9653-edcd706be443.jpg",
+  "displayName": "6deac7b0-9b6e-4398-9653-edcd706be443",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "6deac7b0-9b6e-4398-9653-edcd706be443.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:31.062Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:31.062Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613230b611251854645e0",
+  "path": "8343fd17-b00b-49fe-bd29-62925aafcb59.jpg",
+  "displayName": "8343fd17-b00b-49fe-bd29-62925aafcb59",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "8343fd17-b00b-49fe-bd29-62925aafcb59.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:31.186Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:31.186Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613230b611251854645e1",
+  "path": "9fd1bdee-12f2-409e-80d7-f3444f1cbf3d.jpg",
+  "displayName": "9fd1bdee-12f2-409e-80d7-f3444f1cbf3d",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "9fd1bdee-12f2-409e-80d7-f3444f1cbf3d.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:31.381Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:31.381Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613230b611251854645e2",
+  "path": "dd864217-ac62-424e-bcb2-d9bcff81335e.jpg",
+  "displayName": "dd864217-ac62-424e-bcb2-d9bcff81335e",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "dd864217-ac62-424e-bcb2-d9bcff81335e.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:31.476Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:31.476Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613230b611251854645e3",
+  "path": "de2c102e-f18b-4a17-9af8-1cb529b0004d.jpg",
+  "displayName": "de2c102e-f18b-4a17-9af8-1cb529b0004d",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "de2c102e-f18b-4a17-9af8-1cb529b0004d.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:31.564Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:31.564Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613240b611251854645e4",
+  "path": "e1db1c1f-3c6a-4dd7-90d2-21fc314f8189.jpg",
+  "displayName": "e1db1c1f-3c6a-4dd7-90d2-21fc314f8189",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "e1db1c1f-3c6a-4dd7-90d2-21fc314f8189.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:32.911Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:32.911Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613250b611251854645e5",
+  "path": "af274726-366c-4684-9eb1-cf1959338c44.jpg",
+  "displayName": "af274726-366c-4684-9eb1-cf1959338c44",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "af274726-366c-4684-9eb1-cf1959338c44.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:33.073Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:33.073Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613250b611251854645e6",
+  "path": "67dd1ed9-a599-40b4-b787-d9c3cd75c266.jpg",
+  "displayName": "67dd1ed9-a599-40b4-b787-d9c3cd75c266",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "67dd1ed9-a599-40b4-b787-d9c3cd75c266.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:33.392Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:33.392Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613250b611251854645e7",
+  "path": "f77d3605-7248-490c-9e3d-c79fdfbc5b1b.jpg",
+  "displayName": "f77d3605-7248-490c-9e3d-c79fdfbc5b1b",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "f77d3605-7248-490c-9e3d-c79fdfbc5b1b.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:33.719Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:33.719Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613250b611251854645e8",
+  "path": "fcbcfd17-f48f-402b-9847-28d26b003122.jpg",
+  "displayName": "fcbcfd17-f48f-402b-9847-28d26b003122",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "fcbcfd17-f48f-402b-9847-28d26b003122.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:33.927Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:33.927Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613260b611251854645e9",
+  "path": "bdc7a796-bfd1-4de4-84a5-f253707a584a.jpg",
+  "displayName": "bdc7a796-bfd1-4de4-84a5-f253707a584a",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "bdc7a796-bfd1-4de4-84a5-f253707a584a.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:34.112Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:34.112Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613270b611251854645ea",
+  "path": "b20b8930-9053-443f-805c-77ef5e026471.jpg",
+  "displayName": "b20b8930-9053-443f-805c-77ef5e026471",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "b20b8930-9053-443f-805c-77ef5e026471.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:35.124Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:35.124Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613270b611251854645eb",
+  "path": "a52469d6-b117-4702-9154-bde0be541433.jpg",
+  "displayName": "a52469d6-b117-4702-9154-bde0be541433",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "a52469d6-b117-4702-9154-bde0be541433.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:35.252Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:35.252Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613270b611251854645ec",
+  "path": "91685a94-0509-4d30-9065-4e288177ae7b.jpg",
+  "displayName": "91685a94-0509-4d30-9065-4e288177ae7b",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "91685a94-0509-4d30-9065-4e288177ae7b.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:35.384Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:35.384Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613270b611251854645ed",
+  "path": "e4e21e55-7406-4e4b-a91c-b13bacb5dbf2.jpg",
+  "displayName": "e4e21e55-7406-4e4b-a91c-b13bacb5dbf2",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "e4e21e55-7406-4e4b-a91c-b13bacb5dbf2.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:35.530Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:35.530Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613270b611251854645ee",
+  "path": "6c0fa9d3-a0b0-40d4-89d8-c31b383e6bab.jpg",
+  "displayName": "6c0fa9d3-a0b0-40d4-89d8-c31b383e6bab",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "6c0fa9d3-a0b0-40d4-89d8-c31b383e6bab.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:35.654Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:35.654Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613270b611251854645ef",
+  "path": "2ba7922f-aad2-4c45-b5e8-526fa33ee565.jpg",
+  "displayName": "2ba7922f-aad2-4c45-b5e8-526fa33ee565",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "2ba7922f-aad2-4c45-b5e8-526fa33ee565.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:35.795Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:35.795Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613270b611251854645f0",
+  "path": "0f3fc853-fd00-40ba-9fc2-92efaae5819e.jpg",
+  "displayName": "0f3fc853-fd00-40ba-9fc2-92efaae5819e",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "0f3fc853-fd00-40ba-9fc2-92efaae5819e.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:35.955Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:35.955Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613280b611251854645f1",
+  "path": "84316b01-392f-412f-93d7-a218d0bac3a0.jpg",
+  "displayName": "84316b01-392f-412f-93d7-a218d0bac3a0",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "84316b01-392f-412f-93d7-a218d0bac3a0.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:36.082Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:36.082Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613280b611251854645f2",
+  "path": "1506cf91-34c2-4731-b7ae-cce52cc83717.jpg",
+  "displayName": "1506cf91-34c2-4731-b7ae-cce52cc83717",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "1506cf91-34c2-4731-b7ae-cce52cc83717.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:36.198Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:36.198Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613280b611251854645f3",
+  "path": "8226d9d4-bed1-4f87-9cef-0c52b93d25ca.jpg",
+  "displayName": "8226d9d4-bed1-4f87-9cef-0c52b93d25ca",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "8226d9d4-bed1-4f87-9cef-0c52b93d25ca.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:36.342Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:36.342Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613280b611251854645f4",
+  "path": "74d94b9b-4fa3-45e0-9eb3-387bdb862945.jpg",
+  "displayName": "74d94b9b-4fa3-45e0-9eb3-387bdb862945",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "74d94b9b-4fa3-45e0-9eb3-387bdb862945.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:36.441Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:36.441Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613280b611251854645f5",
+  "path": "aab72aa4-0b30-4d2a-9ec0-5da2eaff57af.jpg",
+  "displayName": "aab72aa4-0b30-4d2a-9ec0-5da2eaff57af",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "aab72aa4-0b30-4d2a-9ec0-5da2eaff57af.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:36.564Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:36.564Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613280b611251854645f6",
+  "path": "8490b760-6134-4e65-a045-7bd75aa3f480.jpg",
+  "displayName": "8490b760-6134-4e65-a045-7bd75aa3f480",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "8490b760-6134-4e65-a045-7bd75aa3f480.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:36.669Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:36.669Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613280b611251854645f7",
+  "path": "f83c219e-0810-468f-afc3-db5c92b51770.jpg",
+  "displayName": "f83c219e-0810-468f-afc3-db5c92b51770",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "f83c219e-0810-468f-afc3-db5c92b51770.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:36.761Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:36.761Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613280b611251854645f8",
+  "path": "e441d556-68e4-43c8-8581-6845f216f895.jpg",
+  "displayName": "e441d556-68e4-43c8-8581-6845f216f895",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "e441d556-68e4-43c8-8581-6845f216f895.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:36.843Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:36.843Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613290b611251854645f9",
+  "path": "e28ea1a6-c17c-4f42-ab39-8eb9c4d3868d.jpg",
+  "displayName": "e28ea1a6-c17c-4f42-ab39-8eb9c4d3868d",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "e28ea1a6-c17c-4f42-ab39-8eb9c4d3868d.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:37.279Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:37.279Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613290b611251854645fa",
+  "path": "bc3f5452-7ac9-4549-aebb-638bdce0d689.jpg",
+  "displayName": "bc3f5452-7ac9-4549-aebb-638bdce0d689",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "bc3f5452-7ac9-4549-aebb-638bdce0d689.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:37.403Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:37.403Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613290b611251854645fb",
+  "path": "43318735-00bb-416c-98ea-8178a9246d2c.jpg",
+  "displayName": "43318735-00bb-416c-98ea-8178a9246d2c",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "43318735-00bb-416c-98ea-8178a9246d2c.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:37.497Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:37.497Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613290b611251854645fc",
+  "path": "220ff655-c4a1-4f04-9e7d-57035f48b381.jpg",
+  "displayName": "220ff655-c4a1-4f04-9e7d-57035f48b381",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "220ff655-c4a1-4f04-9e7d-57035f48b381.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:37.589Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:37.589Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613290b611251854645fd",
+  "path": "a218c6b7-f4bf-4023-b6e0-88bbb883bdca.jpg",
+  "displayName": "a218c6b7-f4bf-4023-b6e0-88bbb883bdca",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "a218c6b7-f4bf-4023-b6e0-88bbb883bdca.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:37.770Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:37.770Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613290b611251854645fe",
+  "path": "34d8ed6a-fe5f-4f37-bd62-ef1c8f0d408d.jpg",
+  "displayName": "34d8ed6a-fe5f-4f37-bd62-ef1c8f0d408d",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "34d8ed6a-fe5f-4f37-bd62-ef1c8f0d408d.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:37.879Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:37.879Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132a0b611251854645ff",
+  "path": "7c78f0aa-eab9-4dce-bc97-0f4efbc6074b.jpg",
+  "displayName": "7c78f0aa-eab9-4dce-bc97-0f4efbc6074b",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "7c78f0aa-eab9-4dce-bc97-0f4efbc6074b.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:38.104Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:38.104Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132a0b61125185464600",
+  "path": "5c3cee22-472e-46bd-88c3-c09445903fe5.jpg",
+  "displayName": "5c3cee22-472e-46bd-88c3-c09445903fe5",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "5c3cee22-472e-46bd-88c3-c09445903fe5.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:38.223Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:38.223Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132a0b61125185464601",
+  "path": "a60afd2f-d8b7-4e80-aefb-2656112ac53a.jpg",
+  "displayName": "a60afd2f-d8b7-4e80-aefb-2656112ac53a",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "a60afd2f-d8b7-4e80-aefb-2656112ac53a.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:38.370Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:38.370Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132a0b61125185464602",
+  "path": "87e125da-78d4-4545-a4b7-18be2bcd6e35.jpg",
+  "displayName": "87e125da-78d4-4545-a4b7-18be2bcd6e35",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "87e125da-78d4-4545-a4b7-18be2bcd6e35.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:38.492Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:38.492Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132a0b61125185464603",
+  "path": "023a0805-c34f-4ed9-8bd5-729aec1a28e7.jpg",
+  "displayName": "023a0805-c34f-4ed9-8bd5-729aec1a28e7",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "023a0805-c34f-4ed9-8bd5-729aec1a28e7.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:38.597Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:38.597Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132a0b61125185464604",
+  "path": "f24f08fd-702a-43b9-96dd-7fb897783c0f.jpg",
+  "displayName": "f24f08fd-702a-43b9-96dd-7fb897783c0f",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "f24f08fd-702a-43b9-96dd-7fb897783c0f.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:38.685Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:38.685Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132a0b61125185464605",
+  "path": "3286abec-d2fd-4dfb-b1b9-85aa0ad54d5d.jpg",
+  "displayName": "3286abec-d2fd-4dfb-b1b9-85aa0ad54d5d",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "3286abec-d2fd-4dfb-b1b9-85aa0ad54d5d.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:38.774Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:38.774Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132a0b61125185464606",
+  "path": "f386b769-9fb8-477b-b120-376c52052a49.jpg",
+  "displayName": "f386b769-9fb8-477b-b120-376c52052a49",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "f386b769-9fb8-477b-b120-376c52052a49.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:38.870Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:38.870Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132a0b61125185464607",
+  "path": "d667cea7-7ee5-40d3-950f-4c7bcfe18dcd.jpg",
+  "displayName": "d667cea7-7ee5-40d3-950f-4c7bcfe18dcd",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "d667cea7-7ee5-40d3-950f-4c7bcfe18dcd.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:38.967Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:38.967Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132b0b61125185464608",
+  "path": "19ab8e51-52af-4502-96a5-1d7feded96d8.jpg",
+  "displayName": "19ab8e51-52af-4502-96a5-1d7feded96d8",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "19ab8e51-52af-4502-96a5-1d7feded96d8.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:39.064Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:39.064Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132b0b61125185464609",
+  "path": "cd194982-741d-44b2-9eb2-3b959b57f62b.jpg",
+  "displayName": "cd194982-741d-44b2-9eb2-3b959b57f62b",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "cd194982-741d-44b2-9eb2-3b959b57f62b.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:39.166Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:39.166Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132b0b6112518546460a",
+  "path": "cc975a50-ef0e-41f9-816b-31e34a3d2a4e.jpg",
+  "displayName": "cc975a50-ef0e-41f9-816b-31e34a3d2a4e",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "cc975a50-ef0e-41f9-816b-31e34a3d2a4e.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:39.266Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:39.266Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132b0b6112518546460b",
+  "path": "805a1fed-4d56-4ecd-b230-0b64d71bbd13.jpg",
+  "displayName": "805a1fed-4d56-4ecd-b230-0b64d71bbd13",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "805a1fed-4d56-4ecd-b230-0b64d71bbd13.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:39.352Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:39.352Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132b0b6112518546460c",
+  "path": "33e952dc-9c77-439a-bf82-e55454f747d1.jpg",
+  "displayName": "33e952dc-9c77-439a-bf82-e55454f747d1",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "33e952dc-9c77-439a-bf82-e55454f747d1.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:39.437Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:39.437Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132b0b6112518546460d",
+  "path": "286ce8c1-e949-4c09-b440-b1ab3ff8ac93.jpg",
+  "displayName": "286ce8c1-e949-4c09-b440-b1ab3ff8ac93",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "286ce8c1-e949-4c09-b440-b1ab3ff8ac93.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:39.555Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:39.555Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132e0b6112518546460e",
+  "path": "7b94e73f-31f0-4030-9e0c-e0fb81088b5b.jpg",
+  "displayName": "7b94e73f-31f0-4030-9e0c-e0fb81088b5b",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "7b94e73f-31f0-4030-9e0c-e0fb81088b5b.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:42.692Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:42.692Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132e0b6112518546460f",
+  "path": "af55cdd4-1669-4278-bc71-fb6746f424aa.jpg",
+  "displayName": "af55cdd4-1669-4278-bc71-fb6746f424aa",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "af55cdd4-1669-4278-bc71-fb6746f424aa.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:42.775Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:42.775Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132e0b61125185464610",
+  "path": "18eec670-2661-4d29-a7ef-22bc1a536c9f.jpg",
+  "displayName": "18eec670-2661-4d29-a7ef-22bc1a536c9f",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "18eec670-2661-4d29-a7ef-22bc1a536c9f.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:42.878Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:42.878Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132e0b61125185464611",
+  "path": "6008193e-7bc6-4335-ad14-34d6dbc5481c.jpg",
+  "displayName": "6008193e-7bc6-4335-ad14-34d6dbc5481c",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "6008193e-7bc6-4335-ad14-34d6dbc5481c.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:42.973Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:42.973Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132f0b61125185464612",
+  "path": "2bfe1c5e-0049-44c3-9f5a-f1685f326147.jpg",
+  "displayName": "2bfe1c5e-0049-44c3-9f5a-f1685f326147",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "2bfe1c5e-0049-44c3-9f5a-f1685f326147.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:43.049Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:43.049Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132f0b61125185464613",
+  "path": "bfadad60-f952-457f-8b5f-9746805a7771.jpg",
+  "displayName": "bfadad60-f952-457f-8b5f-9746805a7771",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "bfadad60-f952-457f-8b5f-9746805a7771.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:43.135Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:43.135Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132f0b61125185464614",
+  "path": "c89ec172-a93e-4c81-adf7-b761adcb7b5a.jpg",
+  "displayName": "c89ec172-a93e-4c81-adf7-b761adcb7b5a",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "c89ec172-a93e-4c81-adf7-b761adcb7b5a.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:43.300Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:43.300Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132f0b61125185464615",
+  "path": "9ff4aba1-04e1-4e1f-9735-7bdeee85baa4.jpg",
+  "displayName": "9ff4aba1-04e1-4e1f-9735-7bdeee85baa4",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "9ff4aba1-04e1-4e1f-9735-7bdeee85baa4.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:43.426Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:43.426Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132f0b61125185464616",
+  "path": "11387d31-c6ee-4f87-95ba-0f778aa496ad.jpg",
+  "displayName": "11387d31-c6ee-4f87-95ba-0f778aa496ad",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "11387d31-c6ee-4f87-95ba-0f778aa496ad.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:43.544Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:43.544Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132f0b61125185464617",
+  "path": "84dc8909-f122-457f-b313-969d2973f272.jpg",
+  "displayName": "84dc8909-f122-457f-b313-969d2973f272",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "84dc8909-f122-457f-b313-969d2973f272.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:43.673Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:43.673Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826132f0b61125185464618",
+  "path": "7e861b2d-e381-465a-ba66-7506631578ef.jpg",
+  "displayName": "7e861b2d-e381-465a-ba66-7506631578ef",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "7e861b2d-e381-465a-ba66-7506631578ef.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:43.940Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:43.940Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613300b61125185464619",
+  "path": "d12d4b3e-9910-4247-9e72-fbeda2da0736.jpg",
+  "displayName": "d12d4b3e-9910-4247-9e72-fbeda2da0736",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "d12d4b3e-9910-4247-9e72-fbeda2da0736.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:44.077Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:44.077Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613300b6112518546461a",
+  "path": "e62326d7-ee58-48b7-86fe-da9928a73aec.jpg",
+  "displayName": "e62326d7-ee58-48b7-86fe-da9928a73aec",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "e62326d7-ee58-48b7-86fe-da9928a73aec.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:44.170Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:44.170Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613300b6112518546461b",
+  "path": "cc2d5bbd-cd79-4824-9df9-3e8566d04c59.jpg",
+  "displayName": "cc2d5bbd-cd79-4824-9df9-3e8566d04c59",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "cc2d5bbd-cd79-4824-9df9-3e8566d04c59.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:44.289Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:44.289Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613300b6112518546461c",
+  "path": "3af8935b-9a60-418c-8737-7253f49abd30.jpg",
+  "displayName": "3af8935b-9a60-418c-8737-7253f49abd30",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "3af8935b-9a60-418c-8737-7253f49abd30.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:44.388Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:44.388Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613300b6112518546461d",
+  "path": "8dc8b7e4-9570-4a48-969a-bb945a2b5131.jpg",
+  "displayName": "8dc8b7e4-9570-4a48-969a-bb945a2b5131",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "8dc8b7e4-9570-4a48-969a-bb945a2b5131.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:44.882Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:44.882Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613310b6112518546461e",
+  "path": "dd82b748-0286-46c8-a49c-f23557255113.jpg",
+  "displayName": "dd82b748-0286-46c8-a49c-f23557255113",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "dd82b748-0286-46c8-a49c-f23557255113.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:45.059Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:45.059Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613310b6112518546461f",
+  "path": "53f7bff9-e32c-4b5f-99c9-0123304485a2.jpg",
+  "displayName": "53f7bff9-e32c-4b5f-99c9-0123304485a2",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "53f7bff9-e32c-4b5f-99c9-0123304485a2.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:45.199Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:45.199Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613310b61125185464620",
+  "path": "a5198d1b-eaea-4d1e-a1d3-031393d670d4.jpg",
+  "displayName": "a5198d1b-eaea-4d1e-a1d3-031393d670d4",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "a5198d1b-eaea-4d1e-a1d3-031393d670d4.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:45.338Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:45.338Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613310b61125185464621",
+  "path": "6a533623-89ce-4a89-9941-c3c67faa8139.jpg",
+  "displayName": "6a533623-89ce-4a89-9941-c3c67faa8139",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "6a533623-89ce-4a89-9941-c3c67faa8139.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:45.465Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:45.465Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613310b61125185464622",
+  "path": "480303d9-a1b0-4199-bebc-746d23d5aded.jpg",
+  "displayName": "480303d9-a1b0-4199-bebc-746d23d5aded",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "480303d9-a1b0-4199-bebc-746d23d5aded.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:45.671Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:45.671Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613310b61125185464623",
+  "path": "26af9301-240c-49cf-a595-6fbf77ed5434.jpg",
+  "displayName": "26af9301-240c-49cf-a595-6fbf77ed5434",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "26af9301-240c-49cf-a595-6fbf77ed5434.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:45.798Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:45.798Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613310b61125185464624",
+  "path": "762a550e-66c2-4a6b-865c-0fb4a33461bf.jpg",
+  "displayName": "762a550e-66c2-4a6b-865c-0fb4a33461bf",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "762a550e-66c2-4a6b-865c-0fb4a33461bf.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:45.892Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:45.892Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613320b61125185464625",
+  "path": "c3dd5fbc-6e37-4321-b0bd-2e7f39108584.jpg",
+  "displayName": "c3dd5fbc-6e37-4321-b0bd-2e7f39108584",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "c3dd5fbc-6e37-4321-b0bd-2e7f39108584.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:46.006Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:46.006Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613320b61125185464626",
+  "path": "fc5fa034-ea6c-4adb-a392-348d0ad8940e.jpg",
+  "displayName": "fc5fa034-ea6c-4adb-a392-348d0ad8940e",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "fc5fa034-ea6c-4adb-a392-348d0ad8940e.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:46.106Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:46.106Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613320b61125185464627",
+  "path": "d9e1e3df-ba44-4ff2-9c47-1fe55d9b26be.jpg",
+  "displayName": "d9e1e3df-ba44-4ff2-9c47-1fe55d9b26be",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "d9e1e3df-ba44-4ff2-9c47-1fe55d9b26be.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:46.220Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:46.220Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613320b61125185464628",
+  "path": "38032294-1a59-4bf5-95e5-0286201769af.jpg",
+  "displayName": "38032294-1a59-4bf5-95e5-0286201769af",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "38032294-1a59-4bf5-95e5-0286201769af.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:46.356Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:46.356Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613320b61125185464629",
+  "path": "d8e98f59-2140-440e-a159-7ac45b3e4680.jpg",
+  "displayName": "d8e98f59-2140-440e-a159-7ac45b3e4680",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "d8e98f59-2140-440e-a159-7ac45b3e4680.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:46.480Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:46.480Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613320b6112518546462a",
+  "path": "206bc36a-b52f-45e3-a681-66e311ec5fa6.jpg",
+  "displayName": "206bc36a-b52f-45e3-a681-66e311ec5fa6",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "206bc36a-b52f-45e3-a681-66e311ec5fa6.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:46.572Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:46.572Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613320b6112518546462b",
+  "path": "019d89a6-0db9-4dcd-ad70-317d1a69559c.jpg",
+  "displayName": "019d89a6-0db9-4dcd-ad70-317d1a69559c",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "019d89a6-0db9-4dcd-ad70-317d1a69559c.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:46.681Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:46.681Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613320b6112518546462c",
+  "path": "c952cc3e-3dde-4a4b-89c7-75e20d394f35.jpg",
+  "displayName": "c952cc3e-3dde-4a4b-89c7-75e20d394f35",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "c952cc3e-3dde-4a4b-89c7-75e20d394f35.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:46.765Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:46.765Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613320b6112518546462d",
+  "path": "b40de2b6-b64e-4138-ba5c-e24c739141cd.jpg",
+  "displayName": "b40de2b6-b64e-4138-ba5c-e24c739141cd",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "b40de2b6-b64e-4138-ba5c-e24c739141cd.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:46.848Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:46.848Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613320b6112518546462e",
+  "path": "927346c5-8334-43a0-9f7d-3cc5d0908a34.jpg",
+  "displayName": "927346c5-8334-43a0-9f7d-3cc5d0908a34",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "927346c5-8334-43a0-9f7d-3cc5d0908a34.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:46.945Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:46.945Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613330b6112518546462f",
+  "path": "073d2782-0c68-4c08-8ed1-24fa39191d41.jpg",
+  "displayName": "073d2782-0c68-4c08-8ed1-24fa39191d41",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "073d2782-0c68-4c08-8ed1-24fa39191d41.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:47.037Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:47.037Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613330b61125185464630",
+  "path": "444fcdb8-2962-49ac-a108-69644f29d69c.jpg",
+  "displayName": "444fcdb8-2962-49ac-a108-69644f29d69c",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "444fcdb8-2962-49ac-a108-69644f29d69c.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:47.191Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:47.191Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613330b61125185464631",
+  "path": "c59bd6e0-df3f-4411-b9ad-650f468e1846.jpg",
+  "displayName": "c59bd6e0-df3f-4411-b9ad-650f468e1846",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "c59bd6e0-df3f-4411-b9ad-650f468e1846.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:47.306Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:47.306Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613330b61125185464632",
+  "path": "1a6de4dd-804d-4ad7-a05b-67e11b27dafd.jpg",
+  "displayName": "1a6de4dd-804d-4ad7-a05b-67e11b27dafd",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "1a6de4dd-804d-4ad7-a05b-67e11b27dafd.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:47.414Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:47.414Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613330b61125185464633",
+  "path": "73774e61-2124-4ed6-a0ed-e711810ebeb7.jpg",
+  "displayName": "73774e61-2124-4ed6-a0ed-e711810ebeb7",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "73774e61-2124-4ed6-a0ed-e711810ebeb7.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:47.509Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:47.509Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613330b61125185464634",
+  "path": "b2d93519-8764-46a6-8ab3-cb672c72f211.jpg",
+  "displayName": "b2d93519-8764-46a6-8ab3-cb672c72f211",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "b2d93519-8764-46a6-8ab3-cb672c72f211.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:47.589Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:47.589Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613330b61125185464635",
+  "path": "dd0e6f95-88fe-44cb-bda1-1c103e16ed14.jpg",
+  "displayName": "dd0e6f95-88fe-44cb-bda1-1c103e16ed14",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "dd0e6f95-88fe-44cb-bda1-1c103e16ed14.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:47.677Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:47.677Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613330b61125185464636",
+  "path": "291ce128-1a7d-4341-a922-7efdd04e38d3.jpg",
+  "displayName": "291ce128-1a7d-4341-a922-7efdd04e38d3",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "291ce128-1a7d-4341-a922-7efdd04e38d3.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:47.761Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:47.761Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613330b61125185464637",
+  "path": "391ece92-7a06-4a86-8664-55d057479be4.jpg",
+  "displayName": "391ece92-7a06-4a86-8664-55d057479be4",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "391ece92-7a06-4a86-8664-55d057479be4.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:47.877Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:47.877Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613330b61125185464638",
+  "path": "d8c8edb2-f64c-4962-bd36-9b505b7b21ae.jpg",
+  "displayName": "d8c8edb2-f64c-4962-bd36-9b505b7b21ae",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "d8c8edb2-f64c-4962-bd36-9b505b7b21ae.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:47.987Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:47.987Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613340b61125185464639",
+  "path": "5dff8fdc-5018-4577-a11e-f3db87a550dd.jpg",
+  "displayName": "5dff8fdc-5018-4577-a11e-f3db87a550dd",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "5dff8fdc-5018-4577-a11e-f3db87a550dd.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:48.074Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:48.074Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613340b6112518546463a",
+  "path": "5118aa52-ca96-4fef-b2c9-c5b9067cda1c.jpg",
+  "displayName": "5118aa52-ca96-4fef-b2c9-c5b9067cda1c",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "5118aa52-ca96-4fef-b2c9-c5b9067cda1c.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:48.176Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:48.176Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613340b6112518546463b",
+  "path": "1a980cb3-34b0-450c-864a-df44f93ad6ca.jpg",
+  "displayName": "1a980cb3-34b0-450c-864a-df44f93ad6ca",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "1a980cb3-34b0-450c-864a-df44f93ad6ca.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:48.254Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:48.254Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613340b6112518546463c",
+  "path": "38ce64d1-78ee-47b2-b38e-057692a0ff68.jpg",
+  "displayName": "38ce64d1-78ee-47b2-b38e-057692a0ff68",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "38ce64d1-78ee-47b2-b38e-057692a0ff68.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:48.344Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:48.344Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613340b6112518546463d",
+  "path": "17258ebc-7be3-4435-9746-2168e67c28de.jpg",
+  "displayName": "17258ebc-7be3-4435-9746-2168e67c28de",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "17258ebc-7be3-4435-9746-2168e67c28de.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:48.434Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:48.434Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613340b6112518546463e",
+  "path": "33ca2367-4f5d-4106-ba8a-b1b7ace04c8c.jpg",
+  "displayName": "33ca2367-4f5d-4106-ba8a-b1b7ace04c8c",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "33ca2367-4f5d-4106-ba8a-b1b7ace04c8c.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:48.520Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:48.520Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613340b6112518546463f",
+  "path": "5627bb93-ce46-4645-b273-795732221689.jpg",
+  "displayName": "5627bb93-ce46-4645-b273-795732221689",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "5627bb93-ce46-4645-b273-795732221689.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:48.632Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:48.632Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133b0b61125185464640",
+  "path": "65cc87a6-2801-426d-9fe3-8513691e53a7.jpg",
+  "displayName": "65cc87a6-2801-426d-9fe3-8513691e53a7",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "65cc87a6-2801-426d-9fe3-8513691e53a7.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:55.496Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:55.496Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133b0b61125185464641",
+  "path": "09e5d9ec-29f4-4ca8-99ef-6a0808c7107a.jpg",
+  "displayName": "09e5d9ec-29f4-4ca8-99ef-6a0808c7107a",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "09e5d9ec-29f4-4ca8-99ef-6a0808c7107a.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:55.592Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:55.592Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133b0b61125185464642",
+  "path": "67957934-f986-406c-bda6-40d860389ca9.jpg",
+  "displayName": "67957934-f986-406c-bda6-40d860389ca9",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "67957934-f986-406c-bda6-40d860389ca9.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:55.690Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:55.690Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133b0b61125185464643",
+  "path": "aea60a6f-5aa9-4eea-afe2-1d62c28c3c59.jpg",
+  "displayName": "aea60a6f-5aa9-4eea-afe2-1d62c28c3c59",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "aea60a6f-5aa9-4eea-afe2-1d62c28c3c59.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:55.822Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:55.822Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133c0b61125185464644",
+  "path": "d7c8a053-a9b3-45d8-bd02-6f8ca2c14d34.jpg",
+  "displayName": "d7c8a053-a9b3-45d8-bd02-6f8ca2c14d34",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "d7c8a053-a9b3-45d8-bd02-6f8ca2c14d34.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:56.257Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:56.257Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133c0b61125185464645",
+  "path": "f75eeead-a772-44d5-8d79-e8aaa845ffcb.png",
+  "displayName": "f75eeead-a772-44d5-8d79-e8aaa845ffcb",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "png",
+  "fileName": "f75eeead-a772-44d5-8d79-e8aaa845ffcb.png",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:56.353Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:56.353Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133c0b61125185464646",
+  "path": "4eda3354-23ac-4d84-a59c-de6eed7cb371.png",
+  "displayName": "4eda3354-23ac-4d84-a59c-de6eed7cb371",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "png",
+  "fileName": "4eda3354-23ac-4d84-a59c-de6eed7cb371.png",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:56.454Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:56.454Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133c0b61125185464647",
+  "path": "f7ecc73f-6193-4bc0-85b8-0ff708f84e97.jpg",
+  "displayName": "f7ecc73f-6193-4bc0-85b8-0ff708f84e97",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "f7ecc73f-6193-4bc0-85b8-0ff708f84e97.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:56.548Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:56.548Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133c0b61125185464648",
+  "path": "1486d885-0ca5-47b2-abf8-e4e2a3ec8441.jpg",
+  "displayName": "1486d885-0ca5-47b2-abf8-e4e2a3ec8441",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "1486d885-0ca5-47b2-abf8-e4e2a3ec8441.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:56.962Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:56.962Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133d0b61125185464649",
+  "path": "1eceedc1-8d70-477b-b93f-42c6d09ec180.jpg",
+  "displayName": "1eceedc1-8d70-477b-b93f-42c6d09ec180",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "1eceedc1-8d70-477b-b93f-42c6d09ec180.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:57.070Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:57.070Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133d0b6112518546464a",
+  "path": "bf1654f8-3e98-42ee-a9f0-321f3fc596ae.jpg",
+  "displayName": "bf1654f8-3e98-42ee-a9f0-321f3fc596ae",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "bf1654f8-3e98-42ee-a9f0-321f3fc596ae.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:57.159Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:57.159Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133d0b6112518546464b",
+  "path": "1ab7c11b-9c29-4f04-9ef7-ac60168a0a73.png",
+  "displayName": "1ab7c11b-9c29-4f04-9ef7-ac60168a0a73",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "png",
+  "fileName": "1ab7c11b-9c29-4f04-9ef7-ac60168a0a73.png",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:57.230Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:57.230Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133d0b6112518546464c",
+  "path": "a5e7f749-1bc7-46f1-a533-7ff8707950be.png",
+  "displayName": "a5e7f749-1bc7-46f1-a533-7ff8707950be",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "png",
+  "fileName": "a5e7f749-1bc7-46f1-a533-7ff8707950be.png",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:57.295Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:57.295Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133d0b6112518546464d",
+  "path": "4d0e1071-e1c0-498c-b9bb-48e566bfb4fe.png",
+  "displayName": "4d0e1071-e1c0-498c-b9bb-48e566bfb4fe",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "png",
+  "fileName": "4d0e1071-e1c0-498c-b9bb-48e566bfb4fe.png",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:57.380Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:57.380Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133d0b6112518546464e",
+  "path": "07f34420-dc2c-4784-bbb9-fd0244eac057.png",
+  "displayName": "07f34420-dc2c-4784-bbb9-fd0244eac057",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "png",
+  "fileName": "07f34420-dc2c-4784-bbb9-fd0244eac057.png",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:57.475Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:57.475Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133d0b6112518546464f",
+  "path": "3a73f231-69e0-4108-9420-047a01069e2f.jpg",
+  "displayName": "3a73f231-69e0-4108-9420-047a01069e2f",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "3a73f231-69e0-4108-9420-047a01069e2f.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:57.571Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:57.571Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133d0b61125185464650",
+  "path": "7f2e2d3d-6838-4e78-bdc8-ec3978881c82.png",
+  "displayName": "7f2e2d3d-6838-4e78-bdc8-ec3978881c82",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "png",
+  "fileName": "7f2e2d3d-6838-4e78-bdc8-ec3978881c82.png",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:57.642Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:57.642Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133d0b61125185464651",
+  "path": "a19e5dea-c55d-4f81-a248-e7da1d0551fd.jpg",
+  "displayName": "a19e5dea-c55d-4f81-a248-e7da1d0551fd",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "a19e5dea-c55d-4f81-a248-e7da1d0551fd.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:57.733Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:57.733Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133d0b61125185464652",
+  "path": "4dd3b471-83dd-48e2-976d-a319041d011c.jpg",
+  "displayName": "4dd3b471-83dd-48e2-976d-a319041d011c",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "4dd3b471-83dd-48e2-976d-a319041d011c.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:57.818Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:57.818Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133d0b61125185464653",
+  "path": "43a81e40-7176-4e95-b7ac-aa78a05e50d8.jpg",
+  "displayName": "43a81e40-7176-4e95-b7ac-aa78a05e50d8",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "43a81e40-7176-4e95-b7ac-aa78a05e50d8.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:57.908Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:57.908Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133d0b61125185464654",
+  "path": "8edd395e-c299-4021-9278-fd400f2e5208.jpg",
+  "displayName": "8edd395e-c299-4021-9278-fd400f2e5208",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "8edd395e-c299-4021-9278-fd400f2e5208.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:57.999Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:57.999Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133e0b61125185464655",
+  "path": "1c636383-3fef-4a4f-a4de-c8372c6df977.jpg",
+  "displayName": "1c636383-3fef-4a4f-a4de-c8372c6df977",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "1c636383-3fef-4a4f-a4de-c8372c6df977.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:58.107Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:58.107Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133e0b61125185464656",
+  "path": "dd7d640f-c96c-43d7-8af5-70a24f17f458.png",
+  "displayName": "dd7d640f-c96c-43d7-8af5-70a24f17f458",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "png",
+  "fileName": "dd7d640f-c96c-43d7-8af5-70a24f17f458.png",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:58.295Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:58.295Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133e0b61125185464657",
+  "path": "0f344367-c47d-44f8-a171-037ab954e6ec.jpg",
+  "displayName": "0f344367-c47d-44f8-a171-037ab954e6ec",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "0f344367-c47d-44f8-a171-037ab954e6ec.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:58.411Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:58.411Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133e0b61125185464658",
+  "path": "eff5de18-d7e4-4d0b-be18-315d57b0cf13.jpg",
+  "displayName": "eff5de18-d7e4-4d0b-be18-315d57b0cf13",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "eff5de18-d7e4-4d0b-be18-315d57b0cf13.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:58.675Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:58.675Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133e0b61125185464659",
+  "path": "a8b8a71e-818e-4c7b-b8cc-272e2c7380af.jpg",
+  "displayName": "a8b8a71e-818e-4c7b-b8cc-272e2c7380af",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "a8b8a71e-818e-4c7b-b8cc-272e2c7380af.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:58.833Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:58.833Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133e0b6112518546465a",
+  "path": "beac238a-5e50-453b-8766-1bb4877e8854.jpg",
+  "displayName": "beac238a-5e50-453b-8766-1bb4877e8854",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "beac238a-5e50-453b-8766-1bb4877e8854.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:58.918Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:58.918Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133f0b6112518546465b",
+  "path": "0a6ea797-9909-4ab1-a1c0-16d895c24ed9.jpg",
+  "displayName": "0a6ea797-9909-4ab1-a1c0-16d895c24ed9",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "0a6ea797-9909-4ab1-a1c0-16d895c24ed9.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:59.060Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:59.060Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133f0b6112518546465c",
+  "path": "f42df578-378c-4953-a6eb-5534da06f0a7.jpg",
+  "displayName": "f42df578-378c-4953-a6eb-5534da06f0a7",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "f42df578-378c-4953-a6eb-5534da06f0a7.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:59.159Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:59.159Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133f0b6112518546465d",
+  "path": "fafbd379-de8d-46c7-9677-26a6229e5767.jpg",
+  "displayName": "fafbd379-de8d-46c7-9677-26a6229e5767",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "fafbd379-de8d-46c7-9677-26a6229e5767.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:59.243Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:59.243Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133f0b6112518546465e",
+  "path": "2c85c750-bf6b-4771-a36b-604001fdce29.jpg",
+  "displayName": "2c85c750-bf6b-4771-a36b-604001fdce29",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "2c85c750-bf6b-4771-a36b-604001fdce29.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:59.331Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:59.331Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133f0b6112518546465f",
+  "path": "9ce80052-8a96-4d2d-a095-4045e6e105b9.jpg",
+  "displayName": "9ce80052-8a96-4d2d-a095-4045e6e105b9",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "9ce80052-8a96-4d2d-a095-4045e6e105b9.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:59.408Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:59.408Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133f0b61125185464660",
+  "path": "5f7da457-2649-47cc-b5cb-92795742f38e.jpg",
+  "displayName": "5f7da457-2649-47cc-b5cb-92795742f38e",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "5f7da457-2649-47cc-b5cb-92795742f38e.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:59.529Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:59.529Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "6826133f0b61125185464661",
+  "path": "6371aa58-9a3a-409c-b9cc-6f1e250c34e4.jpg",
+  "displayName": "6371aa58-9a3a-409c-b9cc-6f1e250c34e4",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "6371aa58-9a3a-409c-b9cc-6f1e250c34e4.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:15:59.618Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:15:59.618Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613440b61125185464662",
+  "path": "48bc5653-ac16-4378-8c6b-7cff0e0ca621.jpg",
+  "displayName": "48bc5653-ac16-4378-8c6b-7cff0e0ca621",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "48bc5653-ac16-4378-8c6b-7cff0e0ca621.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:04.535Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:04.535Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613440b61125185464663",
+  "path": "b229c51f-0a8d-4aa2-ae52-0232a763dc98.jpg",
+  "displayName": "b229c51f-0a8d-4aa2-ae52-0232a763dc98",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "b229c51f-0a8d-4aa2-ae52-0232a763dc98.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:04.664Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:04.664Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613440b61125185464664",
+  "path": "cff5dd7a-51c4-45fa-aa83-a5cddd1a1e29.jpg",
+  "displayName": "cff5dd7a-51c4-45fa-aa83-a5cddd1a1e29",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "cff5dd7a-51c4-45fa-aa83-a5cddd1a1e29.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:04.759Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:04.759Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613440b61125185464665",
+  "path": "bc91041b-771b-4da7-ad75-8a8158c49bd1.jpg",
+  "displayName": "bc91041b-771b-4da7-ad75-8a8158c49bd1",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "bc91041b-771b-4da7-ad75-8a8158c49bd1.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:04.847Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:04.847Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613440b61125185464666",
+  "path": "191318f4-350a-488a-b479-a03825737d17.jpg",
+  "displayName": "191318f4-350a-488a-b479-a03825737d17",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "191318f4-350a-488a-b479-a03825737d17.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:04.921Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:04.921Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613440b61125185464667",
+  "path": "cb64b8bf-322a-4d85-b555-3b27444169fe.jpg",
+  "displayName": "cb64b8bf-322a-4d85-b555-3b27444169fe",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "cb64b8bf-322a-4d85-b555-3b27444169fe.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:04.994Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:04.994Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613450b61125185464668",
+  "path": "1e739fc3-6406-4fde-9cfe-806cf4412198.jpg",
+  "displayName": "1e739fc3-6406-4fde-9cfe-806cf4412198",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "1e739fc3-6406-4fde-9cfe-806cf4412198.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:05.076Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:05.076Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613450b61125185464669",
+  "path": "f6cc5396-6f07-40bb-9ec9-5687fb293dad.jpg",
+  "displayName": "f6cc5396-6f07-40bb-9ec9-5687fb293dad",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "f6cc5396-6f07-40bb-9ec9-5687fb293dad.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:05.175Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:05.175Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613450b6112518546466a",
+  "path": "d4034d9c-3d08-4fc9-aaec-9bf80e48f0dc.jpg",
+  "displayName": "d4034d9c-3d08-4fc9-aaec-9bf80e48f0dc",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "d4034d9c-3d08-4fc9-aaec-9bf80e48f0dc.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:05.273Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:05.273Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613450b6112518546466b",
+  "path": "e561efef-89e8-40e3-b51c-6a1fa12c721e.jpg",
+  "displayName": "e561efef-89e8-40e3-b51c-6a1fa12c721e",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "e561efef-89e8-40e3-b51c-6a1fa12c721e.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:05.357Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:05.357Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613450b6112518546466c",
+  "path": "28603d1e-beb2-4313-8af5-d3b50685647e.jpg",
+  "displayName": "28603d1e-beb2-4313-8af5-d3b50685647e",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "28603d1e-beb2-4313-8af5-d3b50685647e.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:05.495Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:05.495Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613450b6112518546466d",
+  "path": "0428b95a-46d6-4009-b72c-880d790b4906.jpg",
+  "displayName": "0428b95a-46d6-4009-b72c-880d790b4906",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "0428b95a-46d6-4009-b72c-880d790b4906.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:05.586Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:05.586Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613450b6112518546466e",
+  "path": "50f1f0c1-36ba-470e-81d2-bc6f1b799235.jpg",
+  "displayName": "50f1f0c1-36ba-470e-81d2-bc6f1b799235",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "50f1f0c1-36ba-470e-81d2-bc6f1b799235.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:05.666Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:05.666Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613450b6112518546466f",
+  "path": "8d2524a0-e3f0-4b1b-b8b2-ad2a8e22e363.jpg",
+  "displayName": "8d2524a0-e3f0-4b1b-b8b2-ad2a8e22e363",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "8d2524a0-e3f0-4b1b-b8b2-ad2a8e22e363.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:05.742Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:05.742Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613450b61125185464670",
+  "path": "d9e0e90c-40b3-42be-b3e5-2e046f338da4.jpg",
+  "displayName": "d9e0e90c-40b3-42be-b3e5-2e046f338da4",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "d9e0e90c-40b3-42be-b3e5-2e046f338da4.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:05.829Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:05.829Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613450b61125185464671",
+  "path": "40fdc4b9-2992-4468-acb6-4e3af9ea3cb5.jpg",
+  "displayName": "40fdc4b9-2992-4468-acb6-4e3af9ea3cb5",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "40fdc4b9-2992-4468-acb6-4e3af9ea3cb5.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:05.915Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:05.915Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613470b61125185464672",
+  "path": "1e8a179c-a3fe-476a-9314-c1946d6c8971.jpg",
+  "displayName": "1e8a179c-a3fe-476a-9314-c1946d6c8971",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "1e8a179c-a3fe-476a-9314-c1946d6c8971.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:07.254Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:07.254Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613470b61125185464673",
+  "path": "f6717f35-5e6d-4bf5-875b-c0e710e487e8.jpg",
+  "displayName": "f6717f35-5e6d-4bf5-875b-c0e710e487e8",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "f6717f35-5e6d-4bf5-875b-c0e710e487e8.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:07.338Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:07.338Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613470b61125185464674",
+  "path": "d52ef26c-f123-4875-b1b0-56f29c801c2e.jpg",
+  "displayName": "d52ef26c-f123-4875-b1b0-56f29c801c2e",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "d52ef26c-f123-4875-b1b0-56f29c801c2e.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:07.423Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:07.423Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613470b61125185464675",
+  "path": "0746282c-4a8d-464f-9ad2-eee0c71f4a2c.jpg",
+  "displayName": "0746282c-4a8d-464f-9ad2-eee0c71f4a2c",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "0746282c-4a8d-464f-9ad2-eee0c71f4a2c.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:07.497Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:07.497Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613470b61125185464676",
+  "path": "d503bb34-fef7-4459-beeb-d238836b28ac.jpg",
+  "displayName": "d503bb34-fef7-4459-beeb-d238836b28ac",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "d503bb34-fef7-4459-beeb-d238836b28ac.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:07.592Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:07.592Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613470b61125185464677",
+  "path": "09b48e7d-21ed-4cbf-8b46-834517c24c32.jpg",
+  "displayName": "09b48e7d-21ed-4cbf-8b46-834517c24c32",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "09b48e7d-21ed-4cbf-8b46-834517c24c32.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:07.696Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:07.696Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613470b61125185464678",
+  "path": "5a60ce42-06e2-49cf-a378-06bfcdaf42c7.jpg",
+  "displayName": "5a60ce42-06e2-49cf-a378-06bfcdaf42c7",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "5a60ce42-06e2-49cf-a378-06bfcdaf42c7.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:07.791Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:07.791Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613470b61125185464679",
+  "path": "ea1e3b10-ef64-498d-b615-e1332983e195.jpg",
+  "displayName": "ea1e3b10-ef64-498d-b615-e1332983e195",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "ea1e3b10-ef64-498d-b615-e1332983e195.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:07.916Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:07.916Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613480b6112518546467a",
+  "path": "b771eac2-7d26-4aa9-a664-f10f87c851e2.jpg",
+  "displayName": "b771eac2-7d26-4aa9-a664-f10f87c851e2",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "b771eac2-7d26-4aa9-a664-f10f87c851e2.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:08.001Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:08.001Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613480b6112518546467b",
+  "path": "12ec8ce5-e15e-4d0c-a47f-0e2d819d7b97.jpg",
+  "displayName": "12ec8ce5-e15e-4d0c-a47f-0e2d819d7b97",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "12ec8ce5-e15e-4d0c-a47f-0e2d819d7b97.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:08.096Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:08.096Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613480b6112518546467c",
+  "path": "8df0013b-0cb0-411c-a789-e20f6a2061cb.jpg",
+  "displayName": "8df0013b-0cb0-411c-a789-e20f6a2061cb",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "8df0013b-0cb0-411c-a789-e20f6a2061cb.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:08.168Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:08.168Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613480b6112518546467d",
+  "path": "303c03bb-98d5-4a43-85bb-4ec3513aa8d1.jpg",
+  "displayName": "303c03bb-98d5-4a43-85bb-4ec3513aa8d1",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "303c03bb-98d5-4a43-85bb-4ec3513aa8d1.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:08.257Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:08.257Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613480b6112518546467e",
+  "path": "2c136dda-1e23-40e3-8298-ddbb6edfb592.jpg",
+  "displayName": "2c136dda-1e23-40e3-8298-ddbb6edfb592",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "2c136dda-1e23-40e3-8298-ddbb6edfb592.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:08.360Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:08.360Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613480b6112518546467f",
+  "path": "705fe7de-b587-4a47-8ac8-1c854f0246a9.jpg",
+  "displayName": "705fe7de-b587-4a47-8ac8-1c854f0246a9",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "705fe7de-b587-4a47-8ac8-1c854f0246a9.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:08.448Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:08.448Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613480b61125185464680",
+  "path": "c721f05e-db99-4e8f-a81d-6501192085a7.jpg",
+  "displayName": "c721f05e-db99-4e8f-a81d-6501192085a7",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "c721f05e-db99-4e8f-a81d-6501192085a7.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:08.528Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:08.528Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+},
+{
+  "_id": "682613480b61125185464681",
+  "path": "59114991-57ed-4f82-91e8-7e282a1a5120.jpg",
+  "displayName": "59114991-57ed-4f82-91e8-7e282a1a5120",
+  "parentPath": "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources",
+  "extend": "jpg",
+  "fileName": "59114991-57ed-4f82-91e8-7e282a1a5120.jpg",
+  "is_lock": false,
+  "createBy": "kiminonawa1305@gmail.com",
+  "createAt": {
+    "$date": "2025-05-15T16:16:08.613Z"
+  },
+  "updateBy": "kiminonawa1305@gmail.com",
+  "updateAt": {
+    "$date": "2025-05-15T16:16:08.613Z"
+  },
+  "_class": "com.lamnguyen.media_service.model.Media"
+}]
