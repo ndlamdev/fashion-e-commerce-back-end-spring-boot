@@ -14,10 +14,10 @@ import com.lamnguyen.product_service.domain.dto.CollectionSaveRedisDto;
 import com.lamnguyen.product_service.domain.response.ProductResponse;
 import com.lamnguyen.product_service.mapper.ICollectionMapper;
 import com.lamnguyen.product_service.repository.ICollectionRepository;
-import com.lamnguyen.product_service.repository.IProductRepository;
 import com.lamnguyen.product_service.service.business.ICollectionService;
 import com.lamnguyen.product_service.service.business.IProductService;
 import com.lamnguyen.product_service.service.redis.ICollectionRedisManager;
+import com.lamnguyen.product_service.utils.enums.CollectionType;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -26,8 +26,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -37,7 +37,6 @@ public class CollectionServiceImpl implements ICollectionService {
 	ICollectionMapper collectionMapper;
 	ICollectionRedisManager collectionRedisManager;
 	IProductService productService;
-	IProductRepository productRepository;
 
 	@Override
 	public CollectionSaveRedisDto findById(String id) {
@@ -48,8 +47,7 @@ public class CollectionServiceImpl implements ICollectionService {
 	private Optional<CollectionSaveRedisDto> findInDb(String id) {
 		return collectionRedisManager.cache(id, id, () -> {
 			var collection = collectionRepository.findById(id);
-			var collectionRedis = collection.map(collectionMapper::toCollectionSaveRedisDto);
-			return collectionRedis;
+			return collection.map(collectionMapper::toCollectionSaveRedisDto);
 		});
 	}
 
@@ -58,7 +56,26 @@ public class CollectionServiceImpl implements ICollectionService {
 		var collection = findById(id);
 		var ids = collection.getProducts().stream().skip(pageable.getOffset()).limit(pageable.getPageSize()).toList();
 		var products = productService.getProductByids(ids);
-		var result = new PageImpl<>(products, pageable, collection.getProducts().size());
+		return new PageImpl<>(products, pageable, collection.getProducts().size());
+	}
+
+	@Override
+	public Map<CollectionType, List<CollectionSaveRedisDto>> getCollections() {
+		var result = new HashMap<CollectionType, List<CollectionSaveRedisDto>>(CollectionType.values().length);
+		var listTask = new ArrayList<CompletableFuture<Void>>();
+		for (var type : CollectionType.values()) {
+			listTask.add(CompletableFuture.runAsync(() -> {
+				result.put(type, getProductByCollectionTypeInDb(type));
+			}));
+		}
+		CompletableFuture.allOf(listTask.toArray(new CompletableFuture[0])).join();
 		return result;
+	}
+
+
+	private List<CollectionSaveRedisDto> getProductByCollectionTypeInDb(CollectionType type) {
+		var result = collectionRedisManager.getByCollectionType(type);
+		if (result != null && !result.isEmpty()) return result;
+		return collectionRedisManager.cache(type, () -> Optional.ofNullable(collectionRepository.findAllByType(type)));
 	}
 }

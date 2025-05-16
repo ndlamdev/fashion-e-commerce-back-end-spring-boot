@@ -11,6 +11,7 @@ package com.lamnguyen.product_service.controller.user;
 import com.lamnguyen.product_service.domain.dto.CollectionSaveRedisDto;
 import com.lamnguyen.product_service.domain.response.ProductResponse;
 import com.lamnguyen.product_service.service.business.ICollectionService;
+import com.lamnguyen.product_service.utils.enums.CollectionType;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -23,6 +24,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Map;
+
 
 @RestController
 @RequestMapping("/collection/v1")
@@ -31,6 +35,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class CollectionController {
 	ICollectionService collectionService;
 
+	@GetMapping
+	Map<CollectionType, List<CollectionSaveRedisDto>> getCollections() {
+		return collectionService.getCollections();
+	}
 
 	@GetMapping("/{id}")
 	CollectionSaveRedisDto getCollectionByCollectionId(@PathVariable("id") String id) {

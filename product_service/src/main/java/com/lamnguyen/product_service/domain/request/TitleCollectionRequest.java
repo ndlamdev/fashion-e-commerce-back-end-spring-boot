@@ -8,9 +8,11 @@
 
 package com.lamnguyen.product_service.domain.request;
 
+import com.lamnguyen.product_service.utils.enums.CollectionType;
 import jakarta.validation.constraints.NotBlank;
 
 public record TitleCollectionRequest(
+		CollectionType type,
 		@NotBlank
 		String title
 ) {

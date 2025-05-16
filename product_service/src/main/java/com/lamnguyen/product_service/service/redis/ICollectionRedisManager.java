@@ -9,6 +9,17 @@
 package com.lamnguyen.product_service.service.redis;
 
 import com.lamnguyen.product_service.domain.dto.CollectionSaveRedisDto;
+import com.lamnguyen.product_service.utils.enums.CollectionType;
+
+import java.util.List;
+import java.util.Map;
 
 public interface ICollectionRedisManager extends ICacheManage<CollectionSaveRedisDto> {
+	List<CollectionSaveRedisDto> getByCollectionType(CollectionType type);
+
+	List<CollectionSaveRedisDto> cache(CollectionType type, CallbackDB<List<CollectionSaveRedisDto>> callDB);
+
+	void deleteCollection(CollectionType type);
+
+	void deleteCollections();
 }
