@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CartItemResponse {
 	long id;
-	String variantId;
+	VariantProductDto variant;
 	ProductDto product;
 	int quantity;
 	boolean lock;

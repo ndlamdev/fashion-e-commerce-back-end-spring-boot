@@ -13,13 +13,13 @@ import com.lamnguyen.cart_service.domain.response.CartResponse;
 import com.lamnguyen.cart_service.domain.response.UpdateCartItemResponse;
 
 public interface ICartService {
-	CartResponse getCartByUserId(long userId);
+	CartResponse getCart();
 
 	CartDto createCart(long userId);
 
-	void addVariantToCart(long userId, String variantId);
+	void addVariantToCart(String variantId);
 
-	UpdateCartItemResponse updateCartItem(long userId, long cartItemId, int quantity);
+	UpdateCartItemResponse updateCartItem(long cartItemId, int quantity);
 
-	void removeCartItem(long userId, long cartItemId);
+	void removeCartItem(long cartItemId);
 }

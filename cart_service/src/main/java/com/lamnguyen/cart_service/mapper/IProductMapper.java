@@ -11,11 +11,8 @@ package com.lamnguyen.cart_service.mapper;
 import com.lamnguyen.cart_service.domain.dto.ProductDto;
 import com.lamnguyen.cart_service.protos.ProductInCartDto;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = {IGrpcMapper.class, IOptionMapper.class})
+@Mapper(componentModel = "spring", uses = {IGrpcMapper.class})
 public interface IProductMapper {
-	@Mapping(source = "optionsList", target = "options")
-	@Mapping(source = "imagesList", target = "images")
 	ProductDto toProductDto(ProductInCartDto product);
 }

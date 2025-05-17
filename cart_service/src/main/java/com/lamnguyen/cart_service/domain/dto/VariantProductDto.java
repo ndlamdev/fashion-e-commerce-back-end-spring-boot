@@ -21,7 +21,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class VariantProductDto {
 	String id;
-	private ProductDto product;
+	private String productId;
 	private String title;
 	@JsonProperty("regular_price")
 	private double regularPrice;

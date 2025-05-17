@@ -105,18 +105,9 @@ public class ProductServiceImpl implements IProductService {
 		var productDto = productRedisManager.get(id)
 				.or(() -> productRedisManager.cache(id, () -> productRepository.findById(id).map(productMapper::toProductDto)))
 				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.PRODUCT_NOT_FOUND));
-		var result = productMapper.toProductResponse(productDto);
-		result.setVariants(variantService.getVariantsByProductId(id));
-
-		if (productDto.getImages() != null && !productDto.getImages().isEmpty()) {
-			var mediaResponse = mediaGrpcClient.getImageDto(productDto.getImages());
-			result.setImages(mediaResponse.values().stream().toList());
-		}
-
-		return productMapper.toProductInCartDto(
-				result,
-				imageMapper,
-				optionMapper,
-				grpcMapper);
+		var productResponse = productMapper.toProductResponse(productDto);
+		var imageId = productDto.getImages().getFirst();
+		var image = mediaGrpcClient.getImageDto(List.of(imageId)).getOrDefault(imageId, ImageResponse.builder().id(imageId).build());
+		return productMapper.toProductInCartDto(productResponse, imageMapper.toImage(image));
 	}
 }

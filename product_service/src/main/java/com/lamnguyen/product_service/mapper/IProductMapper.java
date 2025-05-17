@@ -15,6 +15,7 @@ import com.lamnguyen.product_service.domain.request.DataProductRequest;
 import com.lamnguyen.product_service.domain.response.ProductResponse;
 import com.lamnguyen.product_service.model.Collection;
 import com.lamnguyen.product_service.model.Product;
+import com.lamnguyen.product_service.protos.Image;
 import com.lamnguyen.product_service.protos.ProductInCartDto;
 import org.mapstruct.*;
 
@@ -113,26 +114,12 @@ public interface IProductMapper {
 		throw ApplicationException.createException(ExceptionEnum.DUPLICATE, "Duplicate tag");
 	}
 
-	ProductInCartDto toProductInCartDto(
-			ProductResponse response,
-			IImageMapper imageMapper,
-			IOptionMapper optionMapper,
-			IGrpcMapper grpcMapper
-	);
-
-	@AfterMapping
-	default void afterMapping(
-			ProductResponse response,
-			@MappingTarget ProductInCartDto.Builder builder,
-			IImageMapper imageMapper,
-			IOptionMapper optionMapper,
-			IGrpcMapper grpcMapper
-	) {
-		if (response.getOptions() != null)
-			builder.addAllOptions(response.getOptions().stream().map(data -> optionMapper.toOptionDto(data, grpcMapper)).toList());
-		if (response.getImages() != null)
-			builder.addAllImages(response.getImages().stream().map(imageMapper::toImage).toList());
-	}
+	@Mapping(target = "image", source = "response.images", ignore = true)
+	@Mapping(target = "id", source = "response.id")
+	@Mapping(target = "lock", source = "response.lock")
+	@Mapping(target = "unknownFields", ignore = true)
+	@Mapping(target = "allFields", ignore = true)
+	ProductInCartDto toProductInCartDto(ProductResponse response, Image image);
 
 	com.lamnguyen.product_service.protos.ProductDto toProductDto(
 			ProductResponse response,
@@ -142,6 +129,14 @@ public interface IProductMapper {
 			IOptionItemMapper optionItemMapper,
 			IGrpcMapper grpcMapper
 	);
+
+	@AfterMapping
+	default void afterMapping(
+			@MappingTarget com.lamnguyen.product_service.protos.ProductInCartDto.Builder builder,
+			Image image
+	) {
+		builder.setImage(image);
+	}
 
 	@AfterMapping
 	default void afterMapping(

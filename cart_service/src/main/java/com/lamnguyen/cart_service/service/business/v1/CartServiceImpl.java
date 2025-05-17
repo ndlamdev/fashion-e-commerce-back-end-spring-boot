@@ -14,12 +14,15 @@ import com.lamnguyen.cart_service.domain.dto.CartDto;
 import com.lamnguyen.cart_service.domain.response.CartResponse;
 import com.lamnguyen.cart_service.domain.response.UpdateCartItemResponse;
 import com.lamnguyen.cart_service.mapper.ICartMapper;
+import com.lamnguyen.cart_service.mapper.IVariantProductMapper;
 import com.lamnguyen.cart_service.model.Cart;
 import com.lamnguyen.cart_service.repository.ICartRepository;
 import com.lamnguyen.cart_service.service.business.ICartItemService;
 import com.lamnguyen.cart_service.service.business.ICartService;
+import com.lamnguyen.cart_service.service.grpc.IInventoryGrpcClient;
 import com.lamnguyen.cart_service.service.grpc.IProductGrpcClient;
 import com.lamnguyen.cart_service.service.redis.ICartRedisManage;
+import com.lamnguyen.cart_service.utils.helper.JwtTokenUtil;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -27,6 +30,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
@@ -37,9 +41,13 @@ public class CartServiceImpl implements ICartService {
 	ICartItemService cartItemService;
 	ICartMapper cartMapper;
 	IProductGrpcClient productGrpcClient;
+	IInventoryGrpcClient inventoryGrpcClient;
+	IVariantProductMapper variantProductMapper;
+	JwtTokenUtil jwtTokenUtil;
 
 	@Override
-	public CartResponse getCartByUserId(long userId) {
+	public CartResponse getCart() {
+		var userId = jwtTokenUtil.getUserId();
 		var result = cartRedisManage.getCartByUserId(userId)
 				.or(() -> cartRedisManage.cache(
 						String.valueOf(userId),
@@ -54,9 +62,18 @@ public class CartServiceImpl implements ICartService {
 		if (result.getCartItems() == null) {
 			result.setCartItems(new ArrayList<>());
 		} else {
+			var listTask = new ArrayList<CompletableFuture<Void>>();
 			result.getCartItems().forEach(item -> {
-				item.setProduct(productGrpcClient.getProductDto(item.getProduct().getId()));
+				listTask.add(CompletableFuture.runAsync(() -> {
+					var product = productGrpcClient.getProductDto(item.getProduct().getId());
+					item.setProduct(product);
+					var variant = inventoryGrpcClient.getVariantProductByVariantId(item.getVariant().getId());
+					if (variant != null)
+						item.setVariant(variantProductMapper.toDto(variant));
+				}));
 			});
+
+			CompletableFuture.allOf(listTask.toArray(CompletableFuture[]::new)).join();
 		}
 
 		return result;
@@ -70,23 +87,26 @@ public class CartServiceImpl implements ICartService {
 	}
 
 	@Override
-	public void addVariantToCart(long userId, String variantId) {
-		var cart = getCartByUserId(userId);
+	public void addVariantToCart(String variantId) {
+		var userId = jwtTokenUtil.getUserId();
+		var cart = getCart();
 		cartItemService.addCartItem(cart.getId(), variantId);
 		cartRedisManage.delete(String.valueOf(userId));
 	}
 
 	@Override
-	public UpdateCartItemResponse updateCartItem(long userId, long cartItemId, int quantity) {
-		var cart = getCartByUserId(userId);
+	public UpdateCartItemResponse updateCartItem(long cartItemId, int quantity) {
+		var userId = jwtTokenUtil.getUserId();
+		var cart = getCart();
 		var newQuantity = cartItemService.updateQuantityCartItem(cart.getId(), cartItemId, quantity);
 		cartRedisManage.delete(String.valueOf(userId));
 		return UpdateCartItemResponse.builder().cartItemId(cartItemId).quantity(newQuantity).build();
 	}
 
 	@Override
-	public void removeCartItem(long userId, long cartItemId) {
-		var cart = getCartByUserId(userId);
+	public void removeCartItem(long cartItemId) {
+		var userId = jwtTokenUtil.getUserId();
+		var cart = getCart();
 		cartItemService.removeCartItem(cart.getId(), cartItemId);
 		cartRedisManage.delete(String.valueOf(userId));
 	}
