@@ -33,6 +33,7 @@ public interface IProductMapper {
 			@Mapping(target = "available", ignore = true),
 			@Mapping(source = "collection", target = "collection", qualifiedByName = "toCollection"),
 			@Mapping(source = "title", target = "seoAlias", qualifiedByName = "toSeoAlias"),
+			@Mapping(source = "title", target = "titleSearch", qualifiedByName = "toTitleSearch"),
 	})
 	Product toProduct(DataProductRequest request);
 
@@ -79,6 +80,11 @@ public interface IProductMapper {
 
 		// Bước 5: Thay khoảng trắng bằng dấu gạch ngang
 		return withoutDiacritics.replaceAll("\\s+", "-");
+	}
+
+	@Named("toTitleSearch")
+	default String toTitleSearch(String title) {
+		return toSeoAlias(title).replaceAll("-", " ");
 	}
 
 	@AfterMapping

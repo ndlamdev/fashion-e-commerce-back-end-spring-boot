@@ -15,6 +15,7 @@ import com.lamnguyen.product_service.domain.response.ImageResponse;
 import com.lamnguyen.product_service.domain.response.ProductResponse;
 import com.lamnguyen.product_service.mapper.*;
 import com.lamnguyen.product_service.model.Product;
+import com.lamnguyen.product_service.model.ProductFilterAndSort;
 import com.lamnguyen.product_service.protos.ProductDto;
 import com.lamnguyen.product_service.protos.ProductInCartDto;
 import com.lamnguyen.product_service.repository.IProductRepository;
@@ -30,6 +31,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -37,6 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.regex.Pattern;
 
 @Slf4j
 @Service
@@ -54,6 +60,7 @@ public class ProductServiceImpl implements IProductService {
 	IOptionMapper optionMapper;
 	IOptionItemMapper optionItemMapper;
 	IFileSearchGrpcClient fileSearchGrpcClient;
+	MongoTemplate mongoTemplate;
 
 	@Override
 	public ProductResponse getProductById(String id) {
@@ -66,8 +73,7 @@ public class ProductServiceImpl implements IProductService {
 		var productOptional = productRepository.findById(id);
 		if (productOptional.isEmpty()) return Optional.empty();
 		var product = productOptional.get();
-		setAllProperty(product);
-		return Optional.of(productMapper.toProductResponse(product));
+		return Optional.of(toProductResponse(product));
 	}
 
 	private void formatProductThumbnail(ProductResponse result, Product product) {
@@ -184,19 +190,16 @@ public class ProductServiceImpl implements IProductService {
 		}
 	}
 
-	private void setAllProperty(Product product) {
+	private ProductResponse toProductResponse(Product product) {
 		var result = productMapper.toProductResponse(product);
 
 		var listTask = new ArrayList<CompletableFuture<Void>>();
 
-		listTask.add(
-				CompletableFuture
-						.runAsync(
-								() -> result.setVariants(
-										variantService
-												.getVariantsByProductId(product.getId())
-								)
-						)
+		listTask.add(CompletableFuture
+				.runAsync(() -> {
+					var variants = variantService.getVariantsByProductId(product.getId());
+					result.setVariants(variants);
+				})
 		);
 
 		listTask.add(CompletableFuture.runAsync(() ->
@@ -212,33 +215,78 @@ public class ProductServiceImpl implements IProductService {
 		));
 
 		CompletableFuture.allOf(listTask.toArray(CompletableFuture[]::new)).join();
+		return result;
 	}
 
 	@Override
-	public Page<ProductResponse> search(String query, Pageable pageable) {
-		query = productMapper.toSeoAlias(query).replaceAll("-", ".*");
-		var allProducts = productRepository.findAllByTitleSearchRegex(query, pageable);
-		return new PageImpl<>(getProductResponses(allProducts.getContent()), pageable, allProducts.getTotalElements());
+	public Page<ProductResponse> search(Pageable pageable, ProductFilterAndSort filterAndSort) {
+		System.out.println(filterAndSort);
+		var query = createQuery(filterAndSort);
+		var products = mongoTemplate.find(query, Product.class);
+		var content = products.stream().skip(pageable.getOffset()).limit(pageable.getPageSize()).toList();
+		return new PageImpl<>(getProductResponses(content), pageable, products.size());
 	}
 
 	private List<ProductResponse> getProductResponses(List<Product> products) {
 		var result = new ArrayList<ProductResponse>(products.size());
 		var listTask = new ArrayList<CompletableFuture<Void>>();
-		products.forEach(product ->
-				listTask.add(CompletableFuture.runAsync(() -> {
-					try {
-						var response = productResponseRedisManager.get(product.getId())
-								.or(() -> productResponseRedisManager.cache(product.getId(), () -> {
-									setAllProperty(product);
-									return Optional.of(productMapper.toProductResponse(product));
-								})).orElseThrow();
-						result.add(response);
-					} catch (Exception ignored) {
-					}
-				}))
-		);
+		products.forEach(product -> {
+			listTask.add(CompletableFuture.runAsync(() -> {
+				try {
+					var response = productResponseRedisManager.get(product.getId())
+							.or(() ->
+									productResponseRedisManager.cache(
+											product.getId(),
+											() -> Optional.of(toProductResponse(product))
+									)
+							).orElseThrow();
+					result.add(response);
+				} catch (Exception ignored) {
+				}
+			}));
+		});
 
 		CompletableFuture.allOf(listTask.toArray(CompletableFuture[]::new)).join();
+
 		return result;
+	}
+
+	private Query createQuery(ProductFilterAndSort filterAndSort) {
+		Query query = new Query();
+
+		if (filterAndSort.sort() != null)
+			query.with(Sort.by(filterAndSort.sort().direction(), filterAndSort.sort().sort().name()));
+
+		if (filterAndSort.title() != null) {
+			var titleQuery = productMapper.toSeoAlias(filterAndSort.title()).replaceAll("-", ".*");
+			query.addCriteria(
+					Criteria.where("title_search")
+							.regex(titleQuery, "i")
+			);
+		}
+
+		query.addCriteria(Criteria.where("is_lock").is(false));
+
+		if (filterAndSort.filterColors() != null && !filterAndSort.filterColors().isEmpty())
+			query.addCriteria(
+					Criteria.where("options")
+							.elemMatch(
+									Criteria.where("type")
+											.is("COLOR")
+											.andOperator(filterAndSort.filterColors().stream().map(color -> Criteria.where("values").regex("^" + Pattern.quote(color) + "$", "i")).toList())
+							)
+			);
+
+		if (filterAndSort.filterSizes() != null && !filterAndSort.filterSizes().isEmpty())
+			query.addCriteria(
+					Criteria.where("options")
+							.elemMatch(
+									Criteria.where("type")
+											.is("SIZE")
+											.andOperator(filterAndSort.filterSizes().stream().map(size -> Criteria.where("values").regex("^" + Pattern.quote(size) + "$", "i")).toList())
+							)
+			);
+
+		return query;
 	}
 }

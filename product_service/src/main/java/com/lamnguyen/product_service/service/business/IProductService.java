@@ -9,6 +9,7 @@
 package com.lamnguyen.product_service.service.business;
 
 import com.lamnguyen.product_service.domain.response.ProductResponse;
+import com.lamnguyen.product_service.model.ProductFilterAndSort;
 import com.lamnguyen.product_service.protos.ProductInCartDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,5 +28,5 @@ public interface IProductService {
 
 	Page<ProductResponse> searchByImage(File file);
 
-	Page<ProductResponse> search(String query, Pageable pageable);
+	Page<ProductResponse> search(Pageable pageable, ProductFilterAndSort filterAndSort);
 }
