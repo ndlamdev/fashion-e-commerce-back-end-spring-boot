@@ -13,6 +13,7 @@ import com.lamnguyen.product_service.config.exception.ExceptionEnum;
 import com.lamnguyen.product_service.domain.response.ImageOptionsValueResponse;
 import com.lamnguyen.product_service.domain.response.ImageResponse;
 import com.lamnguyen.product_service.domain.response.ProductResponse;
+import com.lamnguyen.product_service.domain.response.QuickProductResponse;
 import com.lamnguyen.product_service.mapper.*;
 import com.lamnguyen.product_service.model.Product;
 import com.lamnguyen.product_service.model.ProductFilterAndSort;
@@ -225,6 +226,24 @@ public class ProductServiceImpl implements IProductService {
 		var products = mongoTemplate.find(query, Product.class);
 		var content = products.stream().skip(pageable.getOffset()).limit(pageable.getPageSize()).toList();
 		return new PageImpl<>(getProductResponses(content), pageable, products.size());
+	}
+
+	@Override
+	public List<QuickProductResponse> quickSearch(String title) {
+		var product = productRepository.findAllByTitleSearchRegex(productMapper.toSeoAlias(title).replaceAll("-", ".*"), Pageable.ofSize(10));
+		var listTask = new ArrayList<CompletableFuture<Void>>();
+		var result = new ArrayList<QuickProductResponse>(product.getSize());
+		product.getContent().forEach(p -> {
+			listTask.add(CompletableFuture.runAsync(() -> {
+				var mediaId = p.getImages().getFirst();
+				var mediaResponse = mediaGrpcClient.getImageDto(List.of(mediaId));
+				var data = productMapper.toQuickProductResponse(p);
+				data.setImage(mediaResponse.getOrDefault(mediaId, null));
+				result.add(data);
+			}));
+		});
+		CompletableFuture.allOf(listTask.toArray(CompletableFuture[]::new)).join();
+		return result;
 	}
 
 	private List<ProductResponse> getProductResponses(List<Product> products) {

@@ -11,6 +11,7 @@ package com.lamnguyen.product_service.controller.user;
 import com.lamnguyen.product_service.config.exception.ApplicationException;
 import com.lamnguyen.product_service.config.exception.ExceptionEnum;
 import com.lamnguyen.product_service.domain.response.ProductResponse;
+import com.lamnguyen.product_service.domain.response.QuickProductResponse;
 import com.lamnguyen.product_service.model.ProductFilterAndSort;
 import com.lamnguyen.product_service.service.business.IGeminiService;
 import com.lamnguyen.product_service.service.business.IProductService;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/product/v1")
@@ -65,5 +67,11 @@ public class ProductController {
 	@ApiMessageResponse("Search title success!")
 	public Page<ProductResponse> searchProducts(@PageableDefault Pageable pageable, @ModelAttribute ProductFilterAndSort filterAndSort) {
 		return productService.search(pageable, filterAndSort);
+	}
+
+
+	@GetMapping("/quick-search")
+	List<QuickProductResponse> quickSearch(@RequestParam("query") String query) {
+		return productService.quickSearch(query);
 	}
 }

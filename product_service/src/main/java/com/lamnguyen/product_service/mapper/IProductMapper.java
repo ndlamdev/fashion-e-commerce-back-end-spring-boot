@@ -13,6 +13,7 @@ import com.lamnguyen.product_service.config.exception.ExceptionEnum;
 import com.lamnguyen.product_service.domain.dto.ProductDto;
 import com.lamnguyen.product_service.domain.request.DataProductRequest;
 import com.lamnguyen.product_service.domain.response.ProductResponse;
+import com.lamnguyen.product_service.domain.response.QuickProductResponse;
 import com.lamnguyen.product_service.model.Collection;
 import com.lamnguyen.product_service.model.Product;
 import com.lamnguyen.product_service.protos.ProductInCartDto;
@@ -57,6 +58,9 @@ public interface IProductMapper {
 	@Mapping(source = "images", target = "images", qualifiedByName = "toImageId")
 	@Mapping(source = "collection", target = "collection.id")
 	Product toProduct(ProductResponse response);
+
+	@Mapping(source = "images", target = "image", ignore = true)
+	QuickProductResponse toQuickProductResponse(Product response);
 
 	@Named("toCollection")
 	default Collection toCollection(String id) {
