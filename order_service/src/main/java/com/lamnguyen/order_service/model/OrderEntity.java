@@ -34,11 +34,8 @@ public class OrderEntity extends MysqlBaseEntity {
 	String district;
 	String province;
 	String note;
-	@Column(name = "customer_id", nullable = false)
-	Long paymentId;
 	@OneToMany(mappedBy = "order")
 	List<OrderItemEntity> items;
-
 	@ManyToMany(mappedBy = "orders")
 	List<OrderStatusEntity> statuses;
 }

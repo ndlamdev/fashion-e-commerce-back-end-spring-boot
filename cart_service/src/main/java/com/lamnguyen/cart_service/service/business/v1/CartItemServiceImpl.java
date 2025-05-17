@@ -59,7 +59,7 @@ public class CartItemServiceImpl implements ICartItemService {
 			throw ApplicationException.createException(ExceptionEnum.NOT_ENOUGH_QUANTITY);
 		item.setQuantity(newQuantity);
 		cartItemRepository.save(item);
-		return newQuantity;
+			return newQuantity;
 	}
 
 	@Override
