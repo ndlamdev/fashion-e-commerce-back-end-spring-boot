@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.lamnguyen.payment_service.protos";
+option java_outer_classname = "PaymentProto";
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
+
+service PaymentService {
+  rpc pay (PaymentRequest) returns (PaymentResponse);
+  rpc PaySuccess (OrderIdRequest) returns (google.protobuf.Empty);
+  rpc CancelOrder (OrderIdRequest) returns (google.protobuf.Empty);
+}
+enum PaymentMethod {
+  PAY_OS = 0;
+  CASH = 1;
+  MOMO = 2;
+  ZALO_PAY = 3;
+}
+
+message OrderItemRequest {
+  string title = 1;
+  int32 quantity = 2;
+  int32 price = 3;
+}
+
+message PaymentRequest {
+  int64 orderId = 1;
+  string name = 2;
+  string email = 3;
+  string phone = 4;
+  string address = 5;
+  string note = 6;
+  PaymentMethod method = 7;
+  repeated OrderItemRequest items = 8;
+  string returnUrl = 9;
+  string cancelUrl = 10;
+}
+
+enum PayStatus {
+  PENDING = 0;
+  DONE = 1;
+  FAIL = 2;
+  CANCELED = 3;
+}
+
+message PaymentResponse {
+  google.protobuf.Int64Value id = 1;
+  PayStatus status = 2;
+  PaymentMethod method = 3;
+  google.protobuf.StringValue checkoutUrl = 4;
+}
+
+message OrderIdRequest {
+  int64 orderId = 1;
+}

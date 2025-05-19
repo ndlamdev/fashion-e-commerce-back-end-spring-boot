@@ -1,0 +1,121 @@
+/**
+ * Nguyen Dinh Lam
+ * Email: kiminonawa1305@gmail.com
+ * Phone number: +84 855354919
+ * Create at: 4:43 PM-02/05/2025
+ * User: kimin
+ **/
+
+package com.lamnguyen.order_service.service.business.v1;
+
+import com.lamnguyen.order_service.config.exception.ApplicationException;
+import com.lamnguyen.order_service.config.exception.ExceptionEnum;
+import com.lamnguyen.order_service.domain.request.CreateOrderItemRequest;
+import com.lamnguyen.order_service.domain.request.CreateOrderRequest;
+import com.lamnguyen.order_service.domain.response.OrderResponse;
+import com.lamnguyen.order_service.mapper.IOrderItemMapper;
+import com.lamnguyen.order_service.mapper.IOrderMapper;
+import com.lamnguyen.order_service.model.OrderEntity;
+import com.lamnguyen.order_service.model.OrderItemEntity;
+import com.lamnguyen.order_service.protos.OrderItemRequest;
+import com.lamnguyen.order_service.protos.PayStatus;
+import com.lamnguyen.order_service.protos.VariantProductInfo;
+import com.lamnguyen.order_service.repository.IOrderRepository;
+import com.lamnguyen.order_service.service.business.IOrderService;
+import com.lamnguyen.order_service.service.business.IOrderStatusService;
+import com.lamnguyen.order_service.service.grpc.IInventoryGrpcClient;
+import com.lamnguyen.order_service.service.grpc.IPaymentGrpcClient;
+import com.lamnguyen.order_service.service.grpc.IProductGrpcClient;
+import com.lamnguyen.order_service.utils.enums.OrderStatus;
+import com.lamnguyen.order_service.utils.enums.PaymentMethod;
+import com.lamnguyen.order_service.utils.helper.JwtTokenUtil;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+public class OrderServiceImpl implements IOrderService {
+	IOrderMapper orderMapper;
+	IOrderItemMapper orderItemMapper;
+	IOrderRepository orderRepository;
+	IProductGrpcClient productGrpcClient;
+	IInventoryGrpcClient inventoryGrpcClient;
+	IPaymentGrpcClient paymentGrpcClient;
+	IOrderStatusService orderStatusService;
+	JwtTokenUtil jwtTokenUtil;
+
+	@Override
+	public OrderResponse createOrder(CreateOrderRequest order, String baseUrl) {
+		Map<String, VariantProductInfo> variants = null;
+		OrderEntity entity = null;
+		try {
+			var mapUpdateVariant = order.getItems().stream().collect(Collectors.toMap(CreateOrderItemRequest::getVariantId, it -> -it.getQuantity()));
+			variants = inventoryGrpcClient.updateQuantityByVariantIds(mapUpdateVariant);
+			if (variants.size() != mapUpdateVariant.size())
+				throw ApplicationException.createException(ExceptionEnum.NOT_FAIL_VARIANT);
+
+			var listOrderItemRequest = new ArrayList<OrderItemRequest>(variants.size());
+			var orderItems = new ArrayList<OrderItemEntity>(variants.size());
+			createOrderHelper(variants, listOrderItemRequest, orderItems);
+			var customerId = jwtTokenUtil.getUserId();
+			entity = orderRepository.save(orderMapper.toEntity(order, customerId, orderItems));
+			var paymentRequest = orderMapper.toPaymentRequest(entity, order.getMethod(), listOrderItemRequest, baseUrl);
+			orderStatusService.addStatus(entity.getId(), OrderStatus.PAYMENT, "Đang tiến hành thanh toán");
+			var paymentResponse = paymentGrpcClient.pay(paymentRequest);
+			if (paymentResponse.getStatus() == PayStatus.FAIL)
+				throw ApplicationException.createException(ExceptionEnum.PAY_FAIL);
+			if (order.getMethod() == PaymentMethod.CASH)
+				orderStatusService.addStatus(entity.getId(), OrderStatus.SHIPPING, "Đang trong quá trình vận chuyển");
+			var result = orderMapper.toResponse(entity);
+			result.setMethod(order.getMethod());
+			return result;
+		} catch (Exception e) {
+			if (variants != null)
+				rollback(variants, order.getItems());
+			if (entity != null)
+				orderStatusService.addStatus(entity.getId(), OrderStatus.CANCEL, "Lỗi thanh toán");
+			throw new RuntimeException(e);
+		}
+	}
+
+	private void createOrderHelper(Map<String, VariantProductInfo> variants, List<OrderItemRequest> listOrderItemRequest, List<OrderItemEntity> orderItems) {
+		var listTask = new ArrayList<CompletableFuture<Void>>();
+		variants.values().forEach(
+				variant ->
+						listTask.add(CompletableFuture.runAsync(() -> {
+							var product = productGrpcClient.getProductDto(variant.getProductId());
+							listOrderItemRequest.add(orderItemMapper.toItemData(1, variant, product));
+							orderItems.add(orderItemMapper.toOrderItemEntity(variant));
+						}))
+		);
+		CompletableFuture.allOf(listTask.toArray(CompletableFuture[]::new)).join();
+	}
+
+	private void rollback(Map<String, VariantProductInfo> variants, List<CreateOrderItemRequest> items) {
+		var mapUpdateVariant = items.stream().filter(it -> variants.containsKey(it.getVariantId())).collect(Collectors.toMap(CreateOrderItemRequest::getVariantId, CreateOrderItemRequest::getQuantity));
+		inventoryGrpcClient.updateQuantityByVariantIds(mapUpdateVariant);
+	}
+
+	@Override
+	public void cancelOrder(long orderCode) {
+		var order = orderRepository.findById(orderCode).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
+		paymentGrpcClient.cancelPay(orderCode);
+		orderStatusService.addStatus(order.getId(), OrderStatus.CANCEL, "Hủy đơn hàng");
+	}
+
+	@Override
+	public void paySuccess(long orderCode) {
+		var order = orderRepository.findById(orderCode).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
+		paymentGrpcClient.paySuccess(orderCode);
+		orderStatusService.addStatus(order.getId(), OrderStatus.SHIPPING, "Đang trong quá trình vận chuyển");
+	}
+}

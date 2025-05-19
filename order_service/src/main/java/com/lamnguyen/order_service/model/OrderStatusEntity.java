@@ -24,7 +24,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "statuses")
-public class OrderStatusEntity extends MysqlBaseEntity {
+public class OrderStatusEntity extends BaseEntity {
 	OrderStatus status;
 	String note;
 

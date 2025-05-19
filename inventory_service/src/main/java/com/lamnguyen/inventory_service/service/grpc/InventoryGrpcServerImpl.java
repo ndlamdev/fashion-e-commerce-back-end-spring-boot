@@ -9,6 +9,7 @@
 package com.lamnguyen.inventory_service.service.grpc;
 
 import com.lamnguyen.inventory_service.mapper.IInventoryMapper;
+import com.lamnguyen.inventory_service.model.VariantProduct;
 import com.lamnguyen.inventory_service.protos.*;
 import com.lamnguyen.inventory_service.service.business.IInventoryService;
 import io.grpc.stub.StreamObserver;
@@ -59,6 +60,16 @@ public class InventoryGrpcServerImpl extends InventoryServiceGrpc.InventoryServi
 		log.info("Get variant product by variant ids: {}", request.getVariantIdsList());
 		var ids = request.getVariantIdsList();
 		var map = ids.stream().collect(Collectors.toMap(s -> s, o -> inventoryMapper.toVariantProductInfo(inventoryService.getVariantProductById(o))));
+		var result = VariantProductByVariantIdsResponse.newBuilder().putAllVariants(map).build();
+		responseObserver.onNext(result);
+		responseObserver.onCompleted();
+	}
+
+	@Override
+	public void updateQuantityByVariantIdsIdsNotDelete(UpdateQuantityVariantRequest request, StreamObserver<VariantProductByVariantIdsResponse> responseObserver) {
+		log.info("Update quantity variant product by variant ids: {}", request.getQuantitiesMap());
+		var listVariant = inventoryService.updateVariantProducts(request.getQuantitiesMap());
+		var map = listVariant.stream().collect(Collectors.toMap(VariantProduct::getId, inventoryMapper::toVariantProductInfo));
 		var result = VariantProductByVariantIdsResponse.newBuilder().putAllVariants(map).build();
 		responseObserver.onNext(result);
 		responseObserver.onCompleted();

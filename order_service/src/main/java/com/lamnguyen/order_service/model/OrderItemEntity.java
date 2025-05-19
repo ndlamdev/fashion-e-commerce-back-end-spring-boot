@@ -24,7 +24,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Entity
 @Table(name = "order_items")
-public class OrderItemEntity extends MysqlBaseEntity {
+public class OrderItemEntity extends BaseEntity {
 	String productId;
 	String variantId;
 	int quantity;

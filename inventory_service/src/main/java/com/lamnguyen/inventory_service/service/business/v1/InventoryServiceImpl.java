@@ -23,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 /**
@@ -176,5 +177,21 @@ public class InventoryServiceImpl implements IInventoryService {
 				.get(variantId)
 				.or(() -> variantRedisManage.cache(variantId, variantId, () -> inventoryRepository.findById(variantId)))
 				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.VARIANT_PRODUCT_NOT_FOUND));
+	}
+
+	@Override
+	public List<VariantProduct> updateVariantProducts(Map<String, Integer> quantities) {
+		var result = new ArrayList<VariantProduct>(quantities.size());
+		var listTask = new ArrayList<CompletableFuture<Void>>();
+		quantities.forEach((key, value) -> listTask.add(CompletableFuture.runAsync(() -> {
+			var variant = getVariantProductById(key);
+			if (variant == null || variant.getQuantity() < value) return;
+			variant.setQuantity(variant.getQuantity() + value);
+			variant = inventoryRepository.save(variant);
+			variantRedisManage.delete(key);
+			result.add(variant);
+		})));
+		CompletableFuture.allOf(listTask.toArray(CompletableFuture[]::new)).join();
+		return result;
 	}
 }

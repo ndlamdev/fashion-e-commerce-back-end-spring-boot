@@ -22,8 +22,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "order_items")
-public class OrderEntity extends MysqlBaseEntity {
+@Table(name = "orders")
+public class OrderEntity extends BaseEntity {
 	@Column(name = "customer_id", nullable = false)
 	Long customerId;
 	String name;

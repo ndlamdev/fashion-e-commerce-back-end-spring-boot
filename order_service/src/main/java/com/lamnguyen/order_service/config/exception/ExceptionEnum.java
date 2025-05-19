@@ -15,12 +15,10 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public enum ExceptionEnum {
-	UNAUTHORIZED(80001, "Unauthorized"),
-	COLLECTION_NOT_FOUND(80002, "Collection not found"),
-	PRODUCT_NOT_FOUND(80003, "Product not found"),
-	ID_PRODUCT_NOT_FOUND(80004, "ID product not found"),
-	DUPLICATE(80006, "Duplicate value"),
-	UNVALIDATED(88888, "Unvalidated"),
+	UNAUTHORIZED(60001, "Unauthorized"),
+	NOT_FAIL_VARIANT(60002, "Not Fail Variant"),
+	PAY_FAIL(60003, "Pay Fail"),
+	NOT_FOUND(60004, "Order not Found"),
 	;
 
 	int code;
