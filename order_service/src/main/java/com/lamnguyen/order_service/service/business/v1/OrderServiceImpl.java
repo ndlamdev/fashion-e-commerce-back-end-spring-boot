@@ -12,7 +12,7 @@ import com.lamnguyen.order_service.config.exception.ApplicationException;
 import com.lamnguyen.order_service.config.exception.ExceptionEnum;
 import com.lamnguyen.order_service.domain.request.CreateOrderItemRequest;
 import com.lamnguyen.order_service.domain.request.CreateOrderRequest;
-import com.lamnguyen.order_service.domain.response.OrderResponse;
+import com.lamnguyen.order_service.domain.response.CreateOrderSuccessResponse;
 import com.lamnguyen.order_service.mapper.IOrderItemMapper;
 import com.lamnguyen.order_service.mapper.IOrderMapper;
 import com.lamnguyen.order_service.model.OrderEntity;
@@ -54,9 +54,10 @@ public class OrderServiceImpl implements IOrderService {
 	JwtTokenUtil jwtTokenUtil;
 
 	@Override
-	public OrderResponse createOrder(CreateOrderRequest order, String baseUrl) {
+	public CreateOrderSuccessResponse createOrder(CreateOrderRequest order, String baseUrl) {
 		Map<String, VariantProductInfo> variants = null;
 		OrderEntity entity = null;
+		var mapQuantities = order.getItems().stream().collect(Collectors.toMap(CreateOrderItemRequest::getVariantId, CreateOrderItemRequest::getQuantity));
 		try {
 			var mapUpdateVariant = order.getItems().stream().collect(Collectors.toMap(CreateOrderItemRequest::getVariantId, it -> -it.getQuantity()));
 			variants = inventoryGrpcClient.updateQuantityByVariantIds(mapUpdateVariant);
@@ -65,7 +66,7 @@ public class OrderServiceImpl implements IOrderService {
 
 			var listOrderItemRequest = new ArrayList<OrderItemRequest>(variants.size());
 			var orderItems = new ArrayList<OrderItemEntity>(variants.size());
-			createOrderHelper(variants, listOrderItemRequest, orderItems);
+			createOrderHelper(variants, mapQuantities, listOrderItemRequest, orderItems);
 			var customerId = jwtTokenUtil.getUserId();
 			entity = orderRepository.save(orderMapper.toEntity(order, customerId, orderItems));
 			var paymentRequest = orderMapper.toPaymentRequest(entity, order.getMethod(), listOrderItemRequest, baseUrl);
@@ -75,9 +76,8 @@ public class OrderServiceImpl implements IOrderService {
 				throw ApplicationException.createException(ExceptionEnum.PAY_FAIL);
 			if (order.getMethod() == PaymentMethod.CASH)
 				orderStatusService.addStatus(entity.getId(), OrderStatus.SHIPPING, "Đang trong quá trình vận chuyển");
-			var result = orderMapper.toResponse(entity);
-			result.setMethod(order.getMethod());
-			return result;
+
+			return orderMapper.toCreateOrderSuccessResponse(entity, order.getMethod(), paymentResponse.getCheckoutUrl());
 		} catch (Exception e) {
 			if (variants != null)
 				rollback(variants, order.getItems());
@@ -87,14 +87,17 @@ public class OrderServiceImpl implements IOrderService {
 		}
 	}
 
-	private void createOrderHelper(Map<String, VariantProductInfo> variants, List<OrderItemRequest> listOrderItemRequest, List<OrderItemEntity> orderItems) {
+	private void createOrderHelper(Map<String, VariantProductInfo> variants,
+	                               Map<String, Integer> mapQuantities,
+	                               List<OrderItemRequest> listOrderItemRequest,
+	                               List<OrderItemEntity> orderItems) {
 		var listTask = new ArrayList<CompletableFuture<Void>>();
 		variants.values().forEach(
 				variant ->
 						listTask.add(CompletableFuture.runAsync(() -> {
 							var product = productGrpcClient.getProductDto(variant.getProductId());
-							listOrderItemRequest.add(orderItemMapper.toItemData(1, variant, product));
-							orderItems.add(orderItemMapper.toOrderItemEntity(variant));
+							listOrderItemRequest.add(orderItemMapper.toItemData(mapQuantities.getOrDefault(variant.getId(), 1), variant, product));
+							orderItems.add(orderItemMapper.toOrderItemEntity(variant, mapQuantities.getOrDefault(variant.getId(), 1)));
 						}))
 		);
 		CompletableFuture.allOf(listTask.toArray(CompletableFuture[]::new)).join();

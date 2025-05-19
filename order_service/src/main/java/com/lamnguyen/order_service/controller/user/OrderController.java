@@ -9,6 +9,7 @@
 package com.lamnguyen.order_service.controller.user;
 
 import com.lamnguyen.order_service.domain.request.CreateOrderRequest;
+import com.lamnguyen.order_service.domain.response.CreateOrderSuccessResponse;
 import com.lamnguyen.order_service.domain.response.OrderResponse;
 import com.lamnguyen.order_service.service.business.IOrderService;
 import com.lamnguyen.order_service.utils.annotation.ApiMessageResponse;
@@ -29,8 +30,8 @@ public class OrderController {
 
 	@PostMapping()
 	@ApiMessageResponse("create order success")
-	@PreAuthorize("hasAnyAuthority('BASE_ROLE', 'ADMIN_ROLE', 'CREATE_ORDER')")
-	public OrderResponse createOrder(@RequestBody @Valid CreateOrderRequest order, HttpServletRequest request) {
+	@PreAuthorize("hasAnyAuthority('ROLE_BASE', 'ROLE_ADMIN', 'CREATE_ORDER')")
+	public CreateOrderSuccessResponse createOrder(@RequestBody @Valid CreateOrderRequest order, HttpServletRequest request) {
 		return orderService.createOrder(order, baseUrl(request));
 	}
 

@@ -9,10 +9,11 @@
 package com.lamnguyen.order_service.service.business;
 
 import com.lamnguyen.order_service.domain.request.CreateOrderRequest;
+import com.lamnguyen.order_service.domain.response.CreateOrderSuccessResponse;
 import com.lamnguyen.order_service.domain.response.OrderResponse;
 
 public interface IOrderService {
-	OrderResponse createOrder(CreateOrderRequest order, String baseUrl);
+	CreateOrderSuccessResponse createOrder(CreateOrderRequest order, String baseUrl);
 
 	void paySuccess(long orderCode);
 

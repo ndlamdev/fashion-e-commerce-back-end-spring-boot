@@ -14,19 +14,19 @@ import com.lamnguyen.payment_service.protos.PaymentResponse;
 import com.lamnguyen.payment_service.repository.IPaymentRepository;
 import com.lamnguyen.payment_service.service.business.IPaymentService;
 import com.lamnguyen.payment_service.utils.enums.PaymentStatus;
-import com.lamnguyen.payment_service.utils.helper.SignAndVerifyDataHelper;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import vn.payos.PayOS;
 
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Log4j2
 public class PaymentServiceImpl implements IPaymentService {
 	IPaymentMapper paymentMapper;
-	SignAndVerifyDataHelper signAndVerifyDataHelper;
 	PayOS payOS;
 	IPaymentRepository paymentRepository;
 
@@ -42,6 +42,7 @@ public class PaymentServiceImpl implements IPaymentService {
 
 			payment.setStatus(PaymentStatus.PENDING);
 		} catch (Exception e) {
+			log.error("Pay error: {}", e.getMessage());
 			payment.setStatus(PaymentStatus.FAIL);
 		}
 		payment = paymentRepository.save(payment);
@@ -49,7 +50,7 @@ public class PaymentServiceImpl implements IPaymentService {
 	}
 
 	private String getUrlPayOs(PaymentRequest data) throws Exception {
-		var payData = paymentMapper.toPaymentData(data, signAndVerifyDataHelper);
+		var payData = paymentMapper.toPaymentData(data);
 		return payOS.createPaymentLink(payData).getCheckoutUrl();
 	}
 

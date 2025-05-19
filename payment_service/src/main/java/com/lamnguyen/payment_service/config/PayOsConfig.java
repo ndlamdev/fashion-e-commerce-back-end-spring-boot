@@ -8,18 +8,21 @@
 
 package com.lamnguyen.payment_service.config;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import vn.payos.PayOS;
 
 @Configuration
+@Getter
+@Setter
 @ConfigurationProperties(prefix = "application.payos")
 public class PayOsConfig {
 	private String clientId;
-
 	private String apiKey;
-
 	private String checksumKey;
 
 	@Bean

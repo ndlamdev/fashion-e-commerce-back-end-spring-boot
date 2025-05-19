@@ -35,12 +35,6 @@ CREATE TABLE orders
     CONSTRAINT pk_orders PRIMARY KEY (id)
 );
 
-CREATE TABLE status_orders
-(
-    order_id  BIGINT NOT NULL,
-    status_id BIGINT NOT NULL
-);
-
 CREATE TABLE statuses
 (
     id        BIGINT AUTO_INCREMENT NOT NULL,
@@ -51,14 +45,12 @@ CREATE TABLE statuses
     update_at datetime              NULL,
     status    SMALLINT              NULL,
     note      VARCHAR(255)          NULL,
+    order_id  BIGINT                NULL,
     CONSTRAINT pk_statuses PRIMARY KEY (id)
 );
 
 ALTER TABLE order_items
     ADD CONSTRAINT FK_ORDER_ITEMS_ON_ORDER FOREIGN KEY (order_id) REFERENCES orders (id);
 
-ALTER TABLE status_orders
-    ADD CONSTRAINT fk_staord_on_order_entity FOREIGN KEY (status_id) REFERENCES orders (id);
-
-ALTER TABLE status_orders
-    ADD CONSTRAINT fk_staord_on_order_status_entity FOREIGN KEY (order_id) REFERENCES statuses (id);
+ALTER TABLE statuses
+    ADD CONSTRAINT FK_STATUSES_ON_ORDER FOREIGN KEY (order_id) REFERENCES orders (id);

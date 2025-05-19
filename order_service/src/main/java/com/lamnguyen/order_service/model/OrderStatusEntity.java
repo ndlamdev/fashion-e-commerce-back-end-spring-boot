@@ -9,12 +9,13 @@
 package com.lamnguyen.order_service.model;
 
 import com.lamnguyen.order_service.utils.enums.OrderStatus;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
-
-import java.util.List;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
@@ -28,10 +29,7 @@ public class OrderStatusEntity extends BaseEntity {
 	OrderStatus status;
 	String note;
 
-	@ManyToMany
-	@JoinTable(
-			name = "status_orders",
-			joinColumns = @JoinColumn(name = "order_id"),
-			inverseJoinColumns = @JoinColumn(name = "status_id"))
-	List<OrderEntity> orders;
+	@ManyToOne
+	@JoinColumn(name = "order_id")
+	OrderEntity orders;
 }

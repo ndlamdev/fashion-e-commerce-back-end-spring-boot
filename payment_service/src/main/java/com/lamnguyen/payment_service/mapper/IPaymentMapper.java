@@ -12,13 +12,10 @@ import com.lamnguyen.payment_service.model.Payment;
 import com.lamnguyen.payment_service.protos.PaymentRequest;
 import com.lamnguyen.payment_service.protos.PaymentResponse;
 import com.lamnguyen.payment_service.utils.enums.PaymentMethod;
-import com.lamnguyen.payment_service.utils.helper.SignAndVerifyDataHelper;
 import org.mapstruct.*;
 import vn.payos.type.PaymentData;
 
-import java.time.LocalDateTime;
-
-@Mapper(componentModel = "spring", uses = {IGrpcMapper.class})
+@Mapper(componentModel = "spring", uses = {IGrpcMapper.class, IOrderItemMapper.class})
 public interface IPaymentMapper {
 	@Mapping(target = "buyerName", source = "data.name")
 	@Mapping(target = "buyerEmail", source = "data.email")
@@ -27,16 +24,15 @@ public interface IPaymentMapper {
 	@Mapping(target = "description", source = "data.note")
 	@Mapping(target = "cancelUrl", source = "data.cancelUrl")
 	@Mapping(target = "orderCode", source = "data.orderId")
-	PaymentData toPaymentData(PaymentRequest data, SignAndVerifyDataHelper signAndVerifyDataHelper) throws Exception;
+	@Mapping(target = "items", source = "data.itemsList")
+	PaymentData toPaymentData(PaymentRequest data) throws Exception;
 
 	@AfterMapping
-	default void afterMapping(PaymentRequest data, SignAndVerifyDataHelper signAndVerifyDataHelper, @MappingTarget PaymentData paymentData) throws Exception {
+	default void afterMapping(PaymentRequest data, @MappingTarget PaymentData.PaymentDataBuilder paymentData) {
 		data.getItemsList()
 				.stream()
 				.map(it -> it.getPrice() * it.getQuantity()).reduce(Integer::sum)
-				.ifPresent(paymentData::setAmount);
-		paymentData.setSignature(signAndVerifyDataHelper.sign(paymentData));
-		paymentData.setExpiredAt(LocalDateTime.now().plusMinutes(10).getNano());
+				.ifPresent(paymentData::amount);
 	}
 
 	@Mapping(target = "method", source = "method", qualifiedByName = "toPaymentMethod")

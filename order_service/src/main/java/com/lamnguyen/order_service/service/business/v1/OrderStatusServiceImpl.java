@@ -29,7 +29,7 @@ public class OrderStatusServiceImpl implements IOrderStatusService {
 	@Override
 	public OrderStatusEntity addStatus(long orderId, OrderStatus status, String note) {
 		return orderStatusRepository.save(OrderStatusEntity.builder()
-				.orders(List.of(OrderEntity.builder().id(orderId).build()))
+				.orders(OrderEntity.builder().id(orderId).build())
 				.note(note)
 				.status(status)
 				.build());

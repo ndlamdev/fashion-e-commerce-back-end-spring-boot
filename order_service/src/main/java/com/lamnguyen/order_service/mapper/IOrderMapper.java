@@ -8,7 +8,9 @@
 
 package com.lamnguyen.order_service.mapper;
 
+import com.google.protobuf.StringValue;
 import com.lamnguyen.order_service.domain.request.CreateOrderRequest;
+import com.lamnguyen.order_service.domain.response.CreateOrderSuccessResponse;
 import com.lamnguyen.order_service.domain.response.OrderResponse;
 import com.lamnguyen.order_service.model.OrderEntity;
 import com.lamnguyen.order_service.model.OrderItemEntity;
@@ -24,10 +26,9 @@ import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {IOrderItemMapper.class, IOrderItemMapper.class})
+@Mapper(componentModel = "spring", uses = {IOrderItemMapper.class, IOrderItemMapper.class, IGrpcMapper.class})
 public interface IOrderMapper {
 	@Mapping(source = "order.address", target = "addressDetail")
-	@Mapping(target = "items", ignore = true)
 	OrderEntity toEntity(CreateOrderRequest order, long customerId, List<OrderItemEntity> items);
 
 	@Mapping(target = "orderId", source = "order.id")
@@ -41,7 +42,7 @@ public interface IOrderMapper {
 	@AfterMapping
 	default void afterMapping(@MappingTarget OrderEntity orderEntity, long customerId, List<OrderItemEntity> items) {
 		orderEntity.setStatuses(List.of(OrderStatusEntity.builder()
-				.orders(List.of(orderEntity))
+				.orders(orderEntity)
 				.status(OrderStatus.PENDING)
 				.note("Đang xử lý")
 				.build()));
@@ -50,12 +51,15 @@ public interface IOrderMapper {
 	}
 
 	@AfterMapping
-	default void afterMapping(@MappingTarget PaymentRequest.Builder builder, OrderEntity order, PaymentMethod method, List<OrderItemRequest> items, String baseUrl) {
-		builder.setMethod(com.lamnguyen.order_service.protos.PaymentMethod.valueOf(method.name()));
+	default void afterMapping(@MappingTarget PaymentRequest.Builder builder, OrderEntity order, List<OrderItemRequest> items, String baseUrl) {
 		builder.addAllItems(items);
-		builder.setCancelUrl(baseUrl + "/cancel?order-id=" + order.getId());
-		builder.setReturnUrl(baseUrl + "/pay-success?order-id=" + order.getId());
+		builder.setCancelUrl(baseUrl + "/order/v1/cancel?order-id=" + order.getId());
+		builder.setReturnUrl(baseUrl + "/order/v1/pay-success?order-id=" + order.getId());
 	}
 
 	OrderResponse toResponse(OrderEntity entity);
+
+	@Mapping(target = "checkoutUrl", source = "checkoutUrl")
+	@Mapping(target = "method", source = "method")
+	CreateOrderSuccessResponse toCreateOrderSuccessResponse(OrderEntity entity, PaymentMethod method, StringValue checkoutUrl);
 }

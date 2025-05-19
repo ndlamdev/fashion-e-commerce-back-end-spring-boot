@@ -13,16 +13,16 @@ import com.lamnguyen.order_service.utils.enums.PaymentMethod;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 public class OrderResponse {
 	long id;
-	long orderCode;
 	@JsonProperty("customer_id")
 	Long customerId;
 	String name;

@@ -13,29 +13,26 @@ import com.lamnguyen.order_service.model.OrderItemEntity;
 import com.lamnguyen.order_service.protos.OrderItemRequest;
 import com.lamnguyen.order_service.protos.ProductInCartDto;
 import com.lamnguyen.order_service.protos.VariantProductInfo;
-import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface IOrderItemMapper {
-	@Mapping(target = "variantId", source = "id")
+	@Mapping(target = "variantId", source = "data.id")
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "lock", ignore = true)
-	OrderItemEntity toOrderItemEntity(VariantProductInfo data);
+	@Mapping(target = "quantity", source = "quantity")
+	OrderItemEntity toOrderItemEntity(VariantProductInfo data, int quantity);
 
-	@Mapping(target = "title", ignore = true)
-	@Mapping(target = "price", ignore = true)
-	@Mapping(target = "unknownFields", ignore = true)
-	@Mapping(target = "allFields", ignore = true)
-	OrderItemRequest toItemData(int quantity, VariantProductInfo variantInfo, ProductInCartDto product);
 
 	OrderItemResponse toOrderStatusResponse(OrderItemEntity item);
 
-	@AfterMapping
-	default void afterMapping(@MappingTarget OrderItemRequest.Builder builder, VariantProductInfo variantInfo, ProductInCartDto product) {
+	default OrderItemRequest toItemData(int quantity, VariantProductInfo variantInfo, ProductInCartDto product) {
+		var builder = OrderItemRequest.newBuilder();
 		builder.setPrice((int) variantInfo.getRegularPrice());
-		builder.setTitle(product.getTitle() + " / " + variantInfo.getTitle());
+		String title = product.getTitle().getValue() + " / " + variantInfo.getTitle();
+		builder.setTitle(title);
+		builder.setQuantity(quantity);
+		return builder.build();
 	}
 }

@@ -9,6 +9,7 @@
 package com.lamnguyen.order_service.domain.request;
 
 import com.lamnguyen.order_service.utils.enums.PaymentMethod;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -21,12 +22,19 @@ import java.util.List;
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CreateOrderRequest {
+	@NotBlank
 	String name;
+	@NotBlank
 	String email;
+	@NotBlank
 	String phone;
+	@NotBlank
 	String address;
+	@NotBlank
 	String ward;
+	@NotBlank
 	String district;
+	@NotBlank
 	String province;
 	String note;
 	PaymentMethod method;
