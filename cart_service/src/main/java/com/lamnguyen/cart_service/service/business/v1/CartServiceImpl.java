@@ -23,6 +23,7 @@ import com.lamnguyen.cart_service.service.grpc.IInventoryGrpcClient;
 import com.lamnguyen.cart_service.service.grpc.IProductGrpcClient;
 import com.lamnguyen.cart_service.service.redis.ICartRedisManage;
 import com.lamnguyen.cart_service.utils.helper.JwtTokenUtil;
+import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -45,9 +46,8 @@ public class CartServiceImpl implements ICartService {
 	IVariantProductMapper variantProductMapper;
 	JwtTokenUtil jwtTokenUtil;
 
-	@Override
-	public CartResponse getCart() {
-		var userId = jwtTokenUtil.getUserId();
+	@Transactional
+	public CartResponse getCart(long userId) {
 		var result = cartRedisManage.getCartByUserId(userId)
 				.or(() -> cartRedisManage.cache(
 						String.valueOf(userId),
@@ -80,6 +80,13 @@ public class CartServiceImpl implements ICartService {
 	}
 
 	@Override
+	@Transactional
+	public CartResponse getCart() {
+		var userId = jwtTokenUtil.getUserId();
+		return getCart(userId);
+	}
+
+	@Override
 	public CartDto createCart(long userId) {
 		var cart = Cart.builder().userId(userId).build();
 		var saved = cartRepository.save(cart);
@@ -87,6 +94,7 @@ public class CartServiceImpl implements ICartService {
 	}
 
 	@Override
+	@Transactional
 	public void addVariantToCart(String variantId) {
 		var userId = jwtTokenUtil.getUserId();
 		var cart = getCart();
@@ -95,6 +103,7 @@ public class CartServiceImpl implements ICartService {
 	}
 
 	@Override
+	@Transactional
 	public UpdateCartItemResponse updateCartItem(long cartItemId, int quantity) {
 		var userId = jwtTokenUtil.getUserId();
 		var cart = getCart();
@@ -104,10 +113,19 @@ public class CartServiceImpl implements ICartService {
 	}
 
 	@Override
+	@Transactional
 	public void removeCartItem(long cartItemId) {
 		var userId = jwtTokenUtil.getUserId();
 		var cart = getCart();
 		cartItemService.removeCartItem(cart.getId(), cartItemId);
+		cartRedisManage.delete(String.valueOf(userId));
+	}
+
+	@Override
+	@Transactional
+	public void removeCartItem(long userId, String variantId) {
+		var cart = getCart(userId);
+		cartItemService.removeCartItem(cart.getId(), variantId);
 		cartRedisManage.delete(String.valueOf(userId));
 	}
 }

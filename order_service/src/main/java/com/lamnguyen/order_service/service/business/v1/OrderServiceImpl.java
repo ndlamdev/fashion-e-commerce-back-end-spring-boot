@@ -13,6 +13,7 @@ import com.lamnguyen.order_service.config.exception.ExceptionEnum;
 import com.lamnguyen.order_service.domain.request.CreateOrderItemRequest;
 import com.lamnguyen.order_service.domain.request.CreateOrderRequest;
 import com.lamnguyen.order_service.domain.response.CreateOrderSuccessResponse;
+import com.lamnguyen.order_service.event.DeleteCartItemsEvent;
 import com.lamnguyen.order_service.mapper.IOrderItemMapper;
 import com.lamnguyen.order_service.mapper.IOrderMapper;
 import com.lamnguyen.order_service.model.OrderEntity;
@@ -26,6 +27,7 @@ import com.lamnguyen.order_service.service.business.IOrderStatusService;
 import com.lamnguyen.order_service.service.grpc.IInventoryGrpcClient;
 import com.lamnguyen.order_service.service.grpc.IPaymentGrpcClient;
 import com.lamnguyen.order_service.service.grpc.IProductGrpcClient;
+import com.lamnguyen.order_service.service.kafka.producer.ICartKafkaService;
 import com.lamnguyen.order_service.utils.enums.OrderStatus;
 import com.lamnguyen.order_service.utils.enums.PaymentMethod;
 import com.lamnguyen.order_service.utils.helper.JwtTokenUtil;
@@ -52,6 +54,7 @@ public class OrderServiceImpl implements IOrderService {
 	IPaymentGrpcClient paymentGrpcClient;
 	IOrderStatusService orderStatusService;
 	JwtTokenUtil jwtTokenUtil;
+	ICartKafkaService cartKafkaService;
 
 	@Override
 	public CreateOrderSuccessResponse createOrder(CreateOrderRequest order, String baseUrl) {
@@ -77,6 +80,10 @@ public class OrderServiceImpl implements IOrderService {
 			if (order.getMethod() == PaymentMethod.CASH)
 				orderStatusService.addStatus(entity.getId(), OrderStatus.SHIPPING, "Đang trong quá trình vận chuyển");
 
+			cartKafkaService.deleteCartItems(DeleteCartItemsEvent.builder()
+					.userId(customerId)
+					.variantIds(mapQuantities.keySet().stream().toList())
+					.build());
 			return orderMapper.toCreateOrderSuccessResponse(entity, order.getMethod(), paymentResponse.getCheckoutUrl());
 		} catch (Exception e) {
 			if (variants != null)

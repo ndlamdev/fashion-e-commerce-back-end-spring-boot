@@ -75,4 +75,10 @@ public class CartItemServiceImpl implements ICartItemService {
 		if (cartItemRepository.removeByIdAndCartId(id, cartId) == 0)
 			throw ApplicationException.createException(ExceptionEnum.CART_ITEM_NOT_FOUND);
 	}
+
+	@Override
+	@Transactional
+	public void removeCartItem(long cartId, String variantId) {
+		cartItemRepository.removeByVariantIdAndCartId(variantId, cartId);
+	}
 }

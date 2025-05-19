@@ -14,4 +14,6 @@ public interface ICartItemService {
 	int updateQuantityCartItem(long cartId, long id, int quantity);
 
 	void removeCartItem(long cartId, long id);
+
+	void removeCartItem(long cartId, String variantId);
 }

@@ -22,4 +22,6 @@ public interface ICartService {
 	UpdateCartItemResponse updateCartItem(long cartItemId, int quantity);
 
 	void removeCartItem(long cartItemId);
+
+	void removeCartItem(long userId, String variantId);
 }
