@@ -46,7 +46,7 @@ public class SecurityConfig {
 				.jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter))
 				.authenticationEntryPoint(authenticationEntryPoint)
 		);
-		httpSecurity.cors(con -> con.configurationSource(configurationSource));
+//		httpSecurity.cors(con -> con.configurationSource(configurationSource));
 		httpSecurity.csrf(AbstractHttpConfigurer::disable);
 		httpSecurity.exceptionHandling(configurer -> configurer.authenticationEntryPoint(authenticationEntryPoint));
 		return httpSecurity.build();

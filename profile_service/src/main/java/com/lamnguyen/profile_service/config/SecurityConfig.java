@@ -37,9 +37,9 @@ public class SecurityConfig {
 
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-		httpSecurity.cors(corsConfig -> corsConfig
-				.configurationSource(corsConfigurationSource)
-		);
+//		httpSecurity.cors(corsConfig -> corsConfig
+//				.configurationSource(corsConfigurationSource)
+//		);
 		httpSecurity.authorizeHttpRequests(authorization -> authorization
 				.requestMatchers("/actuator/**").permitAll()
 				.requestMatchers(applicationProperty.getWhiteList().toArray(String[]::new)).permitAll()

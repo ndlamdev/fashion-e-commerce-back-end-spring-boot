@@ -62,9 +62,9 @@ public class SecurityConfig {
 		httpSecurity.addFilterBefore(removeBearerTokenAuthorizationFilter, BearerTokenAuthenticationFilter.class);
 		httpSecurity.addFilterAfter(checkBlacklistTokenFilter, BearerTokenAuthenticationFilter.class);
 		httpSecurity.csrf(AbstractHttpConfigurer::disable);
-		httpSecurity.cors(corsConfig -> corsConfig
-				.configurationSource(corsConfigurationSource)
-		);
+//		httpSecurity.cors(corsConfig -> corsConfig
+//				.configurationSource(corsConfigurationSource)
+//		);
 		httpSecurity.authorizeHttpRequests(authorization -> authorization
 				.requestMatchers("/actuator/**").permitAll()
 				.requestMatchers(applicationProperty.getWhiteList().toArray(String[]::new)).permitAll()
