@@ -29,13 +29,13 @@ public class CartItemServiceImpl implements ICartItemService {
 	IInventoryGrpcClient inventoryGrpcClient;
 
 	@Override
-	public void addCartItem(long cartId, String variantId) {
+	public void addCartItem(long cartId, String variantId, int quantity) {
 		var variantProduct = inventoryGrpcClient.getVariantProductByVariantId(variantId);
 		var cartItem = CartItem.builder()
 				.cart(Cart.builder().id(cartId).build())
 				.variantId(variantId)
 				.productId(variantProduct.getProductId())
-				.quantity(1)
+				.quantity(quantity)
 				.build();
 
 		if (cartItemRepository.existsByCartIdAndVariantId(cartId, variantId)) {

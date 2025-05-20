@@ -17,7 +17,7 @@ public interface ICartService {
 
 	CartDto createCart(long userId);
 
-	void addVariantToCart(String variantId);
+	void addVariantToCart(String variantId, int quantity);
 
 	UpdateCartItemResponse updateCartItem(long cartItemId, int quantity);
 

@@ -95,10 +95,10 @@ public class CartServiceImpl implements ICartService {
 
 	@Override
 	@Transactional
-	public void addVariantToCart(String variantId) {
+	public void addVariantToCart(String variantId, int quantity) {
 		var userId = jwtTokenUtil.getUserId();
 		var cart = getCart();
-		cartItemService.addCartItem(cart.getId(), variantId);
+		cartItemService.addCartItem(cart.getId(), variantId, quantity);
 		cartRedisManage.delete(String.valueOf(userId));
 	}
 

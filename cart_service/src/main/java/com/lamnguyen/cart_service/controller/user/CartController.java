@@ -8,7 +8,7 @@
 
 package com.lamnguyen.cart_service.controller.user;
 
-import com.lamnguyen.cart_service.domain.request.UpdateCartItemRequest;
+import com.lamnguyen.cart_service.domain.request.QuantityCartItemRequest;
 import com.lamnguyen.cart_service.domain.response.CartResponse;
 import com.lamnguyen.cart_service.domain.response.UpdateCartItemResponse;
 import com.lamnguyen.cart_service.service.business.ICartService;
@@ -24,14 +24,14 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RequestMapping("/cart/v1")
-public class  CartController {
+public class CartController {
 	ICartService cartService;
 
 	@PostMapping("/add/{id}")
 	@PreAuthorize("hasAnyAuthority('ROLE_BASE', 'ROLE_ADMIN', 'ADD_VARIANT_PRODUCT')")
 	@ApiMessageResponse("Add product into cart success!")
-	public void addCartItem(@PathVariable("id") String id) {
-		cartService.addVariantToCart(id);
+	public void addCartItem(@PathVariable("id") String id, @Valid @RequestBody QuantityCartItemRequest request) {
+		cartService.addVariantToCart(id,request.quantity());
 	}
 
 	@GetMapping("/me")
@@ -44,7 +44,7 @@ public class  CartController {
 	@PutMapping("/update/{cartItemId}")
 	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_BASE', 'CHANGE_QUANTITY_CART_ITEM')")
 	@ApiMessageResponse("Update cart items quantity success!")
-	public UpdateCartItemResponse updateCartItem(@PathVariable("cartItemId") long id, @Valid @RequestBody UpdateCartItemRequest request) {
+	public UpdateCartItemResponse updateCartItem(@PathVariable("cartItemId") long id, @Valid @RequestBody QuantityCartItemRequest request) {
 		return cartService.updateCartItem(id, request.quantity());
 	}
 
