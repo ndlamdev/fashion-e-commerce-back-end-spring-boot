@@ -9,28 +9,31 @@ from search_app.service import config_model, extract_embedding, index_path, meta
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 # ====== CONFIG ======
-root_dir = "../data/train_data"  # Thư mục chứa ảnh
+root_dir = "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources"  # Thư mục chứa ảnh
 
 
 def build_and_save_index():
-    image_paths = []
+    image_names = []
     labels = []
     embeddings = []
     model = config_model(pretrained_model=True)
 
     print("🔍 Đang trích xuất đặc trưng và xây index...")
-    for category in os.listdir(root_dir):
-        path_category = os.path.join(root_dir, category)
-        for product in os.listdir(path_category):
-            path_product = os.path.join(path_category, product)
-            label = f"{category}___{product}"
-            for file in os.listdir(path_product):
-                if file.lower().endswith(('.jpg', '.jpeg', '.png')):
-                    path_file = os.path.join(path_product, file)
-                    image_paths.append(path_file)
-                    labels.append(label)
-                    emb = extract_embedding(path_file, model)
-                    embeddings.append(emb)
+    total_files = len(os.listdir(root_dir))
+    trained_file = 0
+    before= 0
+    for file in os.listdir(root_dir):
+        trained_file += 1
+        current = round((trained_file / total_files), 3)
+        if before != current:
+            print("Processing {}%".format(current * 100))
+            before = current
+
+        path_file = os.path.join(root_dir, file)
+        image_names.append(file)
+        labels.append(file)
+        emb = extract_embedding(path_file, model)
+        embeddings.append(emb)
 
     embeddings = np.stack(embeddings).astype("float32")
     index = faiss.IndexFlatL2(embeddings.shape[1])
@@ -39,9 +42,9 @@ def build_and_save_index():
     # Save index & metadata
     faiss.write_index(index, index_path)
     with open(meta_path, "wb") as f:
-        pickle.dump({"image_paths": image_paths, "labels": labels}, f)
+        pickle.dump({"Image": image_names, "labels": labels}, f)
 
-    print(f"✅ Đã lưu FAISS index ({len(image_paths)} ảnh) vào '{index_path}'")
+    print(f"✅ Đã lưu FAISS index ({len(image_names)} ảnh) vào '{index_path}'")
     print(f"✅ Đã lưu metadata vào '{meta_path}'")
 
 

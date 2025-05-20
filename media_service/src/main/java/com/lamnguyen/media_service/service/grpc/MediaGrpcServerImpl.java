@@ -60,4 +60,14 @@ public class MediaGrpcServerImpl extends MediaServiceGrpc.MediaServiceImplBase {
 		responseObserver.onNext(builder.build());
 		responseObserver.onCompleted();
 	}
+
+	@Override
+	public void getMediasByFileName(FileNamesRequest request, StreamObserver<MediasByFileNameResponse> responseObserver) {
+		log.info("Get medias with names: {}", request.getNamesList());
+		var builder = MediasByFileNameResponse.newBuilder();
+		var data = mediaService.getMediaByNames(request.getNamesList());
+		builder.putAllData(data);
+		responseObserver.onNext(builder.build());
+		responseObserver.onCompleted();
+	}
 }

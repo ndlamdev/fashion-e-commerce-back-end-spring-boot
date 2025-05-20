@@ -20,15 +20,26 @@ import java.util.concurrent.TimeUnit;
 public abstract class ACacheManage<R> implements ICacheManage<R> {
 	RedisTemplate<String, R> template;
 	RedissionClientUtil redissonClient;
+	long duration;
+	TimeUnit timeUnit;
 
-	public ACacheManage(RedisTemplate<String, R> template, RedissionClientUtil redissonClient) {
+	public ACacheManage(RedisTemplate<String, R> template, RedissionClientUtil redissonClient, long duration, TimeUnit timeUnit) {
 		this.template = template;
 		this.redissonClient = redissonClient;
+		this.duration = duration;
+		this.timeUnit = timeUnit;
+	}
+
+	public ACacheManage(RedisTemplate<String, R> template, RedissionClientUtil redissonClient) {
+		this(template, redissonClient, 1, TimeUnit.HOURS);
 	}
 
 	@Override
 	public Optional<R> get(String key) {
-		return Optional.ofNullable(template.opsForValue().get(key));
+		var data = Optional.ofNullable(template.opsForValue().get(key));
+		if (data.isEmpty()) return Optional.empty();
+		this.template.expire(key, duration, timeUnit);
+		return data;
 	}
 
 	@Override

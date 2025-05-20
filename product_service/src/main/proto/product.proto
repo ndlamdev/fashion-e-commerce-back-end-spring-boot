@@ -29,6 +29,14 @@ enum GenderType {
 enum ProductTag {
   BEST_SELLER = 0;
   WORTH_BUYING = 1;
+  CLEARANCE_SALE = 2;
+  OUTLET = 3;
+  SAVING_PACKS = 4;
+  BAN_CHAY = 5;
+  DANG_MUA = 6;
+  NEW = 7;
+  LIMITED = 8;
+  HOT = 9;
 }
 
 // Enum for OptionType

@@ -13,6 +13,7 @@ import com.lamnguyen.product_service.config.exception.ExceptionEnum;
 import com.lamnguyen.product_service.domain.dto.ProductDto;
 import com.lamnguyen.product_service.domain.request.DataProductRequest;
 import com.lamnguyen.product_service.domain.response.ProductResponse;
+import com.lamnguyen.product_service.domain.response.QuickProductResponse;
 import com.lamnguyen.product_service.model.Collection;
 import com.lamnguyen.product_service.model.Product;
 import com.lamnguyen.product_service.protos.ProductInCartDto;
@@ -33,6 +34,7 @@ public interface IProductMapper {
 			@Mapping(target = "available", ignore = true),
 			@Mapping(source = "collection", target = "collection", qualifiedByName = "toCollection"),
 			@Mapping(source = "title", target = "seoAlias", qualifiedByName = "toSeoAlias"),
+			@Mapping(source = "title", target = "titleSearch", qualifiedByName = "toTitleSearch"),
 	})
 	Product toProduct(DataProductRequest request);
 
@@ -57,6 +59,9 @@ public interface IProductMapper {
 	@Mapping(source = "collection", target = "collection.id")
 	Product toProduct(ProductResponse response);
 
+	@Mapping(source = "images", target = "image", ignore = true)
+	QuickProductResponse toQuickProductResponse(Product response);
+
 	@Named("toCollection")
 	default Collection toCollection(String id) {
 		return Collection.builder().id(id).build();
@@ -79,6 +84,11 @@ public interface IProductMapper {
 
 		// Bước 5: Thay khoảng trắng bằng dấu gạch ngang
 		return withoutDiacritics.replaceAll("\\s+", "-");
+	}
+
+	@Named("toTitleSearch")
+	default String toTitleSearch(String title) {
+		return toSeoAlias(title).replaceAll("-", " ");
 	}
 
 	@AfterMapping

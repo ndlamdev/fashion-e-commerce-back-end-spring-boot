@@ -13,48 +13,49 @@ import com.lamnguyen.cart_service.domain.response.CartResponse;
 import com.lamnguyen.cart_service.domain.response.UpdateCartItemResponse;
 import com.lamnguyen.cart_service.service.business.ICartService;
 import com.lamnguyen.cart_service.utils.annotation.ApiMessageResponse;
-import com.lamnguyen.cart_service.utils.helper.JwtTokenUtil;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.http.HttpHeaders;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
-@RequestMapping("/v1/cart")
+@RequestMapping("/cart/v1")
 public class  CartController {
 	ICartService cartService;
-	JwtTokenUtil jwtTokenUtil;
 
 	@PostMapping("/add/{id}")
 	@PreAuthorize("hasAnyAuthority('ROLE_BASE', 'ROLE_ADMIN', 'ADD_VARIANT_PRODUCT')")
 	@ApiMessageResponse("Add product into cart success!")
-	public void addCartItem(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable("id") String id) {
-		cartService.addVariantToCart(jwtTokenUtil.getUserIdNotVerify(token), id);
+	public void addCartItem(@PathVariable("id") String id) {
+		cartService.addVariantToCart(id);
 	}
 
 	@GetMapping("/me")
 	@PreAuthorize("hasAnyAuthority('ROLE_BASE', 'ROLE_ADMIN', 'GET_CART_INFO')")
 	@ApiMessageResponse("Get my cart success!")
-	public CartResponse getCartInfo(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
-		return cartService.getCartByUserId(jwtTokenUtil.getUserIdNotVerify(token));
+	public CartResponse getCartInfo(
+	) {
+		return cartService.getCart(
+		);
 	}
 
 	@PutMapping("/update/{cartItemId}")
 	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_BASE', 'CHANGE_QUANTITY_CART_ITEM')")
 	@ApiMessageResponse("Update cart items quantity success!")
-	public UpdateCartItemResponse updateCartItem(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable("cartItemId") long id, @Valid @RequestBody UpdateCartItemRequest request) {
-		return cartService.updateCartItem(jwtTokenUtil.getUserIdNotVerify(token), id, request.quantity());
+	public UpdateCartItemResponse updateCartItem(@PathVariable("cartItemId") long id, @Valid @RequestBody UpdateCartItemRequest request) {
+		return cartService.updateCartItem(
+				id, request.quantity());
 	}
 
 	@DeleteMapping("/remove/{cartItemId}")
 	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_BASE', 'REMOVE_CART_ITEM')")
 	@ApiMessageResponse("Remove cart item success!")
-	public void deleteCartItem(@RequestHeader(HttpHeaders.AUTHORIZATION) String token, @PathVariable("cartItemId") long id) {
-		cartService.removeCartItem(jwtTokenUtil.getUserIdNotVerify(token), id);
+	public void deleteCartItem(@PathVariable("cartItemId") long id) {
+		cartService.removeCartItem(
+				id);
 	}
 }

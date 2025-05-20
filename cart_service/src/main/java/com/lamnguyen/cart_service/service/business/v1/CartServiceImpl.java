@@ -20,6 +20,7 @@ import com.lamnguyen.cart_service.service.business.ICartItemService;
 import com.lamnguyen.cart_service.service.business.ICartService;
 import com.lamnguyen.cart_service.service.grpc.IProductGrpcClient;
 import com.lamnguyen.cart_service.service.redis.ICartRedisManage;
+import com.lamnguyen.cart_service.utils.helper.JwtTokenUtil;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -37,9 +38,11 @@ public class CartServiceImpl implements ICartService {
 	ICartItemService cartItemService;
 	ICartMapper cartMapper;
 	IProductGrpcClient productGrpcClient;
+	JwtTokenUtil jwtTokenUtil;
 
 	@Override
-	public CartResponse getCartByUserId(long userId) {
+	public CartResponse getCart() {
+		var userId = jwtTokenUtil.getUserId();
 		var result = cartRedisManage.getCartByUserId(userId)
 				.or(() -> cartRedisManage.cache(
 						String.valueOf(userId),
@@ -48,7 +51,7 @@ public class CartServiceImpl implements ICartService {
 				.or(() -> cartRedisManage.cache(
 						String.valueOf(userId),
 						String.valueOf(userId),
-						() -> Optional.ofNullable(createCart(userId))))
+						() -> Optional.ofNullable(createCart())))
 				.map(cartMapper::toCartResponse)
 				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.CART_NOT_FOUND));
 		if (result.getCartItems() == null) {
@@ -63,31 +66,39 @@ public class CartServiceImpl implements ICartService {
 	}
 
 	@Override
-	public CartDto createCart(long userId) {
+	public void createCart(long userId) {
+		var cart = Cart.builder().userId(userId).build();
+		var saved = cartRepository.save(cart);
+		cartMapper.toCartDto(saved);
+	}
+
+	@Override
+	public CartDto createCart() {
+		var userId = jwtTokenUtil.getUserId();
 		var cart = Cart.builder().userId(userId).build();
 		var saved = cartRepository.save(cart);
 		return cartMapper.toCartDto(saved);
 	}
 
 	@Override
-	public void addVariantToCart(long userId, String variantId) {
-		var cart = getCartByUserId(userId);
+	public void addVariantToCart(String variantId) {
+		var cart = getCart();
 		cartItemService.addCartItem(cart.getId(), variantId);
-		cartRedisManage.delete(String.valueOf(userId));
+		cartRedisManage.delete(String.valueOf(cart.getId()));
 	}
 
 	@Override
-	public UpdateCartItemResponse updateCartItem(long userId, long cartItemId, int quantity) {
-		var cart = getCartByUserId(userId);
+	public UpdateCartItemResponse updateCartItem(long cartItemId, int quantity) {
+		var cart = getCart();
 		var newQuantity = cartItemService.updateQuantityCartItem(cart.getId(), cartItemId, quantity);
-		cartRedisManage.delete(String.valueOf(userId));
+		cartRedisManage.delete(String.valueOf(cart.getUserId()));
 		return UpdateCartItemResponse.builder().cartItemId(cartItemId).quantity(newQuantity).build();
 	}
 
 	@Override
-	public void removeCartItem(long userId, long cartItemId) {
-		var cart = getCartByUserId(userId);
+	public void removeCartItem(long cartItemId) {
+		var cart = getCart();
 		cartItemService.removeCartItem(cart.getId(), cartItemId);
-		cartRedisManage.delete(String.valueOf(userId));
+		cartRedisManage.delete(String.valueOf(cart.getUserId()));
 	}
 }

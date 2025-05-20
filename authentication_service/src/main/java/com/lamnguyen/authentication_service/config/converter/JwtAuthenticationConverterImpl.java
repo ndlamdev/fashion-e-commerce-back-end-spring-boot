@@ -51,6 +51,7 @@ public class JwtAuthenticationConverterImpl implements Converter<Jwt, AbstractAu
 				return;
 			}
 			var role = roleService.getByName(it.substring(applicationProperty.getRolePrefix().length()));
+			authorities.add(new SimpleGrantedAuthority(role.getName()));
 			authorities.addAll(role.getPermissions()
 					.stream()
 					.map(permission -> new SimpleGrantedAuthority(permission.name()))

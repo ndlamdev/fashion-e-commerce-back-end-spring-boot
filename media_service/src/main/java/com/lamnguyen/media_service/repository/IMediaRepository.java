@@ -12,6 +12,9 @@ import com.lamnguyen.media_service.model.Media;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface IMediaRepository extends MongoRepository<Media, String> {
+	Optional<Media> findByFileName(String fileName);
 }

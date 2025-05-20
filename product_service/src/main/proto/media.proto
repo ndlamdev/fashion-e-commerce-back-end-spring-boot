@@ -10,6 +10,7 @@ service MediaService {
   rpc CheckMediaExists (MediaCodeRequest) returns (MediaExistsResponse);
   rpc CheckListMediaExists (MediaCodesRequest) returns (MediaCodesExistsResponse);
   rpc GetMedias (MediasRequest) returns (MediaResponse);
+  rpc GetMediasByFileName(FileNamesRequest)  returns (MediasByFileNameResponse);
 }
 
 message MediaCodeRequest {
@@ -35,13 +36,16 @@ message MediasRequest{
 message  MediaInfo {
   string id = 1;
   string src = 2;
-  bool lock = 3;
-  google.protobuf.StringValue create_by = 4;
-  google.protobuf.Timestamp create_at = 5;
-  google.protobuf.StringValue update_by = 6;
-  google.protobuf.Timestamp update_at = 7;
 }
 
 message MediaResponse {
+  map<string, MediaInfo> data = 1;
+}
+
+message FileNamesRequest {
+  repeated string names = 1;
+}
+
+message MediasByFileNameResponse {
   map<string, MediaInfo> data = 1;
 }

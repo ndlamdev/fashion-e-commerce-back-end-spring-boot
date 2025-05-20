@@ -8,7 +8,7 @@
 
 package com.lamnguyen.profile_service.service.redis;
 
-import com.lamnguyen.profile_service.utils.RedissionClientUtil;
+import com.lamnguyen.profile_service.utils.helper.RedissionClientUtil;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.redis.core.RedisTemplate;

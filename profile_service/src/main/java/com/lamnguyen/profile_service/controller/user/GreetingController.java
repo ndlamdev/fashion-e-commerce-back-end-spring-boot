@@ -1,0 +1,22 @@
+/**
+ * Nguyen Dinh Lam
+ * Email: kiminonawa1305@gmail.com
+ * Phone number: +84 855354919
+ * Create at: 2:23 PM - 07/04/2025
+ * User: kimin
+ **/
+
+package com.lamnguyen.profile_service.controller.user;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/profile-service/greeting")
+public class GreetingController {
+	@GetMapping
+	public String greeting() {
+		return "Hello world!";
+	}
+}

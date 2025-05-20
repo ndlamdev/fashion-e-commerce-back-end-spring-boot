@@ -18,11 +18,10 @@ import com.nimbusds.jose.shaded.gson.stream.JsonReader;
 import com.nimbusds.jose.shaded.gson.stream.JsonWriter;
 import okhttp3.*;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.text.Normalizer;
 import java.time.LocalDateTime;
@@ -33,21 +32,44 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 public class InsertProduct {
+	private static final Logger log = LoggerFactory.getLogger(InsertProduct.class);
 	String folderData = "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\server\\product_service\\data";
-	String folderResource = "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\resources_train\\coolmate_imges";
+	String folderResource = "D:\\coolmate_imges";
 	ObjectMapper objectMapper = new ObjectMapper();
 	OkHttpClient client = new OkHttpClient.Builder()
 			.connectTimeout(2, TimeUnit.MINUTES)      // timeout khi thiết lập kết nối TCP
 			.writeTimeout(3, TimeUnit.MINUTES)        // timeout khi gửi dữ liệu lên server
 			.readTimeout(4, TimeUnit.MINUTES)         // timeout khi đọc dữ liệu từ server
 			.build();
-	String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2tpbWktZmFzaGlvbi1lLWNvbW1lcmNlLmNvbSIsInN1YiI6ImtpbWlub25hd2ExMzA1QGdtYWlsLmNvbSIsImV4cCI6MTg3MTAzNzcxNCwicGF5bG9hZCI6eyJyZWZyZXNoVG9rZW5JZCI6IjE0Yjc5MzE2LTlkZGQtNDRkZS1hMjI1LTlkOTExNTk4MDE2NyIsInJvbGVzIjpbIlJPTEVfQURNSU4iXSwidXNlcklkIjoxLCJ0eXBlIjoiQUNDRVNTX1RPS0VOIiwiZW1haWwiOiJraW1pbm9uYXdhMTMwNUBnbWFpbC5jb20ifSwiaWF0IjoxNzQ2NjIxNzE0LCJqdGkiOiJkZGM5YTJkMC0zOWQ1LTQ4N2QtYTViMC01MWI4YWE1NjQ3NmQifQ.0Dsvpuo5aY28O4aev3irASGM2xvpoxjWaaVJbUwRDis";
+	String token = "***";
+
+	@Test
+	public void moveFileJsonData() {
+		var parent = new File("D:\\image_coolmate");
+		var pathOut = "D:\\tai_lieu_hoc_tap\\chuyen_de_web\\fashion_e_commerce\\server\\product_service\\data\\unformat";
+		for (var folder : parent.listFiles()) {
+			Arrays.stream(folder.listFiles(File::isFile)).findFirst().ifPresent(file -> {
+				try (var in = new BufferedInputStream(new FileInputStream(file));
+				     var out = new BufferedOutputStream(new FileOutputStream(pathOut + File.separator + file.getName()))
+				) {
+					var buffer = new byte[1024 * 100];
+					int readed;
+					while ((readed = in.read(buffer)) != -1) {
+						out.write(buffer, 0, readed);
+					}
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+			});
+		}
+
+	}
 
 	@Test
 	public void uploadProduct() throws IOException, InterruptedException {
-		var collectionString = "quan-short-nu";
-		var collectionId = "681ca3252a59db3110ec0b9e";
-		var fileData = "collection_quan-short-nu.json";
+		var collectionId = "6825ea658eaaa408c6aaf630";
+		var fileData = "collection_yoga-pilates.json";
+		var collectionString = fileData.substring("collection_".length(), fileData.lastIndexOf("."));
 		boolean testing = false;
 		File file = new File(folderData + File.separator + "unformat" + File.separator + fileData); // Đường dẫn tới file JSON
 		var folderCollection = folderResource + File.separator + collectionString;
@@ -79,7 +101,7 @@ public class InsertProduct {
 
 	private void uploadProduct(String collectionId, String collectionName, String folderResource, String folderCollection, File file, boolean testing) throws IOException, InterruptedException {
 		var allProductFolder = new ArrayList<String>(Arrays.stream(new File(folderCollection).listFiles()).filter(File::isDirectory).map(File::getName).toList());
-		var fileOut = new File(folderData + File.separator + "format\\" + collectionName + ".json");
+		var fileOut = new File(folderData + File.separator + "format\\" + file.getName());
 		var dataOuts = new ArrayList<DataProductRequest>();
 		var products = objectMapper.readValue(file, DataProductUnformat[].class);
 		System.out.println("Total product will insert: " + products.length + " products");
@@ -138,12 +160,12 @@ public class InsertProduct {
 			var newValues = new ArrayList<String>();
 			optionValue.options().forEach(option -> {
 				newValues.add(option.getTitle());
-				var folderImageOption = new File(folderProduct + File.separator + toSeoAlias(option.getTitle()) + File.separator + "images");
+				var folderImageOption = new File(folderProduct + File.separator + option.getSlug() + File.separator + "images");
 				if (folderImageOption.exists()) {
-					System.out.println("Total image option " + toSeoAlias(option.getTitle()) + ": " + folderImageOption.listFiles().length);
+					System.out.println("Total image option " + option.getSlug() + ": " + folderImageOption.listFiles().length);
 					if (option.getImages() == null) option.setImages(new ArrayList<>());
 					if (!tesing)
-						for (var image : folderImageProduct.listFiles()) {
+						for (var image : folderImageOption.listFiles()) {
 							try {
 								option.getImages().add(uploadFile(image));
 							} catch (IOException | InterruptedException e) {
@@ -151,7 +173,7 @@ public class InsertProduct {
 							}
 						}
 				} else {
-					System.out.println("Has option value but not image; Not has folder: " + toSeoAlias(option.getTitle()));
+					System.out.println("Has option value but not image; Not has folder: " + option.getSlug());
 				}
 			});
 			var oldOption = options.stream().filter(o -> o.getType().equals(optionValue.type())).findFirst().orElse(null);

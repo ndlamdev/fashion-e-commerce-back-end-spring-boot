@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
-@RequestMapping("/greeting")
+@RequestMapping("/media-service/greeting")
 public class GreetingController {
 	@GetMapping
 	public String greeting() {

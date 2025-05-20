@@ -10,8 +10,3 @@ spring:
       username: ${CONFIG_USERNAME:}
       password: ${CONFIG_PASSWORD:}
       name: fashion-e-commerce-media-service,eureka-config
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://admin:admin123@localhost:8761/eureka/
