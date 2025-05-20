@@ -271,8 +271,6 @@ public class ProductServiceImpl implements IProductService {
 	private Query createQuery(ProductFilterAndSort filterAndSort) {
 		Query query = new Query();
 
-		if (filterAndSort.sort() != null)
-			query.with(Sort.by(filterAndSort.sort().direction(), filterAndSort.sort().sort().name()));
 
 		if (filterAndSort.title() != null) {
 			var titleQuery = productMapper.toSeoAlias(filterAndSort.title()).replaceAll("-", ".*");
@@ -284,25 +282,30 @@ public class ProductServiceImpl implements IProductService {
 
 		query.addCriteria(Criteria.where("is_lock").is(false));
 
-		if (filterAndSort.filterColors() != null && !filterAndSort.filterColors().isEmpty())
+		if (filterAndSort.colors() != null && !filterAndSort.colors().isEmpty())
 			query.addCriteria(
 					Criteria.where("options")
 							.elemMatch(
 									Criteria.where("type")
 											.is("COLOR")
-											.andOperator(filterAndSort.filterColors().stream().map(color -> Criteria.where("values").regex("^" + Pattern.quote(color) + "$", "i")).toList())
+											.andOperator(filterAndSort.colors().stream().map(color -> Criteria.where("values").regex("^" + Pattern.quote(color) + "$", "i")).toList())
 							)
 			);
 
-		if (filterAndSort.filterSizes() != null && !filterAndSort.filterSizes().isEmpty())
+		if (filterAndSort.sizes() != null && !filterAndSort.sizes().isEmpty())
 			query.addCriteria(
 					Criteria.where("options")
 							.elemMatch(
 									Criteria.where("type")
 											.is("SIZE")
-											.andOperator(filterAndSort.filterSizes().stream().map(size -> Criteria.where("values").regex("^" + Pattern.quote(size) + "$", "i")).toList())
+											.andOperator(filterAndSort.sizes().stream().map(size -> Criteria.where("values").regex("^" + Pattern.quote(size) + "$", "i")).toList())
 							)
 			);
+
+		if (filterAndSort.sort() != null) {
+			query.addCriteria(Criteria.where("tags").in(filterAndSort.sort().tag().name()));
+			query.with(Sort.by(filterAndSort.sort().direction(), filterAndSort.sort().tag().name()));
+		}
 
 		return query;
 	}

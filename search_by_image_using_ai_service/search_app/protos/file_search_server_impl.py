@@ -1,5 +1,6 @@
 import os
 
+from search_app import PATH_FILE_MODEL
 from search_app.protos import file_search_pb2_grpc, file_search_pb2
 from search_app.protos.file_search_pb2 import SearchRequest
 from search_app.service.query_similar import find_same_images
@@ -8,7 +9,7 @@ from search_app.service.query_similar import find_same_images
 class FileSearchServerImpl(file_search_pb2_grpc.FileSearchServiceServicer):
 
     def Search(self, request: SearchRequest, context):
-        path_file = f"/tmp/file_search_service/{request.file_name}"
+        path_file = os.path.join(PATH_FILE_MODEL, request.file_name)
         print(path_file)
         print(len(request.data))
         with open(path_file, "wb") as f:

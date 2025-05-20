@@ -8,7 +8,6 @@
 
 package com.lamnguyen.product_service.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lamnguyen.product_service.utils.enums.ProductTag;
 import org.springframework.data.domain.Sort;
 
@@ -17,12 +16,10 @@ import java.util.List;
 public record ProductFilterAndSort(
 		String title,
 		ProductSort sort,
-		@JsonProperty("colors")
-		List<String> filterColors,
-		@JsonProperty("sizes")
-		List<String> filterSizes
+		List<String> colors,
+		List<String> sizes
 ) {
-	public record ProductSort(ProductTag sort, Sort.Direction direction) {
+	public record ProductSort(ProductTag tag, Sort.Direction direction) {
 
 	}
 }
