@@ -28,7 +28,7 @@ public class ConcurrentRequestTest {
 				try {
 					HttpClient client = HttpClient.newHttpClient();
 					HttpRequest request = HttpRequest.newBuilder()
-							.uri(URI.create("http://localhost:8080/api/users/all"))
+							.uri(URI.create("http://localhost:8002/api/users/all"))
 							.GET()
 							.build();
 
