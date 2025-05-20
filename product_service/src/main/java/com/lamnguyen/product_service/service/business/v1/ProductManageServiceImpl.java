@@ -19,13 +19,14 @@ import com.lamnguyen.product_service.service.business.ICollectionManageService;
 import com.lamnguyen.product_service.service.business.IProductManageService;
 import com.lamnguyen.product_service.service.grpc.IMediaGrpcClient;
 import com.lamnguyen.product_service.service.kafka.producer.IVariantService;
-import com.lamnguyen.product_service.service.redis.IProductRedisManager;
+import com.lamnguyen.product_service.service.redis.IProductResponseRedisManager;
 import com.lamnguyen.product_service.utils.helper.ValidationUtil;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 @Service
@@ -35,7 +36,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 	IProductRepository productRepository;
 	IProductMapper productMapper;
 	ICollectionManageService collectionManageService;
-	IProductRedisManager productRedisManager;
+	IProductResponseRedisManager productResponseRedisManager;
 	IMediaGrpcClient mediaGrpcClient;
 	ValidationUtil validationUtil;
 	private final ProductServiceImpl productServiceImpl;
@@ -46,6 +47,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 	public void create(DataProductRequest request) {
 		var product = productMapper.toProduct(request);
 		validateProduct(product);
+		updateAllImageContain(product);
 		var inserted = productRepository.insert(product);
 		collectionManageService.addProductId(request.getCollection(), inserted.getId());
 		var options = optionMapper.toDataVariantOptions(inserted.getOptions());
@@ -63,11 +65,11 @@ public class ProductManageServiceImpl implements IProductManageService {
 			collectionManageService.removeProductId(oldProduct.getCollection(), product.getId());
 			collectionManageService.addProductId(request.getCollection(), product.getId());
 		}
-
+		updateAllImageContain(product);
 		productRepository.save(product);
 		var options = optionMapper.toDataVariantOptions(request.getOptions());
 		variantService.updateVariant(oldProduct.getId(), request.getComparePrice(), request.getRegularPrice(), options);
-		productRedisManager.delete(id);
+		productResponseRedisManager.delete(id);
 	}
 
 	@Override
@@ -95,5 +97,15 @@ public class ProductManageServiceImpl implements IProductManageService {
 			var thumbnailExits = mediaGrpcClient.existsById(product.getIconThumbnail());
 			if (!thumbnailExits) product.setIconThumbnail(null);
 		}
+	}
+
+	private void updateAllImageContain(Product product) {
+		var allImage = new ArrayList<>(product.getImages());
+		product.getOptionsValues().forEach(imageOptionsValueDto -> {
+			imageOptionsValueDto.getOptions().forEach(optionItemDto -> {
+				allImage.addAll(optionItemDto.getImages());
+			});
+		});
+		product.setAllImageContains(allImage);
 	}
 }

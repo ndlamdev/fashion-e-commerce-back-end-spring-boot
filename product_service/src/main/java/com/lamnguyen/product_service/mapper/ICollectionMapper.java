@@ -49,11 +49,19 @@ public interface ICollectionMapper {
 
 	CollectionDto toCollectionDto(Collection collection);
 
-	@Mapping(source = "products", target = "products", qualifiedByName = "toSetProductId")
+	@Mapping(source = "products", target = "products", qualifiedByName = "toSetProductIds")
 	CollectionSaveRedisDto toCollectionSaveRedisDto(Collection collection);
 
-	@Named("toSetProductId")
-	default Set<String> toSetProductId(Set<Product> products) {
+	@Named("toSetProductIds")
+	default Set<String> toSetProductIds(Set<Product> products) {
 		return products.stream().map(Product::getId).collect(Collectors.toSet());
 	}
+
+	@Named("toSetProducts")
+	default Set<Product> toSetProducts(Set<String> products) {
+		return products.stream().map(it -> Product.builder().id(it).build()).collect(Collectors.toSet());
+	}
+
+	@Mapping(source = "products", target = "products", qualifiedByName = "toSetProducts")
+	Collection toCollection(CollectionSaveRedisDto collectionSaveRedisDto);
 }

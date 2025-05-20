@@ -27,7 +27,7 @@ public class MediaRedisManageImpl extends ACacheManage<MediaDto> implements IMed
 
 	@Override
 	public Optional<MediaDto> get(String id) {
-		return super.get(generateKey(id));
+		return super.get(id);
 	}
 
 	@Override
@@ -37,25 +37,49 @@ public class MediaRedisManageImpl extends ACacheManage<MediaDto> implements IMed
 
 	@Override
 	public void delete(String key) {
-		this.template.delete(generateKey(key));
+		super.delete(key);
 	}
 
 	@Override
 	public void save(String key, MediaDto data) {
-		save(generateKey(key), data, 60, TimeUnit.MINUTES);
+		save(key, data, 60, TimeUnit.MINUTES);
 	}
 
-	private String generateKey(String key) {
-		return generateHashKey("MEDIA", key);
+	private String generateIdKey(String key) {
+		return generateHashKey("MEDIA", "ID", key);
+	}
+
+	private String generateNameKey(String key) {
+		return generateHashKey("MEDIA", "NAME", key);
 	}
 
 	@Override
-	public Optional<MediaDto> cache(String id, CallbackDB<MediaDto> callDB) {
-		return cache(generateKey(id), generateKey(id), callDB);
+	public Optional<MediaDto> cacheById(String id, CallbackDB<MediaDto> callDB) {
+		return cache(generateIdKey(id), generateIdKey(id), callDB);
 	}
 
 	@Override
-	public void save(MediaDto data) {
-		this.save(data.getId(), data);
+	public void deleteById(String id) {
+		delete(generateIdKey(id));
+	}
+
+	@Override
+	public Optional<MediaDto> getById(String id) {
+		return get(generateIdKey(id));
+	}
+
+	@Override
+	public Optional<MediaDto> cacheByName(String name, CallbackDB<MediaDto> callDB) {
+		return cache(generateNameKey(name), generateNameKey(name), callDB);
+	}
+
+	@Override
+	public void deleteByName(String name) {
+		delete(generateNameKey(name));
+	}
+
+	@Override
+	public Optional<MediaDto> getByName(String name) {
+		return get(generateNameKey(name));
 	}
 }

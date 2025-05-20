@@ -10,7 +10,6 @@ package com.lamnguyen.api_gateway_service.config.filter;
 
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -28,22 +27,20 @@ import reactor.core.publisher.Mono;
 
 import java.nio.charset.StandardCharsets;
 
-import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
-
 @Component
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-public class AuthenticationGatewayFilterFactory extends AbstractGatewayFilterFactory<AuthenticationGatewayFilterFactory.Config> {
+public class AuthenticationGatewayFilterFactory extends AbstractGatewayFilterFactory<Object> {
 	WebClient.Builder client;
 
 	public AuthenticationGatewayFilterFactory(WebClient.Builder builder) {
-		super(Config.class);
+		super();
 		this.client = builder;
 	}
 
 	@Override
-	public GatewayFilter apply(Config config) {
+	public GatewayFilter apply(Object config) {
 		return (exchange, chain) -> {
-			System.out.println("Authentication Filter: " + config.getBaseMessage());
+			System.out.println("Authentication Filter: Process Authentication Filter");
 
 			String token = exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
 
@@ -80,9 +77,7 @@ public class AuthenticationGatewayFilterFactory extends AbstractGatewayFilterFac
 
 							return chain.filter(mutatedExchange)
 									.doOnSuccess(done -> {
-										if (config.isPostAuth()) {
 											System.out.println("✅ PostAuth done.");
-										}
 									});
 						} else {
 							return clientResponse.bodyToMono(String.class)
@@ -97,15 +92,6 @@ public class AuthenticationGatewayFilterFactory extends AbstractGatewayFilterFac
 						return errorHandle(exchange, err);
 					});
 		};
-	}
-
-	@Getter
-	@Setter
-	@FieldDefaults(level = AccessLevel.PRIVATE)
-	public static class Config {
-		String baseMessage;
-		boolean preAuth;
-		boolean postAuth;
 	}
 
 	private Mono<Void> errorHandle(ServerWebExchange exchange, Throwable ex) {

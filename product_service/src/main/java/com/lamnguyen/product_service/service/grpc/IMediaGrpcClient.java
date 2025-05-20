@@ -19,4 +19,6 @@ public interface IMediaGrpcClient {
 	Map<String, Boolean> existsByIds(List<String> ids);
 
 	Map<String, ImageResponse> getImageDto(List<String> ids);
+
+	Map<String, ImageResponse> findImageByFileName(List<String> fileNames);
 }

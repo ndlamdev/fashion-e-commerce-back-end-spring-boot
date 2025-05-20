@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
@@ -72,40 +73,73 @@ public class MediaServiceImpl implements IMediaService {
 
 	@Override
 	public boolean existsById(String id) {
-		return mediaManage.get(id)
-				.or(() -> mediaManage.cache(id, () -> mediaRepository.findById(id).map(mediaMapper::toDto)))
-				.isPresent();
+		try {
+			getById(id);
+			return true;
+		} catch (ApplicationException ignored) {
+			return false;
+		}
 	}
 
 	@Override
 	public MediaDto getById(String id) {
-		return mediaManage.get(id)
-				.or(() -> mediaManage.cache(id, () -> mediaRepository.findById(id).map(mediaMapper::toDto)))
+		return mediaManage.getById(id)
+				.or(() -> mediaManage.cacheById(id, () -> mediaRepository.findById(id).map(mediaMapper::toDto)))
+				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
+	}
+
+	private MediaDto getByName(String name) {
+		return mediaManage.getByName(name)
+				.or(() -> mediaManage.cacheByName(name, () -> mediaRepository.findByFileName(name).map(mediaMapper::toDto)))
 				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
 	}
 
 	@Override
 	public List<MediaDto> getAllById(List<String> ids) {
-		var result = new ArrayList<MediaDto>();
+		var result = new ArrayList<MediaDto>(ids.size());
+		var listTasks = new ArrayList<CompletableFuture>();
 		for (var id : ids) {
-			try {
-				result.add(getById(id));
-			} catch (ApplicationException ignored) {
-			}
+			listTasks.add(CompletableFuture.runAsync(() -> {
+				try {
+					result.add(getById(id));
+				} catch (ApplicationException ignored) {
+				}
+			}));
+
 		}
+		CompletableFuture.allOf(listTasks.toArray(new CompletableFuture[0])).join();
 		return result;
 	}
 
 	@Override
 	public Map<String, MediaInfo> getMediaByIds(List<String> ids) {
-		var result = new HashMap<String, MediaInfo>();
-		for (var id : ids) {
-			try {
-				result.put(id, mediaMapper.toMediaInfo(getById(id)));
-			} catch (ApplicationException ignored) {
-			}
-		}
+		var result = new HashMap<String, MediaInfo>(ids.size());
+		var listTasks = new ArrayList<CompletableFuture>();
+		ids.forEach(id -> {
+			listTasks.add(CompletableFuture.runAsync(() -> {
+				try {
+					result.put(id, mediaMapper.toMediaInfo(getById(id)));
+				} catch (ApplicationException ignored) {
+				}
+			}));
+		});
+		CompletableFuture.allOf(listTasks.toArray(new CompletableFuture[0])).join();
+		return result;
+	}
 
+	@Override
+	public Map<String, MediaInfo> getMediaByNames(List<String> names) {
+		var result = new HashMap<String, MediaInfo>(names.size());
+		var listTasks = new ArrayList<CompletableFuture>();
+		names.forEach(name -> {
+			listTasks.add(CompletableFuture.runAsync(() -> {
+				try {
+					result.put(name, mediaMapper.toMediaInfo(getByName(name)));
+				} catch (ApplicationException ignored) {
+				}
+			}));
+		});
+		CompletableFuture.allOf(listTasks.toArray(new CompletableFuture[0])).join();
 		return result;
 	}
 }

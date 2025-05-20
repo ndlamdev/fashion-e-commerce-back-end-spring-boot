@@ -12,10 +12,11 @@ import com.lamnguyen.product_service.config.exception.ApplicationException;
 import com.lamnguyen.product_service.config.exception.ExceptionEnum;
 import com.lamnguyen.product_service.domain.dto.ProductDto;
 import com.lamnguyen.product_service.domain.request.DataProductRequest;
+import com.lamnguyen.product_service.domain.response.ImageResponse;
 import com.lamnguyen.product_service.domain.response.ProductResponse;
+import com.lamnguyen.product_service.domain.response.QuickProductResponse;
 import com.lamnguyen.product_service.model.Collection;
 import com.lamnguyen.product_service.model.Product;
-import com.lamnguyen.product_service.protos.Image;
 import com.lamnguyen.product_service.protos.ProductInCartDto;
 import org.mapstruct.*;
 
@@ -34,6 +35,7 @@ public interface IProductMapper {
 			@Mapping(target = "available", ignore = true),
 			@Mapping(source = "collection", target = "collection", qualifiedByName = "toCollection"),
 			@Mapping(source = "title", target = "seoAlias", qualifiedByName = "toSeoAlias"),
+			@Mapping(source = "title", target = "titleSearch", qualifiedByName = "toTitleSearch"),
 	})
 	Product toProduct(DataProductRequest request);
 
@@ -58,6 +60,9 @@ public interface IProductMapper {
 	@Mapping(source = "collection", target = "collection.id")
 	Product toProduct(ProductResponse response);
 
+	@Mapping(source = "images", target = "image", ignore = true)
+	QuickProductResponse toQuickProductResponse(Product response);
+
 	@Named("toCollection")
 	default Collection toCollection(String id) {
 		return Collection.builder().id(id).build();
@@ -80,6 +85,11 @@ public interface IProductMapper {
 
 		// Bước 5: Thay khoảng trắng bằng dấu gạch ngang
 		return withoutDiacritics.replaceAll("\\s+", "-");
+	}
+
+	@Named("toTitleSearch")
+	default String toTitleSearch(String title) {
+		return toSeoAlias(title).replaceAll("-", " ");
 	}
 
 	@AfterMapping
@@ -114,12 +124,19 @@ public interface IProductMapper {
 		throw ApplicationException.createException(ExceptionEnum.DUPLICATE, "Duplicate tag");
 	}
 
-	@Mapping(target = "image", source = "response.images", ignore = true)
+	@Mapping(target = "image", source = "image")
+	@Mapping(target = "id", source = "product.id")
+	@Mapping(target = "lock", source = "product.lock")
+	@Mapping(target = "unknownFields", ignore = true)
+	@Mapping(target = "allFields", ignore = true)
+	ProductInCartDto toProductInCartDto(Product product, ImageResponse image);
+
+	@Mapping(target = "image", source = "response.images.first")
 	@Mapping(target = "id", source = "response.id")
 	@Mapping(target = "lock", source = "response.lock")
 	@Mapping(target = "unknownFields", ignore = true)
 	@Mapping(target = "allFields", ignore = true)
-	ProductInCartDto toProductInCartDto(ProductResponse response, Image image);
+	ProductInCartDto toProductInCartDto(ProductResponse response);
 
 	com.lamnguyen.product_service.protos.ProductDto toProductDto(
 			ProductResponse response,
@@ -130,13 +147,6 @@ public interface IProductMapper {
 			IGrpcMapper grpcMapper
 	);
 
-	@AfterMapping
-	default void afterMapping(
-			@MappingTarget com.lamnguyen.product_service.protos.ProductInCartDto.Builder builder,
-			Image image
-	) {
-		builder.setImage(image);
-	}
 
 	@AfterMapping
 	default void afterMapping(

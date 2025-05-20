@@ -21,6 +21,8 @@ public enum ExceptionEnum {
 	ID_PRODUCT_NOT_FOUND(80004, "ID product not found"),
 	DUPLICATE(80006, "Duplicate value"),
 	UNVALIDATED(88888, "Unvalidated"),
+	EMPTY_FILE(80007, "Unvalidated"),
+	ERROR_FILE_TYPE(80008, "File type not support"),
 	;
 
 	int code;

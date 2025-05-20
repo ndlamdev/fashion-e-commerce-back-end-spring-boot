@@ -1,12 +1,16 @@
+import os
+
 import torch
 from PIL import Image
 from torchvision import transforms
 from torchvision.models import resnet50, ResNet50_Weights
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-index_path = "../data/faiss_index.bin"
-meta_path = "../data/image_data.pkl"
+from search_app import PATH_FILE_MODEL
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+index_path = os.path.join(PATH_FILE_MODEL, "faiss_index.bin")
+meta_path = os.path.join(PATH_FILE_MODEL, "image_data.pkl")
 
 def config_model(pretrained_model):
     model = resnet50(weights=ResNet50_Weights.DEFAULT) if pretrained_model else resnet50(weights=ResNet50_Weights.IMAGENET1K_V2)

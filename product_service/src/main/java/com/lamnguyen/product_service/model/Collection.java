@@ -8,6 +8,7 @@
 
 package com.lamnguyen.product_service.model;
 
+import com.lamnguyen.product_service.utils.enums.CollectionType;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -23,6 +24,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Document("collections")
 public class Collection extends MongoBaseDocument {
+	CollectionType type;
+
 	String title;
 
 	@DocumentReference(lazy = true)

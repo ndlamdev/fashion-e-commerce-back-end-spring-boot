@@ -16,7 +16,7 @@ import java.util.List;
 public class ImageOptionsValueResponse implements Serializable {
 	String title;
 
-	OptionType option;
+	OptionType type;
 
 	List<OptionItemResponse> options;
 }

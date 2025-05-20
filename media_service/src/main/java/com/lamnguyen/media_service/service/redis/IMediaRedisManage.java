@@ -13,9 +13,15 @@ import com.lamnguyen.media_service.domain.dto.MediaDto;
 import java.util.Optional;
 
 public interface IMediaRedisManage extends ICacheManage<MediaDto> {
-	Optional<MediaDto> cache(String id, CallbackDB<MediaDto> callDB);
+	Optional<MediaDto> cacheById(String id, CallbackDB<MediaDto> callDB);
 
-	void delete(String id);
+	void deleteById(String id);
 
-	void save(MediaDto data);
+	Optional<MediaDto> getById(String id);
+
+	Optional<MediaDto> cacheByName(String name, CallbackDB<MediaDto> callDB);
+
+	void deleteByName(String name);
+
+	Optional<MediaDto> getByName(String name);
 }
