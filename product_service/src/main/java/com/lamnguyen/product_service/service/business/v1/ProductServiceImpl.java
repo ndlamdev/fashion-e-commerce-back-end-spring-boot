@@ -151,7 +151,8 @@ public class ProductServiceImpl implements IProductService {
 			return productMapper.toProductInCartDto(productResponse);
 		var product = productRepository.findById(id).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.PRODUCT_NOT_FOUND));
 		var imageId = product.getImages().getFirst();
-		var image = mediaGrpcClient.findImageByFileName(List.of(imageId)).getOrDefault(imageId, null);
+		var response = mediaGrpcClient.getImageDto(List.of(imageId));
+		var image = response.getOrDefault(imageId, null);
 		return productMapper.toProductInCartDto(product, image);
 	}
 
