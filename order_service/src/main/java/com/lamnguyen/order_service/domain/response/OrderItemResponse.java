@@ -8,6 +8,7 @@
 
 package com.lamnguyen.order_service.domain.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +21,8 @@ public class OrderItemResponse {
 	String productId;
 	String variantId;
 	int quantity;
+	@JsonProperty("compare_price")
 	double comparePrice;
+	@JsonProperty("discount_price")
 	double regularPrice;
 }

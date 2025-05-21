@@ -28,6 +28,7 @@ public class OrderResponse {
 	String name;
 	String phone;
 	String email;
+	@JsonProperty("address_detail")
 	String addressDetail;
 	String ward;
 	String district;

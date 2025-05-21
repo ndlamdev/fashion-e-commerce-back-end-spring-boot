@@ -7,12 +7,12 @@
  **/
 package com.lamnguyen.cart_service.domain.request;
 
-import jakarta.validation.constraints.Min;
+import com.lamnguyen.cart_service.utils.annotation.NotEqualsIntegerNumber;
 import jakarta.validation.constraints.NotNull;
 
 public record QuantityCartItemRequest(
 		@NotNull
-		@Min(value = 1, message = "Quantity must be greater than 0.")
+		@NotEqualsIntegerNumber(message = "Quantity cannot be zero.")
 		Integer quantity
 ) {
 }

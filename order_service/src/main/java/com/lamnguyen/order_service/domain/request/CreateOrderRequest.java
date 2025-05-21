@@ -11,6 +11,7 @@ package com.lamnguyen.order_service.domain.request;
 import com.lamnguyen.order_service.utils.enums.PaymentMethod;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +38,7 @@ public class CreateOrderRequest {
 	@NotBlank
 	String province;
 	String note;
+	@NotNull
 	PaymentMethod method;
 	@NotEmpty
 	List<CreateOrderItemRequest> items;

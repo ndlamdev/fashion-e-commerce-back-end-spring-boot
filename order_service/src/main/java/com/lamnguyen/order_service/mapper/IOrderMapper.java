@@ -17,6 +17,7 @@ import com.lamnguyen.order_service.model.OrderItemEntity;
 import com.lamnguyen.order_service.model.OrderStatusEntity;
 import com.lamnguyen.order_service.protos.OrderItemRequest;
 import com.lamnguyen.order_service.protos.PaymentRequest;
+import com.lamnguyen.order_service.protos.PaymentResponse;
 import com.lamnguyen.order_service.utils.enums.OrderStatus;
 import com.lamnguyen.order_service.utils.enums.PaymentMethod;
 import org.mapstruct.AfterMapping;
@@ -59,7 +60,6 @@ public interface IOrderMapper {
 
 	OrderResponse toResponse(OrderEntity entity);
 
-	@Mapping(target = "checkoutUrl", source = "checkoutUrl")
 	@Mapping(target = "method", source = "method")
-	CreateOrderSuccessResponse toCreateOrderSuccessResponse(OrderEntity entity, PaymentMethod method, StringValue checkoutUrl);
+	CreateOrderSuccessResponse toCreateOrderSuccessResponse(OrderEntity entity, PaymentMethod method, PaymentResponse paymentResponse);
 }

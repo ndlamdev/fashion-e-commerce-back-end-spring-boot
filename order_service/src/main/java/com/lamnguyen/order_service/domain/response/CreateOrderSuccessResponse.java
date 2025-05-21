@@ -9,7 +9,7 @@
 package com.lamnguyen.order_service.domain.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
@@ -19,5 +19,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CreateOrderSuccessResponse extends OrderResponse {
-	String checkoutUrl;
+	@JsonProperty("payment_response")
+	PaymentResponse paymentResponse;
 }

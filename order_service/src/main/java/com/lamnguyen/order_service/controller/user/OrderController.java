@@ -10,7 +10,6 @@ package com.lamnguyen.order_service.controller.user;
 
 import com.lamnguyen.order_service.domain.request.CreateOrderRequest;
 import com.lamnguyen.order_service.domain.response.CreateOrderSuccessResponse;
-import com.lamnguyen.order_service.domain.response.OrderResponse;
 import com.lamnguyen.order_service.service.business.IOrderService;
 import com.lamnguyen.order_service.utils.annotation.ApiMessageResponse;
 import jakarta.servlet.http.HttpServletRequest;
