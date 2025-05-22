@@ -51,18 +51,19 @@ public class PaymentServiceImpl implements IPaymentService {
 
 	private String getUrlPayOs(PaymentRequest data) throws Exception {
 		var payData = paymentMapper.toPaymentData(data);
+		payData.setOrderCode(System.currentTimeMillis());
 		return payOS.createPaymentLink(payData).getCheckoutUrl();
 	}
 
 	@Override
-	public void cancelPay(long orderId) throws Exception {
+	public void cancelPay(long orderId, long payOsOrderCode) throws Exception {
 		var entity = paymentRepository.findByOrderId(orderId);
 		entity.setStatus(PaymentStatus.CANCELED);
-		payOS.cancelPaymentLink(orderId, "");
+		payOS.cancelPaymentLink(payOsOrderCode, "");
 	}
 
 	@Override
-	public void paySuccess(long orderId) {
+	public void paySuccess(long orderId, long payOsOrderCode) {
 		var entity = paymentRepository.findByOrderId(orderId);
 		entity.setStatus(PaymentStatus.DONE);
 	}

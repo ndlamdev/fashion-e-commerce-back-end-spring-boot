@@ -9,8 +9,8 @@ import "google/protobuf/empty.proto";
 
 service PaymentService {
   rpc pay (PaymentRequest) returns (PaymentResponse);
-  rpc PaySuccess (OrderIdRequest) returns (google.protobuf.Empty);
-  rpc CancelOrder (OrderIdRequest) returns (google.protobuf.Empty);
+  rpc PaySuccess (OrderRequest) returns (google.protobuf.Empty);
+  rpc CancelOrder (OrderRequest) returns (google.protobuf.Empty);
 }
 enum PaymentMethod {
   PAY_OS = 0;
@@ -26,7 +26,7 @@ message OrderItemRequest {
 }
 
 message PaymentRequest {
-  int64 orderId = 1;
+  int64 order_id = 1;
   string name = 2;
   string email = 3;
   string phone = 4;
@@ -52,6 +52,7 @@ message PaymentResponse {
   google.protobuf.StringValue checkoutUrl = 4;
 }
 
-message OrderIdRequest {
-  int64 orderId = 1;
+message OrderRequest {
+  int64 order_id = 1;
+  int64 pay_os_order_code = 2;
 }
