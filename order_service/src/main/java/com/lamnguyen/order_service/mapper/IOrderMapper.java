@@ -60,6 +60,19 @@ public interface IOrderMapper {
 
 	OrderResponse toResponse(OrderEntity entity);
 
-	@Mapping(target = "method", source = "method")
-	CreateOrderSuccessResponse toCreateOrderSuccessResponse(OrderEntity entity, PaymentMethod method, PaymentResponse paymentResponse);
+	@Mapping(target = "id", source = "entity.id")
+	@Mapping(target = "paymentResponse", ignore = true)
+	CreateOrderSuccessResponse toCreateOrderSuccessResponse(OrderEntity entity, com.lamnguyen.order_service.protos.PaymentResponse paymentResponse, String returnUrl);
+
+	@AfterMapping
+	default void afterMapping(@MappingTarget CreateOrderSuccessResponse response, com.lamnguyen.order_service.protos.PaymentResponse paymentResponse, String returnUrl) {
+		if (paymentResponse != null) {
+			var payment = com.lamnguyen.order_service.domain.response.PaymentResponse.builder()
+					.method(PaymentMethod.valueOf(paymentResponse.getMethod().name()))
+					.returnUrl(returnUrl)
+					.checkoutUrl(paymentResponse.getCheckoutUrl().getValue())
+					.build();
+			response.setPaymentResponse(payment);
+		}
+	}
 }

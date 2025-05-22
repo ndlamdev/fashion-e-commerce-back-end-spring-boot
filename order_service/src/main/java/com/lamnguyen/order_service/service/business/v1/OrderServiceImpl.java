@@ -84,7 +84,7 @@ public class OrderServiceImpl implements IOrderService {
 					.userId(customerId)
 					.variantIds(mapQuantities.keySet().stream().toList())
 					.build());
-			return orderMapper.toCreateOrderSuccessResponse(entity, order.getMethod(), paymentResponse);
+			return orderMapper.toCreateOrderSuccessResponse(entity, paymentResponse, paymentRequest.getReturnUrl());
 		} catch (Exception e) {
 			if (variants != null)
 				rollback(variants, order.getItems());

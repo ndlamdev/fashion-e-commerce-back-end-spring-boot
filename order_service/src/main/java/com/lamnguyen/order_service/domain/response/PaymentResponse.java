@@ -8,7 +8,16 @@
 
 package com.lamnguyen.order_service.domain.response;
 
+import com.lamnguyen.order_service.utils.enums.PaymentMethod;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Builder
 public class PaymentResponse {
-	String resultUrl;
+	PaymentMethod method;
+	String returnUrl;
 	String checkoutUrl;
 }

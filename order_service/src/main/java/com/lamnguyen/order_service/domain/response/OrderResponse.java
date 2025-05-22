@@ -36,7 +36,6 @@ public class OrderResponse {
 	String note;
 	List<OrderItemResponse> items;
 	List<OrderStatusResponse> statuses;
-	PaymentMethod method;
 	@JsonProperty("update_at")
 	LocalDateTime updateAt;
 }
