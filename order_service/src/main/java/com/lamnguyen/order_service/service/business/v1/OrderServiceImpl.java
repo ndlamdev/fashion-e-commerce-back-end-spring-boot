@@ -72,7 +72,7 @@ public class OrderServiceImpl implements IOrderService {
             createOrderHelper(variants, mapQuantities, listOrderItemRequest, orderItems);
             var customerId = jwtTokenUtil.getUserId();
             entity = orderRepository.save(orderMapper.toEntity(order, customerId, orderItems));
-            var paymentRequest = orderMapper.toPaymentRequest(entity, order.getMethod(), listOrderItemRequest);
+            var paymentRequest = orderMapper.toPaymentRequest(entity, order, listOrderItemRequest);
             orderStatusService.addStatus(entity.getId(), OrderStatus.PAYMENT, "Đang tiến hành thanh toán");
             var paymentResponse = paymentGrpcClient.pay(paymentRequest);
             if (paymentResponse.getStatus() == PayStatus.FAIL)

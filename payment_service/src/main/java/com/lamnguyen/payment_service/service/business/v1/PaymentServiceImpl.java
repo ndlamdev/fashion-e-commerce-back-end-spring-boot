@@ -37,16 +37,9 @@ public class PaymentServiceImpl implements IPaymentService {
 	public PaymentResponse pay(PaymentRequest data) {
 		String checkoutUrl = null;
 		var payment = paymentMapper.toPayment(data);
-		String returnUrl = null;
-		String cancelUrl = null;
 		try {
 			checkoutUrl = switch (data.getMethod()) {
-				case PAY_OS -> {
-					var payOsData = paymentMapper.toPaymentData(data,payOsConfig.getBaseUrl());
-					returnUrl = payOsData.getReturnUrl();
-					cancelUrl = payOsData.getCancelUrl();
-					yield  payOS.createPaymentLink(payOsData).getCheckoutUrl();
-				}
+				case PAY_OS -> getCheckoutUrlPayOs(data);
 				case CASH, MOMO, ZALO_PAY, UNRECOGNIZED -> null;
 			};
 
@@ -56,11 +49,11 @@ public class PaymentServiceImpl implements IPaymentService {
 			payment.setStatus(PaymentStatus.FAIL);
 		}
 		payment = paymentRepository.save(payment);
-		return paymentMapper.toPaymentResponse(payment, checkoutUrl, returnUrl, cancelUrl);
+		return paymentMapper.toPaymentResponse(payment, checkoutUrl);
 	}
 
 	private String getCheckoutUrlPayOs(PaymentRequest data) throws Exception {
-		var payData = paymentMapper.toPaymentData(data,payOsConfig.getBaseUrl());
+		var payData = paymentMapper.toPaymentData(data);
 		return payOS.createPaymentLink(payData).getCheckoutUrl();
 	}
 

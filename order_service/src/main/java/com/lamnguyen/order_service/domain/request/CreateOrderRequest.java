@@ -42,4 +42,6 @@ public class CreateOrderRequest {
 	PaymentMethod method;
 	@NotEmpty
 	List<CreateOrderItemRequest> items;
+	String returnUrl;
+	String cancelUrl;
 }

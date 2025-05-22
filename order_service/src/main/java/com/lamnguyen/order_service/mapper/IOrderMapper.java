@@ -38,7 +38,10 @@ public interface IOrderMapper {
 	@Mapping(target = "phone", source = "order.phone")
 	@Mapping(target = "address", source = "order.addressDetail")
 	@Mapping(target = "note", source = "order.note")
-	PaymentRequest toPaymentRequest(OrderEntity order, PaymentMethod method, List<OrderItemRequest> items);
+	@Mapping(target = "returnUrl", source = "orderRequest.returnUrl")
+	@Mapping(target = "cancelUrl", source = "orderRequest.cancelUrl")
+	@Mapping(target = "method", source = "orderRequest.method")
+	PaymentRequest toPaymentRequest(OrderEntity order, CreateOrderRequest orderRequest, List<OrderItemRequest> items);
 
 	@AfterMapping
 	default void afterMapping(@MappingTarget OrderEntity orderEntity, long customerId, List<OrderItemEntity> items) {
@@ -68,7 +71,6 @@ public interface IOrderMapper {
 			var checkoutUrl = paymentResponse.getCheckoutUrl().getValue();
 			var payment = com.lamnguyen.order_service.domain.response.PaymentResponse.builder()
 					.method(PaymentMethod.valueOf(paymentResponse.getMethod().name()))
-					.returnUrl(paymentResponse.getReturnUrl().getValue())
 					.checkoutUrl(checkoutUrl.isBlank() ? null : checkoutUrl)
 					.build();
 			response.setPaymentResponse(payment);
