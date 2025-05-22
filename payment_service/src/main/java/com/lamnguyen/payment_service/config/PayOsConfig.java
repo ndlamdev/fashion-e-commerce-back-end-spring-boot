@@ -21,6 +21,7 @@ import vn.payos.PayOS;
 @Setter
 @ConfigurationProperties(prefix = "application.payos")
 public class PayOsConfig {
+	private String baseUrl;
 	private String clientId;
 	private String apiKey;
 	private String checksumKey;

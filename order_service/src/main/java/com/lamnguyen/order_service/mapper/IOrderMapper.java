@@ -38,7 +38,7 @@ public interface IOrderMapper {
 	@Mapping(target = "phone", source = "order.phone")
 	@Mapping(target = "address", source = "order.addressDetail")
 	@Mapping(target = "note", source = "order.note")
-	PaymentRequest toPaymentRequest(OrderEntity order, PaymentMethod method, List<OrderItemRequest> items, String baseUrl);
+	PaymentRequest toPaymentRequest(OrderEntity order, PaymentMethod method, List<OrderItemRequest> items);
 
 	@AfterMapping
 	default void afterMapping(@MappingTarget OrderEntity orderEntity, long customerId, List<OrderItemEntity> items) {
@@ -52,25 +52,24 @@ public interface IOrderMapper {
 	}
 
 	@AfterMapping
-	default void afterMapping(@MappingTarget PaymentRequest.Builder builder, OrderEntity order, List<OrderItemRequest> items, String baseUrl) {
+	default void afterMapping(@MappingTarget PaymentRequest.Builder builder, List<OrderItemRequest> items) {
 		builder.addAllItems(items);
-		builder.setCancelUrl(baseUrl + "/order/v1/cancel?order-id=" + order.getId());
-		builder.setReturnUrl(baseUrl + "/order/v1/pay-success?order-id=" + order.getId());
 	}
 
 	OrderResponse toResponse(OrderEntity entity);
 
 	@Mapping(target = "id", source = "entity.id")
 	@Mapping(target = "paymentResponse", ignore = true)
-	CreateOrderSuccessResponse toCreateOrderSuccessResponse(OrderEntity entity, com.lamnguyen.order_service.protos.PaymentResponse paymentResponse, String returnUrl);
+	CreateOrderSuccessResponse toCreateOrderSuccessResponse(OrderEntity entity, com.lamnguyen.order_service.protos.PaymentResponse paymentResponse);
 
 	@AfterMapping
-	default void afterMapping(@MappingTarget CreateOrderSuccessResponse response, com.lamnguyen.order_service.protos.PaymentResponse paymentResponse, String returnUrl) {
+	default void afterMapping(@MappingTarget CreateOrderSuccessResponse response, com.lamnguyen.order_service.protos.PaymentResponse paymentResponse) {
 		if (paymentResponse != null) {
+			var checkoutUrl = paymentResponse.getCheckoutUrl().getValue();
 			var payment = com.lamnguyen.order_service.domain.response.PaymentResponse.builder()
 					.method(PaymentMethod.valueOf(paymentResponse.getMethod().name()))
-					.returnUrl(returnUrl)
-					.checkoutUrl(paymentResponse.getCheckoutUrl().getValue())
+					.returnUrl(paymentResponse.getReturnUrl().getValue())
+					.checkoutUrl(checkoutUrl.isBlank() ? null : checkoutUrl)
 					.build();
 			response.setPaymentResponse(payment);
 		}

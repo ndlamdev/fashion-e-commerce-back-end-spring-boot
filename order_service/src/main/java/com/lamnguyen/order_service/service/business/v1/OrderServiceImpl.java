@@ -57,7 +57,7 @@ public class OrderServiceImpl implements IOrderService {
     ICartKafkaService cartKafkaService;
 
     @Override
-    public CreateOrderSuccessResponse createOrder(CreateOrderRequest order, String baseUrl) {
+    public CreateOrderSuccessResponse createOrder(CreateOrderRequest order) {
         Map<String, VariantProductInfo> variants = null;
         OrderEntity entity = null;
         var mapQuantities = order.getItems().stream().collect(Collectors.toMap(CreateOrderItemRequest::getVariantId, CreateOrderItemRequest::getQuantity));
@@ -72,7 +72,7 @@ public class OrderServiceImpl implements IOrderService {
             createOrderHelper(variants, mapQuantities, listOrderItemRequest, orderItems);
             var customerId = jwtTokenUtil.getUserId();
             entity = orderRepository.save(orderMapper.toEntity(order, customerId, orderItems));
-            var paymentRequest = orderMapper.toPaymentRequest(entity, order.getMethod(), listOrderItemRequest, baseUrl);
+            var paymentRequest = orderMapper.toPaymentRequest(entity, order.getMethod(), listOrderItemRequest);
             orderStatusService.addStatus(entity.getId(), OrderStatus.PAYMENT, "Đang tiến hành thanh toán");
             var paymentResponse = paymentGrpcClient.pay(paymentRequest);
             if (paymentResponse.getStatus() == PayStatus.FAIL)
@@ -84,7 +84,7 @@ public class OrderServiceImpl implements IOrderService {
                     .userId(customerId)
                     .variantIds(mapQuantities.keySet().stream().toList())
                     .build());
-            return orderMapper.toCreateOrderSuccessResponse(entity, paymentResponse, paymentRequest.getReturnUrl());
+            return orderMapper.toCreateOrderSuccessResponse(entity, paymentResponse);
         } catch (Exception e) {
             if (variants != null)
                 rollback(variants, order.getItems());

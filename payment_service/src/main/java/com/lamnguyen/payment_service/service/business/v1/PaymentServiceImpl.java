@@ -8,6 +8,7 @@
 
 package com.lamnguyen.payment_service.service.business.v1;
 
+import com.lamnguyen.payment_service.config.PayOsConfig;
 import com.lamnguyen.payment_service.mapper.IPaymentMapper;
 import com.lamnguyen.payment_service.protos.PaymentRequest;
 import com.lamnguyen.payment_service.protos.PaymentResponse;
@@ -20,6 +21,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import vn.payos.PayOS;
+import vn.payos.type.PaymentData;
 
 @Service
 @RequiredArgsConstructor
@@ -28,15 +30,23 @@ import vn.payos.PayOS;
 public class PaymentServiceImpl implements IPaymentService {
 	IPaymentMapper paymentMapper;
 	PayOS payOS;
+	PayOsConfig payOsConfig;
 	IPaymentRepository paymentRepository;
 
 	@Override
 	public PaymentResponse pay(PaymentRequest data) {
 		String checkoutUrl = null;
 		var payment = paymentMapper.toPayment(data);
+		String returnUrl = null;
+		String cancelUrl = null;
 		try {
 			checkoutUrl = switch (data.getMethod()) {
-				case PAY_OS -> getUrlPayOs(data);
+				case PAY_OS -> {
+					var payOsData = paymentMapper.toPaymentData(data,payOsConfig.getBaseUrl());
+					returnUrl = payOsData.getReturnUrl();
+					cancelUrl = payOsData.getCancelUrl();
+					yield  payOS.createPaymentLink(payOsData).getCheckoutUrl();
+				}
 				case CASH, MOMO, ZALO_PAY, UNRECOGNIZED -> null;
 			};
 
@@ -46,12 +56,11 @@ public class PaymentServiceImpl implements IPaymentService {
 			payment.setStatus(PaymentStatus.FAIL);
 		}
 		payment = paymentRepository.save(payment);
-		return paymentMapper.toPaymentResponse(payment, checkoutUrl);
+		return paymentMapper.toPaymentResponse(payment, checkoutUrl, returnUrl, cancelUrl);
 	}
 
-	private String getUrlPayOs(PaymentRequest data) throws Exception {
-		var payData = paymentMapper.toPaymentData(data);
-		payData.setOrderCode(System.currentTimeMillis());
+	private String getCheckoutUrlPayOs(PaymentRequest data) throws Exception {
+		var payData = paymentMapper.toPaymentData(data,payOsConfig.getBaseUrl());
 		return payOS.createPaymentLink(payData).getCheckoutUrl();
 	}
 

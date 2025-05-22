@@ -17,6 +17,8 @@ import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +33,7 @@ public class OrderController {
     @ApiMessageResponse("create order success")
     @PreAuthorize("hasAnyAuthority('ROLE_BASE', 'ROLE_ADMIN', 'CREATE_ORDER')")
     public CreateOrderSuccessResponse createOrder(@RequestBody @Valid CreateOrderRequest order, HttpServletRequest request) {
-        return orderService.createOrder(order, baseUrl(request));
+        return orderService.createOrder(order);
     }
 
     @GetMapping("/cancel")
@@ -44,9 +46,5 @@ public class OrderController {
     @ApiMessageResponse("Pay order success")
     public void payOrderSuccess(@RequestParam("order-id") long orderId, @RequestParam("orderCode") long payOsOrderCode) {
         orderService.paySuccess(orderId, payOsOrderCode);
-    }
-
-    private String baseUrl(HttpServletRequest request) {
-        return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
     }
 }

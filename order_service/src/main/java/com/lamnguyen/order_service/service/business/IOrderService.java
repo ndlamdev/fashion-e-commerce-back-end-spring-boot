@@ -13,7 +13,7 @@ import com.lamnguyen.order_service.domain.response.CreateOrderSuccessResponse;
 import com.lamnguyen.order_service.domain.response.OrderResponse;
 
 public interface IOrderService {
-    CreateOrderSuccessResponse createOrder(CreateOrderRequest order, String baseUrl);
+    CreateOrderSuccessResponse createOrder(CreateOrderRequest order);
 
     void paySuccess(long orderId, long orderOrderCode);
 

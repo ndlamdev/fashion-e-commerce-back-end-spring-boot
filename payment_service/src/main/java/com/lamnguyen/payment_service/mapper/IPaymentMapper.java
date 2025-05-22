@@ -22,17 +22,19 @@ public interface IPaymentMapper {
 	@Mapping(target = "buyerPhone", source = "data.phone")
 	@Mapping(target = "buyerAddress", source = "data.address")
 	@Mapping(target = "description", source = "data.note")
-	@Mapping(target = "cancelUrl", source = "data.cancelUrl")
 	@Mapping(target = "orderCode", source = "data.orderId")
 	@Mapping(target = "items", source = "data.itemsList")
-	PaymentData toPaymentData(PaymentRequest data) throws Exception;
+	PaymentData toPaymentData(PaymentRequest data, String baseUrl) throws Exception;
 
 	@AfterMapping
-	default void afterMapping(PaymentRequest data, @MappingTarget PaymentData.PaymentDataBuilder paymentData) {
+	default void afterMapping(PaymentRequest data, String baseUrl, @MappingTarget PaymentData.PaymentDataBuilder paymentData) {
 		data.getItemsList()
 				.stream()
 				.map(it -> it.getPrice() * it.getQuantity()).reduce(Integer::sum)
 				.ifPresent(paymentData::amount);
+		paymentData.orderCode(System.currentTimeMillis());
+		paymentData.returnUrl(baseUrl + "/success?order-id=" + data.getOrderId());
+		paymentData.cancelUrl(baseUrl + "/cancel?order-id=" + data.getOrderId());
 	}
 
 	@Mapping(target = "method", source = "method", qualifiedByName = "toPaymentMethod")
@@ -43,7 +45,7 @@ public interface IPaymentMapper {
 			@Mapping(target = "status", source = "payment.status"),
 			@Mapping(target = "method", source = "payment.method"),
 	})
-	PaymentResponse toPaymentResponse(Payment payment, String checkoutUrl);
+	PaymentResponse toPaymentResponse(Payment payment, String checkoutUrl, String returnUrl, String cancelUrl);
 
 	@Named("toPaymentMethod")
 	default PaymentMethod toPaymentMethod(com.lamnguyen.payment_service.protos.PaymentMethod paymentMethod) {

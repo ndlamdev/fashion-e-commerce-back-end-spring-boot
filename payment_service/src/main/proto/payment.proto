@@ -34,8 +34,6 @@ message PaymentRequest {
   string note = 6;
   PaymentMethod method = 7;
   repeated OrderItemRequest items = 8;
-  string returnUrl = 9;
-  string cancelUrl = 10;
 }
 
 enum PayStatus {
@@ -49,7 +47,9 @@ message PaymentResponse {
   google.protobuf.Int64Value id = 1;
   PayStatus status = 2;
   PaymentMethod method = 3;
-  google.protobuf.StringValue checkoutUrl = 4;
+  google.protobuf.StringValue checkout_url = 4;
+  google.protobuf.StringValue return_url = 5;
+  google.protobuf.StringValue cancel_url = 6;
 }
 
 message OrderRequest {
