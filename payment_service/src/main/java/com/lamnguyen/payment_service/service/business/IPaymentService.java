@@ -16,6 +16,7 @@ public interface IPaymentService {
 
 	void cancelPayByOrderId(long orderId) throws Exception;
 
-
 	void paySuccess(long payOsOrderCode);
+
+	Long getOrderIdByOrderCode(long orderCode);
 }

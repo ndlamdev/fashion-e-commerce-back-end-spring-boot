@@ -54,12 +54,15 @@ public class PaymentController {
 	}
 
 	@PutMapping(path = "/{orderCode}")
-	public ObjectNode cancelOrder(@PathVariable("orderCode") int orderCode) {
+	public ObjectNode cancelOrder(@PathVariable("orderCode") long orderCode) {
 		ObjectMapper objectMapper = new ObjectMapper();
 		ObjectNode response = objectMapper.createObjectNode();
 		try {
 			PaymentLinkData order = payOS.cancelPaymentLink(orderCode, null);
-			orderKafkaProducer.removeOrder(orderCode);
+			var orderId = paymentService.getOrderIdByOrderCode(orderCode);
+			if (orderId != null)
+				orderKafkaProducer.removeOrder(orderId);
+
 			response.set("data", objectMapper.valueToTree(order));
 			response.put("error", 0);
 			response.put("message", "ok");
@@ -86,8 +89,11 @@ public class PaymentController {
 			response.set("data", null);
 
 			WebhookData data = payOS.verifyPaymentWebhookData(webhookBody);
-			var orderCode = data.getOrderCode();
-			paymentService.paySuccess(orderCode);
+			System.out.println(new ObjectMapper().writeValueAsString(data));
+			long orderCode = data.getOrderCode();
+			if (orderCode != 123) {
+				paymentService.paySuccess(orderCode);
+			}
 			return response;
 		} catch (Exception e) {
 			e.printStackTrace(System.err);

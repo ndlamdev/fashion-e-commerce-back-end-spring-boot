@@ -77,4 +77,13 @@ public class PaymentServiceImpl implements IPaymentService {
 		payment.setStatus(status);
 		paymentRepository.save(payment);
 	}
+
+	@Override
+	public Long getOrderIdByOrderCode(long orderCode) {
+		var entity = paymentRepository.findByOrderCode(orderCode);
+		if (entity != null) {
+			return entity.getOrderId();
+		}
+		return null;
+	}
 }

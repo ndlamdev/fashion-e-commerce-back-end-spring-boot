@@ -15,7 +15,7 @@ import org.springframework.retry.annotation.Backoff;
 
 public interface IOrderKafkaConsumer {
 
-	@KafkaListener(topics = "${spring.kafka.topic.delete-order}", groupId = "base-service-group")
+	@KafkaListener(topics = "${spring.kafka.topic.delete-order}", groupId = "order-service-group")
 	@RetryableTopic(
 			backoff = @Backoff(value = 3000L),
 			attempts = "5",
