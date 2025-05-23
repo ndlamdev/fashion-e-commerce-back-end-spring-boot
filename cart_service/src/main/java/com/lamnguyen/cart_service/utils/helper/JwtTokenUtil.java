@@ -61,8 +61,13 @@ public class JwtTokenUtil {
 		return getPayloadNotVerify(jwt).getUserId();
 	}
 
+	public long getUserId(String token) {
+		var jwt = decodeTokenNotVerify(token);
+		return getPayloadNotVerify(jwt).getUserId();
+	}
+
 	public long getUserId() {
-		var authentication = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-		return getUserIdNotVerify(authentication.getToken().getTokenValue());
+		var token = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+		return getUserId(token.getToken().getTokenValue());
 	}
 }

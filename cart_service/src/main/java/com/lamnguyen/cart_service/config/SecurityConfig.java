@@ -17,6 +17,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -46,7 +47,7 @@ public class SecurityConfig {
 				.jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter))
 				.authenticationEntryPoint(authenticationEntryPoint)
 		);
-		httpSecurity.cors(con -> con.configurationSource(configurationSource));
+//		httpSecurity.cors(con -> con.configurationSource(configurationSource));
 		httpSecurity.csrf(AbstractHttpConfigurer::disable);
 		httpSecurity.exceptionHandling(configurer -> configurer.authenticationEntryPoint(authenticationEntryPoint));
 		return httpSecurity.build();

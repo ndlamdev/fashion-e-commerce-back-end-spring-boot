@@ -9,6 +9,7 @@ service InventoryService {
   rpc GetVariantProductByVariantIdsIdsNotDeleteAndProductNotLock (VariantIdsRequest) returns (VariantProductByVariantIdsResponse);
   rpc ExistsVariant(VariantIdsRequest) returns (VariantProductExistResponse);
   rpc GetProductIdOfVariantProduct(ProductIdOfVariantRequest) returns (ProductIdOfVariantResponse);
+  rpc UpdateQuantityByVariantIdsIdsNotDelete (UpdateQuantityVariantRequest) returns (VariantProductByVariantIdsResponse);
 }
 
 message ProductIdRequest {
@@ -55,4 +56,8 @@ message ProductIdOfVariantRequest {
 
 message ProductIdOfVariantResponse {
   string product_id = 1;
+}
+
+message UpdateQuantityVariantRequest {
+  map<string, int32> quantities = 1;
 }

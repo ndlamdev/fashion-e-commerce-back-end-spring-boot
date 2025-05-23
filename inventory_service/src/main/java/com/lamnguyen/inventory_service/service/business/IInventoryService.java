@@ -28,4 +28,6 @@ public interface IInventoryService {
 	String getProductId(String variantId);
 
 	VariantProduct getVariantProductById(String variantId);
+
+	List<VariantProduct> updateVariantProducts(Map<String, Integer> quantities);
 }

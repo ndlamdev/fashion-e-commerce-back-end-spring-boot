@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.lamnguyen.order_service.protos";
+option java_outer_classname = "ProductProto";
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+
+// Service definition for ProductService
+service ProductService {
+  rpc GetProductInCartById (ProductRequest) returns (ProductInCartDto);
+}
+
+// Request message for GetProductById
+message ProductRequest {
+  string product_id = 1;
+}
+
+// Enum for GenderType
+enum GenderType {
+  MALE = 0;
+  FEMALE = 1;
+  UNISEX = 2;
+}
+
+// Enum for ProductTag
+enum ProductTag {
+  BEST_SELLER = 0;
+  WORTH_BUYING = 1;
+}
+
+message Image {
+  google.protobuf.StringValue id = 1;
+  google.protobuf.StringValue src = 2;
+  bool lock = 3;
+}
+
+message ProductInCartDto {
+  string id = 1;
+  google.protobuf.StringValue title = 2;
+  google.protobuf.StringValue seo_alias = 3;
+  Image image = 4;
+  bool available = 5;
+  bool lock = 6;
+}
+
+

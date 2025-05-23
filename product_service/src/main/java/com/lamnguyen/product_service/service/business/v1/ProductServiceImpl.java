@@ -146,13 +146,14 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public ProductInCartDto getProductInCartById(String id) {
-		var result = getProductById(id);
-
-		return productMapper.toProductInCartDto(
-				result,
-				imageMapper,
-				optionMapper,
-				grpcMapper);
+		var productResponse = productResponseRedisManager.get(id).orElse(null);
+		if (productResponse != null)
+			return productMapper.toProductInCartDto(productResponse);
+		var product = productRepository.findById(id).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.PRODUCT_NOT_FOUND));
+		var imageId = product.getImages().getFirst();
+		var response = mediaGrpcClient.getImageDto(List.of(imageId));
+		var image = response.getOrDefault(imageId, null);
+		return productMapper.toProductInCartDto(product, image);
 	}
 
 	@Override
@@ -233,15 +234,13 @@ public class ProductServiceImpl implements IProductService {
 		var product = productRepository.findAllByTitleSearchRegex(productMapper.toSeoAlias(title).replaceAll("-", ".*"), Pageable.ofSize(10));
 		var listTask = new ArrayList<CompletableFuture<Void>>();
 		var result = new ArrayList<QuickProductResponse>(product.getSize());
-		product.getContent().forEach(p -> {
-			listTask.add(CompletableFuture.runAsync(() -> {
-				var mediaId = p.getImages().getFirst();
-				var mediaResponse = mediaGrpcClient.getImageDto(List.of(mediaId));
-				var data = productMapper.toQuickProductResponse(p);
-				data.setImage(mediaResponse.getOrDefault(mediaId, null));
-				result.add(data);
-			}));
-		});
+		product.getContent().forEach(p -> listTask.add(CompletableFuture.runAsync(() -> {
+			var mediaId = p.getImages().getFirst();
+			var mediaResponse = mediaGrpcClient.getImageDto(List.of(mediaId));
+			var data = productMapper.toQuickProductResponse(p);
+			data.setImage(mediaResponse.getOrDefault(mediaId, null));
+			result.add(data);
+		})));
 		CompletableFuture.allOf(listTask.toArray(CompletableFuture[]::new)).join();
 		return result;
 	}
@@ -273,8 +272,6 @@ public class ProductServiceImpl implements IProductService {
 	private Query createQuery(ProductFilterAndSort filterAndSort) {
 		Query query = new Query();
 
-		if (filterAndSort.sort() != null)
-			query.with(Sort.by(filterAndSort.sort().direction(), filterAndSort.sort().sort().name()));
 
 		if (filterAndSort.title() != null) {
 			var titleQuery = productMapper.toSeoAlias(filterAndSort.title()).replaceAll("-", ".*");
@@ -286,25 +283,30 @@ public class ProductServiceImpl implements IProductService {
 
 		query.addCriteria(Criteria.where("is_lock").is(false));
 
-		if (filterAndSort.filterColors() != null && !filterAndSort.filterColors().isEmpty())
+		if (filterAndSort.colors() != null && !filterAndSort.colors().isEmpty())
 			query.addCriteria(
 					Criteria.where("options")
 							.elemMatch(
 									Criteria.where("type")
 											.is("COLOR")
-											.andOperator(filterAndSort.filterColors().stream().map(color -> Criteria.where("values").regex("^" + Pattern.quote(color) + "$", "i")).toList())
+											.andOperator(filterAndSort.colors().stream().map(color -> Criteria.where("values").regex("^" + Pattern.quote(color) + "$", "i")).toList())
 							)
 			);
 
-		if (filterAndSort.filterSizes() != null && !filterAndSort.filterSizes().isEmpty())
+		if (filterAndSort.sizes() != null && !filterAndSort.sizes().isEmpty())
 			query.addCriteria(
 					Criteria.where("options")
 							.elemMatch(
 									Criteria.where("type")
 											.is("SIZE")
-											.andOperator(filterAndSort.filterSizes().stream().map(size -> Criteria.where("values").regex("^" + Pattern.quote(size) + "$", "i")).toList())
+											.andOperator(filterAndSort.sizes().stream().map(size -> Criteria.where("values").regex("^" + Pattern.quote(size) + "$", "i")).toList())
 							)
 			);
+
+		if (filterAndSort.sort() != null) {
+			query.addCriteria(Criteria.where("tags").in(filterAndSort.sort().tag().name()));
+			query.with(Sort.by(filterAndSort.sort().direction(), filterAndSort.sort().tag().name()));
+		}
 
 		return query;
 	}

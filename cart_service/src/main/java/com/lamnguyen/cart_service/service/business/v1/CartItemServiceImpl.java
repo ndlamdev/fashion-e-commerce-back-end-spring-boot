@@ -29,13 +29,13 @@ public class CartItemServiceImpl implements ICartItemService {
 	IInventoryGrpcClient inventoryGrpcClient;
 
 	@Override
-	public void addCartItem(long cartId, String variantId) {
+	public void addCartItem(long cartId, String variantId, int quantity) {
 		var variantProduct = inventoryGrpcClient.getVariantProductByVariantId(variantId);
 		var cartItem = CartItem.builder()
 				.cart(Cart.builder().id(cartId).build())
 				.variantId(variantId)
 				.productId(variantProduct.getProductId())
-				.quantity(1)
+				.quantity(quantity)
 				.build();
 
 		if (cartItemRepository.existsByCartIdAndVariantId(cartId, variantId)) {
@@ -59,7 +59,7 @@ public class CartItemServiceImpl implements ICartItemService {
 			throw ApplicationException.createException(ExceptionEnum.NOT_ENOUGH_QUANTITY);
 		item.setQuantity(newQuantity);
 		cartItemRepository.save(item);
-		return newQuantity;
+			return newQuantity;
 	}
 
 	@Override
@@ -74,5 +74,11 @@ public class CartItemServiceImpl implements ICartItemService {
 	public void removeCartItem(long cartId, long id) {
 		if (cartItemRepository.removeByIdAndCartId(id, cartId) == 0)
 			throw ApplicationException.createException(ExceptionEnum.CART_ITEM_NOT_FOUND);
+	}
+
+	@Override
+	@Transactional
+	public void removeCartItem(long cartId, String variantId) {
+		cartItemRepository.removeByVariantIdAndCartId(variantId, cartId);
 	}
 }

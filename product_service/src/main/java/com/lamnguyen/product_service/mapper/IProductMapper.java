@@ -12,6 +12,7 @@ import com.lamnguyen.product_service.config.exception.ApplicationException;
 import com.lamnguyen.product_service.config.exception.ExceptionEnum;
 import com.lamnguyen.product_service.domain.dto.ProductDto;
 import com.lamnguyen.product_service.domain.request.DataProductRequest;
+import com.lamnguyen.product_service.domain.response.ImageResponse;
 import com.lamnguyen.product_service.domain.response.ProductResponse;
 import com.lamnguyen.product_service.domain.response.QuickProductResponse;
 import com.lamnguyen.product_service.model.Collection;
@@ -123,26 +124,19 @@ public interface IProductMapper {
 		throw ApplicationException.createException(ExceptionEnum.DUPLICATE, "Duplicate tag");
 	}
 
-	ProductInCartDto toProductInCartDto(
-			ProductResponse response,
-			IImageMapper imageMapper,
-			IOptionMapper optionMapper,
-			IGrpcMapper grpcMapper
-	);
+	@Mapping(target = "image", source = "image")
+	@Mapping(target = "id", source = "product.id")
+	@Mapping(target = "lock", source = "product.lock")
+	@Mapping(target = "unknownFields", ignore = true)
+	@Mapping(target = "allFields", ignore = true)
+	ProductInCartDto toProductInCartDto(Product product, ImageResponse image);
 
-	@AfterMapping
-	default void afterMapping(
-			ProductResponse response,
-			@MappingTarget ProductInCartDto.Builder builder,
-			IImageMapper imageMapper,
-			IOptionMapper optionMapper,
-			IGrpcMapper grpcMapper
-	) {
-		if (response.getOptions() != null)
-			builder.addAllOptions(response.getOptions().stream().map(data -> optionMapper.toOptionDto(data, grpcMapper)).toList());
-		if (response.getImages() != null)
-			builder.addAllImages(response.getImages().stream().map(imageMapper::toImage).toList());
-	}
+	@Mapping(target = "image", source = "response.images.first")
+	@Mapping(target = "id", source = "response.id")
+	@Mapping(target = "lock", source = "response.lock")
+	@Mapping(target = "unknownFields", ignore = true)
+	@Mapping(target = "allFields", ignore = true)
+	ProductInCartDto toProductInCartDto(ProductResponse response);
 
 	com.lamnguyen.product_service.protos.ProductDto toProductDto(
 			ProductResponse response,
@@ -152,6 +146,7 @@ public interface IProductMapper {
 			IOptionItemMapper optionItemMapper,
 			IGrpcMapper grpcMapper
 	);
+
 
 	@AfterMapping
 	default void afterMapping(

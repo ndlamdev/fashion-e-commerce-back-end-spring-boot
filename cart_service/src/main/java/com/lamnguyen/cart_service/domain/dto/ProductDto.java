@@ -31,14 +31,8 @@ public class ProductDto implements Serializable {
 	@JsonProperty("seo_alias")
 	String seoAlias; // path in url: product/seoAlias
 
-	String vendor; // người bán
-
-	List<OptionDto> options;
-
-	List<ImageDto> images; // Hình ảnh để show card
+	ImageDto image; // Hình ảnh để show card
 
 	@Builder.Default
 	boolean available = true; // Có khả dụng hay không
-
-	DiscountDto discount; // Khuyến mãi
 }

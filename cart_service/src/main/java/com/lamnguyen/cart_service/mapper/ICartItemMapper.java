@@ -19,5 +19,6 @@ public interface ICartItemMapper {
 	CartItemDto toDto(CartItem cartItem);
 
 	@Mapping(source = "productId", target = "product.id")
+	@Mapping(source = "variantId", target = "variant.id")
 	CartItemResponse toCartItemResponse(CartItemDto cartItem);
 }

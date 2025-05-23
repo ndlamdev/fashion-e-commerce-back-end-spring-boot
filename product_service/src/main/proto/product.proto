@@ -106,15 +106,12 @@ message ProductDto {
   bool lock = 22;
 }
 
-// Message for ProductDto
 message ProductInCartDto {
   string id = 1;
   google.protobuf.StringValue title = 2;
   google.protobuf.StringValue seo_alias = 3;
-  google.protobuf.StringValue vendor = 4;
-  repeated OptionDto options = 5;
-  repeated Image images = 6;
-  bool available = 7;
-  Discount discount = 8;
-  bool lock = 9;
+  Image image = 4;
+  bool available = 5;
+  bool lock = 6;
 }
+
