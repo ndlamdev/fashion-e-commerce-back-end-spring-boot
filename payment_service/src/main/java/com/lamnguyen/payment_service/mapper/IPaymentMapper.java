@@ -17,6 +17,10 @@ import com.lamnguyen.payment_service.utils.helper.SignAndVerifyDataHelper;
 import org.mapstruct.*;
 import vn.payos.type.PaymentData;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 @Mapper(componentModel = "spring", uses = {IGrpcMapper.class, IOrderItemMapper.class})
 public interface IPaymentMapper {
 	@Mapping(target = "buyerName", source = "data.name")
@@ -24,40 +28,17 @@ public interface IPaymentMapper {
 	@Mapping(target = "buyerPhone", source = "data.phone")
 	@Mapping(target = "buyerAddress", source = "data.address")
 	@Mapping(target = "description", source = "data.note")
-	@Mapping(target = "orderCode", source = "data.orderId")
-	@Mapping(target = "returnUrl", source = "data.returnUrl")
-	@Mapping(target = "cancelUrl", source = "data.cancelUrl")
 	@Mapping(target = "items", source = "data.itemsList")
-	PaymentData toPaymentData(PaymentRequest data, SignAndVerifyDataHelper signAndVerifyDataHelper) throws Exception;
-
-	@Mapping(target = "buyerName", source = "data.name")
-	@Mapping(target = "buyerEmail", source = "data.email")
-	@Mapping(target = "buyerPhone", source = "data.phone")
-	@Mapping(target = "buyerAddress", source = "data.address")
-	@Mapping(target = "description", source = "data.note")
-	@Mapping(target = "orderCode", source = "data.orderId")
-	@Mapping(target = "returnUrl", source = "data.returnUrl")
-	@Mapping(target = "cancelUrl", source = "data.cancelUrl")
-	@Mapping(target = "items", source = "data.itemsList")
-	PaymentData toPaymentData(PaymentRequest data) throws Exception;
-
-	@AfterMapping
-	default void afterMapping(PaymentRequest data, SignAndVerifyDataHelper signAndVerifyDataHelper, @MappingTarget PaymentData.PaymentDataBuilder paymentData) throws JsonProcessingException {
-		data.getItemsList()
-				.stream()
-				.map(it -> it.getPrice() * it.getQuantity()).reduce(Integer::sum)
-				.ifPresent(paymentData::amount);
-		paymentData.orderCode(System.currentTimeMillis());
-		paymentData.signature(signAndVerifyDataHelper.generateSignature(paymentData.build()));
-	}
+	PaymentData toPaymentData(PaymentRequest data, long orderCode) throws Exception;
 
 	@AfterMapping
 	default void afterMapping(PaymentRequest data, @MappingTarget PaymentData.PaymentDataBuilder paymentData) throws JsonProcessingException {
-		data.getItemsList()
+		var amount = data.getItemsList()
 				.stream()
 				.map(it -> it.getPrice() * it.getQuantity()).reduce(Integer::sum)
-				.ifPresent(paymentData::amount);
-		paymentData.orderCode(System.currentTimeMillis());
+				.orElse(0);
+		System.out.println("amount = " + amount);
+		paymentData.amount(2000);
 	}
 
 	@Mapping(target = "method", source = "method", qualifiedByName = "toPaymentMethod")
@@ -73,5 +54,10 @@ public interface IPaymentMapper {
 	@Named("toPaymentMethod")
 	default PaymentMethod toPaymentMethod(com.lamnguyen.payment_service.protos.PaymentMethod paymentMethod) {
 		return PaymentMethod.valueOf(paymentMethod.name());
+	}
+
+	@AfterMapping
+	default void afterMapping(PaymentRequest orderRequest, @MappingTarget Payment payment) {
+		payment.setOrderCode(orderRequest.getOrderId());
 	}
 }

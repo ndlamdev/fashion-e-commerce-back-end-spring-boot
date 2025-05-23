@@ -13,9 +13,9 @@ import com.lamnguyen.order_service.domain.response.CreateOrderSuccessResponse;
 import com.lamnguyen.order_service.domain.response.OrderResponse;
 
 public interface IOrderService {
-    CreateOrderSuccessResponse createOrder(CreateOrderRequest order);
+	CreateOrderSuccessResponse createOrder(CreateOrderRequest order);
 
-    void paySuccess(long orderId, long orderOrderCode);
+	void cancelOrder(long orderId);
 
-    void cancelOrder(long orderId, long orderOrderCode);
+	void deleteOrder(long orderId);
 }

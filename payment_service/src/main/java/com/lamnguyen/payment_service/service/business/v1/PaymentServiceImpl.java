@@ -15,6 +15,7 @@ import com.lamnguyen.payment_service.protos.PaymentRequest;
 import com.lamnguyen.payment_service.protos.PaymentResponse;
 import com.lamnguyen.payment_service.repository.IPaymentRepository;
 import com.lamnguyen.payment_service.service.business.IPaymentService;
+import com.lamnguyen.payment_service.utils.enums.PaymentMethod;
 import com.lamnguyen.payment_service.utils.enums.PaymentStatus;
 import com.lamnguyen.payment_service.utils.helper.SignAndVerifyDataHelper;
 import lombok.AccessLevel;
@@ -40,7 +41,7 @@ public class PaymentServiceImpl implements IPaymentService {
 		var payment = paymentMapper.toPayment(data);
 		try {
 			checkoutUrl = switch (data.getMethod()) {
-				case PAY_OS -> getCheckoutUrlPayOs(data);
+				case PAY_OS -> getCheckoutUrlPayOs(data, payment.getOrderCode());
 				case CASH, MOMO, ZALO_PAY, UNRECOGNIZED -> null;
 			};
 
@@ -53,24 +54,18 @@ public class PaymentServiceImpl implements IPaymentService {
 		return paymentMapper.toPaymentResponse(payment, checkoutUrl);
 	}
 
-	private String getCheckoutUrlPayOs(PaymentRequest data) throws Exception {
-		var payData = paymentMapper.toPaymentData(data);
+	private String getCheckoutUrlPayOs(PaymentRequest data, long orderCode) throws Exception {
+		var payData = paymentMapper.toPaymentData(data, orderCode);
 		return payOS.createPaymentLink(payData).getCheckoutUrl();
 	}
 
 	@Override
-	public void cancelPay(long orderId, long payOsOrderCode) throws Exception {
+	public void cancelPayByOrderId(long orderId) throws Exception {
 		var entity = paymentRepository.findByOrderId(orderId);
-		payOS.cancelPaymentLink(payOsOrderCode, "");
+		if (entity.getMethod() == PaymentMethod.PAY_OS)
+			payOS.cancelPaymentLink(entity.getOrderCode(), "");
 		updatePaymentStatus(entity, PaymentStatus.CANCELED);
 	}
-
-	@Override
-	public void paySuccess(long orderId, long payOsOrderCode) {
-		var entity = paymentRepository.findByOrderId(orderId);
-		updatePaymentStatus(entity, PaymentStatus.DONE);
-	}
-
 
 	@Override
 	public void paySuccess(long payOsOrderCode) {

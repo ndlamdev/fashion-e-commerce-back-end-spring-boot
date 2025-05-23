@@ -8,7 +8,6 @@
 
 package com.lamnguyen.order_service.mapper;
 
-import com.google.protobuf.StringValue;
 import com.lamnguyen.order_service.domain.request.CreateOrderRequest;
 import com.lamnguyen.order_service.domain.response.CreateOrderSuccessResponse;
 import com.lamnguyen.order_service.domain.response.OrderResponse;
@@ -17,7 +16,6 @@ import com.lamnguyen.order_service.model.OrderItemEntity;
 import com.lamnguyen.order_service.model.OrderStatusEntity;
 import com.lamnguyen.order_service.protos.OrderItemRequest;
 import com.lamnguyen.order_service.protos.PaymentRequest;
-import com.lamnguyen.order_service.protos.PaymentResponse;
 import com.lamnguyen.order_service.utils.enums.OrderStatus;
 import com.lamnguyen.order_service.utils.enums.PaymentMethod;
 import org.mapstruct.AfterMapping;
@@ -38,15 +36,15 @@ public interface IOrderMapper {
 	@Mapping(target = "phone", source = "order.phone")
 	@Mapping(target = "address", source = "order.addressDetail")
 	@Mapping(target = "note", source = "order.note")
-	@Mapping(target = "returnUrl", source = "orderRequest.returnUrl")
-	@Mapping(target = "cancelUrl", source = "orderRequest.cancelUrl")
-	@Mapping(target = "method", source = "orderRequest.method")
+	@Mapping(target = "returnUrl", source = "orderRequest.payment.returnUrl")
+	@Mapping(target = "cancelUrl", source = "orderRequest.payment.cancelUrl")
+	@Mapping(target = "method", source = "orderRequest.payment.method")
 	PaymentRequest toPaymentRequest(OrderEntity order, CreateOrderRequest orderRequest, List<OrderItemRequest> items);
 
 	@AfterMapping
 	default void afterMapping(@MappingTarget OrderEntity orderEntity, long customerId, List<OrderItemEntity> items) {
 		orderEntity.setStatuses(List.of(OrderStatusEntity.builder()
-				.orders(orderEntity)
+				.order(orderEntity)
 				.status(OrderStatus.PENDING)
 				.note("Đang xử lý")
 				.build()));
@@ -70,6 +68,8 @@ public interface IOrderMapper {
 		if (paymentResponse != null) {
 			var checkoutUrl = paymentResponse.getCheckoutUrl().getValue();
 			var payment = com.lamnguyen.order_service.domain.response.PaymentResponse.builder()
+					.orderCode(paymentResponse.getOrderCode().getValue())
+					.status(paymentResponse.getStatus().name())
 					.method(PaymentMethod.valueOf(paymentResponse.getMethod().name()))
 					.checkoutUrl(checkoutUrl.isBlank() ? null : checkoutUrl)
 					.build();

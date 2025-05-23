@@ -31,5 +31,5 @@ public class OrderStatusEntity extends BaseEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "order_id")
-	OrderEntity orders;
+	OrderEntity order;
 }

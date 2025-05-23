@@ -14,7 +14,5 @@ import com.lamnguyen.order_service.protos.PaymentResponse;
 public interface IPaymentGrpcClient {
 	PaymentResponse pay(PaymentRequest paymentRequest);
 
-	void cancelPay(long orderId, long payOsOrderCode);
-
-	void paySuccess(long orderId, long payOsOrderCode);
+	void cancelPay(long orderId);
 }

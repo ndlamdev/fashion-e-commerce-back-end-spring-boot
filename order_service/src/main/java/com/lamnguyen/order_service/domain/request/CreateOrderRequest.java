@@ -38,10 +38,8 @@ public class CreateOrderRequest {
 	@NotBlank
 	String province;
 	String note;
-	@NotNull
-	PaymentMethod method;
 	@NotEmpty
 	List<CreateOrderItemRequest> items;
-	String returnUrl;
-	String cancelUrl;
+	@NotNull
+	PaymentRequest payment;
 }

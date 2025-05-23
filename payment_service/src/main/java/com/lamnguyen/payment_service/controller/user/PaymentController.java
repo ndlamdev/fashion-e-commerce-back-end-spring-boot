@@ -12,6 +12,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.lamnguyen.payment_service.service.business.IPaymentService;
+import com.lamnguyen.payment_service.service.kafka.producer.IOrderKafkaProducer;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -28,14 +29,15 @@ import vn.payos.type.WebhookData;
 public class PaymentController {
 	PayOS payOS;
 	IPaymentService paymentService;
+	IOrderKafkaProducer orderKafkaProducer;
 
-	@GetMapping(path = "/{orderId}")
-	public ObjectNode getOrderById(@PathVariable("orderId") long orderId) {
+	@GetMapping(path = "/{orderCode}")
+	public ObjectNode getOrderById(@PathVariable("orderCode") long orderCode) {
 		ObjectMapper objectMapper = new ObjectMapper();
 		ObjectNode response = objectMapper.createObjectNode();
 
 		try {
-			PaymentLinkData order = payOS.getPaymentLinkInformation(orderId);
+			PaymentLinkData order = payOS.getPaymentLinkInformation(orderCode);
 
 			response.set("data", objectMapper.valueToTree(order));
 			response.put("error", 0);
@@ -51,12 +53,13 @@ public class PaymentController {
 
 	}
 
-	@PutMapping(path = "/{orderId}")
-	public ObjectNode cancelOrder(@PathVariable("orderId") int orderId) {
+	@PutMapping(path = "/{orderCode}")
+	public ObjectNode cancelOrder(@PathVariable("orderCode") int orderCode) {
 		ObjectMapper objectMapper = new ObjectMapper();
 		ObjectNode response = objectMapper.createObjectNode();
 		try {
-			PaymentLinkData order = payOS.cancelPaymentLink(orderId, null);
+			PaymentLinkData order = payOS.cancelPaymentLink(orderCode, null);
+			orderKafkaProducer.removeOrder(orderCode);
 			response.set("data", objectMapper.valueToTree(order));
 			response.put("error", 0);
 			response.put("message", "ok");

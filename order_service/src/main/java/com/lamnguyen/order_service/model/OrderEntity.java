@@ -36,6 +36,6 @@ public class OrderEntity extends BaseEntity {
 	String note;
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	List<OrderItemEntity> items;
-	@OneToMany(mappedBy = "orders", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	List<OrderStatusEntity> statuses;
 }

@@ -8,7 +8,7 @@
 
 package com.lamnguyen.order_service.service.grpc.v1;
 
-import com.lamnguyen.order_service.protos.OrderRequest;
+import com.lamnguyen.order_service.protos.OrderIdRequest;
 import com.lamnguyen.order_service.protos.PaymentRequest;
 import com.lamnguyen.order_service.protos.PaymentResponse;
 import com.lamnguyen.order_service.protos.PaymentServiceGrpc;
@@ -22,30 +22,20 @@ import org.springframework.stereotype.Service;
 @Service
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class PaymentGrpcClientImpl implements IPaymentGrpcClient {
-    @GrpcClient("fashion-e-commerce-payment-service")
-    @NonFinal
-    public PaymentServiceGrpc.PaymentServiceBlockingStub paymentServiceBlockingStub;
+	@GrpcClient("fashion-e-commerce-payment-service")
+	@NonFinal
+	public PaymentServiceGrpc.PaymentServiceBlockingStub paymentServiceBlockingStub;
 
-    @Override
-    public PaymentResponse pay(PaymentRequest paymentRequest) {
-        return paymentServiceBlockingStub.pay(paymentRequest);
-    }
+	@Override
+	public PaymentResponse pay(PaymentRequest paymentRequest) {
+		return paymentServiceBlockingStub.pay(paymentRequest);
+	}
 
-    @Override
-    public void cancelPay(long orderId, long payOsOrderCode) {
-        var request = OrderRequest.newBuilder()
-                .setOrderId(orderId)
-                .setPayOsOrderCode(payOsOrderCode)
-                .build();
-        var ignored = paymentServiceBlockingStub.cancelOrder(request);
-    }
-
-    @Override
-    public void paySuccess(long orderId, long payOsOrderCode) {
-        var request = OrderRequest.newBuilder()
-                .setOrderId(orderId)
-                .setPayOsOrderCode(payOsOrderCode)
-                .build();
-        var ignored = paymentServiceBlockingStub.paySuccess(request);
-    }
+	@Override
+	public void cancelPay(long orderId) {
+		var request = OrderIdRequest.newBuilder()
+				.setId(orderId)
+				.build();
+		var ignored = paymentServiceBlockingStub.cancelOrder(request);
+	}
 }

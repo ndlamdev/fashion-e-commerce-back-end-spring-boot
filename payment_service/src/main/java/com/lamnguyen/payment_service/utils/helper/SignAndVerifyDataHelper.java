@@ -17,12 +17,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import net.minidev.json.JSONObject;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.springframework.stereotype.Component;
 import vn.payos.type.PaymentData;
-
-import java.util.*;
 
 @Component
 @RequiredArgsConstructor

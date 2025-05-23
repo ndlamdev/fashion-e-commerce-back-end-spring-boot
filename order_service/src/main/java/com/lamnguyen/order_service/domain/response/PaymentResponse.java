@@ -18,6 +18,9 @@ import lombok.Setter;
 @Setter
 @Builder
 public class PaymentResponse {
+	@JsonProperty("order_code")
+	long orderCode;
+	String status;
 	PaymentMethod method;
 	@JsonProperty("checkout_url")
 	String checkoutUrl;

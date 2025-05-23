@@ -11,6 +11,7 @@ package com.lamnguyen.order_service.controller.user;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.lamnguyen.order_service.domain.request.CreateOrderRequest;
+import com.lamnguyen.order_service.domain.request.OrderIdRequest;
 import com.lamnguyen.order_service.domain.response.CreateOrderSuccessResponse;
 import com.lamnguyen.order_service.service.business.IOrderService;
 import com.lamnguyen.order_service.utils.annotation.ApiMessageResponse;
@@ -31,24 +32,18 @@ import java.util.Map;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RequestMapping("/order/v1")
 public class OrderController {
-    IOrderService orderService;
+	IOrderService orderService;
 
-    @PostMapping()
-    @ApiMessageResponse("create order success")
-    @PreAuthorize("hasAnyAuthority('ROLE_BASE', 'ROLE_ADMIN', 'CREATE_ORDER')")
-    public CreateOrderSuccessResponse createOrder(@RequestBody @Valid CreateOrderRequest order, HttpServletRequest request) {
-        return orderService.createOrder(order);
-    }
+	@PostMapping()
+	@ApiMessageResponse("create order success")
+	@PreAuthorize("hasAnyAuthority('ROLE_BASE', 'ROLE_ADMIN', 'CREATE_ORDER')")
+	public CreateOrderSuccessResponse createOrder(@RequestBody @Valid CreateOrderRequest order, HttpServletRequest request) {
+		return orderService.createOrder(order);
+	}
 
-    @GetMapping("/cancel")
-    @ApiMessageResponse("Cancel order success")
-    public void cancelOrder(@RequestParam("order-id") long orderId, @RequestParam("orderCode") long payOsOrderCode) {
-        orderService.cancelOrder(orderId, payOsOrderCode);
-    }
-
-    @GetMapping("/pay-success")
-    @ApiMessageResponse("Pay order success")
-    public void payOrderSuccess(@RequestParam("order-id") long orderId, @RequestParam("orderCode") long payOsOrderCode) {
-        orderService.paySuccess(orderId, payOsOrderCode);
-    }
+	@PostMapping("/cancel")
+	@ApiMessageResponse("Cancel order success")
+	public void cancelOrder(@RequestBody OrderIdRequest orderIdRequest) {
+		orderService.cancelOrder(orderIdRequest.orderId());
+	}
 }

@@ -15,4 +15,6 @@ public interface IOrderStatusService {
 	OrderStatusEntity addStatus(long orderId,
 	                            OrderStatus status,
 	                            String note);
+
+	void deleteAllByOrderId(long orderId);
 }

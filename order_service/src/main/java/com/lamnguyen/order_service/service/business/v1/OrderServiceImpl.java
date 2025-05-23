@@ -22,6 +22,7 @@ import com.lamnguyen.order_service.protos.OrderItemRequest;
 import com.lamnguyen.order_service.protos.PayStatus;
 import com.lamnguyen.order_service.protos.VariantProductInfo;
 import com.lamnguyen.order_service.repository.IOrderRepository;
+import com.lamnguyen.order_service.service.business.IOrderItemService;
 import com.lamnguyen.order_service.service.business.IOrderService;
 import com.lamnguyen.order_service.service.business.IOrderStatusService;
 import com.lamnguyen.order_service.service.grpc.IInventoryGrpcClient;
@@ -55,6 +56,7 @@ public class OrderServiceImpl implements IOrderService {
 	IOrderStatusService orderStatusService;
 	JwtTokenUtil jwtTokenUtil;
 	ICartKafkaService cartKafkaService;
+	IOrderItemService orderItemService;
 
 	@Override
 	public CreateOrderSuccessResponse createOrder(CreateOrderRequest order) {
@@ -115,16 +117,16 @@ public class OrderServiceImpl implements IOrderService {
 	}
 
 	@Override
-	public void cancelOrder(long orderId, long payOsOrderCode) {
+	public void cancelOrder(long orderId) {
 		var order = orderRepository.findById(orderId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
-		paymentGrpcClient.cancelPay(orderId, payOsOrderCode);
+		paymentGrpcClient.cancelPay(orderId);
 		orderStatusService.addStatus(order.getId(), OrderStatus.CANCEL, "Hủy đơn hàng");
 	}
 
 	@Override
-	public void paySuccess(long orderCode, long payOsOrderCode) {
-		var order = orderRepository.findById(orderCode).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
-		paymentGrpcClient.paySuccess(orderCode, payOsOrderCode);
-		orderStatusService.addStatus(order.getId(), OrderStatus.SHIPPING, "Đang trong quá trình vận chuyển");
+	public void deleteOrder(long orderId) {
+		orderItemService.deleteAllByOrderId(orderId);
+		orderStatusService.deleteAllByOrderId(orderId);
+		orderRepository.deleteById(orderId);
 	}
 }

@@ -14,9 +14,8 @@ import com.lamnguyen.payment_service.protos.PaymentResponse;
 public interface IPaymentService {
 	PaymentResponse pay(PaymentRequest data);
 
-	void cancelPay(long orderId, long payOsOrderCode) throws Exception;
+	void cancelPayByOrderId(long orderId) throws Exception;
 
-	void paySuccess(long orderId, long payOsOrderCode);
 
 	void paySuccess(long payOsOrderCode);
 }

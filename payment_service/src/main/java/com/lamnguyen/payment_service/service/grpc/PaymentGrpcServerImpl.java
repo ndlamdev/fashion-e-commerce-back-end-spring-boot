@@ -9,7 +9,7 @@
 package com.lamnguyen.payment_service.service.grpc;
 
 import com.google.protobuf.Empty;
-import com.lamnguyen.payment_service.protos.OrderRequest;
+import com.lamnguyen.payment_service.protos.OrderIdRequest;
 import com.lamnguyen.payment_service.protos.PaymentRequest;
 import com.lamnguyen.payment_service.protos.PaymentResponse;
 import com.lamnguyen.payment_service.protos.PaymentServiceGrpc;
@@ -37,18 +37,10 @@ public class PaymentGrpcServerImpl extends PaymentServiceGrpc.PaymentServiceImpl
 	}
 
 	@Override
-	public void paySuccess(OrderRequest request, StreamObserver<Empty> responseObserver) {
-		log.info("Pay success request: {}", request);
-		paymentService.paySuccess(request.getOrderId(), request.getPayOsOrderCode());
-		responseObserver.onNext(Empty.getDefaultInstance());
-		responseObserver.onCompleted();
-	}
-
-	@Override
-	public void cancelOrder(OrderRequest request, StreamObserver<Empty> responseObserver) {
+	public void cancelOrder(OrderIdRequest request, StreamObserver<Empty> responseObserver) {
 		log.info("Cancel order request: {}", request);
 		try {
-			paymentService.cancelPay(request.getOrderId(), request.getPayOsOrderCode());
+			paymentService.cancelPayByOrderId(request.getId());
 			responseObserver.onNext(Empty.getDefaultInstance());
 			responseObserver.onCompleted();
 		} catch (Exception e) {

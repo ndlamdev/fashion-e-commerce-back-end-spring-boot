@@ -17,6 +17,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,9 +30,15 @@ public class OrderStatusServiceImpl implements IOrderStatusService {
 	@Override
 	public OrderStatusEntity addStatus(long orderId, OrderStatus status, String note) {
 		return orderStatusRepository.save(OrderStatusEntity.builder()
-				.orders(OrderEntity.builder().id(orderId).build())
+				.order(OrderEntity.builder().id(orderId).build())
 				.note(note)
 				.status(status)
 				.build());
+	}
+
+	@Override
+	@Transactional
+	public void deleteAllByOrderId(long orderId) {
+		orderStatusRepository.deleteAllByOrder_Id(orderId);
 	}
 }
