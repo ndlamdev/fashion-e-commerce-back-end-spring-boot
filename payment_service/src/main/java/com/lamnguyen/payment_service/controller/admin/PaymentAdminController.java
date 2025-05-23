@@ -25,7 +25,7 @@ import vn.payos.PayOS;
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
-@RequestMapping("/amin/payment/v1")
+@RequestMapping("/admin/payment/v1")
 public class PaymentAdminController {
 	PayOS payOS;
 
