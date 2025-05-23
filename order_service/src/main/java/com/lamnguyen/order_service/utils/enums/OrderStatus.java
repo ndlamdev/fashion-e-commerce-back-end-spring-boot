@@ -9,5 +9,5 @@
 package com.lamnguyen.order_service.utils.enums;
 
 public enum OrderStatus {
-	PENDING, PAYMENT, SHIPPING, COMPLETED, CANCEL
+	PENDING, SUCCESS, SHIPPING, COMPLETED, CANCEL
 }

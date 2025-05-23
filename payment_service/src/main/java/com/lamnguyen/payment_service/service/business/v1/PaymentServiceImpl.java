@@ -10,11 +10,13 @@ package com.lamnguyen.payment_service.service.business.v1;
 
 import com.lamnguyen.payment_service.config.PayOsConfig;
 import com.lamnguyen.payment_service.mapper.IPaymentMapper;
+import com.lamnguyen.payment_service.model.Payment;
 import com.lamnguyen.payment_service.protos.PaymentRequest;
 import com.lamnguyen.payment_service.protos.PaymentResponse;
 import com.lamnguyen.payment_service.repository.IPaymentRepository;
 import com.lamnguyen.payment_service.service.business.IPaymentService;
 import com.lamnguyen.payment_service.utils.enums.PaymentStatus;
+import com.lamnguyen.payment_service.utils.helper.SignAndVerifyDataHelper;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -30,7 +32,6 @@ import vn.payos.type.PaymentData;
 public class PaymentServiceImpl implements IPaymentService {
 	IPaymentMapper paymentMapper;
 	PayOS payOS;
-	PayOsConfig payOsConfig;
 	IPaymentRepository paymentRepository;
 
 	@Override
@@ -60,13 +61,25 @@ public class PaymentServiceImpl implements IPaymentService {
 	@Override
 	public void cancelPay(long orderId, long payOsOrderCode) throws Exception {
 		var entity = paymentRepository.findByOrderId(orderId);
-		entity.setStatus(PaymentStatus.CANCELED);
 		payOS.cancelPaymentLink(payOsOrderCode, "");
+		updatePaymentStatus(entity, PaymentStatus.CANCELED);
 	}
 
 	@Override
 	public void paySuccess(long orderId, long payOsOrderCode) {
 		var entity = paymentRepository.findByOrderId(orderId);
-		entity.setStatus(PaymentStatus.DONE);
+		updatePaymentStatus(entity, PaymentStatus.DONE);
+	}
+
+
+	@Override
+	public void paySuccess(long payOsOrderCode) {
+		var entity = paymentRepository.findByOrderCode(payOsOrderCode);
+		updatePaymentStatus(entity, PaymentStatus.DONE);
+	}
+
+	private void updatePaymentStatus(Payment payment, PaymentStatus status) {
+		payment.setStatus(status);
+		paymentRepository.save(payment);
 	}
 }

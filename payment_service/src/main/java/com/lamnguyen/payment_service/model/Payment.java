@@ -28,6 +28,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 public class Payment extends BaseEntity {
 	long orderId;
+	long orderCode;
 	PaymentStatus status;
 	PaymentMethod method;
 }

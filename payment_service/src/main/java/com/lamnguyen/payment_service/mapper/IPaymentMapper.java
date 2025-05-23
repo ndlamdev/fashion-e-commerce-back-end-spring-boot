@@ -8,10 +8,12 @@
 
 package com.lamnguyen.payment_service.mapper;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.lamnguyen.payment_service.model.Payment;
 import com.lamnguyen.payment_service.protos.PaymentRequest;
 import com.lamnguyen.payment_service.protos.PaymentResponse;
 import com.lamnguyen.payment_service.utils.enums.PaymentMethod;
+import com.lamnguyen.payment_service.utils.helper.SignAndVerifyDataHelper;
 import org.mapstruct.*;
 import vn.payos.type.PaymentData;
 
@@ -26,10 +28,31 @@ public interface IPaymentMapper {
 	@Mapping(target = "returnUrl", source = "data.returnUrl")
 	@Mapping(target = "cancelUrl", source = "data.cancelUrl")
 	@Mapping(target = "items", source = "data.itemsList")
+	PaymentData toPaymentData(PaymentRequest data, SignAndVerifyDataHelper signAndVerifyDataHelper) throws Exception;
+
+	@Mapping(target = "buyerName", source = "data.name")
+	@Mapping(target = "buyerEmail", source = "data.email")
+	@Mapping(target = "buyerPhone", source = "data.phone")
+	@Mapping(target = "buyerAddress", source = "data.address")
+	@Mapping(target = "description", source = "data.note")
+	@Mapping(target = "orderCode", source = "data.orderId")
+	@Mapping(target = "returnUrl", source = "data.returnUrl")
+	@Mapping(target = "cancelUrl", source = "data.cancelUrl")
+	@Mapping(target = "items", source = "data.itemsList")
 	PaymentData toPaymentData(PaymentRequest data) throws Exception;
 
 	@AfterMapping
-	default void afterMapping(PaymentRequest data, @MappingTarget PaymentData.PaymentDataBuilder paymentData) {
+	default void afterMapping(PaymentRequest data, SignAndVerifyDataHelper signAndVerifyDataHelper, @MappingTarget PaymentData.PaymentDataBuilder paymentData) throws JsonProcessingException {
+		data.getItemsList()
+				.stream()
+				.map(it -> it.getPrice() * it.getQuantity()).reduce(Integer::sum)
+				.ifPresent(paymentData::amount);
+		paymentData.orderCode(System.currentTimeMillis());
+		paymentData.signature(signAndVerifyDataHelper.generateSignature(paymentData.build()));
+	}
+
+	@AfterMapping
+	default void afterMapping(PaymentRequest data, @MappingTarget PaymentData.PaymentDataBuilder paymentData) throws JsonProcessingException {
 		data.getItemsList()
 				.stream()
 				.map(it -> it.getPrice() * it.getQuantity()).reduce(Integer::sum)

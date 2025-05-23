@@ -46,86 +46,85 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class OrderServiceImpl implements IOrderService {
-    IOrderMapper orderMapper;
-    IOrderItemMapper orderItemMapper;
-    IOrderRepository orderRepository;
-    IProductGrpcClient productGrpcClient;
-    IInventoryGrpcClient inventoryGrpcClient;
-    IPaymentGrpcClient paymentGrpcClient;
-    IOrderStatusService orderStatusService;
-    JwtTokenUtil jwtTokenUtil;
-    ICartKafkaService cartKafkaService;
+	IOrderMapper orderMapper;
+	IOrderItemMapper orderItemMapper;
+	IOrderRepository orderRepository;
+	IProductGrpcClient productGrpcClient;
+	IInventoryGrpcClient inventoryGrpcClient;
+	IPaymentGrpcClient paymentGrpcClient;
+	IOrderStatusService orderStatusService;
+	JwtTokenUtil jwtTokenUtil;
+	ICartKafkaService cartKafkaService;
 
-    @Override
-    public CreateOrderSuccessResponse createOrder(CreateOrderRequest order) {
-        Map<String, VariantProductInfo> variants = null;
-        OrderEntity entity = null;
-        var mapQuantities = order.getItems().stream().collect(Collectors.toMap(CreateOrderItemRequest::getVariantId, CreateOrderItemRequest::getQuantity));
-        try {
-            var mapUpdateVariant = order.getItems().stream().collect(Collectors.toMap(CreateOrderItemRequest::getVariantId, it -> -it.getQuantity()));
-            variants = inventoryGrpcClient.updateQuantityByVariantIds(mapUpdateVariant);
-            if (variants.size() != mapUpdateVariant.size())
-                throw ApplicationException.createException(ExceptionEnum.NOT_FAIL_VARIANT);
+	@Override
+	public CreateOrderSuccessResponse createOrder(CreateOrderRequest order) {
+		Map<String, VariantProductInfo> variants = null;
+		OrderEntity entity = null;
+		var mapQuantities = order.getItems().stream().collect(Collectors.toMap(CreateOrderItemRequest::getVariantId, CreateOrderItemRequest::getQuantity));
+		try {
+			var mapUpdateVariant = order.getItems().stream().collect(Collectors.toMap(CreateOrderItemRequest::getVariantId, it -> -it.getQuantity()));
+			variants = inventoryGrpcClient.updateQuantityByVariantIds(mapUpdateVariant);
+			if (variants.size() != mapUpdateVariant.size())
+				throw ApplicationException.createException(ExceptionEnum.NOT_FAIL_VARIANT);
 
-            var listOrderItemRequest = new ArrayList<OrderItemRequest>(variants.size());
-            var orderItems = new ArrayList<OrderItemEntity>(variants.size());
-            createOrderHelper(variants, mapQuantities, listOrderItemRequest, orderItems);
-            var customerId = jwtTokenUtil.getUserId();
-            entity = orderRepository.save(orderMapper.toEntity(order, customerId, orderItems));
-            var paymentRequest = orderMapper.toPaymentRequest(entity, order, listOrderItemRequest);
-            orderStatusService.addStatus(entity.getId(), OrderStatus.PAYMENT, "Đang tiến hành thanh toán");
-            var paymentResponse = paymentGrpcClient.pay(paymentRequest);
-            if (paymentResponse.getStatus() == PayStatus.FAIL)
-                throw ApplicationException.createException(ExceptionEnum.PAY_FAIL);
-            if (order.getMethod() == PaymentMethod.CASH)
-                orderStatusService.addStatus(entity.getId(), OrderStatus.SHIPPING, "Đang trong quá trình vận chuyển");
+			var listOrderItemRequest = new ArrayList<OrderItemRequest>(variants.size());
+			var orderItems = new ArrayList<OrderItemEntity>(variants.size());
+			createOrderHelper(variants, mapQuantities, listOrderItemRequest, orderItems);
+			var customerId = jwtTokenUtil.getUserId();
+			entity = orderRepository.save(orderMapper.toEntity(order, customerId, orderItems));
+			orderStatusService.addStatus(entity.getId(), OrderStatus.PENDING, "Đơn hàng đang chờ xử lý");
+			var paymentRequest = orderMapper.toPaymentRequest(entity, order, listOrderItemRequest);
+			var paymentResponse = paymentGrpcClient.pay(paymentRequest);
+			if (paymentResponse.getStatus() == PayStatus.FAIL)
+				throw ApplicationException.createException(ExceptionEnum.PAY_FAIL);
 
-            cartKafkaService.deleteCartItems(DeleteCartItemsEvent.builder()
-                    .userId(customerId)
-                    .variantIds(mapQuantities.keySet().stream().toList())
-                    .build());
-            return orderMapper.toCreateOrderSuccessResponse(entity, paymentResponse);
-        } catch (Exception e) {
-            if (variants != null)
-                rollback(variants, order.getItems());
-            if (entity != null)
-                orderStatusService.addStatus(entity.getId(), OrderStatus.CANCEL, "Lỗi thanh toán");
-            throw new RuntimeException(e);
-        }
-    }
+			orderStatusService.addStatus(entity.getId(), OrderStatus.SUCCESS, "Đặt hàng thành công.");
+			cartKafkaService.deleteCartItems(DeleteCartItemsEvent.builder()
+					.userId(customerId)
+					.variantIds(mapQuantities.keySet().stream().toList())
+					.build());
+			return orderMapper.toCreateOrderSuccessResponse(entity, paymentResponse);
+		} catch (Exception e) {
+			if (variants != null)
+				rollback(variants, order.getItems());
+			if (entity != null)
+				orderStatusService.addStatus(entity.getId(), OrderStatus.CANCEL, "Lỗi thanh toán");
+			throw new RuntimeException(e);
+		}
+	}
 
-    private void createOrderHelper(Map<String, VariantProductInfo> variants,
-                                   Map<String, Integer> mapQuantities,
-                                   List<OrderItemRequest> listOrderItemRequest,
-                                   List<OrderItemEntity> orderItems) {
-        var listTask = new ArrayList<CompletableFuture<Void>>();
-        variants.values().forEach(
-                variant ->
-                        listTask.add(CompletableFuture.runAsync(() -> {
-                            var product = productGrpcClient.getProductDto(variant.getProductId());
-                            listOrderItemRequest.add(orderItemMapper.toItemData(mapQuantities.getOrDefault(variant.getId(), 1), variant, product));
-                            orderItems.add(orderItemMapper.toOrderItemEntity(variant, mapQuantities.getOrDefault(variant.getId(), 1)));
-                        }))
-        );
-        CompletableFuture.allOf(listTask.toArray(CompletableFuture[]::new)).join();
-    }
+	private void createOrderHelper(Map<String, VariantProductInfo> variants,
+	                               Map<String, Integer> mapQuantities,
+	                               List<OrderItemRequest> listOrderItemRequest,
+	                               List<OrderItemEntity> orderItems) {
+		var listTask = new ArrayList<CompletableFuture<Void>>();
+		variants.values().forEach(
+				variant ->
+						listTask.add(CompletableFuture.runAsync(() -> {
+							var product = productGrpcClient.getProductDto(variant.getProductId());
+							listOrderItemRequest.add(orderItemMapper.toItemData(mapQuantities.getOrDefault(variant.getId(), 1), variant, product));
+							orderItems.add(orderItemMapper.toOrderItemEntity(variant, mapQuantities.getOrDefault(variant.getId(), 1)));
+						}))
+		);
+		CompletableFuture.allOf(listTask.toArray(CompletableFuture[]::new)).join();
+	}
 
-    private void rollback(Map<String, VariantProductInfo> variants, List<CreateOrderItemRequest> items) {
-        var mapUpdateVariant = items.stream().filter(it -> variants.containsKey(it.getVariantId())).collect(Collectors.toMap(CreateOrderItemRequest::getVariantId, CreateOrderItemRequest::getQuantity));
-        inventoryGrpcClient.updateQuantityByVariantIds(mapUpdateVariant);
-    }
+	private void rollback(Map<String, VariantProductInfo> variants, List<CreateOrderItemRequest> items) {
+		var mapUpdateVariant = items.stream().filter(it -> variants.containsKey(it.getVariantId())).collect(Collectors.toMap(CreateOrderItemRequest::getVariantId, CreateOrderItemRequest::getQuantity));
+		inventoryGrpcClient.updateQuantityByVariantIds(mapUpdateVariant);
+	}
 
-    @Override
-    public void cancelOrder(long orderId, long payOsOrderCode) {
-        var order = orderRepository.findById(orderId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
-        paymentGrpcClient.cancelPay(orderId, payOsOrderCode);
-        orderStatusService.addStatus(order.getId(), OrderStatus.CANCEL, "Hủy đơn hàng");
-    }
+	@Override
+	public void cancelOrder(long orderId, long payOsOrderCode) {
+		var order = orderRepository.findById(orderId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
+		paymentGrpcClient.cancelPay(orderId, payOsOrderCode);
+		orderStatusService.addStatus(order.getId(), OrderStatus.CANCEL, "Hủy đơn hàng");
+	}
 
-    @Override
-    public void paySuccess(long orderCode, long payOsOrderCode) {
-        var order = orderRepository.findById(orderCode).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
-        paymentGrpcClient.paySuccess(orderCode, payOsOrderCode);
-        orderStatusService.addStatus(order.getId(), OrderStatus.SHIPPING, "Đang trong quá trình vận chuyển");
-    }
+	@Override
+	public void paySuccess(long orderCode, long payOsOrderCode) {
+		var order = orderRepository.findById(orderCode).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
+		paymentGrpcClient.paySuccess(orderCode, payOsOrderCode);
+		orderStatusService.addStatus(order.getId(), OrderStatus.SHIPPING, "Đang trong quá trình vận chuyển");
+	}
 }

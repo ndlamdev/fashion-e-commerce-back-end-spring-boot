@@ -8,24 +8,21 @@
 
 package com.lamnguyen.payment_service.utils.helper;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.lamnguyen.payment_service.config.PayOsConfig;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
-import org.springframework.beans.factory.annotation.Value;
+import net.minidev.json.JSONObject;
+import org.apache.commons.codec.digest.HmacUtils;
 import org.springframework.stereotype.Component;
 import vn.payos.type.PaymentData;
 
-import java.security.KeyFactory;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.Signature;
-import java.security.spec.PKCS8EncodedKeySpec;
-import java.security.spec.X509EncodedKeySpec;
-import java.util.Base64;
+import java.util.*;
 
 @Component
 @RequiredArgsConstructor
@@ -33,44 +30,27 @@ import java.util.Base64;
 @Setter
 @Getter
 public class SignAndVerifyDataHelper {
-	@Value("${application.payos.key.private-key}")
-	@NonFinal
-	String privateKey;
+	PayOsConfig payOsConfig;
 
-	@Value("${application.payos.key.public-key}")
-	@NonFinal
-	String publicKey;
-	ObjectMapper objectMapper;
-
-
-	private PrivateKey loadPrivateKey() throws Exception {
-		byte[] decoded = Base64.getDecoder().decode(privateKey);
-
-		PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(decoded);
-		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-		return keyFactory.generatePrivate(keySpec);
+	public Boolean isValidData(String transactionStr, String transactionSignature) {
+		try {
+			String signature = new HmacUtils("HmacSHA256", payOsConfig.getChecksumKey()).hmacHex(transactionStr);
+			return signature.equals(transactionSignature);
+		} catch (Exception e) {
+			e.printStackTrace(System.err);
+		}
+		return false;
 	}
 
-	private PublicKey loadPublicKey() throws Exception {
-		byte[] decoded = Base64.getDecoder().decode(publicKey);
-
-		X509EncodedKeySpec keySpec = new X509EncodedKeySpec(decoded);
-		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-		return keyFactory.generatePublic(keySpec);
+	public String createTransactionStr(PaymentData data) throws JsonProcessingException {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS); // Sắp theo alphabet
+		mapper.enable(SerializationFeature.INDENT_OUTPUT); // Format đẹp
+		return mapper.writeValueAsString(data);
 	}
 
-	public String sign(PaymentData data) throws Exception {
-		var message = objectMapper.writeValueAsString(data);
-		Signature signature = Signature.getInstance("SHA256withRSA");
-		signature.initSign(loadPrivateKey());
-		signature.update(message.getBytes());
-		return Base64.getEncoder().encodeToString(signature.sign());
-	}
-
-	public boolean verify(String data, String signatureBytes) throws Exception {
-		Signature signature = Signature.getInstance("SHA256withRSA");
-		signature.initVerify(loadPublicKey());
-		signature.update(data.getBytes());
-		return signature.verify(Base64.getDecoder().decode(signatureBytes));
+	public String generateSignature(PaymentData data) throws JsonProcessingException {
+		var transactionStr = createTransactionStr(data);
+		return new HmacUtils("HmacSHA256", payOsConfig.getChecksumKey()).hmacHex(transactionStr);
 	}
 }
