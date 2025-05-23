@@ -48,6 +48,7 @@ public interface IPaymentMapper {
 			@Mapping(target = "id", source = "payment.id"),
 			@Mapping(target = "status", source = "payment.status"),
 			@Mapping(target = "method", source = "payment.method"),
+			@Mapping(target = "orderCode", source = "payment.orderCode"),
 	})
 	PaymentResponse toPaymentResponse(Payment payment, String checkoutUrl);
 
@@ -58,6 +59,6 @@ public interface IPaymentMapper {
 
 	@AfterMapping
 	default void afterMapping(PaymentRequest orderRequest, @MappingTarget Payment payment) {
-		payment.setOrderCode(orderRequest.getOrderId());
+		payment.setOrderCode(System.currentTimeMillis());
 	}
 }
