@@ -29,6 +29,8 @@ public interface IAddressService {
     void setCountAddressLimited(Integer limit);
 
     void setDefaultAddress(Long oldId, Long newId);
+
     void setDefaultAddress(Long oldId, Long newId, Long customerId);
 
+    AddressResponse getDefaultAddress();
 }

@@ -34,6 +34,13 @@ public class AddressController {
         return service.getAddressById(id);
     }
 
+    @GetMapping("/default")
+    @PreAuthorize("hasAnyAuthority('USER_GET_BY_ADDRESS_ID', 'ROLE_BASE', 'ROLE_ADMIN')")
+    @ApiMessageResponse("Get address default")
+    public AddressResponse getDefaultAddress() {
+        return service.getDefaultAddress();
+    }
+
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('USER_SAVE_ADDRESS', 'ROLE_BASE', 'ROLE_ADMIN')")
     @ApiMessageResponse("save address")
