@@ -7,13 +7,12 @@ import com.lamnguyen.profile_service.utils.enums.SexEnum;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
 import org.hibernate.validator.constraints.Range;
 
 import java.time.LocalDate;
 
 @ValidInternationalPhone(phoneField = "phone", countryField = "countryCode")
-public record SaveCustomerRequest(
+public record SaveProfileRequest(
         @NotNull(message = "Require fullName is not null")
         @JsonProperty("full_name")
         String fullName,

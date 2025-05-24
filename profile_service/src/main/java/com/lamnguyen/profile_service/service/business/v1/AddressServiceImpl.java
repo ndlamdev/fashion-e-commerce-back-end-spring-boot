@@ -5,7 +5,7 @@ import com.lamnguyen.profile_service.config.exception.ExceptionEnum;
 import com.lamnguyen.profile_service.domain.request.SaveAddressRequest;
 import com.lamnguyen.profile_service.domain.response.AddressResponse;
 import com.lamnguyen.profile_service.mapper.IAddressMapper;
-import com.lamnguyen.profile_service.model.entity.Customer;
+import com.lamnguyen.profile_service.model.entity.Profile;
 import com.lamnguyen.profile_service.repository.IAddressRepository;
 import com.lamnguyen.profile_service.service.business.IAddressService;
 import com.lamnguyen.profile_service.service.kafka.producer.v1.AddressProducerImpl;
@@ -26,17 +26,17 @@ public class AddressServiceImpl implements IAddressService {
 	IAddressMapper mapper;
 	IAddressRepository repository;
 	JwtTokenUtil jwtTokenUtil;
-	AddressProducerImpl customerProducer;
+	AddressProducerImpl addressProducer;
 
 	@Override
-	public AddressResponse saveAddress(SaveAddressRequest request, Long id, Long customerId) {
-		var address = repository.findAddressByIdAndCustomer_UserIdAndLockIsFalse(id, customerId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
+	public AddressResponse saveAddress(SaveAddressRequest request, Long id, Long userId) {
+		var address = repository.findAddressByIdAndUserIdAndLockIsFalse(id, userId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
 		address = mapper.toAddress(request);
 		address.setId(id);
-		address.setCustomer(Customer.builder().id(customerId).build());
+		address.setUserId(userId);
 		if (request.active()) {
-			repository.activeAddress(customerId, id);
-			customerProducer.sendInfoAddressShipping(mapper.toInfoAddressShipping(address)); // send info-address-topic
+			repository.activeAddress(userId, id);
+			addressProducer.sendInfoAddressShipping(mapper.toInfoAddressShipping(address)); // send info-address-topic
 		}
 		return mapper.toAddressResponse(repository.save(address));
 	}
@@ -47,8 +47,8 @@ public class AddressServiceImpl implements IAddressService {
 	}
 
 	@Override
-	public AddressResponse addAddress(SaveAddressRequest request, Long customerId) {
-		var addresses = getAddresses(customerId);
+	public AddressResponse addAddress(SaveAddressRequest request, Long userId) {
+		var addresses = getAddresses(userId);
 		var addressDefault = addresses.stream()
 				.filter(AddressResponse::active)
 				.findFirst()
@@ -57,10 +57,11 @@ public class AddressServiceImpl implements IAddressService {
 			throw ApplicationException.createException(ExceptionEnum.ADDRESS_LARGER_LIMITED);
 		var address = mapper.toAddress(request);
 		if (addresses.isEmpty()) address.setActive(true);
-		if (addressDefault != null && address.getActive()) repository.inactiveAddress(addressDefault.id(), customerId);
+		if (addressDefault != null && address.getActive()) repository.inactiveAddress(addressDefault.id(), userId);
 		if (address.getActive())
-			customerProducer.sendInfoAddressShipping(mapper.toInfoAddressShipping(address)); // send info-address-topic
-		address.setCustomer(Customer.builder().id(customerId).build());
+			addressProducer.sendInfoAddressShipping(mapper.toInfoAddressShipping(address)); // send info-address-topic
+
+		address.setUserId(userId);
 		return mapper.toAddressResponse(repository.save(address));
 	}
 
@@ -71,8 +72,8 @@ public class AddressServiceImpl implements IAddressService {
 
 
 	@Override
-	public List<AddressResponse> getAddresses(Long customerId) {
-		var addresses = repository.findAllByCustomer_UserIdAndLockIsFalse( customerId);
+	public List<AddressResponse> getAddresses(Long userId) {
+		var addresses = repository.findAllByUserIdAndLockIsFalse(userId);
 		return mapper.toAddressResponseList(addresses);
 	}
 
@@ -82,8 +83,8 @@ public class AddressServiceImpl implements IAddressService {
 	}
 
 	@Override
-	public AddressResponse getAddressById(Long id, Long customerId) {
-		var address = repository.findAddressByIdAndCustomer_UserIdAndLockIsFalse(id,  customerId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
+	public AddressResponse getAddressById(Long id, Long userId) {
+		var address = repository.findAddressByIdAndUserIdAndLockIsFalse(id, userId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
 		return mapper.toAddressResponse(address);
 	}
 
@@ -93,16 +94,16 @@ public class AddressServiceImpl implements IAddressService {
 	}
 
 	@Override
-	public void deleteAddressById(Long id, Long customerId) {
-		var address = repository.findAddressByIdAndCustomer_UserIdAndLockIsFalse(id,  customerId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
+	public void deleteAddressById(Long id, Long userId) {
+		var address = repository.findAddressByIdAndUserIdAndLockIsFalse(id, userId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
 		address.setLock(true);
 		repository.save(address);
 
-		if(!address.getActive()) return;
-		repository.findFirstByCustomer_UserIdAndLockIsFalse(customerId).ifPresent(it -> {
+		if (!address.getActive()) return;
+		repository.findFirstByUserIdAndLockIsFalse(userId).ifPresent(it -> {
 			it.setActive(true);
 			repository.save(it);
-			customerProducer.sendInfoAddressShipping(mapper.toInfoAddressShipping(address));
+			addressProducer.sendInfoAddressShipping(mapper.toInfoAddressShipping(address));
 		});
 	}
 
@@ -122,16 +123,16 @@ public class AddressServiceImpl implements IAddressService {
 	}
 
 	@Override
-	public void setDefaultAddress(Long oldId, Long newId, Long customerId) {
-		repository.findAddressByIdAndCustomer_UserIdAndLockIsFalse(oldId,  customerId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
-		repository.findAddressByIdAndCustomer_UserIdAndLockIsFalse(newId,  customerId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
-		repository.setDefaultAddress(oldId, newId, customerId);
+	public void setDefaultAddress(Long oldId, Long newId, Long userId) {
+		repository.findAddressByIdAndUserIdAndLockIsFalse(oldId, userId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
+		repository.findAddressByIdAndUserIdAndLockIsFalse(newId, userId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
+		repository.setDefaultAddress(oldId, newId, userId);
 	}
 
 	@Override
 	public AddressResponse getDefaultAddress() {
 		var userId = jwtTokenUtil.getUserId();
-		var address = repository.findByCustomer_UserIdAndLockIsFalseAndActiveIsTrue(userId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));;
+		var address = repository.findByUserIdAndLockIsFalseAndActiveIsTrue(userId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
 		return mapper.toAddressResponse(address);
 	}
 }

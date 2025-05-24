@@ -8,11 +8,11 @@
 
 package com.lamnguyen.profile_service.service.grpc;
 
-import com.lamnguyen.profile_service.mapper.ICustomerMapper;
+import com.lamnguyen.profile_service.mapper.IProfileMapper;
 import com.lamnguyen.profile_service.protos.ProfileServiceGrpc;
 import com.lamnguyen.profile_service.protos.ProfileUserRequest;
 import com.lamnguyen.profile_service.protos.ProfileUserResponse;
-import com.lamnguyen.profile_service.service.business.ICustomerService;
+import com.lamnguyen.profile_service.service.business.IProfileService;
 import io.grpc.stub.StreamObserver;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -25,13 +25,13 @@ import net.devh.boot.grpc.server.service.GrpcService;
 @Log4j2
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ProfileServiceGrpcImpl extends ProfileServiceGrpc.ProfileServiceImplBase {
-	ICustomerService customerService;
-	ICustomerMapper customerMapper;
+	IProfileService profileService;
+	IProfileMapper profileMapper;
 
 	@Override
 	public void getUserProfile(ProfileUserRequest request, StreamObserver<ProfileUserResponse> responseObserver) {
-		var data = customerService.getCustomerByUserId(request.getUserId());
-		var result = customerMapper.toUserResponse(data);
+		var data = profileService.getProfileByUserId(request.getUserId());
+		var result = profileMapper.toUserResponse(data);
 		log.info("==============================================================================================================================================================================================");
 		log.info("gRPC method: {}", "getUserProfile");
 		log.info("gRPC Data: {}", data);

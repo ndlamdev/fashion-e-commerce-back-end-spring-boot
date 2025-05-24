@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 
-public record SaveCustomerResponse(
+public record SaveProfileResponse(
         Long id,
         String fullName,
         String email,

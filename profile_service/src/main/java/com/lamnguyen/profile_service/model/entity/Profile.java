@@ -16,8 +16,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-@Table(name = "customers")
-public class Customer extends BaseEntity {
+@Table(name = "profiles")
+public class Profile extends BaseEntity {
 	@Column(nullable = false, unique = true, name = "user_id")
 	Long userId;
 
@@ -50,6 +50,4 @@ public class Customer extends BaseEntity {
 	@Builder.Default
 	@Enumerated(EnumType.STRING)
 	SexEnum gender = SexEnum.MALE;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
-	List<Address> shippingAddresses;
 }

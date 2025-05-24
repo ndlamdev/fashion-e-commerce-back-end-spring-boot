@@ -1,2 +1,2 @@
-INSERT INTO customers(id, user_id, full_name, phone, country_code, email, height, weight, avatar, gender, birthday)
+INSERT INTO profiles(id, user_id, full_name, phone, country_code, email, height, weight, avatar, gender, birthday)
 VALUES (1, 1, 'Nguyễn Đình Lam', '08553......', 'VN', 'kiminonawa1305@gmail.com', 0, 0, '', 'MALE', '2003-05-13')

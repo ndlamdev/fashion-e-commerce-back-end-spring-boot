@@ -6,7 +6,7 @@ import com.lamnguyen.profile_service.utils.enums.SexEnum;
 import java.time.LocalDate;
 import java.util.List;
 
-public record CustomerDto(
+public record ProfileDto(
         Long id,
         @JsonProperty("full_name")
         String fullName,

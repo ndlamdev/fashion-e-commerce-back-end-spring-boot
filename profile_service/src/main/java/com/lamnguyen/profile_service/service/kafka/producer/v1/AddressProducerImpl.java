@@ -20,10 +20,10 @@ import static org.springframework.kafka.support.KafkaHeaders.TOPIC;
 public class AddressProducerImpl implements IAddressProducer {
     KafkaTemplate<String, InfoAddressShipping> kafkaTemplate;
 
-    public void sendInfoAddressShipping(InfoAddressShipping infoCustomer) {
-        log.info("Send info address shipping with json to info-address-shipping-topic {}", infoCustomer);
+    public void sendInfoAddressShipping(InfoAddressShipping infoAddress) {
+        log.info("Send info address shipping with json to info-address-shipping-topic {}", infoAddress);
         Message<InfoAddressShipping> message = MessageBuilder
-                .withPayload(infoCustomer)
+                .withPayload(infoAddress)
                 .setHeader(TOPIC, "info-address-shipping-topic")
                 .build();
         kafkaTemplate.send(message);

@@ -13,17 +13,17 @@ import java.util.Optional;
 
 @Repository
 public interface IAddressRepository extends JpaRepository<Address, Long> {
-    List<Address> findAllByCustomer_UserIdAndLockIsFalse(Long userId);
+    List<Address> findAllByUserIdAndLockIsFalse(Long userId);
 
-    Optional<Address> findAddressByIdAndCustomer_UserIdAndLockIsFalse(Long id, Long userId);
+    Optional<Address> findAddressByIdAndUserIdAndLockIsFalse(Long id, Long userId);
 
-    Optional<Address> findFirstByCustomer_UserIdAndLockIsFalse(Long userId);
+    Optional<Address> findFirstByUserIdAndLockIsFalse(Long userId);
     @Modifying
     @Transactional
     @Query("""
                 UPDATE Address a
                 SET a.active = CASE WHEN a.id = :addressId THEN true ELSE false END
-                WHERE a.customer.userId = :userId
+                WHERE a.userId = :userId
             """)
     void activeAddress(@Param("userId") Long userId, @Param("addressId") Long addressId);
 
@@ -37,14 +37,14 @@ public interface IAddressRepository extends JpaRepository<Address, Long> {
                 ELSE a.active
                 END
             WHERE (a.id = :newId OR a.id = :oldId)
-                  AND a.customer.userId = :userId
+                  AND a.userId = :userId
             """)
     void setDefaultAddress(@Param("oldId") Long oldId, @Param("newId") Long  newId, @Param("userId") Long userId);
 
     @Modifying
     @Transactional
-    @Query("UPDATE Address a SET a.active = false WHERE a.customer.id = :userId AND a.id = :id")
+    @Query("UPDATE Address a SET a.active = false WHERE a.userId = :userId AND a.id = :id")
     void inactiveAddress(@Param("id") Long id, @Param("userId") Long userId);
 
-    Optional<Address> findByCustomer_UserIdAndLockIsFalseAndActiveIsTrue(long userId);
+    Optional<Address> findByUserIdAndLockIsFalseAndActiveIsTrue(long userId);
 }

@@ -9,8 +9,8 @@
 package com.lamnguyen.profile_service.controller.admin;
 
 import com.lamnguyen.profile_service.domain.ApiPaging;
-import com.lamnguyen.profile_service.domain.dto.CustomerDto;
-import com.lamnguyen.profile_service.service.business.ICustomerService;
+import com.lamnguyen.profile_service.domain.dto.ProfileDto;
+import com.lamnguyen.profile_service.service.business.IProfileService;
 import com.lamnguyen.profile_service.utils.annotation.ApiMessageResponse;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
@@ -23,23 +23,23 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/admin/profile/v1")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RequiredArgsConstructor
-public class CustomerAdminController {
-	ICustomerService customerService;
+public class ProfileAdminController {
+	IProfileService customerService;
 
 	@GetMapping()
 	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_BASE')")
 	@ApiMessageResponse("Get customer by page")
-	public ApiPaging<CustomerDto> getAllCustomers(
+	public ApiPaging<ProfileDto> getAllCustomers(
 			@Valid @RequestParam(defaultValue = "0") Integer page,
 			@Valid @RequestParam(defaultValue = "12") Integer size
 	) {
-		return customerService.getCustomers(page, size);
+		return customerService.getProfiles(page, size);
 	}
 
 	@GetMapping("/{id}")
 	@PreAuthorize("hasAnyAuthority('USER_GET_PROFILE', 'ROLE_BASE', 'ROLE_ADMIN')")
 	@ApiMessageResponse("Get customer by id")
-	public CustomerDto getCustomer(@PathVariable @Valid Long id) {
-		return customerService.getCustomerById(id);
+	public ProfileDto getCustomer(@PathVariable @Valid Long id) {
+		return customerService.getProfileById(id);
 	}
 }

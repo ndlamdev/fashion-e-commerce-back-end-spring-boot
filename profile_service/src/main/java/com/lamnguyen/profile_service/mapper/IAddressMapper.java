@@ -19,12 +19,10 @@ public interface IAddressMapper {
 
     List<AddressResponse> toAddressResponseList(List<Address> addresses);
 
-    @Mapping(source = "customer.id", target = "customerId")
     AddressDto toAddressDto(Address address);
 
     AddressDto toAddressDto(SaveAddressRequest request);
 
-    @Mapping(source = "customerId", target = "customer.id")
     Address toAddress(AddressDto address);
 
     InfoAddressShipping toInfoAddressShipping(Address address);

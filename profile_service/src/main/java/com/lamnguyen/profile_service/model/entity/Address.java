@@ -14,39 +14,38 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Table(name = "addresses")
 public class Address extends BaseEntity {
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    Customer customer;
-    @Builder.Default
-    @Column(nullable = false)
-    String fullName="";
-    @Builder.Default
-    @Column(nullable = false)
-    String phone = "";
-    @Builder.Default
-    String street = "";
-    @Column(nullable = false)
-    @Builder.Default
-    String ward = "";
-    @Column(nullable = false)
-    @Builder.Default
-    String wardCode = "";
-    @Column(nullable = false)
-    @Builder.Default
-    String district = "";
-    @Builder.Default
-    @Column(nullable = false)
-    String districtCode = "";
-    @Column(nullable = false)
-    @Builder.Default
-    String city = "";
-    @Column(nullable = false)
-    @Builder.Default
-    String cityCode = "";
-    @Column(nullable = false)
-    @Builder.Default
-    String countryCode = "";
-    @Builder.Default
-    @Column(nullable = false)
-    Boolean active = false; // dia chi mac dinh
+	@Column(nullable = false)
+	Long userId;
+	@Builder.Default
+	@Column(nullable = false)
+	String fullName = "";
+	@Builder.Default
+	@Column(nullable = false)
+	String phone = "";
+	@Builder.Default
+	String street = "";
+	@Column(nullable = false)
+	@Builder.Default
+	String ward = "";
+	@Column(nullable = false)
+	@Builder.Default
+	String wardCode = "";
+	@Column(nullable = false)
+	@Builder.Default
+	String district = "";
+	@Builder.Default
+	@Column(nullable = false)
+	String districtCode = "";
+	@Column(nullable = false)
+	@Builder.Default
+	String city = "";
+	@Column(nullable = false)
+	@Builder.Default
+	String cityCode = "";
+	@Column(nullable = false)
+	@Builder.Default
+	String countryCode = "";
+	@Builder.Default
+	@Column(nullable = false)
+	Boolean active = false; // dia chi mac dinh
 }
