@@ -9,8 +9,6 @@
 package com.lamnguyen.order_service.domain.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.lamnguyen.order_service.utils.enums.PaymentMethod;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
@@ -23,8 +21,8 @@ import java.util.List;
 @SuperBuilder
 public class OrderResponse {
 	long id;
-	@JsonProperty("customer_id")
-	Long customerId;
+	@JsonProperty("user_id")
+	Long userId;
 	String name;
 	String phone;
 	String email;

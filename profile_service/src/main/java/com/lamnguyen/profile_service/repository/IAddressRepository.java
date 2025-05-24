@@ -13,24 +13,23 @@ import java.util.Optional;
 
 @Repository
 public interface IAddressRepository extends JpaRepository<Address, Long> {
-    List<Address> findAllByCustomer_IdAndLockIsFalse( Long customerId);
+    List<Address> findAllByCustomer_UserIdAndLockIsFalse(Long userId);
 
-    Optional<Address> findAddressByIdAndCustomer_IdAndLockIsFalse(Long id, Long customerId);
+    Optional<Address> findAddressByIdAndCustomer_UserIdAndLockIsFalse(Long id, Long userId);
 
-    Optional<Address> findFirstByCustomer_IdAndLockIsFalse(Long customerId);
+    Optional<Address> findFirstByCustomer_UserIdAndLockIsFalse(Long userId);
     @Modifying
     @Transactional
     @Query("""
                 UPDATE Address a
                 SET a.active = CASE WHEN a.id = :addressId THEN true ELSE false END
-                WHERE a.customer.id = :customerId
+                WHERE a.customer.userId = :userId
             """)
-    void activeAddress(@Param("customerId") Long customerId, @Param("addressId") Long addressId);
+    void activeAddress(@Param("userId") Long userId, @Param("addressId") Long addressId);
 
     @Modifying
     @Transactional
     @Query("""
-            
             UPDATE Address a
             SET a.active = CASE
                 WHEN a.id = :newId THEN true
@@ -38,14 +37,14 @@ public interface IAddressRepository extends JpaRepository<Address, Long> {
                 ELSE a.active
                 END
             WHERE (a.id = :newId OR a.id = :oldId)
-                  AND a.customer.id = :customerId
+                  AND a.customer.userId = :userId
             """)
-    void setDefaultAddress(@Param("oldId") Long oldId, @Param("newId") Long  newId, @Param("customerId") Long customerId);
+    void setDefaultAddress(@Param("oldId") Long oldId, @Param("newId") Long  newId, @Param("userId") Long userId);
 
     @Modifying
     @Transactional
-    @Query("UPDATE Address a SET a.active = false WHERE a.customer.id = :customerId AND a.id = :id")
-    void inactiveAddress(@Param("id") Long id, @Param("customerId") Long customerId);
+    @Query("UPDATE Address a SET a.active = false WHERE a.customer.id = :userId AND a.id = :id")
+    void inactiveAddress(@Param("id") Long id, @Param("userId") Long userId);
 
-    Optional<Address> findByCustomer_IdAndLockIsFalseAndActiveIsTrue(long userId);
+    Optional<Address> findByCustomer_UserIdAndLockIsFalseAndActiveIsTrue(long userId);
 }

@@ -23,7 +23,7 @@ CREATE TABLE orders
     create_at      datetime              NULL,
     update_by      VARCHAR(255)          NULL,
     update_at      datetime              NULL,
-    customer_id    BIGINT                NOT NULL,
+    user_id    BIGINT                NOT NULL,
     name           VARCHAR(255)          NULL,
     phone          VARCHAR(255)          NULL,
     email          VARCHAR(255)          NULL,

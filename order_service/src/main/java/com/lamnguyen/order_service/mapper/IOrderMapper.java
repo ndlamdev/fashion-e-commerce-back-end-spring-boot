@@ -28,7 +28,7 @@ import java.util.List;
 @Mapper(componentModel = "spring", uses = {IOrderItemMapper.class, IOrderItemMapper.class, IGrpcMapper.class})
 public interface IOrderMapper {
 	@Mapping(source = "order.address", target = "addressDetail")
-	OrderEntity toEntity(CreateOrderRequest order, long customerId, List<OrderItemEntity> items);
+	OrderEntity toEntity(CreateOrderRequest order, long userId, List<OrderItemEntity> items);
 
 	@Mapping(target = "orderId", source = "order.id")
 	@Mapping(target = "name", source = "order.name")
@@ -42,14 +42,14 @@ public interface IOrderMapper {
 	PaymentRequest toPaymentRequest(OrderEntity order, CreateOrderRequest orderRequest, List<OrderItemRequest> items);
 
 	@AfterMapping
-	default void afterMapping(@MappingTarget OrderEntity orderEntity, long customerId, List<OrderItemEntity> items) {
+	default void afterMapping(@MappingTarget OrderEntity orderEntity, long userId, List<OrderItemEntity> items) {
 		orderEntity.setStatuses(List.of(OrderStatusEntity.builder()
 				.order(orderEntity)
 				.status(OrderStatus.PENDING)
 				.note("Đang xử lý")
 				.build()));
 		orderEntity.setItems(items);
-		orderEntity.setCustomerId(customerId);
+		orderEntity.setUserId(userId);
 	}
 
 	@AfterMapping

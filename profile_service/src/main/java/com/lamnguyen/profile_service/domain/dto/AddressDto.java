@@ -1,6 +1,5 @@
 package com.lamnguyen.profile_service.domain.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -12,8 +11,8 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AddressDto {
         Long id;
-        @JsonProperty("customer_id")
-        Long customerId;
+        @JsonProperty("user_id")
+        Long userId;
         String fullName;
         String phone;
         String street;

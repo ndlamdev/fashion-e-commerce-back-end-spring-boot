@@ -18,7 +18,7 @@ import java.util.List;
 @SuperBuilder
 @Table(name = "customers")
 public class Customer extends BaseEntity {
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true, name = "user_id")
 	Long userId;
 
 	@Builder.Default
@@ -26,7 +26,6 @@ public class Customer extends BaseEntity {
 	String fullName = "";
 
 	@Builder.Default
-	@Column(unique = true)
 	String email = "";
 
 	@Builder.Default

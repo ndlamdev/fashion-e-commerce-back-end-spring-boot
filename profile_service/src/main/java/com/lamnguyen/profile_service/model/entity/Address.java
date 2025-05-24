@@ -15,7 +15,7 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "addresses")
 public class Address extends BaseEntity {
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     Customer customer;
     @Builder.Default
     @Column(nullable = false)

@@ -6,9 +6,9 @@ CREATE TABLE addresses
     create_at     datetime DEFAULT NOW() NULL,
     update_by     VARCHAR(255)           NULL,
     update_at     datetime               NULL,
-    customer_id   BIGINT                 NULL,
-    full_name     VARCHAR(255)           NULL,
-    phone         VARCHAR(255)           NULL,
+    user_id       BIGINT                 NULL,
+    full_name     VARCHAR(255)           NOT NULL,
+    phone         VARCHAR(255)           NOT NULL,
     street        VARCHAR(255)           NULL,
     ward          VARCHAR(255)           NOT NULL,
     ward_code     VARCHAR(255)           NOT NULL,
@@ -24,26 +24,26 @@ CREATE TABLE addresses
 CREATE TABLE customers
 (
     id           BIGINT AUTO_INCREMENT  NOT NULL,
-    is_lock      BIT      DEFAULT 0     NOT NULL,
-    create_by    VARCHAR(255)           NULL,
+    is_lock      BIT      DEFAULT 0 NOT NULL,
+    create_by    VARCHAR(255) NULL,
     create_at    datetime DEFAULT NOW() NULL,
-    update_by    VARCHAR(255)           NULL,
-    update_at    datetime               NULL,
-    user_id      BIGINT                 NOT NULL,
-    full_name    VARCHAR(255)           NOT NULL,
-    email        VARCHAR(255)           NULL,
-    phone        VARCHAR(255)           NOT NULL,
-    avatar       VARCHAR(255)           NULL,
-    country_code VARCHAR(255)           NOT NULL,
-    birthday     date                   NULL,
-    height       DOUBLE                 NULL,
-    weight       DOUBLE                 NULL,
-    gender       VARCHAR(255)           NULL,
+    update_by    VARCHAR(255) NULL,
+    update_at    datetime NULL,
+    user_id      BIGINT             NOT NULL,
+    full_name    VARCHAR(255)       NOT NULL,
+    email        VARCHAR(255) NULL,
+    phone        VARCHAR(255)       NOT NULL,
+    avatar       VARCHAR(255) NULL,
+    country_code VARCHAR(255)       NOT NULL,
+    birthday     date NULL,
+    height DOUBLE NULL,
+    weight DOUBLE NULL,
+    gender       VARCHAR(255) NULL,
     CONSTRAINT pk_customers PRIMARY KEY (id)
 );
 
 ALTER TABLE customers
-    ADD CONSTRAINT uc_customers_email UNIQUE (email);
+    ADD CONSTRAINT uc_customers_userid UNIQUE (user_id);
 
 ALTER TABLE addresses
-    ADD CONSTRAINT FK_ADDRESSES_ON_CUSTOMER FOREIGN KEY (customer_id) REFERENCES customers (id);
+    ADD CONSTRAINT FK_ADDRESSES_ON_USER FOREIGN KEY (user_id) REFERENCES customers (user_id);

@@ -72,8 +72,8 @@ public class OrderServiceImpl implements IOrderService {
 			var listOrderItemRequest = new ArrayList<OrderItemRequest>(variants.size());
 			var orderItems = new ArrayList<OrderItemEntity>(variants.size());
 			createOrderHelper(variants, mapQuantities, listOrderItemRequest, orderItems);
-			var customerId = jwtTokenUtil.getUserId();
-			entity = orderRepository.save(orderMapper.toEntity(order, customerId, orderItems));
+			var userId = jwtTokenUtil.getUserId();
+			entity = orderRepository.save(orderMapper.toEntity(order, userId, orderItems));
 			orderStatusService.addStatus(entity.getId(), OrderStatus.PENDING, "Đơn hàng đang chờ xử lý");
 			var paymentRequest = orderMapper.toPaymentRequest(entity, order, listOrderItemRequest);
 			var paymentResponse = paymentGrpcClient.pay(paymentRequest);
@@ -82,7 +82,7 @@ public class OrderServiceImpl implements IOrderService {
 
 			orderStatusService.addStatus(entity.getId(), OrderStatus.SUCCESS, "Đặt hàng thành công.");
 			cartKafkaService.deleteCartItems(DeleteCartItemsEvent.builder()
-					.userId(customerId)
+					.userId(userId)
 					.variantIds(mapQuantities.keySet().stream().toList())
 					.build());
 			return orderMapper.toCreateOrderSuccessResponse(entity, paymentResponse);
