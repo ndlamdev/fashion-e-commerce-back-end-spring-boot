@@ -37,8 +37,8 @@ public class ProfileUserDto {
 	LocalDate birthday;
 	@JsonProperty("height")
 	double height;
-	@JsonProperty("width")
-	double width;
+	@JsonProperty("weight")
+	double weight;
 	@JsonProperty("country_code")
 	String countryCode;
 }
