@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 
 public record GoogleAuthRequest(
-		@JsonProperty("auth-code")
+		@JsonProperty("auth_code")
 		@NotNull
 		String authCode
 ) {

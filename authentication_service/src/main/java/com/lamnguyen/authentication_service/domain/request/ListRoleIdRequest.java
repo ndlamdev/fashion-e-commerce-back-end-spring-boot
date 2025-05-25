@@ -14,7 +14,7 @@ import reactor.util.annotation.NonNull;
 import java.util.List;
 
 public record ListRoleIdRequest(
-		@JsonProperty("role-ids")
+		@JsonProperty("role_ids")
 		@NonNull
 		List<Long> roleIds
 ) {

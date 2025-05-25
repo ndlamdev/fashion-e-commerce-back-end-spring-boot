@@ -11,6 +11,7 @@ package com.lamnguyen.authentication_service.service.authentication.v1;
 import com.lamnguyen.authentication_service.config.exception.ApplicationException;
 import com.lamnguyen.authentication_service.config.exception.ExceptionEnum;
 import com.lamnguyen.authentication_service.domain.dto.ProfileUserDto;
+import com.lamnguyen.authentication_service.domain.request.ChangePasswordRequest;
 import com.lamnguyen.authentication_service.domain.request.RegisterAccountRequest;
 import com.lamnguyen.authentication_service.domain.request.SetNewPasswordRequest;
 import com.lamnguyen.authentication_service.mapper.IProfileUserMapper;
@@ -199,19 +200,19 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 		changePasswordRedisManager.setDateTimeChangePassword(simplePayload.getUserId(), LocalDateTime.now());
 	}
 
-    @Override
-    public Jwt renewAccessToken(String refreshToken) {
-        var jwt = jwtTokenUtil.decodeTokenNotVerify(refreshToken);
-        var simplePayload = jwtTokenUtil.getSimplePayloadNotVerify(jwt);
-        if (simplePayload.getType() != JwtType.REFRESH_TOKEN)
-            throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
-	    if (refreshTokenRedisManager.existTokenIdInBlacklist(simplePayload.getUserId(), jwt.getId()))
-		    throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
-        var user = userService.findById(simplePayload.getUserId());
-        var token = jwtTokenUtil.generateAccessToken(JWTPayload.generateForAccessToken(user, jwt.getId()));
-	    accessTokenRedisManager.setTokenId(user.getId(), token.getId());
-        return token;
-    }
+	@Override
+	public Jwt renewAccessToken(String refreshToken) {
+		var jwt = jwtTokenUtil.decodeTokenNotVerify(refreshToken);
+		var simplePayload = jwtTokenUtil.getSimplePayloadNotVerify(jwt);
+		if (simplePayload.getType() != JwtType.REFRESH_TOKEN)
+			throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
+		if (refreshTokenRedisManager.existTokenIdInBlacklist(simplePayload.getUserId(), jwt.getId()))
+			throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
+		var user = userService.findById(simplePayload.getUserId());
+		var token = jwtTokenUtil.generateAccessToken(JWTPayload.generateForAccessToken(user, jwt.getId()));
+		accessTokenRedisManager.setTokenId(user.getId(), token.getId());
+		return token;
+	}
 
 	@Override
 	public Jwt validate(String token) {
@@ -220,5 +221,20 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 		var auth = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
 		jwtPayload.setRoles(auth.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet()));
 		return jwtTokenUtil.encodeToken(jwtToken, jwtPayload);
+	}
+
+	@Override
+	public void changePassword(ChangePasswordRequest request) {
+		var useId = jwtTokenUtil.getUserId();
+		var user = userService.findById(useId);
+		if (!passwordEncoder.matches(request.oldPassword(), user.getPassword())) {
+			throw ApplicationException.createException(ExceptionEnum.OLD_PASSWORD_NOT_MATCH);
+		}
+		if (passwordEncoder.matches(request.password(), user.getPassword())) {
+			throw ApplicationException.createException(ExceptionEnum.NEW_PASSWORD_NOT_DIFFERENT);
+		}
+		user.setPassword(passwordEncoder.encode(request.password()));
+		userService.save(user);
+		changePasswordRedisManager.setDateTimeChangePassword(useId, LocalDateTime.now());
 	}
 }

@@ -22,7 +22,9 @@ import com.lamnguyen.authentication_service.utils.property.TokenProperty;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.*;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -149,5 +151,15 @@ public class JwtTokenUtil {
 				.claim(applicationProperty.getJwtClaim(), payload)
 				.expiresAt(token.getExpiresAt().toInstant())
 				.build()));
+	}
+
+	public long getUserIdNotVerify(String token) {
+		var jwt = decodeTokenNotVerify(token);
+		return getPayloadNotVerify(jwt).getUserId();
+	}
+
+	public long getUserId() {
+		var authentication = (JwtAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+		return getUserIdNotVerify(authentication.getToken().getTokenValue());
 	}
 }

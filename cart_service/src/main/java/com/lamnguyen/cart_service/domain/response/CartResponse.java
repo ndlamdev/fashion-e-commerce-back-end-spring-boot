@@ -23,7 +23,9 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class CartResponse {
 	long id;
+	@JsonProperty("user_id")
 	Long userId;
+	@JsonProperty("cart_items")
 	List<CartItemResponse> cartItems;
 	boolean lock;
 	@JsonProperty("create_at")

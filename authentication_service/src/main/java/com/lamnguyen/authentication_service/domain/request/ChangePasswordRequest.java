@@ -2,7 +2,7 @@
  * Author: Nguyen Dinh Lam
  * Email: kiminonawa1305@gmail.com
  * Phone number: +84 855354919
- * Create at: 1:41 PM - 26/02/2025
+ * Create at: 6:10 AM - 18/03/2025
  * User: lam-nguyen
  **/
 
@@ -15,10 +15,10 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 @FieldsValueMatch(field = "password", fieldMatch = "confirmPassword", message = "Password and confirmPassword not match")
-public record RegisterAccountWithGoogleRequest(
+public record ChangePasswordRequest(
         @NotBlank
-        @JsonProperty("register_token")
-        String token,
+        @JsonProperty("old_password")
+        String oldPassword,
         @NotBlank
         @Size(min = 8, message = "Password must be at least 8 characters long")
         @Pattern(regexp = ".*[a-z].*", message = "Password must contain at least one uppercase letter")
@@ -26,10 +26,7 @@ public record RegisterAccountWithGoogleRequest(
         @Pattern(regexp = ".*[0-9].*", message = "Password must contain at least one digit")
         @Pattern(regexp = ".*[@$!%*?&].*", message = "Password must contain at least one special character (@$!%*?&)")
         String password,
-        @NotBlank
         @JsonProperty("confirm_password")
-        String confirmPassword,
-        @NotBlank
-        String phone
+        String confirmPassword
 ) {
 }

@@ -25,7 +25,7 @@ public record SetNewPasswordRequest(
         @Pattern(regexp = ".*[0-9].*", message = "Password must contain at least one digit")
         @Pattern(regexp = ".*[@$!%*?&].*", message = "Password must contain at least one special character (@$!%*?&)")
         String password,
-        @JsonProperty("confirm-password")
+        @JsonProperty("confirm_password")
         String confirmPassword
 ) {
 }

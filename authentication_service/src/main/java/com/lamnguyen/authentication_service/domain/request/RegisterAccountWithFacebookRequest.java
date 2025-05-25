@@ -24,7 +24,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PROTECTED)
 public class RegisterAccountWithFacebookRequest {
-    @JsonProperty("register-token")
+    @JsonProperty("register_token")
     @NotBlank
     String token;
     @NotBlank
@@ -38,7 +38,7 @@ public class RegisterAccountWithFacebookRequest {
     @Pattern(regexp = ".*[@$!%*?&].*", message = "Password must contain at least one special character (@$!%*?&)")
     String password;
     @NotBlank
-    @JsonProperty("confirm-password")
+    @JsonProperty("confirm_password")
     String confirmPassword;
     @NotBlank
     String phone;
