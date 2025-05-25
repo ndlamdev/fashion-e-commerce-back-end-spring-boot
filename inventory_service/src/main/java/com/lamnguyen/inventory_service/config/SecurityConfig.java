@@ -40,7 +40,7 @@ public class SecurityConfig {
 		httpSecurity.authorizeHttpRequests(auth ->
 				auth.requestMatchers("/actuator/**").permitAll()
 						.requestMatchers(applicationProperty.getWhiteList().toArray(String[]::new)).permitAll()
-						.anyRequest().permitAll()
+						.anyRequest().authenticated()
 		);
 		httpSecurity.oauth2ResourceServer(oauth2ResourceServerConfig -> oauth2ResourceServerConfig
 				.jwt(jwtConfigurer -> jwtConfigurer.jwtAuthenticationConverter(jwtAuthenticationConverter))
