@@ -11,6 +11,7 @@ package com.lamnguyen.product_service.service.grpc.v1;
 import com.lamnguyen.product_service.protos.ProductInCartDto;
 import com.lamnguyen.product_service.protos.ProductRequest;
 import com.lamnguyen.product_service.protos.ProductServiceGrpc;
+import com.lamnguyen.product_service.protos.TitleProduct;
 import com.lamnguyen.product_service.service.business.IProductService;
 import io.grpc.stub.StreamObserver;
 import lombok.AccessLevel;
@@ -27,15 +28,15 @@ public class ProductGrpcServiceImpl extends ProductServiceGrpc.ProductServiceImp
 	IProductService productService;
 
 	@Override
-	public void getProductById(ProductRequest request, StreamObserver<com.lamnguyen.product_service.protos.ProductDto> responseObserver) {
+	public void getProductById(ProductRequest request, StreamObserver<com.lamnguyen.product_service.protos.ProductResponseGrpc> responseObserver) {
 		log.info("Get product by id: {}", request.getProductId());
 		String productId = request.getProductId();
 
 		// Get product from the existing service
-		var protoProductDto = productService.getProductProtoById(productId);
+		var productResponseGrpc = productService.getProductResponseGrpcById(productId);
 
 		// Send the response
-		responseObserver.onNext(protoProductDto);
+		responseObserver.onNext(productResponseGrpc);
 		responseObserver.onCompleted();
 	}
 
@@ -46,6 +47,19 @@ public class ProductGrpcServiceImpl extends ProductServiceGrpc.ProductServiceImp
 
 		// Get product from the existing service
 		var protoProductDto = productService.getProductInCartById(productId);
+
+		// Send the response
+		responseObserver.onNext(protoProductDto);
+		responseObserver.onCompleted();
+	}
+
+	@Override
+	public void getTitleProductById(ProductRequest request, StreamObserver<TitleProduct> responseObserver) {
+		log.info("Get product title by id: {}", request.getProductId());
+		String productId = request.getProductId();
+
+		// Get product from the existing service
+		var protoProductDto = productService.getTitleProductById(productId);
 
 		// Send the response
 		responseObserver.onNext(protoProductDto);

@@ -138,7 +138,7 @@ public interface IProductMapper {
 	@Mapping(target = "allFields", ignore = true)
 	ProductInCartDto toProductInCartDto(ProductResponse response);
 
-	com.lamnguyen.product_service.protos.ProductDto toProductDto(
+	com.lamnguyen.product_service.protos.ProductResponseGrpc toProductResponseGrpc(
 			ProductResponse response,
 			IImageMapper imageMapper,
 			IImageOptionsValueMapper imageOptionsValueMapper,
@@ -151,7 +151,7 @@ public interface IProductMapper {
 	@AfterMapping
 	default void afterMapping(
 			ProductResponse response,
-			@MappingTarget com.lamnguyen.product_service.protos.ProductDto.Builder builder,
+			@MappingTarget com.lamnguyen.product_service.protos.ProductResponseGrpc.Builder builder,
 			IImageMapper imageMapper,
 			IImageOptionsValueMapper imageOptionsValueMapper,
 			IOptionMapper optionMapper,

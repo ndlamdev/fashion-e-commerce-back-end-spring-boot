@@ -66,16 +66,17 @@ public class CollectionRedisManagerImpl extends ACacheManage<CollectionSaveRedis
 	@Override
 	public List<CollectionSaveRedisDto> cache(CollectionType type, CallbackDB<List<CollectionSaveRedisDto>> callDB) {
 		return redissonClient.synchronize(generateKeyCache(type), () -> {
-			var cached = getByCollectionType(type);
-			if (cached != null && !cached.isEmpty()) {
-				return Optional.of(cached);
-			}
+					var cached = getByCollectionType(type);
+					if (cached != null && !cached.isEmpty()) {
+						return Optional.of(cached);
+					}
 
-			var dto = callDB.call();
-			if (dto.isEmpty() || dto.get().isEmpty()) return Optional.empty();
-			this.template.opsForList().leftPushAll(generateKeyCache(type), dto.get());
-			return dto;
-		}, () -> Optional.ofNullable(getByCollectionType(type))).orElseGet(ArrayList::new);
+					var dto = callDB.call();
+					if (dto.isEmpty() || dto.get().isEmpty()) return Optional.empty();
+					this.template.opsForList().leftPushAll(generateKeyCache(type), dto.get());
+					return dto;
+				}, () -> Optional.ofNullable(getByCollectionType(type)))
+				.orElseGet(ArrayList::new);
 	}
 
 	@Override

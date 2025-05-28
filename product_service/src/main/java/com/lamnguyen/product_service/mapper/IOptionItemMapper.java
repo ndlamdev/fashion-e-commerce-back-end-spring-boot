@@ -27,13 +27,13 @@ public interface IOptionItemMapper {
 	@Mapping(source = "images", target = "images", qualifiedByName = "toImageResponses")
 	OptionItemResponse toOptionItemResponse(OptionItemDto optionItem);
 
-	com.lamnguyen.product_service.protos.OptionItemDto toOptionItemDto(OptionItemResponse optionItemDto, @Context IImageMapper imageMapper);
+	com.lamnguyen.product_service.protos.OptionItemResponseGrpc toOptionItemDto(OptionItemResponse optionItemDto, @Context IImageMapper imageMapper);
 
 	@AfterMapping
 	default void afterMapping(
 			OptionItemResponse optionItemDto,
 			@Context IImageMapper imageMapper,
-			@MappingTarget com.lamnguyen.product_service.protos.OptionItemDto.Builder builder
+			@MappingTarget com.lamnguyen.product_service.protos.OptionItemResponseGrpc.Builder builder
 	) {
 		if (optionItemDto.getImages() == null) return;
 		builder.addAllImages(optionItemDto.getImages().stream().map(imageMapper::toImage).toList());
