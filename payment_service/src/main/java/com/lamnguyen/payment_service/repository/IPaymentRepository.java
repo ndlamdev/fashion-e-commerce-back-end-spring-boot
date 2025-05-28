@@ -12,9 +12,11 @@ import com.lamnguyen.payment_service.model.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface IPaymentRepository extends JpaRepository<Payment, Long> {
-	Payment findByOrderId(long orderId);
+	Optional<Payment> findByOrderId(long orderId);
 
-	Payment findByOrderCode(long orderCode);
+	Optional<Payment> findByOrderCode(long orderCode);
 }

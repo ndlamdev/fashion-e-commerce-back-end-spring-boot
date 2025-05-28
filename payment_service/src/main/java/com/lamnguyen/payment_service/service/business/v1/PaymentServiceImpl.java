@@ -9,12 +9,15 @@
 package com.lamnguyen.payment_service.service.business.v1;
 
 import com.lamnguyen.payment_service.config.PayOsConfig;
+import com.lamnguyen.payment_service.config.exception.ApplicationException;
+import com.lamnguyen.payment_service.config.exception.ExceptionEnum;
 import com.lamnguyen.payment_service.mapper.IPaymentMapper;
 import com.lamnguyen.payment_service.model.Payment;
 import com.lamnguyen.payment_service.protos.PaymentRequest;
 import com.lamnguyen.payment_service.protos.PaymentResponse;
 import com.lamnguyen.payment_service.repository.IPaymentRepository;
 import com.lamnguyen.payment_service.service.business.IPaymentService;
+import com.lamnguyen.payment_service.service.redis.IPaymentCacheMange;
 import com.lamnguyen.payment_service.utils.enums.PaymentMethod;
 import com.lamnguyen.payment_service.utils.enums.PaymentStatus;
 import com.lamnguyen.payment_service.utils.helper.SignAndVerifyDataHelper;
@@ -26,6 +29,8 @@ import org.springframework.stereotype.Service;
 import vn.payos.PayOS;
 import vn.payos.type.PaymentData;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -34,6 +39,7 @@ public class PaymentServiceImpl implements IPaymentService {
 	IPaymentMapper paymentMapper;
 	PayOS payOS;
 	IPaymentRepository paymentRepository;
+	IPaymentCacheMange paymentCacheMange;
 
 	@Override
 	public PaymentResponse pay(PaymentRequest data) {
@@ -61,29 +67,41 @@ public class PaymentServiceImpl implements IPaymentService {
 
 	@Override
 	public void cancelPayByOrderId(long orderId) throws Exception {
-		var entity = paymentRepository.findByOrderId(orderId);
+		var entity = paymentRepository.findByOrderId(orderId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
 		if (entity.getMethod() == PaymentMethod.PAY_OS)
-			payOS.cancelPaymentLink(entity.getOrderCode(), "");
+			payOS.cancelPaymentLink(entity.getOrderCode(), "Cancel order " + orderId);
 		updatePaymentStatus(entity, PaymentStatus.CANCELED);
 	}
 
 	@Override
 	public void paySuccess(long payOsOrderCode) {
-		var entity = paymentRepository.findByOrderCode(payOsOrderCode);
+		var entity = paymentRepository.findByOrderCode(payOsOrderCode).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
 		updatePaymentStatus(entity, PaymentStatus.DONE);
 	}
 
 	private void updatePaymentStatus(Payment payment, PaymentStatus status) {
 		payment.setStatus(status);
 		paymentRepository.save(payment);
+		paymentCacheMange.deleteByOrderId(payment.getOrderId());
 	}
 
 	@Override
 	public Long getOrderIdByOrderCode(long orderCode) {
-		var entity = paymentRepository.findByOrderCode(orderCode);
-		if (entity != null) {
-			return entity.getOrderId();
-		}
-		return null;
+		return paymentRepository.findByOrderCode(orderCode).map(Payment::getOrderId).orElse(null);
+	}
+
+	@Override
+	public PaymentResponse getPaymentStatusByOrderId(long orderId) {
+		var payment = paymentCacheMange.getByOrderId(orderId)
+				.or(() -> this.fetchPaymentFromRepository(orderId))
+				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
+		return paymentMapper.toPaymentResponse(payment, null);
+	}
+
+	private Optional<Payment> fetchPaymentFromRepository(long orderId) {
+		return paymentCacheMange.cacheByOrderId(
+				orderId,
+				() -> paymentRepository.findByOrderId(orderId)
+		);
 	}
 }

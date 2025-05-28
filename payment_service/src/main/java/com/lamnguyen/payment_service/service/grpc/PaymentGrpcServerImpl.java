@@ -48,4 +48,12 @@ public class PaymentGrpcServerImpl extends PaymentServiceGrpc.PaymentServiceImpl
 			responseObserver.onError(e);
 		}
 	}
+
+	@Override
+	public void getPaymentStatus(OrderIdRequest request, StreamObserver<PaymentResponse> responseObserver) {
+		log.info("Get payment status request: {}", request);
+		var result = paymentService.getPaymentStatusByOrderId(request.getId());
+		responseObserver.onNext(result);
+		responseObserver.onCompleted();
+	}
 }

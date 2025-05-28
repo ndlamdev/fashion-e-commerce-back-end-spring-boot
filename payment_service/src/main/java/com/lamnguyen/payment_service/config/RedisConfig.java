@@ -9,6 +9,7 @@
 package com.lamnguyen.payment_service.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lamnguyen.payment_service.model.Payment;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -17,6 +18,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
@@ -40,4 +42,17 @@ public class RedisConfig {
 		return template;
 	}
 
+	@Bean
+	RedisTemplate<String, Payment> paymentRedisTemplate(RedisConnectionFactory connectionFactory) {
+		RedisTemplate<String, Payment> template = new RedisTemplate<>();
+
+		var jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(mapper, Payment.class);
+
+		template.setKeySerializer(stringRedisSerializer);
+		template.setValueSerializer(jackson2JsonRedisSerializer);
+		template.setHashKeySerializer(stringRedisSerializer);
+		template.setHashValueSerializer(jackson2JsonRedisSerializer);
+		template.setConnectionFactory(connectionFactory);
+		return template;
+	}
 }

@@ -10,6 +10,7 @@ import "google/protobuf/empty.proto";
 service PaymentService {
   rpc pay (PaymentRequest) returns (PaymentResponse);
   rpc CancelOrder (OrderIdRequest) returns (google.protobuf.Empty);
+  rpc GetPaymentStatus (OrderIdRequest) returns (PaymentResponse);
 }
 enum PaymentMethod {
   PAY_OS = 0;

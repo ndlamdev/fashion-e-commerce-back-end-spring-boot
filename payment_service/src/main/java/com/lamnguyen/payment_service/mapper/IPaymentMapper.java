@@ -58,7 +58,7 @@ public interface IPaymentMapper {
 	}
 
 	@AfterMapping
-	default void afterMapping(PaymentRequest orderRequest, @MappingTarget Payment payment) {
+	default void afterMapping(@MappingTarget Payment payment) {
 		payment.setOrderCode(System.currentTimeMillis());
 	}
 }

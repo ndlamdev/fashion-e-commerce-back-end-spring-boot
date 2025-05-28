@@ -19,4 +19,6 @@ public interface IPaymentService {
 	void paySuccess(long payOsOrderCode);
 
 	Long getOrderIdByOrderCode(long orderCode);
+
+	PaymentResponse getPaymentStatusByOrderId(long orderId);
 }
