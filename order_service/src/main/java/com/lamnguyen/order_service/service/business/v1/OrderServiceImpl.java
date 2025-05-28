@@ -13,6 +13,7 @@ import com.lamnguyen.order_service.config.exception.ExceptionEnum;
 import com.lamnguyen.order_service.domain.request.CreateOrderItemRequest;
 import com.lamnguyen.order_service.domain.request.CreateOrderRequest;
 import com.lamnguyen.order_service.domain.response.CreateOrderSuccessResponse;
+import com.lamnguyen.order_service.domain.response.SubOrder;
 import com.lamnguyen.order_service.event.DeleteCartItemsEvent;
 import com.lamnguyen.order_service.mapper.IOrderItemMapper;
 import com.lamnguyen.order_service.mapper.IOrderMapper;
@@ -29,17 +30,22 @@ import com.lamnguyen.order_service.service.grpc.IInventoryGrpcClient;
 import com.lamnguyen.order_service.service.grpc.IPaymentGrpcClient;
 import com.lamnguyen.order_service.service.grpc.IProductGrpcClient;
 import com.lamnguyen.order_service.service.kafka.producer.ICartKafkaService;
+import com.lamnguyen.order_service.service.redis.IOrderHistoryCacheManage;
 import com.lamnguyen.order_service.utils.enums.OrderStatus;
 import com.lamnguyen.order_service.utils.enums.PaymentMethod;
 import com.lamnguyen.order_service.utils.helper.JwtTokenUtil;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
@@ -57,6 +63,7 @@ public class OrderServiceImpl implements IOrderService {
 	JwtTokenUtil jwtTokenUtil;
 	ICartKafkaService cartKafkaService;
 	IOrderItemService orderItemService;
+	IOrderHistoryCacheManage historyCacheManage;
 
 	@Override
 	public CreateOrderSuccessResponse createOrder(CreateOrderRequest order) {
@@ -74,7 +81,6 @@ public class OrderServiceImpl implements IOrderService {
 			createOrderHelper(variants, mapQuantities, listOrderItemRequest, orderItems);
 			var userId = jwtTokenUtil.getUserId();
 			entity = orderRepository.save(orderMapper.toEntity(order, userId, orderItems));
-			orderStatusService.addStatus(entity.getId(), OrderStatus.PENDING, "Đơn hàng đang chờ xử lý");
 			var paymentRequest = orderMapper.toPaymentRequest(entity, order, listOrderItemRequest);
 			var paymentResponse = paymentGrpcClient.pay(paymentRequest);
 			if (paymentResponse.getStatus() == PayStatus.FAIL)
@@ -85,6 +91,7 @@ public class OrderServiceImpl implements IOrderService {
 					.userId(userId)
 					.variantIds(mapQuantities.keySet().stream().toList())
 					.build());
+			historyCacheManage.deleteAllByUserId(userId);
 			return orderMapper.toCreateOrderSuccessResponse(entity, paymentResponse);
 		} catch (Exception e) {
 			if (variants != null)
@@ -103,7 +110,7 @@ public class OrderServiceImpl implements IOrderService {
 		variants.values().forEach(
 				variant ->
 						listTask.add(CompletableFuture.runAsync(() -> {
-							var product = productGrpcClient.getProductDto(variant.getProductId());
+							var product = productGrpcClient.getTitleProduct(variant.getProductId());
 							listOrderItemRequest.add(orderItemMapper.toItemData(mapQuantities.getOrDefault(variant.getId(), 1), variant, product));
 							orderItems.add(orderItemMapper.toOrderItemEntity(variant, mapQuantities.getOrDefault(variant.getId(), 1)));
 						}))
@@ -121,12 +128,38 @@ public class OrderServiceImpl implements IOrderService {
 		var order = orderRepository.findById(orderId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
 		paymentGrpcClient.cancelPay(orderId);
 		orderStatusService.addStatus(order.getId(), OrderStatus.CANCEL, "Hủy đơn hàng");
+		historyCacheManage.deleteAllByUserId(order.getUserId());
 	}
 
 	@Override
 	public void deleteOrder(long orderId) {
+		var order = orderRepository.findById(orderId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
 		orderItemService.deleteAllByOrderId(orderId);
 		orderStatusService.deleteAllByOrderId(orderId);
 		orderRepository.deleteById(orderId);
+		historyCacheManage.deleteAllByUserId(order.getUserId());
+	}
+
+	@Override
+	public Page<SubOrder> getSubOrder(Pageable pageable) {
+		var userId = jwtTokenUtil.getUserId();
+		var subOrders = historyCacheManage.getAllByUserId(userId)
+				.or(() -> cacheHistoryOrder(userId))
+				.orElseGet(ArrayList::new);
+		return new PageImpl<>(
+				subOrders.stream().skip(pageable.getOffset()).limit(pageable.getPageSize()).toList(),
+				pageable, subOrders.size()
+		);
+	}
+
+	private Optional<List<SubOrder>> cacheHistoryOrder(long userId) {
+		return historyCacheManage
+				.cacheAllByUserId(
+						userId,
+						() -> Optional
+								.ofNullable(
+										orderRepository.findHistoryOrderByUserId(userId)
+								))
+				;
 	}
 }

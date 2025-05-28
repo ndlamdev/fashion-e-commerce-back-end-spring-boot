@@ -8,10 +8,27 @@
 
 package com.lamnguyen.order_service.repository;
 
+import com.lamnguyen.order_service.domain.response.SubOrder;
 import com.lamnguyen.order_service.model.OrderEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
+	@Query("""
+			select new com.lamnguyen.order_service.domain.response.SubOrder(o.id, o.createAt, sum(oi.quantity * oi.regularPrice), os.status)
+			from OrderEntity o
+			join OrderStatusEntity os on o.id = os.order.id
+			join OrderItemEntity oi on o.id = oi.order.id
+			where o.userId = ?1 and os.id = (
+				select max(os2.id)
+				from OrderStatusEntity os2
+				where os2.order.id = o.id
+			)
+			group by o.id, o.createAt, os.status
+			""")
+	List<SubOrder> findHistoryOrderByUserId(long userId);
 }

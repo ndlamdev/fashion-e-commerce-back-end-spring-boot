@@ -46,8 +46,9 @@ public interface IOrderMapper {
 		orderEntity.setStatuses(List.of(OrderStatusEntity.builder()
 				.order(orderEntity)
 				.status(OrderStatus.PENDING)
-				.note("Đang xử lý")
+				.note("Đơn hàng đang chờ xử lý")
 				.build()));
+		items.forEach(it -> it.setOrder(orderEntity));
 		orderEntity.setItems(items);
 		orderEntity.setUserId(userId);
 	}

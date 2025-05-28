@@ -11,6 +11,7 @@ package com.lamnguyen.order_service.service.grpc.v1;
 import com.lamnguyen.order_service.protos.ProductInCartDto;
 import com.lamnguyen.order_service.protos.ProductRequest;
 import com.lamnguyen.order_service.protos.ProductServiceGrpc;
+import com.lamnguyen.order_service.protos.TitleProduct;
 import com.lamnguyen.order_service.service.grpc.IProductGrpcClient;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -31,5 +32,11 @@ public class ProductGrpcClientImpl implements IProductGrpcClient {
 	public ProductInCartDto getProductDto(String id) {
 		var request = ProductRequest.newBuilder().setProductId(id).build();
 		return productServiceBlockingStub.getProductInCartById(request);
+	}
+
+	@Override
+	public TitleProduct getTitleProduct(String id) {
+		var request = ProductRequest.newBuilder().setProductId(id).build();
+		return productServiceBlockingStub.getTitleProductById(request);
 	}
 }

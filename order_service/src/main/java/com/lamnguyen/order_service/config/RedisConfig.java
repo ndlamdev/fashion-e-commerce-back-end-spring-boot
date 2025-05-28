@@ -9,6 +9,7 @@
 package com.lamnguyen.order_service.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lamnguyen.order_service.domain.response.SubOrder;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -40,4 +41,17 @@ public class RedisConfig {
 		return template;
 	}
 
+	@Bean
+	RedisTemplate<String, SubOrder> subOrderRedisTemplate(RedisConnectionFactory connectionFactory) {
+		RedisTemplate<String, SubOrder> template = new RedisTemplate<>();
+
+		var genericJackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer(mapper);
+
+		template.setKeySerializer(stringRedisSerializer);
+		template.setValueSerializer(genericJackson2JsonRedisSerializer);
+		template.setHashKeySerializer(stringRedisSerializer);
+		template.setHashValueSerializer(genericJackson2JsonRedisSerializer);
+		template.setConnectionFactory(connectionFactory);
+		return template;
+	}
 }

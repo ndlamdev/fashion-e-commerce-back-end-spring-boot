@@ -12,6 +12,7 @@ import com.lamnguyen.order_service.domain.response.OrderItemResponse;
 import com.lamnguyen.order_service.model.OrderItemEntity;
 import com.lamnguyen.order_service.protos.OrderItemRequest;
 import com.lamnguyen.order_service.protos.ProductInCartDto;
+import com.lamnguyen.order_service.protos.TitleProduct;
 import com.lamnguyen.order_service.protos.VariantProductInfo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -27,7 +28,7 @@ public interface IOrderItemMapper {
 
 	OrderItemResponse toOrderStatusResponse(OrderItemEntity item);
 
-	default OrderItemRequest toItemData(int quantity, VariantProductInfo variantInfo, ProductInCartDto product) {
+	default OrderItemRequest toItemData(int quantity, VariantProductInfo variantInfo, TitleProduct product) {
 		var builder = OrderItemRequest.newBuilder();
 		builder.setPrice((int) variantInfo.getRegularPrice());
 		String title = product.getTitle().getValue() + " / " + variantInfo.getTitle();

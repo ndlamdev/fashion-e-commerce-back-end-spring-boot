@@ -50,4 +50,9 @@ public abstract class ACacheManage<R> implements ICacheManage<R> {
 			return dto;
 		}, () -> get(keyCache));
 	}
+
+	@Override
+	public void delete(String key) {
+		this.template.delete(key);
+	}
 }
