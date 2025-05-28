@@ -8,10 +8,9 @@
 
 package com.lamnguyen.order_service.mapper;
 
-import com.lamnguyen.order_service.domain.response.OrderItemResponse;
+import com.lamnguyen.order_service.domain.dto.OrderItemDto;
 import com.lamnguyen.order_service.model.OrderItemEntity;
 import com.lamnguyen.order_service.protos.OrderItemRequest;
-import com.lamnguyen.order_service.protos.ProductInCartDto;
 import com.lamnguyen.order_service.protos.TitleProduct;
 import com.lamnguyen.order_service.protos.VariantProductInfo;
 import org.mapstruct.Mapper;
@@ -26,7 +25,7 @@ public interface IOrderItemMapper {
 	OrderItemEntity toOrderItemEntity(VariantProductInfo data, int quantity);
 
 
-	OrderItemResponse toOrderStatusResponse(OrderItemEntity item);
+	OrderItemDto toOrderStatusResponse(OrderItemEntity item);
 
 	default OrderItemRequest toItemData(int quantity, VariantProductInfo variantInfo, TitleProduct product) {
 		var builder = OrderItemRequest.newBuilder();

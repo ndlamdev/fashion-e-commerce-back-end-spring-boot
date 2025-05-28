@@ -27,6 +27,10 @@ public class OrderHistoryCacheManageImpl extends ACacheManage<SubOrder> implemen
 		super(template, redissonClient);
 	}
 
+	@Override
+	public Optional<SubOrder> get(String key) {
+		return super.get(getKeySubOrderId(key));
+	}
 
 	@Override
 	public Optional<SubOrder> cache(String keyLock, String keyCache, CallbackDB<SubOrder> callDB) {
@@ -48,7 +52,7 @@ public class OrderHistoryCacheManageImpl extends ACacheManage<SubOrder> implemen
 	}
 
 	private String getKeyListSubOrder(long userId) {
-		return generateHashKey("ORDER_HISTORY", String.valueOf(userId));
+		return generateHashKey("ORDER_HISTORY", generateKey("USER_ID", String.valueOf(userId)));
 	}
 
 	@Override

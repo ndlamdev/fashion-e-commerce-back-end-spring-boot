@@ -10,7 +10,7 @@ package com.lamnguyen.order_service.controller.user;
 
 import com.lamnguyen.order_service.domain.request.CreateOrderRequest;
 import com.lamnguyen.order_service.domain.request.OrderIdRequest;
-import com.lamnguyen.order_service.domain.response.CreateOrderSuccessResponse;
+import com.lamnguyen.order_service.domain.response.OrderDetailResponse;
 import com.lamnguyen.order_service.domain.response.SubOrder;
 import com.lamnguyen.order_service.service.business.IOrderService;
 import com.lamnguyen.order_service.utils.annotation.ApiMessageResponse;
@@ -25,8 +25,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
@@ -37,7 +35,7 @@ public class OrderController {
 	@PostMapping()
 	@ApiMessageResponse("create order success")
 	@PreAuthorize("hasAnyAuthority('ROLE_BASE', 'ROLE_ADMIN', 'USER_CREATE_ORDER')")
-	public CreateOrderSuccessResponse createOrder(@RequestBody @Valid CreateOrderRequest order, HttpServletRequest request) {
+	public OrderDetailResponse createOrder(@RequestBody @Valid CreateOrderRequest order, HttpServletRequest request) {
 		return orderService.createOrder(order);
 	}
 
@@ -53,5 +51,12 @@ public class OrderController {
 	@PreAuthorize("hasAnyAuthority('ROLE_BASE', 'ROLE_ADMIN', 'USER_GET_HISTORY_ORDER')")
 	public Page<SubOrder> getOrderHistory(@PageableDefault(size = 10) Pageable pageable) {
 		return orderService.getSubOrder(pageable);
+	}
+
+	@GetMapping("/history/{id}")
+	@ApiMessageResponse("Get order history success")
+	@PreAuthorize("hasAnyAuthority('ROLE_BASE', 'ROLE_ADMIN', 'USER_GET_ORDER_DETAIL')")
+	public OrderDetailResponse getOrderDetail(@PathVariable long id) {
+		return orderService.getOrderDetail(id);
 	}
 }

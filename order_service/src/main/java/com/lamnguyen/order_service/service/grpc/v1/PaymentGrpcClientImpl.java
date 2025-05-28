@@ -38,4 +38,12 @@ public class PaymentGrpcClientImpl implements IPaymentGrpcClient {
 				.build();
 		var ignored = paymentServiceBlockingStub.cancelOrder(request);
 	}
+
+	@Override
+	public PaymentResponse getPaymentStatus(long orderId) {
+		var request = OrderIdRequest.newBuilder()
+				.setId(orderId)
+				.build();
+		return paymentServiceBlockingStub.getPaymentStatus(request);
+	}
 }

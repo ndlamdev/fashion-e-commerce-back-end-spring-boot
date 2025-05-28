@@ -6,17 +6,19 @@
  * User: kimin
  **/
 
-package com.lamnguyen.order_service.domain.response;
+package com.lamnguyen.order_service.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
+import java.io.Serializable;
 
 @Builder
 @Getter
 @Setter
-public class OrderItemResponse {
+@NoArgsConstructor
+@AllArgsConstructor
+public class OrderItemDto  {
 	long id;
 	String productId;
 	String variantId;

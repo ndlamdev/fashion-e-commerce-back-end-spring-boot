@@ -6,10 +6,12 @@
  * User: kimin
  **/
 
-package com.lamnguyen.order_service.domain.response;
+package com.lamnguyen.order_service.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
@@ -19,7 +21,9 @@ import java.util.List;
 @Getter
 @Setter
 @SuperBuilder
-public class OrderResponse {
+@NoArgsConstructor
+@AllArgsConstructor
+public class OrderDto {
 	long id;
 	@JsonProperty("user_id")
 	Long userId;
@@ -32,8 +36,8 @@ public class OrderResponse {
 	String district;
 	String province;
 	String note;
-	List<OrderItemResponse> items;
-	List<OrderStatusResponse> statuses;
+	List<OrderItemDto> items;
+	List<OrderStatusDto> statuses;
 	@JsonProperty("update_at")
 	LocalDateTime updateAt;
 }

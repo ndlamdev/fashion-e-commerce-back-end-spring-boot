@@ -10,9 +10,10 @@ package com.lamnguyen.order_service.service.business.v1;
 
 import com.lamnguyen.order_service.config.exception.ApplicationException;
 import com.lamnguyen.order_service.config.exception.ExceptionEnum;
+import com.lamnguyen.order_service.domain.dto.OrderDto;
 import com.lamnguyen.order_service.domain.request.CreateOrderItemRequest;
 import com.lamnguyen.order_service.domain.request.CreateOrderRequest;
-import com.lamnguyen.order_service.domain.response.CreateOrderSuccessResponse;
+import com.lamnguyen.order_service.domain.response.OrderDetailResponse;
 import com.lamnguyen.order_service.domain.response.SubOrder;
 import com.lamnguyen.order_service.event.DeleteCartItemsEvent;
 import com.lamnguyen.order_service.mapper.IOrderItemMapper;
@@ -30,9 +31,9 @@ import com.lamnguyen.order_service.service.grpc.IInventoryGrpcClient;
 import com.lamnguyen.order_service.service.grpc.IPaymentGrpcClient;
 import com.lamnguyen.order_service.service.grpc.IProductGrpcClient;
 import com.lamnguyen.order_service.service.kafka.producer.ICartKafkaService;
+import com.lamnguyen.order_service.service.redis.IOrderCacheManage;
 import com.lamnguyen.order_service.service.redis.IOrderHistoryCacheManage;
 import com.lamnguyen.order_service.utils.enums.OrderStatus;
-import com.lamnguyen.order_service.utils.enums.PaymentMethod;
 import com.lamnguyen.order_service.utils.helper.JwtTokenUtil;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -64,9 +65,10 @@ public class OrderServiceImpl implements IOrderService {
 	ICartKafkaService cartKafkaService;
 	IOrderItemService orderItemService;
 	IOrderHistoryCacheManage historyCacheManage;
+	IOrderCacheManage orderCacheManage;
 
 	@Override
-	public CreateOrderSuccessResponse createOrder(CreateOrderRequest order) {
+	public OrderDetailResponse createOrder(CreateOrderRequest order) {
 		Map<String, VariantProductInfo> variants = null;
 		OrderEntity entity = null;
 		var mapQuantities = order.getItems().stream().collect(Collectors.toMap(CreateOrderItemRequest::getVariantId, CreateOrderItemRequest::getQuantity));
@@ -92,7 +94,7 @@ public class OrderServiceImpl implements IOrderService {
 					.variantIds(mapQuantities.keySet().stream().toList())
 					.build());
 			historyCacheManage.deleteAllByUserId(userId);
-			return orderMapper.toCreateOrderSuccessResponse(entity, paymentResponse);
+			return orderMapper.toOrderDetailResponse(entity, paymentResponse);
 		} catch (Exception e) {
 			if (variants != null)
 				rollback(variants, order.getItems());
@@ -129,6 +131,7 @@ public class OrderServiceImpl implements IOrderService {
 		paymentGrpcClient.cancelPay(orderId);
 		orderStatusService.addStatus(order.getId(), OrderStatus.CANCEL, "Hủy đơn hàng");
 		historyCacheManage.deleteAllByUserId(order.getUserId());
+		orderCacheManage.delete(orderId);
 	}
 
 	@Override
@@ -138,6 +141,7 @@ public class OrderServiceImpl implements IOrderService {
 		orderStatusService.deleteAllByOrderId(orderId);
 		orderRepository.deleteById(orderId);
 		historyCacheManage.deleteAllByUserId(order.getUserId());
+		orderCacheManage.delete(orderId);
 	}
 
 	@Override
@@ -161,5 +165,23 @@ public class OrderServiceImpl implements IOrderService {
 										orderRepository.findHistoryOrderByUserId(userId)
 								))
 				;
+	}
+
+	@Override
+	public OrderDetailResponse getOrderDetail(long orderId) {
+		var orderDto = orderCacheManage.get(orderId)
+				.or(() -> cacheOrderDetail(orderId))
+				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
+		var paymentStatus = paymentGrpcClient.getPaymentStatus(orderId);
+		return orderMapper.toOrderDetailResponse(orderDto, paymentStatus);
+	}
+
+	private Optional<? extends OrderDto> cacheOrderDetail(long orderId) {
+		return orderCacheManage
+				.cache(orderId,
+						() -> orderRepository
+								.findById(orderId)
+								.map(orderMapper::toDto)
+				);
 	}
 }

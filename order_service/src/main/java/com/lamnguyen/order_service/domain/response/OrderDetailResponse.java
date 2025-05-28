@@ -10,6 +10,7 @@ package com.lamnguyen.order_service.domain.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.lamnguyen.order_service.domain.dto.OrderDto;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
@@ -18,7 +19,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CreateOrderSuccessResponse extends OrderResponse {
+public class OrderDetailResponse extends OrderDto {
 	@JsonProperty("payment_response")
 	PaymentResponse paymentResponse;
 }

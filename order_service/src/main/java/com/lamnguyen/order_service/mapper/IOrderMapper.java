@@ -9,8 +9,8 @@
 package com.lamnguyen.order_service.mapper;
 
 import com.lamnguyen.order_service.domain.request.CreateOrderRequest;
-import com.lamnguyen.order_service.domain.response.CreateOrderSuccessResponse;
-import com.lamnguyen.order_service.domain.response.OrderResponse;
+import com.lamnguyen.order_service.domain.response.OrderDetailResponse;
+import com.lamnguyen.order_service.domain.dto.OrderDto;
 import com.lamnguyen.order_service.model.OrderEntity;
 import com.lamnguyen.order_service.model.OrderItemEntity;
 import com.lamnguyen.order_service.model.OrderStatusEntity;
@@ -58,14 +58,21 @@ public interface IOrderMapper {
 		builder.addAllItems(items);
 	}
 
-	OrderResponse toResponse(OrderEntity entity);
+	OrderDto toDto(OrderEntity entity);
+
+	@Mapping(target = "paymentResponse", ignore = true)
+	OrderDetailResponse toOrderDetailResponse(OrderEntity entity);
 
 	@Mapping(target = "id", source = "entity.id")
 	@Mapping(target = "paymentResponse", ignore = true)
-	CreateOrderSuccessResponse toCreateOrderSuccessResponse(OrderEntity entity, com.lamnguyen.order_service.protos.PaymentResponse paymentResponse);
+	OrderDetailResponse toOrderDetailResponse(OrderEntity entity, com.lamnguyen.order_service.protos.PaymentResponse paymentResponse);
+
+	@Mapping(target = "id", source = "dto.id")
+	@Mapping(target = "paymentResponse", ignore = true)
+	OrderDetailResponse toOrderDetailResponse(OrderDto dto, com.lamnguyen.order_service.protos.PaymentResponse paymentResponse);
 
 	@AfterMapping
-	default void afterMapping(@MappingTarget CreateOrderSuccessResponse response, com.lamnguyen.order_service.protos.PaymentResponse paymentResponse) {
+	default void afterMapping(@MappingTarget OrderDetailResponse response, com.lamnguyen.order_service.protos.PaymentResponse paymentResponse) {
 		if (paymentResponse != null) {
 			var checkoutUrl = paymentResponse.getCheckoutUrl().getValue();
 			var payment = com.lamnguyen.order_service.domain.response.PaymentResponse.builder()

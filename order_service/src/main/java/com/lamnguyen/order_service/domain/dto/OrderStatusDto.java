@@ -6,19 +6,20 @@
  * User: kimin
  **/
 
-package com.lamnguyen.order_service.domain.response;
+package com.lamnguyen.order_service.domain.dto;
 
 import com.lamnguyen.order_service.utils.enums.OrderStatus;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Builder
-public class OrderStatusResponse {
+@NoArgsConstructor
+@AllArgsConstructor
+public class OrderStatusDto {
 	long id;
 	OrderStatus status;
 	String note;
