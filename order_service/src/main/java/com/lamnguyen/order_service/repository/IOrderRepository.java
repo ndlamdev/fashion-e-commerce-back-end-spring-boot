@@ -15,6 +15,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
@@ -23,12 +24,35 @@ public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
 			from OrderEntity o
 			join OrderStatusEntity os on o.id = os.order.id
 			join OrderItemEntity oi on o.id = oi.order.id
-			where o.userId = ?1 and os.id = (
-				select max(os2.id)
-				from OrderStatusEntity os2
-				where os2.order.id = o.id
-			)
+			where o.userId = ?1
+				and o.lock = false
+				and o.delete = false
+				and os.id = (
+					select max(os2.id)
+					from OrderStatusEntity os2
+					where os2.order.id = o.id
+				)
 			group by o.id, o.createAt, os.status
 			""")
-	List<SubOrder> findHistoryOrderByUserId(long userId);
+	List<SubOrder> findHistoryOrderByUserIdAndLockIsFalseAndDeleteIsFalse(long userId);
+
+	@Query("""
+			select new com.lamnguyen.order_service.domain.response.SubOrder(o.id, o.createAt, sum(oi.quantity * oi.regularPrice), os.status)
+			from OrderEntity o
+			join OrderStatusEntity os on o.id = os.order.id
+			join OrderItemEntity oi on o.id = oi.order.id
+			where o.userId = ?1
+				and o.delete = false
+				and os.id = (
+					select max(os2.id)
+					from OrderStatusEntity os2
+					where os2.order.id = o.id
+				)
+			group by o.id, o.createAt, os.status
+			""")
+	List<SubOrder> findHistoryOrderByUserIdAndDeleteIsFalse(long userId);
+
+	Optional<OrderEntity> findByIdAndDeleteIsFalse(Long orderId);
+
+	Optional<OrderEntity> findByIdAndDeleteIsFalseAndLockIsFalse(Long orderId);
 }

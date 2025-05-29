@@ -17,6 +17,8 @@ import org.springframework.data.domain.Pageable;
 public interface IOrderService {
 	OrderDetailResponse createOrder(CreateOrderRequest order);
 
+	OrderDetailResponse createOrder(long userId, CreateOrderRequest order);
+
 	void cancelOrder(long orderId);
 
 	void deleteOrder(long orderId);
@@ -24,4 +26,12 @@ public interface IOrderService {
 	Page<SubOrder> getSubOrder(Pageable pageable);
 
 	OrderDetailResponse getOrderDetail(long orderId);
+
+	Page<SubOrder> getSubOrder(long userId, Pageable pageable);
+
+	OrderDetailResponse getOrderDetailAdmin(long orderId);
+
+	void lockOrder(long orderId, boolean lock);
+
+	void softDeleteOrder(long orderId, boolean delete);
 }

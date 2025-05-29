@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.4.4'
     id 'io.spring.dependency-management' version '1.1.7'
+    id 'org.graalvm.buildtools.native' version '0.10.6'
 }
 
 group = 'com.lamnguyen'
@@ -31,16 +32,11 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-gateway'
     implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
-    implementation 'org.springframework.kafka:spring-kafka'
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'io.projectreactor:reactor-test'
-    testImplementation 'org.springframework.kafka:spring-kafka-test'
     runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 }
 
@@ -52,4 +48,12 @@ dependencyManagement {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+graalvmNative {
+    binaries {
+        named("main") {
+            buildArgs.add("--no-fallback")
+        }
+    }
 }

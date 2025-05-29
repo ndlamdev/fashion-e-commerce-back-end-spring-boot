@@ -69,6 +69,12 @@ public class OrderServiceImpl implements IOrderService {
 
 	@Override
 	public OrderDetailResponse createOrder(CreateOrderRequest order) {
+		var userId = jwtTokenUtil.getUserId();
+		return createOrder(userId, order);
+	}
+
+	@Override
+	public OrderDetailResponse createOrder(long userId, CreateOrderRequest order) {
 		Map<String, VariantProductInfo> variants = null;
 		OrderEntity entity = null;
 		var mapQuantities = order.getItems().stream().collect(Collectors.toMap(CreateOrderItemRequest::getVariantId, CreateOrderItemRequest::getQuantity));
@@ -81,7 +87,6 @@ public class OrderServiceImpl implements IOrderService {
 			var listOrderItemRequest = new ArrayList<OrderItemRequest>(variants.size());
 			var orderItems = new ArrayList<OrderItemEntity>(variants.size());
 			createOrderHelper(variants, mapQuantities, listOrderItemRequest, orderItems);
-			var userId = jwtTokenUtil.getUserId();
 			entity = orderRepository.save(orderMapper.toEntity(order, userId, orderItems));
 			var paymentRequest = orderMapper.toPaymentRequest(entity, order, listOrderItemRequest);
 			var paymentResponse = paymentGrpcClient.pay(paymentRequest);
@@ -162,7 +167,7 @@ public class OrderServiceImpl implements IOrderService {
 						userId,
 						() -> Optional
 								.ofNullable(
-										orderRepository.findHistoryOrderByUserId(userId)
+										orderRepository.findHistoryOrderByUserIdAndLockIsFalseAndDeleteIsFalse(userId)
 								))
 				;
 	}
@@ -180,8 +185,64 @@ public class OrderServiceImpl implements IOrderService {
 		return orderCacheManage
 				.cache(orderId,
 						() -> orderRepository
-								.findById(orderId)
+								.findByIdAndDeleteIsFalseAndLockIsFalse(orderId)
 								.map(orderMapper::toDto)
 				);
+	}
+
+	@Override
+	public Page<SubOrder> getSubOrder(long userId, Pageable pageable) {
+		var subOrders = historyCacheManage.getAllByUserId(userId)
+				.or(() -> cacheHistoryOrderAdmin(userId))
+				.orElseGet(ArrayList::new);
+		return new PageImpl<>(
+				subOrders.stream().skip(pageable.getOffset()).limit(pageable.getPageSize()).toList(),
+				pageable, subOrders.size()
+		);
+	}
+
+	private Optional<List<SubOrder>> cacheHistoryOrderAdmin(long userId) {
+		return historyCacheManage
+				.cacheAllByUserId(
+						userId,
+						() -> Optional
+								.ofNullable(
+										orderRepository.findHistoryOrderByUserIdAndDeleteIsFalse(userId)
+								))
+				;
+	}
+
+	@Override
+	public OrderDetailResponse getOrderDetailAdmin(long orderId) {
+		var orderDto = orderCacheManage.get(orderId)
+				.or(() -> cacheOrderDetailAdmin(orderId))
+				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
+		var paymentStatus = paymentGrpcClient.getPaymentStatus(orderId);
+		return orderMapper.toOrderDetailResponse(orderDto, paymentStatus);
+	}
+
+	private Optional<? extends OrderDto> cacheOrderDetailAdmin(long orderId) {
+		return orderCacheManage
+				.cache(orderId,
+						() -> orderRepository
+								.findByIdAndDeleteIsFalse(orderId)
+								.map(orderMapper::toDto)
+				);
+	}
+
+	@Override
+	public void lockOrder(long orderId, boolean lock) {
+		var order = orderRepository.findById(orderId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
+		order.setLock(lock);
+		historyCacheManage.deleteAllByUserId(order.getUserId());
+		orderCacheManage.delete(orderId);
+	}
+
+	@Override
+	public void softDeleteOrder(long orderId, boolean delete) {
+		var order = orderRepository.findById(orderId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
+		order.setDelete(delete);
+		historyCacheManage.deleteAllByUserId(order.getUserId());
+		orderCacheManage.delete(orderId);
 	}
 }

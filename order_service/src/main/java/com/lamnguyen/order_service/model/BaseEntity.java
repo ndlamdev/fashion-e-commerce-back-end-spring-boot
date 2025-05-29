@@ -39,6 +39,9 @@ public class BaseEntity {
 	@Column(name = "is_lock", columnDefinition = "bit set default false not null")
 	boolean lock;
 
+	@Column(name = "is_delete", columnDefinition = "bit set default false not null")
+	boolean delete;
+
 	@CreatedBy
 	@JsonProperty("create_by")
 	String createBy;
