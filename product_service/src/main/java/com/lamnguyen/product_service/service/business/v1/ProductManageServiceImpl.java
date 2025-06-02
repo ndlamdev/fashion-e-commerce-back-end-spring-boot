@@ -20,6 +20,7 @@ import com.lamnguyen.product_service.service.business.IProductManageService;
 import com.lamnguyen.product_service.service.grpc.IMediaGrpcClient;
 import com.lamnguyen.product_service.service.kafka.producer.IVariantService;
 import com.lamnguyen.product_service.service.redis.IProductResponseRedisManager;
+import com.lamnguyen.product_service.service.redis.v1.ProductDtoRedisManagerImpl;
 import com.lamnguyen.product_service.utils.helper.ValidationUtil;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +43,7 @@ public class ProductManageServiceImpl implements IProductManageService {
 	private final ProductServiceImpl productServiceImpl;
 	IVariantService variantService;
 	IOptionMapper optionMapper;
+	private final ProductDtoRedisManagerImpl productDtoRedisManagerImpl;
 
 	@Override
 	public void create(DataProductRequest request) {
@@ -69,12 +71,14 @@ public class ProductManageServiceImpl implements IProductManageService {
 		productRepository.save(product);
 		var options = optionMapper.toDataVariantOptions(request.getOptions());
 		variantService.updateVariant(oldProduct.getId(), request.getComparePrice(), request.getRegularPrice(), options);
-		productResponseRedisManager.delete(id);
+		cleanCache(id);
 	}
 
 	@Override
-	public void lock() {
-
+	public void lock(String id, boolean isLock) {
+		var product = productRepository.lock(id, isLock);
+		cleanCache(id);
+		collectionManageService.removeProductId(product.getCollection(), id);
 	}
 
 	private void validateProduct(Product product) {
@@ -107,5 +111,10 @@ public class ProductManageServiceImpl implements IProductManageService {
 			});
 		});
 		product.setAllImageContains(allImage);
+	}
+
+	private void cleanCache(String id) {
+		productResponseRedisManager.delete(id);
+		productDtoRedisManagerImpl.delete(id);
 	}
 }

@@ -15,5 +15,5 @@ public interface IProductManageService {
 
 	void update(String id, DataProductRequest request);
 
-	void lock();
+	void lock(String id, boolean isLock);
 }

@@ -16,6 +16,7 @@ import com.lamnguyen.product_service.domain.request.IdCollectionRequest;
 import com.lamnguyen.product_service.domain.request.TitleCollectionRequest;
 import com.lamnguyen.product_service.domain.request.UpdateCollectionRequest;
 import com.lamnguyen.product_service.mapper.ICollectionMapper;
+import com.lamnguyen.product_service.model.Collection;
 import com.lamnguyen.product_service.model.Product;
 import com.lamnguyen.product_service.repository.ICollectionRepository;
 import com.lamnguyen.product_service.service.business.ICollectionManageService;
@@ -91,5 +92,12 @@ public class CollectionManageServiceImpl implements ICollectionManageService {
 		collection.getProducts().removeIf(product -> product.getId().equals(productId));
 		collectionRepository.save(collection);
 		cacheManager.delete(collectionId);
+	}
+	@Override
+	@Async
+	public void removeProductId(Collection collection, String productId) {
+		collection.getProducts().removeIf(product -> product.getId().equals(productId));
+		collectionRepository.save(collection);
+		cacheManager.delete(collection.getId());
 	}
 }

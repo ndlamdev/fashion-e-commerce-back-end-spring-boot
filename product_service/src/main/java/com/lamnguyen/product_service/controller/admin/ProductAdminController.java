@@ -29,14 +29,18 @@ public class ProductAdminController {
 	@PostMapping()
 	@ApiMessageResponse("Create success!")
 	public void create(@Valid @RequestBody DataProductRequest request) {
-		log.info("create product: " + request.getTitle());
 		productManageService.create(request);
-		log.info("create product: " + request.getTitle() + " success!");
 	}
 
 	@PostMapping("/{id}")
 	@ApiMessageResponse("Update success!")
 	public void update(@PathVariable("id") String id, @Valid @RequestBody DataProductRequest request) {
 		productManageService.update(id, request);
+	}
+
+	@PutMapping("/{id}")
+	@ApiMessageResponse("Lock product success!")
+	public void lock(@PathVariable("id") String id, @RequestParam("isLock") boolean isLock) {
+		productManageService.lock(id, isLock);
 	}
 }

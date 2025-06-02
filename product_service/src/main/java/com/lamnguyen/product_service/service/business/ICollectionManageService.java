@@ -13,6 +13,7 @@ import com.lamnguyen.product_service.domain.response.ProductResponse;
 import com.lamnguyen.product_service.domain.request.IdCollectionRequest;
 import com.lamnguyen.product_service.domain.request.TitleCollectionRequest;
 import com.lamnguyen.product_service.domain.request.UpdateCollectionRequest;
+import com.lamnguyen.product_service.model.Collection;
 
 import java.util.List;
 
@@ -32,4 +33,6 @@ public interface ICollectionManageService {
 	void addProductId(String collectionId, String productId);
 
 	void removeProductId(String collectionId, String productId);
+
+	void removeProductId(Collection collection, String productId);
 }
