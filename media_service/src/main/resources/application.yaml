@@ -6,6 +6,8 @@ spring:
   config:
     import: ${CONFIG_SERVER:configserver:https://config-server.ndlamdev.website/fashion-e-commerce-config-server}
   cloud:
+    refresh:
+      enabled: false
     config:
       username: ${CONFIG_USERNAME:}
       password: ${CONFIG_PASSWORD:}
