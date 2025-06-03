@@ -22,6 +22,18 @@
     "allDeclaredFields": true,
     "allDeclaredConstructors": true,
     "allDeclaredMethods": true
+  },
+  {
+    "name": "io.grpc.netty.shaded.io.netty.util.ReferenceCountUtil",
+    "allDeclaredFields": true,
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "io.grpc.netty.shaded.io.netty.util.internal.shaded.org.jctools.queues.MpscArrayQueue",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
   }
 ]
 
