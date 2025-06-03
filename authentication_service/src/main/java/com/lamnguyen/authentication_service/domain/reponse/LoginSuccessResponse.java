@@ -11,9 +11,17 @@ package com.lamnguyen.authentication_service.domain.reponse;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lamnguyen.authentication_service.domain.dto.ProfileUserDto;
-import lombok.Builder;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
+@Setter
 @Builder
-public record LoginSuccessResponse(@JsonProperty("access-token") String accessToken,
-                                   ProfileUserDto user) {
+@NoArgsConstructor
+@AllArgsConstructor
+public class LoginSuccessResponse {
+    @JsonProperty("access-token")
+    String accessToken;
+    ProfileUserDto user;
 }

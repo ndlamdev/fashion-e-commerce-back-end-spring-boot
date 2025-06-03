@@ -38,6 +38,6 @@ public class RoleController {
 	@ApiMessageResponse("Create success")
 	@PreAuthorize("hasAnyAuthority('CREATE_ROLE', 'ROLE_ADMIN')")
 	public RoleDto getAll(@RequestBody CreateRoleRequest createRoleRequest) {
-		return iRoleService.createRole(createRoleRequest.name());
+		return iRoleService.createRole(createRoleRequest.getName());
 	}
 }

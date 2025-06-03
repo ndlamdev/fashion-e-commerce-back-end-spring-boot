@@ -187,14 +187,14 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
 	@Override
 	public void setNewPassword(SetNewPasswordRequest request) {
-		var jwt = jwtTokenUtil.decodeToken(request.token());
+		var jwt = jwtTokenUtil.decodeToken(request.getToken());
 		var simplePayload = jwtTokenUtil.getSimplePayload(jwt);
 		if (simplePayload.getType() != JwtType.RESET_PASSWORD)
 			throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
 		var check = resetPasswordCodeRedisManager.existTokenResetPasswordInBlacklist(simplePayload.getUserId(), jwt.getId());
 		if (check) throw ApplicationException.createException(ExceptionEnum.TOKEN_NOT_VALID);
 		var user = userService.findUserByEmail(simplePayload.getEmail());
-		user.setPassword(passwordEncoder.encode(request.password()));
+		user.setPassword(passwordEncoder.encode(request.getPassword()));
 		userService.save(user);
 		resetPasswordCodeRedisManager.addTokenResetPasswordInBlacklist(simplePayload.getUserId(), jwt.getId());
 		changePasswordRedisManager.setDateTimeChangePassword(simplePayload.getUserId(), LocalDateTime.now());
@@ -227,13 +227,13 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 	public void changePassword(ChangePasswordRequest request) {
 		var useId = jwtTokenUtil.getUserId();
 		var user = userService.findById(useId);
-		if (!passwordEncoder.matches(request.oldPassword(), user.getPassword())) {
+		if (!passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
 			throw ApplicationException.createException(ExceptionEnum.OLD_PASSWORD_NOT_MATCH);
 		}
-		if (passwordEncoder.matches(request.password(), user.getPassword())) {
+		if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
 			throw ApplicationException.createException(ExceptionEnum.NEW_PASSWORD_NOT_DIFFERENT);
 		}
-		user.setPassword(passwordEncoder.encode(request.password()));
+		user.setPassword(passwordEncoder.encode(request.getPassword()));
 		userService.save(user);
 		changePasswordRedisManager.setDateTimeChangePassword(useId, LocalDateTime.now());
 	}

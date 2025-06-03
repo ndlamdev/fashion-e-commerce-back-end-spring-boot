@@ -9,9 +9,16 @@
 package com.lamnguyen.authentication_service.domain.reponse;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-public record RegisterTokenResponse(
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class RegisterTokenResponse {
 		@JsonProperty("register-token")
-		String registerToken
-) {
+		String registerToken;
 }

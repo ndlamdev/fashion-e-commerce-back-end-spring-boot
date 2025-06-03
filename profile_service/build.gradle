@@ -3,6 +3,7 @@ plugins {
     id 'org.springframework.boot' version '3.4.4'
     id 'io.spring.dependency-management' version '1.1.7'
     id "com.google.protobuf" version "0.9.5"
+    id 'org.graalvm.buildtools.native' version '0.10.6'
 }
 
 group = 'com.lamnguyen'
@@ -46,11 +47,7 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.kafka:spring-kafka-test'
-    testImplementation 'org.springframework.security:spring-security-test'
     runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation 'org.mapstruct:mapstruct:1.6.3'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.13.19'
@@ -87,6 +84,21 @@ protobuf {
             task.plugins {
                 grpc {}
             }
+        }
+    }
+}
+
+graalvmNative {
+    toolchainDetection = true
+    binaries {
+        named("main") {
+            buildArgs.addAll(
+                    "--enable-url-protocols=http",
+                    "--report-unsupported-elements-at-runtime",
+                    "--no-fallback",
+                    "--initialize-at-run-time=sun.net.dns.ResolverConfigurationImpl",
+                    "--initialize-at-build-time=io.netty.util.internal.shaded.org.jctools.util.UnsafeAccess",
+            )
         }
     }
 }

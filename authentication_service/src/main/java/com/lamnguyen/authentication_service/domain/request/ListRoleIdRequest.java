@@ -10,12 +10,18 @@ package com.lamnguyen.authentication_service.domain.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import reactor.util.annotation.NonNull;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 
-public record ListRoleIdRequest(
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PROTECTED)
+public class ListRoleIdRequest {
 		@JsonProperty("role_ids")
 		@NonNull
-		List<Long> roleIds
-) {
+		List<Long> roleIds;
 }

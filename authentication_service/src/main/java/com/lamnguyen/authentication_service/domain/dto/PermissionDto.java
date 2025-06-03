@@ -8,15 +8,20 @@
 
 package com.lamnguyen.authentication_service.domain.dto;
 
-import lombok.Builder;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
 
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
+@Setter
 @Builder
-public record PermissionDto(
-		long id,
-		String name,
-		String describe,
-		boolean lock
-) implements Serializable {
+@NoArgsConstructor
+@AllArgsConstructor
+public class PermissionDto implements Serializable {
+		long id;
+		String name;
+		String describe;
+		boolean lock;
 }

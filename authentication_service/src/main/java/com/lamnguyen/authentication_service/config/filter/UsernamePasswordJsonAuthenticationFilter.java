@@ -46,8 +46,8 @@ public class UsernamePasswordJsonAuthenticationFilter extends UsernamePasswordAu
                 throw new RuntimeException(e);
             }
             if (data == null) throw new AuthenticationServiceException("Please submit username and password!");
-            String username = data.email() == null ? "" : data.email();
-            String password = data.password() == null ? "" : data.password();
+            String username = data.getEmail() == null ? "" : data.getEmail();
+            String password = data.getPassword() == null ? "" : data.getPassword();
             UsernamePasswordAuthenticationToken authRequest = UsernamePasswordAuthenticationToken.unauthenticated(username, password);
             this.setDetails(request, authRequest);
             return this.getAuthenticationManager().authenticate(authRequest);

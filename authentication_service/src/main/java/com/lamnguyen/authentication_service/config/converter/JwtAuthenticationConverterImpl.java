@@ -54,7 +54,7 @@ public class JwtAuthenticationConverterImpl implements Converter<Jwt, AbstractAu
 			authorities.add(new SimpleGrantedAuthority(applicationProperty.getRolePrefix() + role.getName()));
 			authorities.addAll(role.getPermissions()
 					.stream()
-					.map(permission -> new SimpleGrantedAuthority(permission.name()))
+					.map(permission -> new SimpleGrantedAuthority(permission.getName()))
 					.collect(Collectors.toSet()));
 		});
 		return new JwtAuthenticationToken(source, authorities);

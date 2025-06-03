@@ -16,7 +16,6 @@ import com.lamnguyen.authentication_service.service.authentication.IAuthenticati
 import com.lamnguyen.authentication_service.service.authentication.IFacebookAuthService;
 import com.lamnguyen.authentication_service.service.authentication.IGoogleAuthService;
 import com.lamnguyen.authentication_service.utils.annotation.ApiMessageResponse;
-import com.lamnguyen.authentication_service.utils.helper.JwtTokenUtil;
 import com.lamnguyen.authentication_service.utils.property.TokenProperty;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,7 +28,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
@@ -65,13 +63,13 @@ public class AuthenticationController {
 	@PostMapping("/verify")
 	@ApiMessageResponse("Verify success")
 	public void verify(@Valid @RequestBody VerifyAccountRequest request) {
-		authenticationService.verifyAccount(request.email(), request.code());
+		authenticationService.verifyAccount(request.getEmail(), request.getCode());
 	}
 
 	@PostMapping("/resend-verify")
 	@ApiMessageResponse("Resend code verify account success")
 	public void resendVerify(@RequestBody @Valid EmailRequest request) {
-		authenticationService.resendVerifyAccountCode(request.email());
+		authenticationService.resendVerifyAccountCode(request.getEmail());
 	}
 
 	@PostMapping("/logout")
@@ -100,13 +98,13 @@ public class AuthenticationController {
 	@PostMapping("/reset-password")
 	@ApiMessageResponse("Reset password success")
 	public void resetPassword(@Valid @RequestBody EmailRequest request) {
-		authenticationService.sendResetPasswordCode(request.email());
+		authenticationService.sendResetPasswordCode(request.getEmail());
 	}
 
 	@PostMapping("/reset-password/verify")
 	@ApiMessageResponse("Verify reset password code success")
 	public TokenResponse verifyResetPassword(@Valid @RequestBody VerifyAccountRequest request) {
-		var token = authenticationService.verifyResetPasswordCode(request.email(), request.code());
+		var token = authenticationService.verifyResetPasswordCode(request.getEmail(), request.getCode());
 		return TokenResponse.builder().token(token.getTokenValue()).build();
 	}
 
@@ -126,7 +124,7 @@ public class AuthenticationController {
 	@PostMapping("/google/login")
 	@ApiMessageResponse("Login using google success")
 	public LoginSuccessResponse loginWithGoogle(@Valid @RequestBody GoogleAuthRequest request, HttpServletResponse response) {
-		var token = googleAuthService.login(request.authCode());
+		var token = googleAuthService.login(request.getAuthCode());
 		return getLoginSuccessResponse(response, token);
 	}
 
@@ -139,7 +137,7 @@ public class AuthenticationController {
 	@PostMapping("/facebook/login")
 	@ApiMessageResponse("Login using facebook success")
 	public LoginSuccessResponse loginWithFacebook(@RequestBody @Valid AccessTokenRequest request, HttpServletResponse response) {
-		var token = facebookAuthService.login(request.accessToken());
+		var token = facebookAuthService.login(request.getAccessToken());
 		return getLoginSuccessResponse(response, token);
 	}
 
@@ -156,15 +154,15 @@ public class AuthenticationController {
 	}
 
 	private LoginSuccessResponse getLoginSuccessResponse(HttpServletResponse response, LoginSuccessDto token) {
-		var user = authenticationService.login(token.accessToken());
-		Cookie refestTokenCookie = new Cookie(getKeyRefreshToken.getTokenKey(), token.refreshToken());
+		var user = authenticationService.login(token.getAccessToken());
+		Cookie refestTokenCookie = new Cookie(getKeyRefreshToken.getTokenKey(), token.getRefreshToken());
 		refestTokenCookie.setMaxAge(getKeyRefreshToken.getExpireToken() * 60000);
 		refestTokenCookie.setHttpOnly(true);
 		refestTokenCookie.setSecure(true);
 		response.addCookie(refestTokenCookie);
 		return LoginSuccessResponse.builder()
 				.user(user)
-				.accessToken(token.accessToken())
+				.accessToken(token.getAccessToken())
 				.build();
 	}
 }

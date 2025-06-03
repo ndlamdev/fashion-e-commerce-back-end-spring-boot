@@ -114,7 +114,7 @@ public class JwtTokenUtil {
         return jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader, JwtClaimsSet.builder()
                 .id(UUID.randomUUID().toString())
                 .issuer(applicationProperty.getJwtIss())
-                .subject(payload.email())
+                .subject(payload.getEmail())
                 .issuedAt(now)
                 .claim(applicationProperty.getJwtClaim(), payload)
                 .expiresAt(now.plus(applicationProperty.getExpireRegisterToken(), ChronoUnit.MINUTES))

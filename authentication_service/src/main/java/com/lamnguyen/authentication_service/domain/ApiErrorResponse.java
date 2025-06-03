@@ -9,10 +9,7 @@
 package com.lamnguyen.authentication_service.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -20,6 +17,8 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ApiErrorResponse<T> {
 	int code;
 	String error;

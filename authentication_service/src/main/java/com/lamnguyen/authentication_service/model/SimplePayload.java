@@ -11,8 +11,8 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PROTECTED)
 public class SimplePayload {
-    long userId;
-    @Builder.Default
-    JwtType type = JwtType.ACCESS_TOKEN;
-    String email;
+	long userId;
+	@Builder.Default
+	JwtType type = JwtType.ACCESS_TOKEN;
+	String email;
 }

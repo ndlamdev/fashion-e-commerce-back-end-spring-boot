@@ -10,10 +10,16 @@ package com.lamnguyen.authentication_service.domain.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-public record GoogleAuthRequest(
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PROTECTED)
+public class GoogleAuthRequest {
 		@JsonProperty("auth_code")
 		@NotNull
-		String authCode
-) {
+		String authCode;
 }

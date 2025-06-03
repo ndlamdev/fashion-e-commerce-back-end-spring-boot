@@ -9,11 +9,17 @@
 package com.lamnguyen.authentication_service.domain.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.NonNull;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-public record AccessTokenRequest(
-		@NonNull
-		@JsonProperty("access_token")
-		String accessToken
-) {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PROTECTED)
+public class AccessTokenRequest {
+	@NotNull
+	@JsonProperty("access_token")
+	String accessToken;
 }

@@ -8,10 +8,15 @@
 
 package com.lamnguyen.authentication_service.domain.reponse;
 
-import lombok.Builder;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
+@Setter
 @Builder
-public record RegisterResponse(
-        String email
-) {
+@NoArgsConstructor
+@AllArgsConstructor
+public class RegisterResponse {
+        String email;
 }

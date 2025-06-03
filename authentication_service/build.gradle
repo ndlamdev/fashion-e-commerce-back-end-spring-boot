@@ -107,3 +107,14 @@ graalvmNative {
         }
     }
 }
+
+tasks.register('runWithAgent', JavaExec) {
+    group = 'native'
+    description = 'Run the app with GraalVM agent to collect config'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.lamnguyen.authentication_service.AuthenticationServiceApplication' // ✅ Đổi thành class main thực tế của bạn
+
+    jvmArgs = [
+            "-agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image"
+    ]
+}

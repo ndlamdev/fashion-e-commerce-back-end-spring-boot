@@ -7,27 +7,40 @@ import com.lamnguyen.profile_service.utils.enums.SexEnum;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.hibernate.validator.constraints.Range;
 
 import java.time.LocalDate;
 
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @ValidInternationalPhone(phoneField = "phone", countryField = "countryCode")
-public record SaveProfileRequest(
+public class SaveProfileRequest {
         @NotNull(message = "Require fullName is not null")
         @JsonProperty("full_name")
-        String fullName,
+        String fullName;
+
         @NotBlank
         @JsonProperty("country_code")
-        String countryCode,
+        String countryCode;
+
         @NotBlank(message = "Require phoneNumber is not blank")
-        String phone,
+        String phone;
+
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-        LocalDate birthday,
+        LocalDate birthday;
+
         @Range(min = 140, max = 190)
-        Double height,
+        Double height;
+
         @Range(min = 40, max = 90)
-        Double weight,
+        Double weight;
+
         @Enumerated
-        SexEnum gender
-) {
+        SexEnum gender;
 }

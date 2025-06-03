@@ -13,20 +13,28 @@ import com.lamnguyen.authentication_service.utils.annotation.FieldsValueMatch;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PROTECTED)
 @FieldsValueMatch(field = "password", fieldMatch = "confirmPassword", message = "Password and confirmPassword not match")
-public record ChangePasswordRequest(
+public class ChangePasswordRequest {
         @NotBlank
         @JsonProperty("old_password")
-        String oldPassword,
+        String oldPassword;
+
         @NotBlank
         @Size(min = 8, message = "Password must be at least 8 characters long")
         @Pattern(regexp = ".*[a-z].*", message = "Password must contain at least one uppercase letter")
         @Pattern(regexp = ".*[A-Z].*", message = "Password must contain at least one lowercase letter")
         @Pattern(regexp = ".*[0-9].*", message = "Password must contain at least one digit")
         @Pattern(regexp = ".*[@$!%*?&].*", message = "Password must contain at least one special character (@$!%*?&)")
-        String password,
+        String password;
+
         @JsonProperty("confirm_password")
-        String confirmPassword
-) {
+        String confirmPassword;
 }
