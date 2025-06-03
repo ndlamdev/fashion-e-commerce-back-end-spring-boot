@@ -29,21 +29,21 @@ public class FacebookTokenRedisManagerImpl implements IFacebookTokenRedisManager
 
 	@Override
 	public void setRegisterTokenIdUsingFacebook(String id) {
-		redisTemplate.opsForValue().set(facebookProperty.keyRegisterTokenUsingFacebook() + id, 1, applicationProperty.getExpireRegisterToken(), TimeUnit.MINUTES);
+		redisTemplate.opsForValue().set(facebookProperty.getKeyRegisterTokenUsingFacebook() + id, 1, applicationProperty.getExpireRegisterToken(), TimeUnit.MINUTES);
 	}
 
 	@Override
 	public boolean existRegisterTokenIdUsingFacebook(String id) {
-		return redisTemplate.opsForValue().get(facebookProperty.keyRegisterTokenUsingFacebook() + id) != null;
+		return redisTemplate.opsForValue().get(facebookProperty.getKeyRegisterTokenUsingFacebook() + id) != null;
 	}
 
 	@Override
 	public void setAccessTokenFacebook(String token) {
-		redisTemplate.opsForValue().set(facebookProperty.keyAccessTokenFacebook() + token, 1, 5, TimeUnit.HOURS);
+		redisTemplate.opsForValue().set(facebookProperty.getKeyAccessTokenFacebook() + token, 1, 5, TimeUnit.HOURS);
 	}
 
 	@Override
 	public boolean existAccessTokenFacebook(String token) {
-		return redisTemplate.opsForValue().get(facebookProperty.keyAccessTokenFacebook() + token) != null;
+		return redisTemplate.opsForValue().get(facebookProperty.getKeyAccessTokenFacebook() + token) != null;
 	}
 }

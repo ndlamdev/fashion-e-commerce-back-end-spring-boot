@@ -30,11 +30,11 @@ public class GoogleTokenRedisManagerImpl implements IGoogleTokenRedisManager {
 
     @Override
     public void setRegisterTokenIdUsingGoogle(String id) {
-        redisTemplate.opsForValue().set(googleProperty.keyRegisterTokenUsingGoogle() + id, 1, applicationProperty.getExpireRegisterToken(), TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set(googleProperty.getKeyRegisterTokenUsingGoogle() + id, 1, applicationProperty.getExpireRegisterToken(), TimeUnit.MINUTES);
     }
 
     @Override
     public boolean existRegisterTokenIdUsingGoogle(String id) {
-        return redisTemplate.opsForValue().get(googleProperty.keyRegisterTokenUsingGoogle() + id) != null;
+        return redisTemplate.opsForValue().get(googleProperty.getKeyRegisterTokenUsingGoogle() + id) != null;
     }
 }
