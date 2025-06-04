@@ -6,13 +6,10 @@
  * User: lam-nguyen
  **/
 
-package com.lamnguyen.media_service.domain;
+package com.lamnguyen.authentication_service.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -20,8 +17,10 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @Builder
-public class ApiSuccessResponse<T> {
-    int code;
-    String message;
-    T data;
+@NoArgsConstructor
+@AllArgsConstructor
+public class ApiResponseSuccess<T> {
+	int code;
+	String message;
+	T data;
 }

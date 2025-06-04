@@ -93,9 +93,14 @@ graalvmNative {
     binaries {
         named("main") {
             buildArgs.addAll(
-                    "--enable-url-protocols=http",
                     "--report-unsupported-elements-at-runtime",
                     "--no-fallback",
+                    "-H:-AddAllFileSystemProviders",
+                    "--strict-image-heap",
+                    "--initialize-at-build-time=org.bouncycastle",
+                    "--initialize-at-build-time=net.i2p.crypto.eddsa.EdDSASecurityProvider",
+                    "--initialize-at-run-time=org.bouncycastle.jcajce.provider.drbg.DRBG\$Default",
+                    "--initialize-at-run-time=org.bouncycastle.jcajce.provider.drbg.DRBG\$NonceAndIV",
                     "--initialize-at-run-time=sun.net.dns.ResolverConfigurationImpl",
                     "--initialize-at-build-time=io.netty.util.internal.shaded.org.jctools.util.UnsafeAccess",
             )

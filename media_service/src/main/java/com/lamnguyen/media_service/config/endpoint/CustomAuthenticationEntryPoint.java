@@ -10,7 +10,7 @@ package com.lamnguyen.media_service.config.endpoint;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lamnguyen.media_service.config.exception.ExceptionEnum;
-import com.lamnguyen.media_service.domain.ApiErrorResponse;
+import com.lamnguyen.media_service.domain.ApiResponseError;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -40,7 +40,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 		String errorMessage = Optional.ofNullable(authException.getCause())
 				.map(Throwable::getMessage)
 				.orElse(authException.getMessage());
-		ApiErrorResponse<Object> res = ApiErrorResponse.builder()
+		ApiResponseError<Object> res = ApiResponseError.builder()
 				.code(ExceptionEnum.UNAUTHORIZED.getCode())
 				.error(ExceptionEnum.UNAUTHORIZED.name())
 				.detail(errorMessage)

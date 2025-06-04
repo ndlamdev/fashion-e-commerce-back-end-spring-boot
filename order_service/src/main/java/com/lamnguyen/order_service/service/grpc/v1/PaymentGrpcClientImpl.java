@@ -13,17 +13,12 @@ import com.lamnguyen.order_service.protos.PaymentRequest;
 import com.lamnguyen.order_service.protos.PaymentResponse;
 import com.lamnguyen.order_service.protos.PaymentServiceGrpc;
 import com.lamnguyen.order_service.service.grpc.IPaymentGrpcClient;
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Service;
 
 @Service
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class PaymentGrpcClientImpl implements IPaymentGrpcClient {
 	@GrpcClient("fashion-e-commerce-payment-service")
-	@NonFinal
 	public PaymentServiceGrpc.PaymentServiceBlockingStub paymentServiceBlockingStub;
 
 	@Override

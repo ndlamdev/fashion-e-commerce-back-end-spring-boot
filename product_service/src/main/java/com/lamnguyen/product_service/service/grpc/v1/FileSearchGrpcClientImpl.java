@@ -24,7 +24,7 @@ import java.util.List;
 @Service
 public class FileSearchGrpcClientImpl implements IFileSearchGrpcClient {
 	@GrpcClient("fashion-e-commerce-file-search-service")
-	FileSearchServiceGrpc.FileSearchServiceBlockingStub fileSearchServiceBlockingStub;
+	public FileSearchServiceGrpc.FileSearchServiceBlockingStub fileSearchServiceBlockingStub;
 
 
 	@Override

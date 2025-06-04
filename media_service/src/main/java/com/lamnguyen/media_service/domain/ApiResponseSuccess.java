@@ -2,14 +2,17 @@
  * Nguyen Dinh Lam
  * Email: kiminonawa1305@gmail.com
  * Phone number: +84 855354919
- * Create at: 9:46 AM - 30/03/2025
+ * Create at: 1:49 PM - 26/02/2025
  * User: lam-nguyen
  **/
 
-package com.lamnguyen.authentication_service.domain;
+package com.lamnguyen.media_service.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -17,12 +20,8 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class ApiErrorResponse<T> {
-	int code;
-	String error;
-	T detail;
-	@JsonInclude(JsonInclude.Include.NON_EMPTY)
-	StackTraceElement[] trace;
+public class ApiResponseSuccess<T> {
+    int code;
+    String message;
+    T data;
 }

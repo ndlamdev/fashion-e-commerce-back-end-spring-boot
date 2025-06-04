@@ -20,7 +20,7 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @Builder
-public class ApiErrorResponse<T> {
+public class ApiResponseError<T> {
 	int code;
 	String error;
 	T detail;

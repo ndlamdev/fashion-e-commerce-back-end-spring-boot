@@ -22,13 +22,11 @@ import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Service;
 
 @Service
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
 public class ProductGrpcClientImpl implements IProductGrpcClient {
 	@GrpcClient("fashion-e-commerce-product-service")
-	@NonFinal
 	public ProductServiceGrpc.ProductServiceBlockingStub productServiceBlockingStub;
-	IProductMapper productMapper;
+	private final IProductMapper productMapper;
 
 	@Override
 	public ProductDto getProductDto(String id) {

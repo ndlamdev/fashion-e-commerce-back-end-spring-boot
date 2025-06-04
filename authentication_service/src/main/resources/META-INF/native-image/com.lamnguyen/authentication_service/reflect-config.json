@@ -36,13 +36,13 @@
     "allDeclaredFields": true
   },
   {
-    "name": "com.lamnguyen.authentication_service.domain.ApiErrorResponse",
+    "name": "com.lamnguyen.authentication_service.domain.ApiResponseError",
     "allDeclaredConstructors": true,
     "allDeclaredMethods": true,
     "allDeclaredFields": true
   },
   {
-    "name": "com.lamnguyen.authentication_service.domain.ApiSuccessResponse",
+    "name": "com.lamnguyen.authentication_service.domain.ApiResponseSuccess",
     "allDeclaredConstructors": true,
     "allDeclaredMethods": true,
     "allDeclaredFields": true

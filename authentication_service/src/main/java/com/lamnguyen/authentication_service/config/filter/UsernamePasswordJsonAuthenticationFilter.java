@@ -10,7 +10,7 @@ package com.lamnguyen.authentication_service.config.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lamnguyen.authentication_service.config.exception.ExceptionEnum;
-import com.lamnguyen.authentication_service.domain.ApiErrorResponse;
+import com.lamnguyen.authentication_service.domain.ApiResponseError;
 import com.lamnguyen.authentication_service.domain.request.UsernamePasswordAuthenticationRequest;
 import com.nimbusds.jose.shaded.gson.Gson;
 import jakarta.servlet.FilterChain;
@@ -78,7 +78,7 @@ public class UsernamePasswordJsonAuthenticationFilter extends UsernamePasswordAu
             case InternalAuthenticationServiceException e -> "Tài khoản không tồn tại!";
             default -> "Lỗi!";
         };
-        new ObjectMapper().writeValue(writer, ApiErrorResponse.builder()
+        new ObjectMapper().writeValue(writer, ApiResponseError.builder()
                 .code(ExceptionEnum.CODE_NOT_FOUND.getCode())
                 .error(ExceptionEnum.LOGIN_FAIL.name())
                 .detail(message)

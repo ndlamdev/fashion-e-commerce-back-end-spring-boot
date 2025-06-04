@@ -2,7 +2,7 @@
  * Nguyen Dinh Lam
  * Email: kiminonawa1305@gmail.com
  * Phone number: +84 855354919
- * Create at: 1:49 PM - 26/02/2025
+ * Create at: 9:46 AM - 30/03/2025
  * User: lam-nguyen
  **/
 
@@ -19,8 +19,10 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ApiSuccessResponse<T> {
+public class ApiResponseError<T> {
 	int code;
-	String message;
-	T data;
+	String error;
+	T detail;
+	@JsonInclude(JsonInclude.Include.NON_EMPTY)
+	StackTraceElement[] trace;
 }

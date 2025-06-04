@@ -98,9 +98,14 @@ graalvmNative {
     binaries {
         named("main") {
             buildArgs.addAll(
-                    "--enable-url-protocols=http",
                     "--report-unsupported-elements-at-runtime",
                     "--no-fallback",
+                    "-H:-AddAllFileSystemProviders",
+                    "--strict-image-heap",
+                    "--initialize-at-build-time=org.bouncycastle",
+                    "--initialize-at-build-time=net.i2p.crypto.eddsa.EdDSASecurityProvider",
+                    "--initialize-at-run-time=org.bouncycastle.jcajce.provider.drbg.DRBG\$Default",
+                    "--initialize-at-run-time=org.bouncycastle.jcajce.provider.drbg.DRBG\$NonceAndIV",
                     "--initialize-at-run-time=sun.net.dns.ResolverConfigurationImpl",
                     "--initialize-at-build-time=io.netty.util.internal.shaded.org.jctools.util.UnsafeAccess",
             )
@@ -112,7 +117,8 @@ tasks.register('runWithAgent', JavaExec) {
     group = 'native'
     description = 'Run the app with GraalVM agent to collect config'
     classpath = sourceSets.main.runtimeClasspath
-    mainClass = 'com.lamnguyen.authentication_service.AuthenticationServiceApplication' // ✅ Đổi thành class main thực tế của bạn
+    mainClass = 'com.lamnguyen.authentication_service.AuthenticationServiceApplication'
+    // ✅ Đổi thành class main thực tế của bạn
 
     jvmArgs = [
             "-agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image"

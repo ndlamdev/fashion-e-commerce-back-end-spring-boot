@@ -9,7 +9,7 @@
 package com.lamnguyen.media_service.config.exception;
 
 
-import com.lamnguyen.media_service.domain.ApiErrorResponse;
+import com.lamnguyen.media_service.domain.ApiResponseError;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -27,13 +27,13 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class GlobalException {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<ApiErrorResponse<Object>> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
+	public ResponseEntity<ApiResponseError<Object>> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
 		List<String> errors = exception.getBindingResult().getFieldErrors().stream()
 				.map(it -> it.getField() + ": " + it.getDefaultMessage()).collect(Collectors.toCollection(ArrayList::new));
 		errors.addAll(exception.getBindingResult().getGlobalErrors().stream()
 				.map(ObjectError::getDefaultMessage)
 				.toList());
-		return ResponseEntity.badRequest().body(ApiErrorResponse.builder()
+		return ResponseEntity.badRequest().body(ApiResponseError.builder()
 				.code(HttpStatus.UNAVAILABLE_FOR_LEGAL_REASONS.value())
 				.detail(errors.size() == 1 ? errors.getFirst() : errors)
 				.error("Info not validated!")
@@ -42,8 +42,8 @@ public class GlobalException {
 	}
 
 	@ExceptionHandler(ApplicationException.class)
-	public ResponseEntity<ApiErrorResponse<Object>> handleApplicationException(ApplicationException exception) {
-		return ResponseEntity.badRequest().body(ApiErrorResponse.builder()
+	public ResponseEntity<ApiResponseError<Object>> handleApplicationException(ApplicationException exception) {
+		return ResponseEntity.badRequest().body(ApiResponseError.builder()
 				.code(exception.getCode())
 				.error(exception.getMessage())
 				.detail(exception.getMessageError())
@@ -52,8 +52,8 @@ public class GlobalException {
 	}
 
 	@ExceptionHandler(MissingServletRequestParameterException.class)
-	public ResponseEntity<ApiErrorResponse<Object>> handleMissingServletRequestParameterException(MissingServletRequestParameterException exception) {
-		return ResponseEntity.badRequest().body(ApiErrorResponse.builder()
+	public ResponseEntity<ApiResponseError<Object>> handleMissingServletRequestParameterException(MissingServletRequestParameterException exception) {
+		return ResponseEntity.badRequest().body(ApiResponseError.builder()
 				.code(HttpStatus.PAYMENT_REQUIRED.value())
 				.error(HttpStatus.PAYMENT_REQUIRED.name())
 				.detail(exception.getMessage())
@@ -62,8 +62,8 @@ public class GlobalException {
 	}
 
 	@ExceptionHandler(AuthorizationDeniedException.class)
-	public ResponseEntity<ApiErrorResponse<Object>> handleMissingServletRequestParameterException(AuthorizationDeniedException exception) {
-		return ResponseEntity.badRequest().body(ApiErrorResponse.builder()
+	public ResponseEntity<ApiResponseError<Object>> handleMissingServletRequestParameterException(AuthorizationDeniedException exception) {
+		return ResponseEntity.badRequest().body(ApiResponseError.builder()
 				.code(HttpStatus.UNAUTHORIZED.value())
 				.error(HttpStatus.UNAUTHORIZED.name())
 				.detail(exception.getMessage())
@@ -72,8 +72,8 @@ public class GlobalException {
 	}
 
 	@ExceptionHandler(HttpMessageNotReadableException.class)
-	public ResponseEntity<ApiErrorResponse<Object>> handleMissingServletRequestParameterException(HttpMessageNotReadableException exception) {
-		return ResponseEntity.badRequest().body(ApiErrorResponse.builder()
+	public ResponseEntity<ApiResponseError<Object>> handleMissingServletRequestParameterException(HttpMessageNotReadableException exception) {
+		return ResponseEntity.badRequest().body(ApiResponseError.builder()
 				.code(HttpStatus.PAYMENT_REQUIRED.value())
 				.error(HttpStatus.PAYMENT_REQUIRED.name())
 				.detail(exception.getMessage())
@@ -81,5 +81,13 @@ public class GlobalException {
 				.build());
 	}
 
-
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<ApiResponseError<Object>> handleException(Exception exception) {
+		return ResponseEntity.badRequest().body(ApiResponseError.builder()
+				.code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+				.error(HttpStatus.INTERNAL_SERVER_ERROR.name())
+				.detail(exception.getMessage())
+				.trace(exception.getStackTrace())
+				.build());
+	}
 }

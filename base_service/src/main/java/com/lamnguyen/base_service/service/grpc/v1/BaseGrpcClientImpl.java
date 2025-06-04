@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class BaseGrpcClientImpl implements IBaseGrpcClient {
 	@GrpcClient("fashion-e-commerce-base-service")
-	BaseServiceGrpc.BaseServiceBlockingStub baseServiceBlockingStub;
+	public final BaseServiceGrpc.BaseServiceBlockingStub baseServiceBlockingStub;
 
 	@Override
 	public String greeting(String name) {

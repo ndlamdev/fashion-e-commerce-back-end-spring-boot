@@ -34,7 +34,7 @@ public class AddressServiceImpl implements IAddressService {
 		address = mapper.toAddress(request);
 		address.setId(id);
 		address.setUserId(userId);
-		if (request.active()) {
+		if (request.getActive()) {
 			repository.activeAddress(userId, id);
 			addressProducer.sendInfoAddressShipping(mapper.toInfoAddressShipping(address)); // send info-address-topic
 		}
@@ -50,14 +50,14 @@ public class AddressServiceImpl implements IAddressService {
 	public AddressResponse addAddress(SaveAddressRequest request, Long userId) {
 		var addresses = getAddresses(userId);
 		var addressDefault = addresses.stream()
-				.filter(AddressResponse::active)
+				.filter(AddressResponse::getActive)
 				.findFirst()
 				.orElse(null);
 		if (addresses.size() >= 5)
 			throw ApplicationException.createException(ExceptionEnum.ADDRESS_LARGER_LIMITED);
 		var address = mapper.toAddress(request);
 		if (addresses.isEmpty()) address.setActive(true);
-		if (addressDefault != null && address.getActive()) repository.inactiveAddress(addressDefault.id(), userId);
+		if (addressDefault != null && address.getActive()) repository.inactiveAddress(addressDefault.getId(), userId);
 		if (address.getActive())
 			addressProducer.sendInfoAddressShipping(mapper.toInfoAddressShipping(address)); // send info-address-topic
 

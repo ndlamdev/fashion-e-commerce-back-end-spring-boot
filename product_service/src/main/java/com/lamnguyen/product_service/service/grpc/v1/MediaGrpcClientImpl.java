@@ -25,7 +25,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MediaGrpcClientImpl implements IMediaGrpcClient {
 	@GrpcClient("fashion-e-commerce-media-service")
-	MediaServiceGrpc.MediaServiceBlockingStub mediaServiceBlockingStub;
+	public MediaServiceGrpc.MediaServiceBlockingStub mediaServiceBlockingStub;
 	private final IImageMapper imageMapper;
 
 	@Override

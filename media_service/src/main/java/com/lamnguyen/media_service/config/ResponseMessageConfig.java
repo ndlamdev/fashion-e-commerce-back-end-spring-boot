@@ -8,7 +8,7 @@
 
 package com.lamnguyen.media_service.config;
 
-import com.lamnguyen.media_service.domain.ApiSuccessResponse;
+import com.lamnguyen.media_service.domain.ApiResponseSuccess;
 import com.lamnguyen.media_service.utils.annotation.ApiMessageResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.MethodParameter;
@@ -42,7 +42,7 @@ public class ResponseMessageConfig implements ResponseBodyAdvice<Object> {
 		var apiMessage = returnType.getMethodAnnotation(ApiMessageResponse.class);
 		String message = "No message!";
 		if (apiMessage != null) message = apiMessage.value();
-		return ApiSuccessResponse.builder()
+		return ApiResponseSuccess.builder()
 				.message(message)
 				.data(body)
 				.code(res.getStatus())

@@ -10,7 +10,7 @@ package com.lamnguyen.authentication_service.config.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lamnguyen.authentication_service.config.exception.ExceptionEnum;
-import com.lamnguyen.authentication_service.domain.ApiErrorResponse;
+import com.lamnguyen.authentication_service.domain.ApiResponseError;
 import com.lamnguyen.authentication_service.service.redis.IAccessTokenRedisManager;
 import com.lamnguyen.authentication_service.service.redis.IChangePasswordRedisManager;
 import com.lamnguyen.authentication_service.utils.helper.JwtTokenUtil;
@@ -60,7 +60,7 @@ public class CheckBlacklistTokenFilter extends OncePerRequestFilter {
         var writer = response.getWriter();
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        new ObjectMapper().writeValue(writer, ApiErrorResponse.<String>builder()
+        new ObjectMapper().writeValue(writer, ApiResponseError.<String>builder()
                 .code(ExceptionEnum.TOKEN_NOT_VALID.getCode())
                 .error(ExceptionEnum.TOKEN_NOT_VALID.name())
                 .detail(ExceptionEnum.TOKEN_NOT_VALID.getMessage())

@@ -23,7 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VariantGrpcClientImpl implements IVariantGrpcClient {
 	@GrpcClient("fashion-e-commerce-inventory-service")
-	InventoryServiceGrpc.InventoryServiceBlockingStub inventoryServiceBlockingStub;
+	public InventoryServiceGrpc.InventoryServiceBlockingStub inventoryServiceBlockingStub;
 	private final IVariantMapper variantMapper;
 
 	@Override
