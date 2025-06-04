@@ -1,4 +1,4 @@
-package com.lamnguyen.profile_service.message;
+package com.lamnguyen.profile_service.event;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class InfoAddressShipping {
+public class InfoAddressShippingEvent {
     String fullName;
     String phone;
     String street;

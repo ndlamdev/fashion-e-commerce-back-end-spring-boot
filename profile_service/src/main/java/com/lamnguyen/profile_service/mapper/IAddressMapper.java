@@ -3,11 +3,9 @@ package com.lamnguyen.profile_service.mapper;
 import com.lamnguyen.profile_service.domain.dto.AddressDto;
 import com.lamnguyen.profile_service.domain.response.AddressResponse;
 import com.lamnguyen.profile_service.domain.request.SaveAddressRequest;
-import com.lamnguyen.profile_service.message.InfoAddressShipping;
+import com.lamnguyen.profile_service.event.InfoAddressShippingEvent;
 import com.lamnguyen.profile_service.model.entity.Address;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 import java.util.List;
 
@@ -25,5 +23,5 @@ public interface IAddressMapper {
 
     Address toAddress(AddressDto address);
 
-    InfoAddressShipping toInfoAddressShipping(Address address);
+    InfoAddressShippingEvent toInfoAddressShipping(Address address);
 }
