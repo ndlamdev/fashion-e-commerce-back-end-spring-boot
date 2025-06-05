@@ -9,12 +9,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-@RequiredArgsConstructor
-@Service
 @Slf4j
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Service
+@RequiredArgsConstructor
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class AddressProducerImpl implements IAddressProducer {
-	KafkaTemplate<String, InfoAddressShippingEvent> kafkaTemplate;
+	KafkaTemplate<String, Object> kafkaTemplate;
 
 	public void sendInfoAddressShipping(InfoAddressShippingEvent infoAddress) {
 		log.info("Send info address shipping with json to info-address-shipping-topic {}", infoAddress);

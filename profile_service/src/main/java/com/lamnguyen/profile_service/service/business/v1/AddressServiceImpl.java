@@ -8,6 +8,7 @@ import com.lamnguyen.profile_service.mapper.IAddressMapper;
 import com.lamnguyen.profile_service.model.entity.Profile;
 import com.lamnguyen.profile_service.repository.IAddressRepository;
 import com.lamnguyen.profile_service.service.business.IAddressService;
+import com.lamnguyen.profile_service.service.kafka.producer.IAddressProducer;
 import com.lamnguyen.profile_service.service.kafka.producer.v1.AddressProducerImpl;
 import com.lamnguyen.profile_service.utils.helper.JwtTokenUtil;
 import lombok.AccessLevel;
@@ -26,7 +27,7 @@ public class AddressServiceImpl implements IAddressService {
 	IAddressMapper mapper;
 	IAddressRepository repository;
 	JwtTokenUtil jwtTokenUtil;
-	AddressProducerImpl addressProducer;
+	IAddressProducer addressProducer;
 
 	@Override
 	public AddressResponse saveAddress(SaveAddressRequest request, Long id, Long userId) {

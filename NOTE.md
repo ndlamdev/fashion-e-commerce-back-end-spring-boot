@@ -923,7 +923,7 @@ Cấu hình thêm VM options (Add VM options) trong phần cấu hình chạy d�
 
 ```VM options
 -javaagent:path\opentelemetry-javaagent.jar
--Dotel.exporter.otlp.protocol=grpc
+-Dotel.exporter.otlp.protocol=grpc  || http/protobuf
 -Dotel.exporter.otlp.endpoint=http://localhost:4317
 -Dotel.javaagent.debug=true //Bật chế độ debug
 ```
