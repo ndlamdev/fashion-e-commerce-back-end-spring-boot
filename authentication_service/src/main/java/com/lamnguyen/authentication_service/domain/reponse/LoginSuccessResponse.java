@@ -10,6 +10,8 @@ package com.lamnguyen.authentication_service.domain.reponse;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.lamnguyen.authentication_service.domain.dto.ProfileUserDto;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -20,8 +22,8 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class LoginSuccessResponse {
-    @JsonProperty("access-token")
     String accessToken;
     ProfileUserDto user;
 }

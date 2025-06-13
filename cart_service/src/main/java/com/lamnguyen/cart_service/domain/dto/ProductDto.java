@@ -9,6 +9,8 @@
 package com.lamnguyen.cart_service.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
@@ -21,6 +23,7 @@ import java.util.List;
 @Getter
 @Setter
 @SuperBuilder
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ProductDto implements Serializable {
 	String id;
 
@@ -28,7 +31,6 @@ public class ProductDto implements Serializable {
 
 	String title;
 
-	@JsonProperty("seo_alias")
 	String seoAlias; // path in url: product/seoAlias
 
 	ImageDto image; // Hình ảnh để show card

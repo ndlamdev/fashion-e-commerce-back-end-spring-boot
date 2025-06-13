@@ -8,23 +8,21 @@
 
 package com.lamnguyen.order_service.domain.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
-
-import java.io.Serializable;
 
 @Builder
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class OrderItemDto  {
 	long id;
 	String productId;
 	String variantId;
 	int quantity;
-	@JsonProperty("compare_price")
 	double comparePrice;
-	@JsonProperty("discount_price")
 	double regularPrice;
 }

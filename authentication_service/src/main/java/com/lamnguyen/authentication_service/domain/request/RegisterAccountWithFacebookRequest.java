@@ -9,6 +9,8 @@
 package com.lamnguyen.authentication_service.domain.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -23,8 +25,8 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PROTECTED)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class RegisterAccountWithFacebookRequest {
-    @JsonProperty("register_token")
     @NotBlank
     String token;
     @NotBlank
@@ -38,7 +40,6 @@ public class RegisterAccountWithFacebookRequest {
     @Pattern(regexp = ".*[@$!%*?&].*", message = "Password must contain at least one special character (@$!%*?&)")
     String password;
     @NotBlank
-    @JsonProperty("confirm_password")
     String confirmPassword;
     @NotBlank
     String phone;

@@ -1,6 +1,8 @@
 package com.lamnguyen.profile_service.domain.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -10,10 +12,10 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class AddressResponse {
         Long id;
 
-        @JsonProperty("full_name")
         String fullName;
 
         String phone;
@@ -32,10 +34,8 @@ public class AddressResponse {
 
         String city;
 
-        @JsonProperty("city_code")
         String cityCode;
 
-        @JsonProperty("country_code")
         String countryCode;
 
         Boolean active;

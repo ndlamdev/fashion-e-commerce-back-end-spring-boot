@@ -8,7 +8,8 @@
 
 package com.lamnguyen.cart_service.domain.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -21,15 +22,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CartResponse {
 	long id;
-	@JsonProperty("user_id")
 	Long userId;
-	@JsonProperty("cart_items")
 	List<CartItemResponse> cartItems;
 	boolean lock;
-	@JsonProperty("create_at")
 	LocalDateTime createAt;
-	@JsonProperty("update_at")
 	LocalDateTime updateAt;
 }

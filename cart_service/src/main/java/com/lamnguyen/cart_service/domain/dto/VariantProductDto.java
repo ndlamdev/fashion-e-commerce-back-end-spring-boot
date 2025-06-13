@@ -8,7 +8,8 @@
 
 package com.lamnguyen.cart_service.domain.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.lamnguyen.cart_service.utils.enums.OptionType;
 import lombok.*;
 
@@ -19,28 +20,22 @@ import java.util.Map;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class VariantProductDto {
 	String id;
 	private String productId;
 	private String title;
-	@JsonProperty("regular_price")
 	private double regularPrice;
-	@JsonProperty("compare_price")
 	private double comparePrice;
 	private String sku;
 	private int quantity;
 	private Map<OptionType, String> options;
-	@JsonProperty("product_allow_buy_when_clocked")
 	private boolean productAllowBuyWhenClocked; // Cho phép mua khi đang lock
-	@JsonProperty("product_exclude_discount")
 	private boolean productExcludeDiscount; // Cho phép áp dụng discount khi sản phẩm có discount
-	@JsonProperty("product_apply_allowance_inventory")
 	private boolean productApplyAllowanceInventory; // Cho phép mua khi sản phẩm để hết
 	int pending; // Số lượng sản phẩm có thể đáp ứng khi cho phép người dùng mua khi biến thể của sản phẩm hết hàng. Dùng khi `productApplyAllowanceInventory` = true
-	@JsonProperty("product_visibility")
 	@Builder.Default
 	private boolean productVisibility = true; // sản phẩm có đang không bị lock không
-	@JsonProperty("is_delete")
 	private boolean delete; // Biến thể đã bị xóa khỏi sản phẩm
 	boolean lock;
 }

@@ -1,6 +1,8 @@
 package com.lamnguyen.profile_service.domain.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.lamnguyen.profile_service.domain.dto.AddressDto;
 import com.lamnguyen.profile_service.utils.enums.SexEnum;
 import lombok.*;
@@ -15,6 +17,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class SaveProfileResponse {
         Long id;
 
@@ -24,7 +27,6 @@ public class SaveProfileResponse {
 
         String phone;
 
-        @JsonProperty("country_code")
         String countryCode;
 
         LocalDate birthday;

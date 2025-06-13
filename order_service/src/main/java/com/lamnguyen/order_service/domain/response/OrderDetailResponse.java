@@ -10,6 +10,8 @@ package com.lamnguyen.order_service.domain.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.lamnguyen.order_service.domain.dto.OrderDto;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +21,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class OrderDetailResponse extends OrderDto {
-	@JsonProperty("payment_response")
 	PaymentResponse paymentResponse;
 }

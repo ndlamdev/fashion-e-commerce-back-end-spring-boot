@@ -8,16 +8,18 @@
 
 package com.lamnguyen.order_service.domain.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.lamnguyen.order_service.utils.enums.OrderStatus;
 
 import java.time.LocalDateTime;
 
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record SubOrder(
 		long id,
-		@JsonProperty("user_id") long userId,
+		 long userId,
 		OrderStatus status,
-		@JsonProperty("full_name") String fullName,
+		String fullName,
 		String email,
 		double amount,
 		LocalDateTime date) {

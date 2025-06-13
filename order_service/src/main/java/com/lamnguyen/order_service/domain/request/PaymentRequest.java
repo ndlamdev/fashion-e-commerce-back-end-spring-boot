@@ -8,7 +8,8 @@
 
 package com.lamnguyen.order_service.domain.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.lamnguyen.order_service.utils.enums.PaymentMethod;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -18,11 +19,10 @@ import lombok.*;
 @Builder
 @Getter
 @Setter
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class PaymentRequest {
 	@NotNull
 	PaymentMethod method;
-	@JsonProperty("return_url")
 	String returnUrl;
-	@JsonProperty("cancel_url")
 	String cancelUrl;
 }

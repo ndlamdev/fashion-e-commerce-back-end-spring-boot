@@ -305,7 +305,8 @@ public class YourApplication {
 #### Tạo FeignClients
 
 ```java
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -322,54 +323,46 @@ public interface IFacebookGraphClient {
 	@GetMapping(value = "/me?fields=id%2Cname%2Cemail%2Cfirst_name%2Clast_name%2Cpicture%2Clocale%2Ctimezone")
 	ProfileUserFacebookResponse getProfile(@RequestParam("access_token") String accessToken);
 
+    @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 	record DebugTokenResponse(
 			DataDebugTokenResponse data
 	) {
 		public record DataDebugTokenResponse(
-				@JsonProperty("app_id")
 				String appId,
 				String type,
 				String application,
-				@JsonProperty("data_access_expires_at")
 				long dataAccessExpiresAt,
-				@JsonProperty("expires_at")
 				long expiresAt,
-				@JsonProperty("is_valid")
 				boolean valid,
-				@JsonProperty("user_id")
 				String userId,
 				String[] scopes
 		) {
 		}
 	}
 
+   @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 	record ExchangeTokenResponse(
-			@JsonProperty("access_token")
 			String accessToken,
-			@JsonProperty("token_type")
 			String tokenType,
-			@JsonProperty("expires_in")
 			long expiresIn
 	) {
 	}
 
+   @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 	record ProfileUserFacebookResponse(
 			String id,
 			String name,
-			@JsonProperty("first_name")
 			String firstName,
-			@JsonProperty("last_name")
 			String lastName,
-			@JsonProperty("picture")
 			Picture avatar
 	) {
 		public record Picture(
 				PictureData data
 		) {
+           @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 			public record PictureData(
 					double height,
 					double width,
-					@JsonProperty("is_silhouette")
 					boolean isSilhouette,
 					String url
 			) {

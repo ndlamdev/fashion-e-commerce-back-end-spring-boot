@@ -1,6 +1,8 @@
 package com.lamnguyen.profile_service.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -9,11 +11,10 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class AddressDto {
 	Long id;
-	@JsonProperty("user_id")
 	Long userId;
-	@JsonProperty("full_name")
 	String fullName;
 	String phone;
 	String street;
@@ -24,10 +25,8 @@ public class AddressDto {
 	@JsonProperty("district_id")
 	String districtCode;
 	String city;
-	@JsonProperty("city_code")
 	String cityCode;
 	String country;
-	@JsonProperty("country_code")
 	String countryCode;
 	Boolean active;
 	Boolean lock;

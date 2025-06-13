@@ -8,7 +8,8 @@
 
 package com.lamnguyen.authentication_service.domain.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.lamnguyen.authentication_service.utils.annotation.FieldsValueMatch;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -16,7 +17,6 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.SuperBuilder;
 
 @Builder
 @Getter
@@ -25,6 +25,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PROTECTED)
 @FieldsValueMatch(field = "password", fieldMatch = "confirmPassword", message = "Password and confirmPassword not match")
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class RegisterAccountRequest {
 	@NotBlank
 	@Email
@@ -37,10 +38,8 @@ public class RegisterAccountRequest {
 	@Pattern(regexp = ".*[@$!%*?&].*", message = "Password must contain at least one special character (@$!%*?&)")
 	String password;
 	@NotBlank
-	@JsonProperty("confirm_password")
 	String confirmPassword;
 	@NotBlank
-	@JsonProperty("full_name")
 	String fullName;
 	@NotBlank
 	String phone;

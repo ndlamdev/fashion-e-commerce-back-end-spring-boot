@@ -9,6 +9,8 @@
 package com.lamnguyen.authentication_service.domain.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.lamnguyen.authentication_service.utils.annotation.FieldsValueMatch;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -22,6 +24,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PROTECTED)
 @FieldsValueMatch(field = "password", fieldMatch = "confirmPassword", message = "Password and confirmPassword not match")
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class SetNewPasswordRequest {
         @NotBlank
         String token;
@@ -34,6 +37,5 @@ public class SetNewPasswordRequest {
         @Pattern(regexp = ".*[@$!%*?&].*", message = "Password must contain at least one special character (@$!%*?&)")
         String password;
 
-        @JsonProperty("confirm_password")
         String confirmPassword;
 }

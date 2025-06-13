@@ -1,6 +1,8 @@
 package com.lamnguyen.profile_service.domain.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.lamnguyen.profile_service.utils.annotation.ValidInternationalPhone;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -14,9 +16,9 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @ValidInternationalPhone(phoneField = "phone", countryField = "countryCode")
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class SaveAddressRequest {
         @NotBlank(message = "Require fullName is not blank")
-        @JsonProperty("full_name")
         String fullName;
 
         @NotBlank(message = "Require phone is not blank")
@@ -43,11 +45,9 @@ public class SaveAddressRequest {
         String city;
 
         @NotBlank(message = "Require cityCode is not blank")
-        @JsonProperty("city_code")
         String cityCode;
 
         @NotBlank(message = "Require countryCode is not blank")
-        @JsonProperty("country_code")
         String countryCode;
 
         @NotNull

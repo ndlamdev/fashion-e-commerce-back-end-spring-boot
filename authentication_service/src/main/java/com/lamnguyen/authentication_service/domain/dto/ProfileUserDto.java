@@ -8,7 +8,8 @@
 
 package com.lamnguyen.authentication_service.domain.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,24 +22,16 @@ import java.time.LocalDate;
 @Setter
 @Getter
 @Builder
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ProfileUserDto {
-	@JsonProperty("id")
 	long id;
-	@JsonProperty("email")
 	String email;
-	@JsonProperty("full_name")
 	String fullName;
 	String avatar;
-	@JsonProperty("phone")
 	String phone;
-	@JsonProperty("gender")
 	String gender;
-	@JsonProperty("birthday")
 	LocalDate birthday;
-	@JsonProperty("height")
 	double height;
-	@JsonProperty("weight")
 	double weight;
-	@JsonProperty("country_code")
 	String countryCode;
 }

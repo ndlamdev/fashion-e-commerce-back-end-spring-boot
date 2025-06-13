@@ -1,6 +1,8 @@
 package com.lamnguyen.profile_service.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.lamnguyen.profile_service.utils.enums.SexEnum;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -14,22 +16,20 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ProfileDto {
         Long id;
 
-        @JsonProperty("full_name")
         String fullName;
 
         String email;
 
         String phone;
 
-        @JsonProperty("country_code")
         String countryCode;
 
         LocalDate birthday;
 
-        @JsonProperty("shipping_addresses")
         List<AddressDto> shippingAddresses;
 
         Double height;
@@ -38,7 +38,6 @@ public class ProfileDto {
 
         SexEnum gender;
 
-        @JsonProperty("is_lock")
         Boolean lock;
 
         String avatar;

@@ -9,6 +9,8 @@
 package com.lamnguyen.order_service.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,14 +25,13 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class OrderDto {
 	long id;
-	@JsonProperty("user_id")
 	Long userId;
 	String name;
 	String phone;
 	String email;
-	@JsonProperty("address_detail")
 	String addressDetail;
 	String ward;
 	String district;
@@ -38,6 +39,5 @@ public class OrderDto {
 	String note;
 	List<OrderItemDto> items;
 	List<OrderStatusDto> statuses;
-	@JsonProperty("update_at")
 	LocalDateTime updateAt;
 }

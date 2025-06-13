@@ -2,6 +2,8 @@ package com.lamnguyen.profile_service.domain.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.lamnguyen.profile_service.utils.annotation.ValidInternationalPhone;
 import com.lamnguyen.profile_service.utils.enums.SexEnum;
 import jakarta.persistence.Enumerated;
@@ -20,13 +22,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @ValidInternationalPhone(phoneField = "phone", countryField = "countryCode")
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class SaveProfileRequest {
         @NotNull(message = "Require fullName is not null")
-        @JsonProperty("full_name")
         String fullName;
 
         @NotBlank
-        @JsonProperty("country_code")
         String countryCode;
 
         @NotBlank(message = "Require phoneNumber is not blank")
