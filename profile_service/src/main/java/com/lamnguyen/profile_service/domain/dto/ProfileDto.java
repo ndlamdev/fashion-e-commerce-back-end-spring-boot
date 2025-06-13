@@ -8,6 +8,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -18,27 +19,29 @@ import java.util.List;
 @AllArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ProfileDto {
-        Long id;
+    Long id;
 
-        String fullName;
+    String fullName;
 
-        String email;
+    String email;
 
-        String phone;
+    String phone;
 
-        String countryCode;
+    String countryCode;
 
-        LocalDate birthday;
+    LocalDate birthday;
 
-        List<AddressDto> shippingAddresses;
+    List<AddressDto> shippingAddresses;
 
-        Double height;
+    Double height;
 
-        Double weight;
+    Double weight;
 
-        SexEnum gender;
+    SexEnum gender;
 
-        Boolean lock;
+    Boolean lock;
 
-        String avatar;
+    String avatar;
+
+    LocalDateTime createAt;
 }
