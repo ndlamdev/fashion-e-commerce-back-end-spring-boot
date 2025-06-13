@@ -8,19 +8,11 @@
 
 package com.lamnguyen.payment_service.mapper;
 
-import org.mapstruct.AfterMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.Mappings;
-import org.mapstruct.Named;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.lamnguyen.payment_service.model.Payment;
 import com.lamnguyen.payment_service.protos.PaymentRequest;
 import com.lamnguyen.payment_service.protos.PaymentResponse;
 import com.lamnguyen.payment_service.utils.enums.PaymentMethod;
-
+import org.mapstruct.*;
 import vn.payos.type.PaymentData;
 
 @Mapper(componentModel = "spring", uses = {IGrpcMapper.class, IOrderItemMapper.class})
@@ -34,7 +26,7 @@ public interface IPaymentMapper {
 	PaymentData toPaymentData(PaymentRequest data, long orderCode) throws Exception;
 
 	@AfterMapping
-	default void afterMapping(PaymentRequest data, @MappingTarget PaymentData.PaymentDataBuilder paymentData) throws JsonProcessingException {
+	default void afterMapping(PaymentRequest data, @MappingTarget PaymentData.PaymentDataBuilder paymentData) {
 		var amount = data.getItemsList()
 				.stream()
 				.map(it -> it.getPrice() * it.getQuantity()).reduce(Integer::sum)

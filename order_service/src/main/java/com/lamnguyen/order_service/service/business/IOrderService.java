@@ -14,6 +14,8 @@ import com.lamnguyen.order_service.domain.response.SubOrder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface IOrderService {
 	OrderDetailResponse createOrder(CreateOrderRequest order);
 
@@ -25,11 +27,11 @@ public interface IOrderService {
 
 	Page<SubOrder> getSubOrder(Pageable pageable);
 
-	Page<SubOrder> getSubOrderAllUser(Pageable pageable);
+	List<SubOrder> getSubOrderAllUser();
 
 	OrderDetailResponse getOrderDetail(long orderId);
 
-	Page<SubOrder> getSubOrder(long userId, Pageable pageable);
+	List<SubOrder> getSubOrder(long userId);
 
 	OrderDetailResponse getOrderDetailAdmin(long orderId);
 

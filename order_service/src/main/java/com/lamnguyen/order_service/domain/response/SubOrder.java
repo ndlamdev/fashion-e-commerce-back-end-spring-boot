@@ -17,7 +17,7 @@ public record SubOrder(
 		long id,
 		@JsonProperty("user_id") long userId,
 		OrderStatus status,
-		String fullName,
+		@JsonProperty("full_name") String fullName,
 		String email,
 		double amount,
 		LocalDateTime date) {

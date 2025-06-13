@@ -112,9 +112,9 @@ public class OrderServiceImpl implements IOrderService {
 	}
 
 	private void createOrderHelper(Map<String, VariantProductInfo> variants,
-			Map<String, Integer> mapQuantities,
-			List<OrderItemRequest> listOrderItemRequest,
-			List<OrderItemEntity> orderItems) {
+	                               Map<String, Integer> mapQuantities,
+	                               List<OrderItemRequest> listOrderItemRequest,
+	                               List<OrderItemEntity> orderItems) {
 		var listTask = new ArrayList<CompletableFuture<Void>>();
 		variants.values().forEach(
 				variant -> listTask.add(CompletableFuture.runAsync(() -> {
@@ -193,13 +193,10 @@ public class OrderServiceImpl implements IOrderService {
 	}
 
 	@Override
-	public Page<SubOrder> getSubOrder(long userId, Pageable pageable) {
-		var subOrders = historyCacheManage.getAllByUserId(userId)
+	public List<SubOrder> getSubOrder(long userId) {
+		return historyCacheManage.getAllByUserId(userId)
 				.or(() -> cacheHistoryOrderAdmin(userId))
 				.orElseGet(ArrayList::new);
-		return new PageImpl<>(
-				subOrders.stream().skip(pageable.getOffset()).limit(pageable.getPageSize()).toList(),
-				pageable, subOrders.size());
 	}
 
 	private Optional<List<SubOrder>> cacheHistoryOrderAdmin(long userId) {
@@ -246,12 +243,8 @@ public class OrderServiceImpl implements IOrderService {
 		orderCacheManage.delete(orderId);
 	}
 
-	@Override
-	public Page<SubOrder> getSubOrderAllUser(Pageable pageable) {
-		var subOrders = orderRepository.findHistoryOrderByDeleteIsFalse();
-		return new PageImpl<>(
-				subOrders.stream().skip(pageable.getOffset()).limit(pageable.getPageSize()).toList(),
-				pageable, subOrders.size());
+	public List<SubOrder> getSubOrderAllUser() {
+		return orderRepository.findHistoryOrderByDeleteIsFalse();
 	}
 
 }

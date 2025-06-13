@@ -1,36 +1,34 @@
 package com.lamnguyen.profile_service.service.business;
 
 import com.lamnguyen.profile_service.domain.request.SaveAddressRequest;
-import com.lamnguyen.profile_service.domain.response.AddressResponse;
+import com.lamnguyen.profile_service.domain.dto.AddressDto;
 
 import java.util.List;
 
 public interface IAddressService {
-    AddressResponse saveAddress(SaveAddressRequest request, Long addressId, Long userId);
+    AddressDto saveAddress(SaveAddressRequest request, Long addressId, Long userId);
 
-    AddressResponse saveAddress(SaveAddressRequest request, Long addressId);
+    AddressDto saveAddress(SaveAddressRequest request, Long addressId);
 
-    AddressResponse addAddress(SaveAddressRequest request, Long userId);
+    AddressDto addAddress(SaveAddressRequest request, Long userId);
 
-    AddressResponse addAddress(SaveAddressRequest request);
+    AddressDto addAddress(SaveAddressRequest request);
 
-    List<AddressResponse> getAddresses(Long userId);
+    List<AddressDto> getAddresses(Long userId);
 
-    List<AddressResponse> getAddresses();
+    List<AddressDto> getAddresses();
 
-    AddressResponse getAddressById(Long id, Long userId);
+    AddressDto getAddressById(Long id, Long userId);
 
-    AddressResponse getAddressById(Long id);
+    AddressDto getAddressById(Long id);
 
     void deleteAddressById(Long id, Long userId);
 
     void deleteAddressById(Long id);
 
-    void setCountAddressLimited(Integer limit);
-
     void setDefaultAddress(Long oldId, Long newId);
 
     void setDefaultAddress(Long oldId, Long newId, Long userId);
 
-    AddressResponse getDefaultAddress();
+    AddressDto getDefaultAddress();
 }

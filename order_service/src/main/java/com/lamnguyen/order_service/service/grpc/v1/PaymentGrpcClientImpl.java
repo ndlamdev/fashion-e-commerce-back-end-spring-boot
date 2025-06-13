@@ -33,7 +33,7 @@ public class PaymentGrpcClientImpl implements IPaymentGrpcClient {
 		var request = OrderIdRequest.newBuilder()
 				.setId(orderId)
 				.build();
-		paymentServiceBlockingStub.cancelOrder(request);
+		var ignored = paymentServiceBlockingStub.cancelOrder(request);
 	}
 
 	@Override

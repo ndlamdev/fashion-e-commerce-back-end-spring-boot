@@ -10,20 +10,25 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AddressDto {
-        Long id;
-        @JsonProperty("user_id")
-        Long userId;
-        String fullName;
-        String phone;
-        String street;
-        String ward;
-        String wardCode;
-        String district;
-        String districtCode;
-        String city;
-        String cityCode;
-        String country;
-        String countryCode;
-        Boolean active;
-        Boolean lock;
+	Long id;
+	@JsonProperty("user_id")
+	Long userId;
+	@JsonProperty("full_name")
+	String fullName;
+	String phone;
+	String street;
+	String ward;
+	@JsonProperty("ward_id")
+	String wardCode;
+	String district;
+	@JsonProperty("district_id")
+	String districtCode;
+	String city;
+	@JsonProperty("city_code")
+	String cityCode;
+	String country;
+	@JsonProperty("country_code")
+	String countryCode;
+	Boolean active;
+	Boolean lock;
 }

@@ -1,7 +1,7 @@
 package com.lamnguyen.profile_service.controller.admin;
 
 import com.lamnguyen.profile_service.domain.request.SaveAddressRequest;
-import com.lamnguyen.profile_service.domain.response.AddressResponse;
+import com.lamnguyen.profile_service.domain.dto.AddressDto;
 import com.lamnguyen.profile_service.service.business.IAddressService;
 import com.lamnguyen.profile_service.utils.annotation.ApiMessageResponse;
 import jakarta.validation.Valid;
@@ -23,21 +23,21 @@ public class AddressAdminController {
     @GetMapping("/user/{user-id}")
     @PreAuthorize("hasAnyAuthority('ADMIN_GET_CUSTOMERS', 'ROLE_ADMIN')")
     @ApiMessageResponse("get addresses")
-    public List<AddressResponse> getAll(@PathVariable("user-id") Long userId) {
+    public List<AddressDto> getAll(@PathVariable("user-id") Long userId) {
         return service.getAddresses(userId);
     }
 
     @GetMapping("/user/{user-id}/address/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN_GET_CUSTOMER_BY_ID', 'ROLE_ADMIN')")
     @ApiMessageResponse("Get address by id")
-    public AddressResponse getAddressById(@PathVariable("id") Long id, @PathVariable("user-id") Long userId) {
+    public AddressDto getAddressById(@PathVariable("id") Long id, @PathVariable("user-id") Long userId) {
         return service.getAddressById(id, userId);
     }
 
     @PatchMapping("/user/{user-id}/address/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN_SAVE_ADDRESS', 'ROLE_ADMIN')")
     @ApiMessageResponse("save address")
-    public AddressResponse saveAddress(
+    public AddressDto saveAddress(
             @RequestBody @Valid SaveAddressRequest request,
             @PathVariable("id") Long id,
             @PathVariable("user-id") Long userId
@@ -48,7 +48,7 @@ public class AddressAdminController {
     @PostMapping("/user/{user-id}/address")
     @PreAuthorize("hasAnyAuthority('ADMIN_SAVE_ADDRESS', 'ROLE_ADMIN')")
     @ApiMessageResponse("save address")
-    public AddressResponse addAddress(
+    public AddressDto addAddress(
             @RequestBody @Valid SaveAddressRequest request,
             @PathVariable("user-id") Long userId
     ) {

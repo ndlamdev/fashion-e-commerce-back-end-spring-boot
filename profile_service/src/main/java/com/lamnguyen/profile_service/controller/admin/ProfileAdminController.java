@@ -40,6 +40,6 @@ public class ProfileAdminController {
 	@PreAuthorize("hasAnyAuthority('USER_GET_PROFILE', 'ROLE_BASE', 'ROLE_ADMIN')")
 	@ApiMessageResponse("Get customer by id")
 	public ProfileDto getCustomer(@PathVariable @Valid Long id) {
-		return customerService.getProfileById(id);
+		return customerService.getProfileByUserId(id);
 	}
 }

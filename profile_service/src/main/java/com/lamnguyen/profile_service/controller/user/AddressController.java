@@ -1,7 +1,7 @@
 package com.lamnguyen.profile_service.controller.user;
 
 import com.lamnguyen.profile_service.domain.request.SaveAddressRequest;
-import com.lamnguyen.profile_service.domain.response.AddressResponse;
+import com.lamnguyen.profile_service.domain.dto.AddressDto;
 import com.lamnguyen.profile_service.service.business.IAddressService;
 import com.lamnguyen.profile_service.utils.annotation.ApiMessageResponse;
 import jakarta.validation.Valid;
@@ -23,28 +23,28 @@ public class AddressController {
 	@GetMapping
 	@PreAuthorize("hasAnyAuthority('USER_GET_ALL_ADDRESS', 'ROLE_BASE', 'ROLE_ADMIN')")
 	@ApiMessageResponse("get addresses")
-	public List<AddressResponse> getAll() {
+	public List<AddressDto> getAll() {
 		return service.getAddresses();
 	}
 
 	@GetMapping("/{id}")
 	@PreAuthorize("hasAnyAuthority('USER_GET_BY_ADDRESS_ID', 'ROLE_BASE', 'ROLE_ADMIN')")
 	@ApiMessageResponse("Get address by id")
-	public AddressResponse getAddressById(@PathVariable("id") Long id) {
+	public AddressDto getAddressById(@PathVariable("id") Long id) {
 		return service.getAddressById(id);
 	}
 
 	@GetMapping("/default")
 	@PreAuthorize("hasAnyAuthority('USER_GET_BY_ADDRESS_ID', 'ROLE_BASE', 'ROLE_ADMIN')")
 	@ApiMessageResponse("Get address default")
-	public AddressResponse getDefaultAddress() {
+	public AddressDto getDefaultAddress() {
 		return service.getDefaultAddress();
 	}
 
 	@PutMapping("/{id}")
 	@PreAuthorize("hasAnyAuthority('USER_SAVE_ADDRESS', 'ROLE_BASE', 'ROLE_ADMIN')")
 	@ApiMessageResponse("save address")
-	public AddressResponse saveAddress(
+	public AddressDto saveAddress(
 			@RequestBody @Valid SaveAddressRequest request,
 			@PathVariable("id") Long id
 	) {
@@ -55,7 +55,7 @@ public class AddressController {
 	@PostMapping
 	@PreAuthorize("hasAnyAuthority('USER_ADD_ADDRESS', 'ROLE_BASE', 'ROLE_ADMIN')")
 	@ApiMessageResponse("add address")
-	public AddressResponse addAddress(
+	public AddressDto addAddress(
 			@RequestBody @Valid SaveAddressRequest request
 	) {
 		return service.addAddress(request);
