@@ -8,13 +8,15 @@
 
 package com.lamnguyen.order_service.service.grpc.v1;
 
+import org.springframework.stereotype.Service;
+
 import com.lamnguyen.order_service.protos.OrderIdRequest;
 import com.lamnguyen.order_service.protos.PaymentRequest;
 import com.lamnguyen.order_service.protos.PaymentResponse;
 import com.lamnguyen.order_service.protos.PaymentServiceGrpc;
 import com.lamnguyen.order_service.service.grpc.IPaymentGrpcClient;
+
 import net.devh.boot.grpc.client.inject.GrpcClient;
-import org.springframework.stereotype.Service;
 
 @Service
 public class PaymentGrpcClientImpl implements IPaymentGrpcClient {
@@ -31,7 +33,7 @@ public class PaymentGrpcClientImpl implements IPaymentGrpcClient {
 		var request = OrderIdRequest.newBuilder()
 				.setId(orderId)
 				.build();
-		var ignored = paymentServiceBlockingStub.cancelOrder(request);
+		paymentServiceBlockingStub.cancelOrder(request);
 	}
 
 	@Override

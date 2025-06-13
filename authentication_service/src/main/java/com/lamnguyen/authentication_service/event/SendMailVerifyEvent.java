@@ -9,10 +9,20 @@
 package com.lamnguyen.authentication_service.event;
 
 import com.lamnguyen.authentication_service.utils.enums.MailType;
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Builder
-public record SendMailVerifyEvent(String email,
-                                  String otp,
-                                  MailType type) {
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class SendMailVerifyEvent {
+    String email;
+    String otp;
+    MailType type;
 }

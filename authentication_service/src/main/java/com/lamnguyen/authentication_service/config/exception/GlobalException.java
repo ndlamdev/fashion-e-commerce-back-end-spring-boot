@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
 public class GlobalException {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ApiResponseError<Object>> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
+		exception.printStackTrace(System.err);
 		List<String> errors = exception.getBindingResult().getFieldErrors().stream()
 				.map(it -> it.getField() + ": " + it.getDefaultMessage()).collect(Collectors.toCollection(ArrayList::new));
 		errors.addAll(exception.getBindingResult().getGlobalErrors().stream()
@@ -44,6 +45,7 @@ public class GlobalException {
 
 	@ExceptionHandler(ApplicationException.class)
 	public ResponseEntity<ApiResponseError<Object>> handleApplicationException(ApplicationException exception) {
+		exception.printStackTrace(System.err);
 		return ResponseEntity.badRequest().body(ApiResponseError.builder()
 				.code(exception.getCode())
 				.error(exception.getMessage())
@@ -54,6 +56,7 @@ public class GlobalException {
 
 	@ExceptionHandler(MissingServletRequestParameterException.class)
 	public ResponseEntity<ApiResponseError<Object>> handleMissingServletRequestParameterException(MissingServletRequestParameterException exception) {
+		exception.printStackTrace(System.err);
 		return ResponseEntity.badRequest().body(ApiResponseError.builder()
 				.code(HttpStatus.PAYMENT_REQUIRED.value())
 				.error(HttpStatus.PAYMENT_REQUIRED.name())
@@ -64,6 +67,7 @@ public class GlobalException {
 
 	@ExceptionHandler(AuthorizationDeniedException.class)
 	public ResponseEntity<ApiResponseError<Object>> handleMissingServletRequestParameterException(AuthorizationDeniedException exception) {
+		exception.printStackTrace(System.err);
 		return ResponseEntity.badRequest().body(ApiResponseError.builder()
 				.code(HttpStatus.UNAUTHORIZED.value())
 				.error(HttpStatus.UNAUTHORIZED.name())
@@ -74,6 +78,7 @@ public class GlobalException {
 
 	@ExceptionHandler(StatusRuntimeException.class)
 	public ResponseEntity<ApiResponseError<Object>> handleMissingServletRequestParameterException(StatusRuntimeException exception) {
+		exception.printStackTrace(System.err);
 		return ResponseEntity.badRequest().body(ApiResponseError.builder()
 				.code(ExceptionEnum.GRPC_EXCEPTION.getCode())
 				.error(ExceptionEnum.GRPC_EXCEPTION.name())
@@ -84,6 +89,7 @@ public class GlobalException {
 
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public ResponseEntity<ApiResponseError<Object>> handleMissingServletRequestParameterException(HttpMessageNotReadableException exception) {
+		exception.printStackTrace(System.err);
 		return ResponseEntity.badRequest().body(ApiResponseError.builder()
 				.code(HttpStatus.PAYMENT_REQUIRED.value())
 				.error(HttpStatus.PAYMENT_REQUIRED.name())
@@ -94,6 +100,7 @@ public class GlobalException {
 
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ApiResponseError<Object>> handleException(Exception exception) {
+		exception.printStackTrace(System.err);
 		return ResponseEntity.badRequest().body(ApiResponseError.builder()
 				.code(HttpStatus.INTERNAL_SERVER_ERROR.value())
 				.error(HttpStatus.INTERNAL_SERVER_ERROR.name())

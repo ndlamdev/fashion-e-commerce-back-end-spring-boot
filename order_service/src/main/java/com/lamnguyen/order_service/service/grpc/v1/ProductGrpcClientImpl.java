@@ -8,17 +8,16 @@
 
 package com.lamnguyen.order_service.service.grpc.v1;
 
+import org.springframework.stereotype.Service;
+
 import com.lamnguyen.order_service.protos.ProductInCartDto;
 import com.lamnguyen.order_service.protos.ProductRequest;
 import com.lamnguyen.order_service.protos.ProductServiceGrpc;
 import com.lamnguyen.order_service.protos.TitleProduct;
 import com.lamnguyen.order_service.service.grpc.IProductGrpcClient;
-import lombok.AccessLevel;
+
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
 import net.devh.boot.grpc.client.inject.GrpcClient;
-import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor

@@ -77,9 +77,11 @@ public class OrderServiceImpl implements IOrderService {
 	public OrderDetailResponse createOrder(long userId, CreateOrderRequest order) {
 		Map<String, VariantProductInfo> variants = null;
 		OrderEntity entity = null;
-		var mapQuantities = order.getItems().stream().collect(Collectors.toMap(CreateOrderItemRequest::getVariantId, CreateOrderItemRequest::getQuantity));
+		var mapQuantities = order.getItems().stream()
+				.collect(Collectors.toMap(CreateOrderItemRequest::getVariantId, CreateOrderItemRequest::getQuantity));
 		try {
-			var mapUpdateVariant = order.getItems().stream().collect(Collectors.toMap(CreateOrderItemRequest::getVariantId, it -> -it.getQuantity()));
+			var mapUpdateVariant = order.getItems().stream()
+					.collect(Collectors.toMap(CreateOrderItemRequest::getVariantId, it -> -it.getQuantity()));
 			variants = inventoryGrpcClient.updateQuantityByVariantIds(mapUpdateVariant);
 			if (variants.size() != mapUpdateVariant.size())
 				throw ApplicationException.createException(ExceptionEnum.NOT_FAIL_VARIANT);
@@ -110,29 +112,31 @@ public class OrderServiceImpl implements IOrderService {
 	}
 
 	private void createOrderHelper(Map<String, VariantProductInfo> variants,
-	                               Map<String, Integer> mapQuantities,
-	                               List<OrderItemRequest> listOrderItemRequest,
-	                               List<OrderItemEntity> orderItems) {
+			Map<String, Integer> mapQuantities,
+			List<OrderItemRequest> listOrderItemRequest,
+			List<OrderItemEntity> orderItems) {
 		var listTask = new ArrayList<CompletableFuture<Void>>();
 		variants.values().forEach(
-				variant ->
-						listTask.add(CompletableFuture.runAsync(() -> {
-							var product = productGrpcClient.getTitleProduct(variant.getProductId());
-							listOrderItemRequest.add(orderItemMapper.toItemData(mapQuantities.getOrDefault(variant.getId(), 1), variant, product));
-							orderItems.add(orderItemMapper.toOrderItemEntity(variant, mapQuantities.getOrDefault(variant.getId(), 1)));
-						}))
-		);
+				variant -> listTask.add(CompletableFuture.runAsync(() -> {
+					var product = productGrpcClient.getTitleProduct(variant.getProductId());
+					listOrderItemRequest.add(orderItemMapper.toItemData(mapQuantities.getOrDefault(variant.getId(), 1),
+							variant, product));
+					orderItems.add(
+							orderItemMapper.toOrderItemEntity(variant, mapQuantities.getOrDefault(variant.getId(), 1)));
+				})));
 		CompletableFuture.allOf(listTask.toArray(CompletableFuture[]::new)).join();
 	}
 
 	private void rollback(Map<String, VariantProductInfo> variants, List<CreateOrderItemRequest> items) {
-		var mapUpdateVariant = items.stream().filter(it -> variants.containsKey(it.getVariantId())).collect(Collectors.toMap(CreateOrderItemRequest::getVariantId, CreateOrderItemRequest::getQuantity));
+		var mapUpdateVariant = items.stream().filter(it -> variants.containsKey(it.getVariantId()))
+				.collect(Collectors.toMap(CreateOrderItemRequest::getVariantId, CreateOrderItemRequest::getQuantity));
 		inventoryGrpcClient.updateQuantityByVariantIds(mapUpdateVariant);
 	}
 
 	@Override
 	public void cancelOrder(long orderId) {
-		var order = orderRepository.findById(orderId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
+		var order = orderRepository.findById(orderId)
+				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
 		paymentGrpcClient.cancelPay(orderId);
 		orderStatusService.addStatus(order.getId(), OrderStatus.CANCEL, "Hủy đơn hàng");
 		historyCacheManage.deleteAllByUserId(order.getUserId());
@@ -141,7 +145,8 @@ public class OrderServiceImpl implements IOrderService {
 
 	@Override
 	public void deleteOrder(long orderId) {
-		var order = orderRepository.findById(orderId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
+		var order = orderRepository.findById(orderId)
+				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
 		orderItemService.deleteAllByOrderId(orderId);
 		orderStatusService.deleteAllByOrderId(orderId);
 		orderRepository.deleteById(orderId);
@@ -157,8 +162,7 @@ public class OrderServiceImpl implements IOrderService {
 				.orElseGet(ArrayList::new);
 		return new PageImpl<>(
 				subOrders.stream().skip(pageable.getOffset()).limit(pageable.getPageSize()).toList(),
-				pageable, subOrders.size()
-		);
+				pageable, subOrders.size());
 	}
 
 	private Optional<List<SubOrder>> cacheHistoryOrder(long userId) {
@@ -167,9 +171,8 @@ public class OrderServiceImpl implements IOrderService {
 						userId,
 						() -> Optional
 								.ofNullable(
-										orderRepository.findHistoryOrderByUserIdAndLockIsFalseAndDeleteIsFalse(userId)
-								))
-				;
+										orderRepository
+												.findHistoryOrderByUserIdAndLockIsFalseAndDeleteIsFalse(userId)));
 	}
 
 	@Override
@@ -186,8 +189,7 @@ public class OrderServiceImpl implements IOrderService {
 				.cache(orderId,
 						() -> orderRepository
 								.findByIdAndDeleteIsFalseAndLockIsFalse(orderId)
-								.map(orderMapper::toDto)
-				);
+								.map(orderMapper::toDto));
 	}
 
 	@Override
@@ -197,8 +199,7 @@ public class OrderServiceImpl implements IOrderService {
 				.orElseGet(ArrayList::new);
 		return new PageImpl<>(
 				subOrders.stream().skip(pageable.getOffset()).limit(pageable.getPageSize()).toList(),
-				pageable, subOrders.size()
-		);
+				pageable, subOrders.size());
 	}
 
 	private Optional<List<SubOrder>> cacheHistoryOrderAdmin(long userId) {
@@ -207,9 +208,7 @@ public class OrderServiceImpl implements IOrderService {
 						userId,
 						() -> Optional
 								.ofNullable(
-										orderRepository.findHistoryOrderByUserIdAndDeleteIsFalse(userId)
-								))
-				;
+										orderRepository.findHistoryOrderByUserIdAndDeleteIsFalse(userId)));
 	}
 
 	@Override
@@ -226,13 +225,13 @@ public class OrderServiceImpl implements IOrderService {
 				.cache(orderId,
 						() -> orderRepository
 								.findByIdAndDeleteIsFalse(orderId)
-								.map(orderMapper::toDto)
-				);
+								.map(orderMapper::toDto));
 	}
 
 	@Override
 	public void lockOrder(long orderId, boolean lock) {
-		var order = orderRepository.findById(orderId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
+		var order = orderRepository.findById(orderId)
+				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
 		order.setLock(lock);
 		historyCacheManage.deleteAllByUserId(order.getUserId());
 		orderCacheManage.delete(orderId);
@@ -240,9 +239,19 @@ public class OrderServiceImpl implements IOrderService {
 
 	@Override
 	public void softDeleteOrder(long orderId, boolean delete) {
-		var order = orderRepository.findById(orderId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
+		var order = orderRepository.findById(orderId)
+				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
 		order.setDelete(delete);
 		historyCacheManage.deleteAllByUserId(order.getUserId());
 		orderCacheManage.delete(orderId);
 	}
+
+	@Override
+	public Page<SubOrder> getSubOrderAllUser(Pageable pageable) {
+		var subOrders = orderRepository.findHistoryOrderByDeleteIsFalse();
+		return new PageImpl<>(
+				subOrders.stream().skip(pageable.getOffset()).limit(pageable.getPageSize()).toList(),
+				pageable, subOrders.size());
+	}
+
 }

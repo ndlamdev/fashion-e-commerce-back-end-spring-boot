@@ -8,19 +8,19 @@
 
 package com.lamnguyen.order_service.service.business.v1;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.lamnguyen.order_service.model.OrderEntity;
 import com.lamnguyen.order_service.model.OrderStatusEntity;
 import com.lamnguyen.order_service.repository.IOrderStatusRepository;
 import com.lamnguyen.order_service.service.business.IOrderStatusService;
 import com.lamnguyen.order_service.service.redis.IOrderCacheManage;
 import com.lamnguyen.order_service.utils.enums.OrderStatus;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

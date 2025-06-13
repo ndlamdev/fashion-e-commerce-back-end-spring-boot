@@ -8,15 +8,18 @@
 
 package com.lamnguyen.order_service.domain.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lamnguyen.order_service.utils.enums.OrderStatus;
 
 import java.time.LocalDateTime;
 
 public record SubOrder(
 		long id,
-		LocalDateTime date,
+		@JsonProperty("user_id") long userId,
+		OrderStatus status,
+		String fullName,
+		String email,
 		double amount,
-		OrderStatus status
-) {
+		LocalDateTime date) {
 
 }

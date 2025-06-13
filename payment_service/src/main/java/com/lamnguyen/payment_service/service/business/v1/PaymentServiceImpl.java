@@ -8,7 +8,10 @@
 
 package com.lamnguyen.payment_service.service.business.v1;
 
-import com.lamnguyen.payment_service.config.PayOsConfig;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
 import com.lamnguyen.payment_service.config.exception.ApplicationException;
 import com.lamnguyen.payment_service.config.exception.ExceptionEnum;
 import com.lamnguyen.payment_service.mapper.IPaymentMapper;
@@ -20,16 +23,12 @@ import com.lamnguyen.payment_service.service.business.IPaymentService;
 import com.lamnguyen.payment_service.service.redis.IPaymentCacheMange;
 import com.lamnguyen.payment_service.utils.enums.PaymentMethod;
 import com.lamnguyen.payment_service.utils.enums.PaymentStatus;
-import com.lamnguyen.payment_service.utils.helper.SignAndVerifyDataHelper;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.stereotype.Service;
 import vn.payos.PayOS;
-import vn.payos.type.PaymentData;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

@@ -8,12 +8,16 @@
 
 package com.lamnguyen.cart_service.domain.response;
 
-import lombok.Builder;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @Builder
-public record UpdateCartItemResponse(
-		long cartItemId,
-		int quantity
-) {
-
+@Getter
+@Setter
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@AllArgsConstructor
+@NoArgsConstructor
+public class UpdateCartItemResponse {
+	long cartItemId;
+	int quantity;
 }

@@ -8,19 +8,20 @@
 
 package com.lamnguyen.order_service.repository;
 
-import com.lamnguyen.order_service.domain.response.SubOrder;
-import com.lamnguyen.order_service.model.OrderEntity;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
+import com.lamnguyen.order_service.domain.response.SubOrder;
+import com.lamnguyen.order_service.model.OrderEntity;
 
 @Repository
 public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
 	@Query("""
-			select new com.lamnguyen.order_service.domain.response.SubOrder(o.id, o.createAt, sum(oi.quantity * oi.regularPrice), os.status)
+			select new com.lamnguyen.order_service.domain.response.SubOrder(o.id, o.userId, os.status, o.name, o.email, sum(oi.quantity * oi.regularPrice), o.createAt)
 			from OrderEntity o
 			join OrderStatusEntity os on o.id = os.order.id
 			join OrderItemEntity oi on o.id = oi.order.id
@@ -32,12 +33,12 @@ public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
 					from OrderStatusEntity os2
 					where os2.order.id = o.id
 				)
-			group by o.id, o.createAt, os.status
+			group by o.id, o.userId, o.createAt, os.status, o.name, o.email
 			""")
 	List<SubOrder> findHistoryOrderByUserIdAndLockIsFalseAndDeleteIsFalse(long userId);
 
 	@Query("""
-			select new com.lamnguyen.order_service.domain.response.SubOrder(o.id, o.createAt, sum(oi.quantity * oi.regularPrice), os.status)
+			select new com.lamnguyen.order_service.domain.response.SubOrder(o.id, o.userId, os.status, o.name, o.email, sum(oi.quantity * oi.regularPrice), o.createAt)
 			from OrderEntity o
 			join OrderStatusEntity os on o.id = os.order.id
 			join OrderItemEntity oi on o.id = oi.order.id
@@ -48,11 +49,26 @@ public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
 					from OrderStatusEntity os2
 					where os2.order.id = o.id
 				)
-			group by o.id, o.createAt, os.status
+			group by o.id, o.userId, o.createAt, os.status, o.name, o.email
 			""")
 	List<SubOrder> findHistoryOrderByUserIdAndDeleteIsFalse(long userId);
 
 	Optional<OrderEntity> findByIdAndDeleteIsFalse(Long orderId);
 
 	Optional<OrderEntity> findByIdAndDeleteIsFalseAndLockIsFalse(Long orderId);
+
+	@Query("""
+			select new com.lamnguyen.order_service.domain.response.SubOrder(o.id, o.userId, os.status, o.name, o.email, sum(oi.quantity * oi.regularPrice), o.createAt)
+			from OrderEntity o
+			join OrderStatusEntity os on o.id = os.order.id
+			join OrderItemEntity oi on o.id = oi.order.id
+			where o.delete = false
+				and os.id = (
+					select max(os2.id)
+					from OrderStatusEntity os2
+					where os2.order.id = o.id
+				)
+			group by o.id, o.userId, o.createAt, os.status, o.name, o.email
+			""")
+	List<SubOrder> findHistoryOrderByDeleteIsFalse();
 }

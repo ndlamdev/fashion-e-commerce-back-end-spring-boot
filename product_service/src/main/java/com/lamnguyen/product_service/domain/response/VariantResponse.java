@@ -1,17 +1,17 @@
 package com.lamnguyen.product_service.domain.response;
 
+import java.io.Serializable;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.lamnguyen.product_service.model.MongoBaseDocument;
 import com.lamnguyen.product_service.utils.enums.OptionType;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
-
-import java.io.Serializable;
-import java.util.Map;
 
 @SuperBuilder
 @FieldDefaults(level = AccessLevel.PRIVATE)

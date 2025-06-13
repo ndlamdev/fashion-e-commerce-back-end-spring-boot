@@ -25,6 +25,8 @@ public interface IOrderService {
 
 	Page<SubOrder> getSubOrder(Pageable pageable);
 
+	Page<SubOrder> getSubOrderAllUser(Pageable pageable);
+
 	OrderDetailResponse getOrderDetail(long orderId);
 
 	Page<SubOrder> getSubOrder(long userId, Pageable pageable);

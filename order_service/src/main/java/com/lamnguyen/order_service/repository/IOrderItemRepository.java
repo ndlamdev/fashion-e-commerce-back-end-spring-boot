@@ -8,11 +8,10 @@
 
 package com.lamnguyen.order_service.repository;
 
-import com.lamnguyen.order_service.model.OrderItemEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.lamnguyen.order_service.model.OrderItemEntity;
 
 @Repository
 public interface IOrderItemRepository extends JpaRepository<OrderItemEntity, Long> {

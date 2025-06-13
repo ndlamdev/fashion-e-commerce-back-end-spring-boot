@@ -44,3 +44,4 @@
 **/*.py[cod]
 **/monitoring/**/data/
 **/venv/
+**/*.exe

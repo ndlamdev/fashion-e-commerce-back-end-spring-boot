@@ -1,9 +1,16 @@
 package com.lamnguyen.authentication_service.event;
 
-import lombok.Builder;
+import com.google.auto.value.AutoValue.Builder;
+
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @Builder
-public record CreateCartEvent(
-		long userId
-) {
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class CreateCartEvent {
+	long userId;
 }
