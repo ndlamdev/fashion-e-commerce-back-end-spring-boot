@@ -10,8 +10,13 @@ package com.lamnguyen.order_service.service.grpc;
 
 import com.lamnguyen.order_service.protos.VariantProductInfo;
 
+import java.util.List;
 import java.util.Map;
 
 public interface IInventoryGrpcClient {
 	Map<String, VariantProductInfo> updateQuantityByVariantIds(Map<String, Integer> quantities);
+
+	Map<String, VariantProductInfo> getVariantProductByVariantIds(List<String> variantIds);
+
+	VariantProductInfo getVariantProductByVariantId(String id);
 }

@@ -8,11 +8,11 @@
 
 package com.lamnguyen.order_service.service.grpc;
 
-import com.lamnguyen.order_service.protos.ProductInCartDto;
+import com.lamnguyen.order_service.domain.response.ProductResponse;
 import com.lamnguyen.order_service.protos.TitleProduct;
 
 public interface IProductGrpcClient {
-	ProductInCartDto getProductDto(String id);
+	ProductResponse getProductDto(String id);
 
 	TitleProduct getTitleProduct(String id);
 }

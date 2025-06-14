@@ -11,6 +11,7 @@ package com.lamnguyen.order_service.mapper;
 import com.lamnguyen.order_service.domain.request.CreateOrderRequest;
 import com.lamnguyen.order_service.domain.response.OrderDetailResponse;
 import com.lamnguyen.order_service.domain.dto.OrderDto;
+import com.lamnguyen.order_service.domain.response.OrderItemResponse;
 import com.lamnguyen.order_service.model.OrderEntity;
 import com.lamnguyen.order_service.model.OrderItemEntity;
 import com.lamnguyen.order_service.model.OrderStatusEntity;
@@ -23,6 +24,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {IOrderItemMapper.class, IOrderItemMapper.class, IGrpcMapper.class})
@@ -60,15 +62,14 @@ public interface IOrderMapper {
 
 	OrderDto toDto(OrderEntity entity);
 
-	@Mapping(target = "paymentResponse", ignore = true)
-	OrderDetailResponse toOrderDetailResponse(OrderEntity entity);
-
 	@Mapping(target = "id", source = "entity.id")
 	@Mapping(target = "paymentResponse", ignore = true)
+	@Mapping(target = "itemDetails", source = "entity.items")
 	OrderDetailResponse toOrderDetailResponse(OrderEntity entity, com.lamnguyen.order_service.protos.PaymentResponse paymentResponse);
 
 	@Mapping(target = "id", source = "dto.id")
 	@Mapping(target = "paymentResponse", ignore = true)
+	@Mapping(target = "itemDetails", source = "dto.items")
 	OrderDetailResponse toOrderDetailResponse(OrderDto dto, com.lamnguyen.order_service.protos.PaymentResponse paymentResponse);
 
 	@AfterMapping

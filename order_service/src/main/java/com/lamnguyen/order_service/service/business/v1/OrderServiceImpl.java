@@ -18,10 +18,12 @@ import com.lamnguyen.order_service.domain.response.SubOrder;
 import com.lamnguyen.order_service.event.DeleteCartItemsEvent;
 import com.lamnguyen.order_service.mapper.IOrderItemMapper;
 import com.lamnguyen.order_service.mapper.IOrderMapper;
+import com.lamnguyen.order_service.mapper.IVariantProductMapper;
 import com.lamnguyen.order_service.model.OrderEntity;
 import com.lamnguyen.order_service.model.OrderItemEntity;
 import com.lamnguyen.order_service.protos.OrderItemRequest;
 import com.lamnguyen.order_service.protos.PayStatus;
+import com.lamnguyen.order_service.protos.PaymentResponse;
 import com.lamnguyen.order_service.protos.VariantProductInfo;
 import com.lamnguyen.order_service.repository.IOrderRepository;
 import com.lamnguyen.order_service.service.business.IOrderItemService;
@@ -66,6 +68,7 @@ public class OrderServiceImpl implements IOrderService {
 	IOrderItemService orderItemService;
 	IOrderHistoryCacheManage historyCacheManage;
 	IOrderCacheManage orderCacheManage;
+	IVariantProductMapper variantProductMapper;
 
 	@Override
 	public OrderDetailResponse createOrder(CreateOrderRequest order) {
@@ -90,25 +93,33 @@ public class OrderServiceImpl implements IOrderService {
 			var orderItems = new ArrayList<OrderItemEntity>(variants.size());
 			createOrderHelper(variants, mapQuantities, listOrderItemRequest, orderItems);
 			entity = orderRepository.save(orderMapper.toEntity(order, userId, orderItems));
-			var paymentRequest = orderMapper.toPaymentRequest(entity, order, listOrderItemRequest);
-			var paymentResponse = paymentGrpcClient.pay(paymentRequest);
-			if (paymentResponse.getStatus() == PayStatus.FAIL)
-				throw ApplicationException.createException(ExceptionEnum.PAY_FAIL);
-
+			var paymentResponse = pay(entity, order, listOrderItemRequest);
 			orderStatusService.addStatus(entity.getId(), OrderStatus.SUCCESS, "Đặt hàng thành công.");
-			cartKafkaService.deleteCartItems(DeleteCartItemsEvent.builder()
-					.userId(userId)
-					.variantIds(mapQuantities.keySet().stream().toList())
-					.build());
-			historyCacheManage.deleteAllByUserId(userId);
-			return orderMapper.toOrderDetailResponse(entity, paymentResponse);
+			postCreateOrder(userId, mapQuantities);
+			return formatOrderResponse(variants, entity, paymentResponse);
 		} catch (Exception e) {
 			if (variants != null)
 				rollback(variants, order.getItems());
 			if (entity != null)
 				orderStatusService.addStatus(entity.getId(), OrderStatus.CANCEL, "Lỗi thanh toán");
-			throw new RuntimeException(e);
+			throw ApplicationException.createException(ExceptionEnum.CREATE_ORDER_FAIL, e.getMessage());
 		}
+	}
+
+	private void postCreateOrder(long userId, Map<String, Integer> mapQuantities) {
+		cartKafkaService.deleteCartItems(DeleteCartItemsEvent.builder()
+				.userId(userId)
+				.variantIds(mapQuantities.keySet().stream().toList())
+				.build());
+		historyCacheManage.deleteAllByUserId(userId);
+	}
+
+	private PaymentResponse pay(OrderEntity entity, CreateOrderRequest order, List<OrderItemRequest> listOrderItemRequest) {
+		var paymentRequest = orderMapper.toPaymentRequest(entity, order, listOrderItemRequest);
+		var paymentResponse = paymentGrpcClient.pay(paymentRequest);
+		if (paymentResponse.getStatus() == PayStatus.FAIL)
+			throw ApplicationException.createException(ExceptionEnum.PAY_FAIL);
+		return paymentResponse;
 	}
 
 	private void createOrderHelper(Map<String, VariantProductInfo> variants,
@@ -180,8 +191,7 @@ public class OrderServiceImpl implements IOrderService {
 		var orderDto = orderCacheManage.get(orderId)
 				.or(() -> cacheOrderDetail(orderId))
 				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
-		var paymentStatus = paymentGrpcClient.getPaymentStatus(orderId);
-		return orderMapper.toOrderDetailResponse(orderDto, paymentStatus);
+		return getOrderDetailHelper(orderDto);
 	}
 
 	private Optional<? extends OrderDto> cacheOrderDetail(long orderId) {
@@ -213,8 +223,7 @@ public class OrderServiceImpl implements IOrderService {
 		var orderDto = orderCacheManage.get(orderId)
 				.or(() -> cacheOrderDetailAdmin(orderId))
 				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.NOT_FOUND));
-		var paymentStatus = paymentGrpcClient.getPaymentStatus(orderId);
-		return orderMapper.toOrderDetailResponse(orderDto, paymentStatus);
+		return getOrderDetailHelper(orderDto);
 	}
 
 	private Optional<? extends OrderDto> cacheOrderDetailAdmin(long orderId) {
@@ -247,4 +256,34 @@ public class OrderServiceImpl implements IOrderService {
 		return orderRepository.findHistoryOrderByDeleteIsFalse();
 	}
 
+	private OrderDetailResponse getOrderDetailHelper(OrderDto orderDto) {
+		var paymentStatus = paymentGrpcClient.getPaymentStatus(orderDto.getId());
+		var result = orderMapper.toOrderDetailResponse(orderDto, paymentStatus);
+		var listTask = new ArrayList<CompletableFuture<Void>>();
+		result.getItemDetails().forEach(item ->
+				listTask.add(CompletableFuture.runAsync(() -> {
+					var product = productGrpcClient.getProductDto(item.getProduct().getId());
+					item.setProduct(product);
+					var variant = inventoryGrpcClient.getVariantProductByVariantId(item.getVariant().getId());
+					if (variant != null)
+						item.setVariant(variantProductMapper.toResponse(variant));
+				}))
+		);
+		CompletableFuture.allOf(listTask.toArray(CompletableFuture[]::new)).join();
+		return result;
+	}
+
+	private OrderDetailResponse formatOrderResponse(Map<String, VariantProductInfo> variants, OrderEntity entity, com.lamnguyen.order_service.protos.PaymentResponse paymentResponse) {
+		var result = orderMapper.toOrderDetailResponse(entity, paymentResponse);
+		var listTask = new ArrayList<CompletableFuture<Void>>();
+		result.getItemDetails().forEach(item ->
+				listTask.add(CompletableFuture.runAsync(() -> {
+					var product = productGrpcClient.getProductDto(item.getProduct().getId());
+					item.setProduct(product);
+					var variant = variants.get(item.getVariant().getId());
+					item.setVariant(variantProductMapper.toResponse(variant));
+				})));
+		CompletableFuture.allOf(listTask.toArray(CompletableFuture[]::new)).join();
+		return result;
+	}
 }

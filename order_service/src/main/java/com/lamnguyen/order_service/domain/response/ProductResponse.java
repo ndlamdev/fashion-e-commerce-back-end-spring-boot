@@ -6,7 +6,7 @@
  * User kimin
  **/
 
-package com.lamnguyen.cart_service.domain.dto;
+package com.lamnguyen.order_service.domain.response;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -22,7 +22,7 @@ import java.io.Serializable;
 @Setter
 @SuperBuilder
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class ProductDto implements Serializable {
+public class ProductResponse implements Serializable {
 	String id;
 
 	boolean lock;
@@ -31,7 +31,7 @@ public class ProductDto implements Serializable {
 
 	String seoAlias; // path in url: product/seoAlias
 
-	ImageDto image; // Hình ảnh để show card
+	ImageResponse image; // Hình ảnh để show card
 
 	@Builder.Default
 	boolean available = true; // Có khả dụng hay không

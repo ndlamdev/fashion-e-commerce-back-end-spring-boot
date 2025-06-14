@@ -6,6 +6,7 @@ option java_outer_classname = "InventoryProto";
 
 service InventoryService {
   rpc UpdateQuantityByVariantIdsIdsNotDelete (UpdateQuantityVariantRequest) returns (VariantProductByVariantIdsResponse);
+  rpc GetVariantProductByVariantIdsIdsNotDeleteAndProductNotLock (VariantIdsRequest) returns (VariantProductByVariantIdsResponse);
 }
 
 message VariantProductInfo {
@@ -32,4 +33,8 @@ message VariantProductByVariantIdsResponse {
 
 message UpdateQuantityVariantRequest {
   map<string, int32> quantities = 1;
+}
+
+message VariantIdsRequest {
+  repeated string variant_ids = 1;
 }

@@ -8,6 +8,8 @@
 
 package com.lamnguyen.order_service.service.grpc.v1;
 
+import com.lamnguyen.order_service.domain.response.ProductResponse;
+import com.lamnguyen.order_service.mapper.IProductMapper;
 import org.springframework.stereotype.Service;
 
 import com.lamnguyen.order_service.protos.ProductInCartDto;
@@ -24,11 +26,13 @@ import net.devh.boot.grpc.client.inject.GrpcClient;
 public class ProductGrpcClientImpl implements IProductGrpcClient {
 	@GrpcClient("fashion-e-commerce-product-service")
 	public ProductServiceGrpc.ProductServiceBlockingStub productServiceBlockingStub;
+	private final IProductMapper productMapper;
 
 	@Override
-	public ProductInCartDto getProductDto(String id) {
+	public ProductResponse getProductDto(String id) {
 		var request = ProductRequest.newBuilder().setProductId(id).build();
-		return productServiceBlockingStub.getProductInCartById(request);
+		var response = productServiceBlockingStub.getProductInCartById(request);
+		return productMapper.toProductResponse(response);
 	}
 
 	@Override
