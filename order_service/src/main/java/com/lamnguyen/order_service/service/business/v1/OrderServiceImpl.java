@@ -8,6 +8,7 @@
 
 package com.lamnguyen.order_service.service.business.v1;
 
+import com.google.protobuf.ProtocolStringList;
 import com.lamnguyen.order_service.config.exception.ApplicationException;
 import com.lamnguyen.order_service.config.exception.ExceptionEnum;
 import com.lamnguyen.order_service.domain.dto.OrderDto;
@@ -21,10 +22,7 @@ import com.lamnguyen.order_service.mapper.IOrderMapper;
 import com.lamnguyen.order_service.mapper.IVariantProductMapper;
 import com.lamnguyen.order_service.model.OrderEntity;
 import com.lamnguyen.order_service.model.OrderItemEntity;
-import com.lamnguyen.order_service.protos.OrderItemRequest;
-import com.lamnguyen.order_service.protos.PayStatus;
-import com.lamnguyen.order_service.protos.PaymentResponse;
-import com.lamnguyen.order_service.protos.VariantProductInfo;
+import com.lamnguyen.order_service.protos.*;
 import com.lamnguyen.order_service.repository.IOrderRepository;
 import com.lamnguyen.order_service.service.business.IOrderItemService;
 import com.lamnguyen.order_service.service.business.IOrderService;
@@ -183,7 +181,7 @@ public class OrderServiceImpl implements IOrderService {
 						() -> Optional
 								.ofNullable(
 										orderRepository
-												.findHistoryOrderByUserIdAndLockIsFalseAndDeleteIsFalse(userId)));
+												.findAllHistoryOrderByUserIdAndLockIsFalseAndDeleteIsFalse(userId)));
 	}
 
 	@Override
@@ -253,7 +251,7 @@ public class OrderServiceImpl implements IOrderService {
 	}
 
 	public List<SubOrder> getSubOrderAllUser() {
-		return orderRepository.findHistoryOrderByDeleteIsFalse();
+		return orderRepository.findAllHistoryOrderByDeleteIsFalse();
 	}
 
 	private OrderDetailResponse getOrderDetailHelper(OrderDto orderDto) {
@@ -285,5 +283,11 @@ public class OrderServiceImpl implements IOrderService {
 				})));
 		CompletableFuture.allOf(listTask.toArray(CompletableFuture[]::new)).join();
 		return result;
+	}
+
+	@Override
+	public Map<Long, GeneralInfo> getGeneralInfoByUserId(List<Long> userIdList) {
+		var result = orderRepository.findAllGeneralInfoByUserIdContainsAndDeleteIsFalse(userIdList);
+		return result.stream().collect(Collectors.toMap(GeneralInfoOrBuilder::getUserId, orderMapper::toGeneralInfo));
 	}
 }

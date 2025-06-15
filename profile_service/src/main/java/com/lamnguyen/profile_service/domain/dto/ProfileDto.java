@@ -21,6 +21,8 @@ import java.util.List;
 public class ProfileDto {
     Long id;
 
+    Long userId;
+
     String fullName;
 
     String email;

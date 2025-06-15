@@ -6,7 +6,7 @@
  * User: kimin
  **/
 
-package com.lamnguyen.profile_service.service.grpc;
+package com.lamnguyen.profile_service.service.grpc.v1;
 
 import com.lamnguyen.profile_service.mapper.IProfileMapper;
 import com.lamnguyen.profile_service.protos.ProfileServiceGrpc;

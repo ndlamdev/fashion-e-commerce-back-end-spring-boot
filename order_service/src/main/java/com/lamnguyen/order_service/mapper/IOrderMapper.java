@@ -15,6 +15,8 @@ import com.lamnguyen.order_service.domain.response.OrderItemResponse;
 import com.lamnguyen.order_service.model.OrderEntity;
 import com.lamnguyen.order_service.model.OrderItemEntity;
 import com.lamnguyen.order_service.model.OrderStatusEntity;
+import com.lamnguyen.order_service.protos.GeneralInfo;
+import com.lamnguyen.order_service.protos.GeneralInfoOrBuilder;
 import com.lamnguyen.order_service.protos.OrderItemRequest;
 import com.lamnguyen.order_service.protos.PaymentRequest;
 import com.lamnguyen.order_service.utils.enums.OrderStatus;
@@ -85,4 +87,6 @@ public interface IOrderMapper {
 			response.setPaymentResponse(payment);
 		}
 	}
+
+	GeneralInfo toGeneralInfo(GeneralInfoOrBuilder builder);
 }

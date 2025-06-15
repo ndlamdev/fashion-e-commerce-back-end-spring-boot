@@ -2,25 +2,27 @@ package com.lamnguyen.profile_service.service.business.v1;
 
 import com.lamnguyen.profile_service.config.exception.ApplicationException;
 import com.lamnguyen.profile_service.config.exception.ExceptionEnum;
-import com.lamnguyen.profile_service.domain.ApiPaging;
 import com.lamnguyen.profile_service.domain.dto.ProfileDto;
 import com.lamnguyen.profile_service.domain.request.SaveProfileRequest;
+import com.lamnguyen.profile_service.domain.response.ProfileAdminResponse;
 import com.lamnguyen.profile_service.mapper.IProfileMapper;
 import com.lamnguyen.profile_service.repository.IProfileRepository;
 import com.lamnguyen.profile_service.service.business.IAddressService;
 import com.lamnguyen.profile_service.service.business.IProfileService;
+import com.lamnguyen.profile_service.service.grpc.IOrderServiceGrpcClient;
 import com.lamnguyen.profile_service.service.redis.IProfileRedisManager;
 import com.lamnguyen.profile_service.utils.helper.JwtTokenUtil;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +34,7 @@ public class ProfileServiceImpl implements IProfileService {
 	IProfileRedisManager profileRedisManager;
 	JwtTokenUtil jwtTokenUtil;
 	IAddressService addressService;
+	IOrderServiceGrpcClient orderServiceGrpcClient;
 
 	@Override
 	public ProfileDto saveProfile(SaveProfileRequest saveProfileRequest) {
@@ -50,15 +53,15 @@ public class ProfileServiceImpl implements IProfileService {
 	}
 
 	@Override
-	public ApiPaging<ProfileDto> getProfiles(Integer page, Integer size) {
-		var pageable = PageRequest.of(page, size);
-		var customers = profileRepository.findAll(pageable);
-		return ApiPaging.<ProfileDto>builder()
-				.content(mapper.toProfileDTOs(customers.getContent()))
-				.current(customers.getNumber())
-				.size(customers.getSize())
-				.totalPage(customers.getTotalPages())
-				.build();
+	public List<ProfileAdminResponse> getProfiles() {
+		var result = mapper.toProfileAdminResponses(profileRepository.findAll());
+		var generalInfos = orderServiceGrpcClient.getGeneralInfos(result.stream().map(ProfileDto::getUserId).collect(Collectors.toList()));
+		result.forEach(data -> {
+			var generalInfo = generalInfos.get(data.getUserId());
+			data.setTotalOrders(generalInfo.getTotalOrder());
+			data.setTotalSpent(generalInfo.getTotalSpent());
+		});
+		return result;
 	}
 
 	@Override

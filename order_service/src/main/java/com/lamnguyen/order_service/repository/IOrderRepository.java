@@ -8,15 +8,15 @@
 
 package com.lamnguyen.order_service.repository;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.lamnguyen.order_service.domain.response.SubOrder;
+import com.lamnguyen.order_service.model.OrderEntity;
+import com.lamnguyen.order_service.protos.GeneralInfoOrBuilder;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.lamnguyen.order_service.domain.response.SubOrder;
-import com.lamnguyen.order_service.model.OrderEntity;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
@@ -35,7 +35,7 @@ public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
 				)
 			group by o.id, o.userId, o.createAt, os.status, o.name, o.email
 			""")
-	List<SubOrder> findHistoryOrderByUserIdAndLockIsFalseAndDeleteIsFalse(long userId);
+	List<SubOrder> findAllHistoryOrderByUserIdAndLockIsFalseAndDeleteIsFalse(long userId);
 
 	@Query("""
 			select new com.lamnguyen.order_service.domain.response.SubOrder(o.id, o.userId, os.status, o.name, o.email, sum(oi.quantity * oi.regularPrice), o.createAt)
@@ -70,5 +70,15 @@ public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
 				)
 			group by o.id, o.userId, o.createAt, os.status, o.name, o.email
 			""")
-	List<SubOrder> findHistoryOrderByDeleteIsFalse();
+	List<SubOrder> findAllHistoryOrderByDeleteIsFalse();
+
+	@Query("""
+			select o.userId, count(*), sum(oi.quantity * oi.regularPrice)
+			from OrderEntity o
+			join OrderItemEntity oi on o.id = oi.order.id
+			where o.delete = false
+				and o.userId in ?1
+			group by o.userId
+			""")
+	List<GeneralInfoOrBuilder> findAllGeneralInfoByUserIdContainsAndDeleteIsFalse(List<Long> userIds);
 }
