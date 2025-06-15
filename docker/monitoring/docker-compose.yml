@@ -7,7 +7,7 @@ services:
     ports:
       - "9090:9090"
     volumes:
-      - ./prometheus/prometheus_localhost.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/prometheus_api_gateway_localhost.yml:/etc/prometheus/prometheus.yml
       - ./prometheus/data:/prometheus
     restart: unless-stopped
     networks:
@@ -92,7 +92,8 @@ services:
       - 9999:9999
     restart: unless-stopped
     volumes:
-      - ./minio/data:/home/shared
+      - ./data/minio/shared:/home/shared
+      - ./data/minio/data:/data
     networks:
       - fashion_e_commerce_monitoring
     healthcheck:

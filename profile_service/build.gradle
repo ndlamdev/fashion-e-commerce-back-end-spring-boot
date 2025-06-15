@@ -58,6 +58,7 @@ dependencies {
     implementation 'org.redisson:redisson-spring-boot-starter:3.45.1'
     implementation 'net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE'
     implementation 'net.devh:grpc-client-spring-boot-starter:3.1.0.RELEASE'
+    implementation 'org.bouncycastle:bctls-jdk15on:1.70'
 }
 
 dependencyManagement {
