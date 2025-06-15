@@ -30,7 +30,7 @@ public class EurekaClientConfig {
 	public void customizeEurekaClientConfig() {
 		String ip = getLocalIpAddress();
 		String prefixPath = "/api/" + config.getAppname();
-		String baseUrl = config.isNonSecurePortEnabled() ? "http://" + config.getIpAddress() + ":" + config.getNonSecurePort() : "https://" + config.getIpAddress() + ":" + config.getSecurePort();
+		String baseUrl = config.isNonSecurePortEnabled() ? "http://" + ip + ":" + config.getNonSecurePort() : "https://" + ip + ":" + config.getSecurePort();
 		config.setIpAddress(ip);
 		config.setPreferIpAddress(true);
 		config.setStatusPageUrlPath(prefixPath + config.getStatusPageUrlPath());

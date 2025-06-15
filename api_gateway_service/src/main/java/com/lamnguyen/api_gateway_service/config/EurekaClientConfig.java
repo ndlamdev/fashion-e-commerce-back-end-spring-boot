@@ -6,7 +6,7 @@
  * User: kimin
  **/
 
-package com.lamnguyen.order_service.config;
+package com.lamnguyen.api_gateway_service.config;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.cloud.netflix.eureka.EurekaInstanceConfigBean;
