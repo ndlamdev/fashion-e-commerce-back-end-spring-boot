@@ -9,11 +9,17 @@
 package com.lamnguyen.profile_service.domain.response;
 
 import com.lamnguyen.profile_service.domain.dto.ProfileDto;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
+@SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProfileAdminResponse extends ProfileDto {
 	int totalOrders;
 	double totalSpent;
