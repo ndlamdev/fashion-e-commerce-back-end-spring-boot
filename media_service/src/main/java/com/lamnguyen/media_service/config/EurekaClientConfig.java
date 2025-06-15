@@ -42,6 +42,8 @@ public class EurekaClientConfig {
 	private String getLocalIpAddress() {
 		try {
 			for (NetworkInterface ni : Collections.list(NetworkInterface.getNetworkInterfaces())) {
+				var displayName = ni.getDisplayName();
+				if (displayName != null && displayName.contains("Hyper-V")) continue;
 				for (InetAddress address : Collections.list(ni.getInetAddresses())) {
 					if (!address.isLoopbackAddress() && address instanceof Inet4Address) {
 						return address.getHostAddress();
