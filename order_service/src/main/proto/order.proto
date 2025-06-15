@@ -15,8 +15,8 @@ message UserIdsRequest {
 
 message GeneralInfo {
   int64 user_id = 1;
-  int64  total_order = 2;
-  int64  total_spent = 3;
+  int64 total_order = 2;
+  double total_spent = 3;
 }
 
 message GeneralInfosResponse {

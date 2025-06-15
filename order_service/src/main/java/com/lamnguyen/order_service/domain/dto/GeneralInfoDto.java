@@ -8,9 +8,9 @@ import lombok.Setter;
 public  class GeneralInfoDto {
 	long userId;
 	long totalOrder;
-	long totalSpent;
+	double totalSpent;
 
-	public GeneralInfoDto(long userId, long totalOrder, long totalSpent) {
+	public GeneralInfoDto(long userId, long totalOrder, double totalSpent) {
 		this.userId = userId;
 		this.totalOrder = totalOrder;
 		this.totalSpent = totalSpent;
