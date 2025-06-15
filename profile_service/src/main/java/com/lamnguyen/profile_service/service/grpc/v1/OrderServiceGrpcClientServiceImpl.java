@@ -20,7 +20,7 @@ import java.util.Map;
 
 @Service
 public class OrderServiceGrpcClientServiceImpl implements IOrderServiceGrpcClient {
-	@GrpcClient("fashion-e-commerce-inventory-service")
+	@GrpcClient("fashion-e-commerce-order-service")
 	public OrderServiceGrpc.OrderServiceBlockingStub orderServiceBlockingStub;
 
 	@Override

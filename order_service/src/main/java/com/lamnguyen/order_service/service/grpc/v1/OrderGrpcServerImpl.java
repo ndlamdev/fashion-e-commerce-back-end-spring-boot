@@ -14,6 +14,7 @@ import com.lamnguyen.order_service.protos.UserIdsRequest;
 import com.lamnguyen.order_service.service.business.IOrderService;
 import io.grpc.stub.StreamObserver;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import net.devh.boot.grpc.server.service.GrpcService;

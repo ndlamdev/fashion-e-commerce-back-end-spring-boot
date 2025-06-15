@@ -21,6 +21,6 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProfileAdminResponse extends ProfileDto {
-	int totalOrders;
-	double totalSpent;
+	long totalOrders;
+	long totalSpent;
 }

@@ -54,10 +54,13 @@ public class ProfileServiceImpl implements IProfileService {
 
 	@Override
 	public List<ProfileAdminResponse> getProfiles() {
-		var result = mapper.toProfileAdminResponses(profileRepository.findAll());
+		var userId = jwtTokenUtil.getUserId();
+		var profiles = profileRepository.findAllByUserIdNot(userId);
+		var result = mapper.toProfileAdminResponses(profiles);
 		var generalInfos = orderServiceGrpcClient.getGeneralInfos(result.stream().map(ProfileDto::getUserId).collect(Collectors.toList()));
 		result.forEach(data -> {
-			var generalInfo = generalInfos.get(data.getUserId());
+			var generalInfo = generalInfos.getOrDefault(data.getUserId(), null);
+			if(generalInfo == null) return;
 			data.setTotalOrders(generalInfo.getTotalOrder());
 			data.setTotalSpent(generalInfo.getTotalSpent());
 		});
