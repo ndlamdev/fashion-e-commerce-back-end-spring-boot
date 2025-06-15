@@ -8,9 +8,11 @@
 
 package com.lamnguyen.order_service.repository;
 
+import com.lamnguyen.order_service.domain.dto.GeneralInfoDto;
 import com.lamnguyen.order_service.domain.response.SubOrder;
 import com.lamnguyen.order_service.model.OrderEntity;
 import com.lamnguyen.order_service.protos.GeneralInfoOrBuilder;
+import com.lamnguyen.order_service.service.grpc.v1.OrderGrpcServerImpl;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -73,12 +75,12 @@ public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
 	List<SubOrder> findAllHistoryOrderByDeleteIsFalse();
 
 	@Query("""
-			select o.userId, count(*), sum(oi.quantity * oi.regularPrice)
+			select new com.lamnguyen.order_service.domain.dto.GeneralInfoDto( o.userId, count(*), sum(oi.quantity * oi.regularPrice))
 			from OrderEntity o
 			join OrderItemEntity oi on o.id = oi.order.id
 			where o.delete = false
 				and o.userId in ?1
 			group by o.userId
 			""")
-	List<GeneralInfoOrBuilder> findAllGeneralInfoByUserIdContainsAndDeleteIsFalse(List<Long> userIds);
+	List<GeneralInfoDto> findAllGeneralInfoByUserIdContainsAndDeleteIsFalse(List<Long> userIds);
 }

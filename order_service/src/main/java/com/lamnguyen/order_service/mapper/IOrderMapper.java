@@ -8,6 +8,7 @@
 
 package com.lamnguyen.order_service.mapper;
 
+import com.lamnguyen.order_service.domain.dto.GeneralInfoDto;
 import com.lamnguyen.order_service.domain.request.CreateOrderRequest;
 import com.lamnguyen.order_service.domain.response.OrderDetailResponse;
 import com.lamnguyen.order_service.domain.dto.OrderDto;
@@ -19,6 +20,7 @@ import com.lamnguyen.order_service.protos.GeneralInfo;
 import com.lamnguyen.order_service.protos.GeneralInfoOrBuilder;
 import com.lamnguyen.order_service.protos.OrderItemRequest;
 import com.lamnguyen.order_service.protos.PaymentRequest;
+import com.lamnguyen.order_service.service.grpc.v1.OrderGrpcServerImpl;
 import com.lamnguyen.order_service.utils.enums.OrderStatus;
 import com.lamnguyen.order_service.utils.enums.PaymentMethod;
 import org.mapstruct.AfterMapping;
@@ -88,5 +90,5 @@ public interface IOrderMapper {
 		}
 	}
 
-	GeneralInfo toGeneralInfo(GeneralInfoOrBuilder builder);
+	GeneralInfo toGeneralInfo(GeneralInfoDto dto);
 }

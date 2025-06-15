@@ -11,6 +11,7 @@ package com.lamnguyen.order_service.service.business.v1;
 import com.google.protobuf.ProtocolStringList;
 import com.lamnguyen.order_service.config.exception.ApplicationException;
 import com.lamnguyen.order_service.config.exception.ExceptionEnum;
+import com.lamnguyen.order_service.domain.dto.GeneralInfoDto;
 import com.lamnguyen.order_service.domain.dto.OrderDto;
 import com.lamnguyen.order_service.domain.request.CreateOrderItemRequest;
 import com.lamnguyen.order_service.domain.request.CreateOrderRequest;
@@ -30,6 +31,7 @@ import com.lamnguyen.order_service.service.business.IOrderStatusService;
 import com.lamnguyen.order_service.service.grpc.IInventoryGrpcClient;
 import com.lamnguyen.order_service.service.grpc.IPaymentGrpcClient;
 import com.lamnguyen.order_service.service.grpc.IProductGrpcClient;
+import com.lamnguyen.order_service.service.grpc.v1.OrderGrpcServerImpl;
 import com.lamnguyen.order_service.service.kafka.producer.ICartKafkaService;
 import com.lamnguyen.order_service.service.redis.IOrderCacheManage;
 import com.lamnguyen.order_service.service.redis.IOrderHistoryCacheManage;
@@ -288,6 +290,6 @@ public class OrderServiceImpl implements IOrderService {
 	@Override
 	public Map<Long, GeneralInfo> getGeneralInfoByUserId(List<Long> userIdList) {
 		var result = orderRepository.findAllGeneralInfoByUserIdContainsAndDeleteIsFalse(userIdList);
-		return result.stream().collect(Collectors.toMap(GeneralInfoOrBuilder::getUserId, orderMapper::toGeneralInfo));
+		return result.stream().collect(Collectors.toMap(GeneralInfoDto::getUserId, orderMapper::toGeneralInfo));
 	}
 }

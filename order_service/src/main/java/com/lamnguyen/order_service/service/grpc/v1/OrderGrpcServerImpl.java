@@ -16,6 +16,7 @@ import io.grpc.stub.StreamObserver;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import net.devh.boot.grpc.server.service.GrpcService;
 
@@ -31,4 +32,6 @@ public class OrderGrpcServerImpl extends OrderServiceGrpc.OrderServiceImplBase {
 		responseObserver.onNext(GeneralInfosResponse.newBuilder().putAllGeneralInfos(response).build());
 		responseObserver.onCompleted();
 	}
+
+
 }
