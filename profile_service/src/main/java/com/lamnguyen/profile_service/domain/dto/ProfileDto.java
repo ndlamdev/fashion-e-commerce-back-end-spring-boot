@@ -34,8 +34,6 @@ public class ProfileDto {
 
     LocalDate birthday;
 
-    List<AddressDto> shippingAddresses;
-
     Double height;
 
     Double weight;

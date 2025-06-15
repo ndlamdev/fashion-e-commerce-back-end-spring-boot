@@ -24,63 +24,27 @@ import java.util.concurrent.TimeUnit;
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ProfileRedisManagerImpl extends ARedisManager<ProfileDto> implements IProfileRedisManager {
-	public ProfileRedisManagerImpl(RedisTemplate<String, ProfileDto> redisTemplate, RedissionClientUtil redissonClient) {
-		super(redisTemplate, redissonClient);
-	}
+    public ProfileRedisManagerImpl(RedisTemplate<String, ProfileDto> redisTemplate, RedissionClientUtil redissonClient) {
+        super(redisTemplate, redissonClient);
+    }
 
-	public Optional<ProfileDto> getById(long id) {
-		return get(getKeyUsingId(id));
-	}
+    public Optional<ProfileDto> getByUserId(long id) {
+        return get(getKeyUsingUserId(id));
+    }
 
-	public void setById(long id, ProfileDto data, long duration, TimeUnit unit) {
-		set(getKeyUsingId(id), data, duration, unit);
-	}
+    public void deleteByUserId(long userId) {
+        delete(getKeyUsingUserId(userId));
+    }
 
-	public void deleteById(long id) {
-		delete(getKeyUsingId(id));
-	}
+    public Optional<ProfileDto> cacheByUserId(long userId, CacheFunction<ProfileDto> cacheFunction, long duration, TimeUnit unit) {
+        return cache(getKeyLockUsingUserId(userId), getKeyUsingUserId(userId), cacheFunction, duration, unit);
+    }
 
-	public boolean existById(long id) {
-		return exist(getKeyUsingId(id));
-	}
+    private String getKeyUsingUserId(long userId) {
+        return "PROFILE:USER_ID_" + userId;
+    }
 
-	public Optional<ProfileDto> cacheById(long id, CacheFunction<ProfileDto> cacheFunction, long duration, TimeUnit unit) {
-		return cache(getKeyLockUsingId(id), getKeyUsingId(id), cacheFunction, duration, unit);
-	}
-
-	public Optional<ProfileDto> getByUserId(long id) {
-		return get(getKeyUsingUserId(id));
-	}
-
-	public void setByUserId(long id, ProfileDto data, long duration, TimeUnit unit) {
-		set(getKeyUsingUserId(id), data, duration, unit);
-	}
-
-	public void deleteByUserId(long id) {
-		delete(getKeyUsingUserId(id));
-	}
-
-	public boolean existByUserId(long id) {
-		return exist(getKeyUsingUserId(id));
-	}
-
-	public Optional<ProfileDto> cacheByUserId(long id, CacheFunction<ProfileDto> cacheFunction, long duration, TimeUnit unit) {
-		return cache(getKeyLockUsingUserId(id), getKeyUsingUserId(id), cacheFunction, duration, unit);
-	}
-
-	private String getKeyUsingId(long id) {
-		return "PROFILE:ID_" + id;
-	}
-
-	private String getKeyLockUsingId(long id) {
-		return "LOCK:ID_" + getKeyUsingId(id);
-	}
-
-	private String getKeyUsingUserId(long id) {
-		return "PROFILE:USER_ID_" + id;
-	}
-
-	private String getKeyLockUsingUserId(long id) {
-		return "LOCK:USER_ID_" + getKeyUsingId(id);
-	}
+    private String getKeyLockUsingUserId(long userId) {
+        return "LOCK:USER_ID_" + userId;
+    }
 }

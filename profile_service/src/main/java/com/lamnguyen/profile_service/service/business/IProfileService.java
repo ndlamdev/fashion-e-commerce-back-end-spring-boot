@@ -11,8 +11,6 @@ public interface IProfileService {
 
     List<ProfileAdminResponse> getProfiles();
 
-    ProfileDto getProfileById(Long id);
-
     ProfileDto getProfileByUserId(Long id);
 
     ProfileDto getProfile();

@@ -15,7 +15,7 @@ import java.util.Optional;
 public interface IAddressRepository extends JpaRepository<Address, Long> {
     List<Address> findAllByUserIdAndLockIsFalse(Long userId);
 
-    Optional<Address> findAddressByIdAndUserIdAndLockIsFalse(Long id, Long userId);
+    Optional<Address> findAddressByUserIdAndIdAndLockIsFalse(Long userId, Long addressId);
 
     Optional<Address> findFirstByUserIdAndLockIsFalse(Long userId);
     @Modifying
@@ -26,20 +26,6 @@ public interface IAddressRepository extends JpaRepository<Address, Long> {
                 WHERE a.userId = :userId
             """)
     void activeAddress(@Param("userId") Long userId, @Param("addressId") Long addressId);
-
-    @Modifying
-    @Transactional
-    @Query("""
-            UPDATE Address a
-            SET a.active = CASE
-                WHEN a.id = :newId THEN true
-                WHEN a.id = :oldId THEN false
-                ELSE a.active
-                END
-            WHERE (a.id = :newId OR a.id = :oldId)
-                  AND a.userId = :userId
-            """)
-    void setDefaultAddress(@Param("oldId") Long oldId, @Param("newId") Long  newId, @Param("userId") Long userId);
 
     @Modifying
     @Transactional

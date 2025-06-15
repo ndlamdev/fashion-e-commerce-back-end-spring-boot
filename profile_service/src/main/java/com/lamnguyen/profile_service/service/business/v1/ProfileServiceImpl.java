@@ -7,7 +7,6 @@ import com.lamnguyen.profile_service.domain.request.SaveProfileRequest;
 import com.lamnguyen.profile_service.domain.response.ProfileAdminResponse;
 import com.lamnguyen.profile_service.mapper.IProfileMapper;
 import com.lamnguyen.profile_service.repository.IProfileRepository;
-import com.lamnguyen.profile_service.service.business.IAddressService;
 import com.lamnguyen.profile_service.service.business.IProfileService;
 import com.lamnguyen.profile_service.service.grpc.IOrderServiceGrpcClient;
 import com.lamnguyen.profile_service.service.redis.IProfileRedisManager;
@@ -29,28 +28,27 @@ import java.util.stream.Collectors;
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ProfileServiceImpl implements IProfileService {
-	IProfileRepository profileRepository;
-	IProfileMapper mapper;
-	IProfileRedisManager profileRedisManager;
-	JwtTokenUtil jwtTokenUtil;
-	IAddressService addressService;
-	IOrderServiceGrpcClient orderServiceGrpcClient;
+    IProfileRepository profileRepository;
+    IProfileMapper mapper;
+    IProfileRedisManager profileRedisManager;
+    JwtTokenUtil jwtTokenUtil;
+    IOrderServiceGrpcClient orderServiceGrpcClient;
 
-	@Override
-	public ProfileDto saveProfile(SaveProfileRequest saveProfileRequest) {
-		var userId = jwtTokenUtil.getUserId();
-		var profile = profileRepository.findByUserId(userId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND));
-		var dataUpdate = mapper.toProfile(saveProfileRequest);
-		dataUpdate.setId(profile.getId());
-		dataUpdate.setUserId(userId);
-		dataUpdate.setAvatar(profile.getAvatar());
-		dataUpdate.setEmail(profile.getEmail());
-		dataUpdate.setCreateAt(profile.getCreateAt());
-		dataUpdate.setCreateBy(profile.getCreateBy());
-		var result = mapper.toProfileDto(profileRepository.save(dataUpdate));
-		profileRedisManager.delete(String.valueOf(userId));
-		return result;
-	}
+    @Override
+    public ProfileDto saveProfile(SaveProfileRequest saveProfileRequest) {
+        var userId = jwtTokenUtil.getUserId();
+        var profile = profileRepository.findByUserId(userId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND));
+        var dataUpdate = mapper.toProfile(saveProfileRequest);
+        dataUpdate.setId(profile.getId());
+        dataUpdate.setUserId(userId);
+        dataUpdate.setAvatar(profile.getAvatar());
+        dataUpdate.setEmail(profile.getEmail());
+        dataUpdate.setCreateAt(profile.getCreateAt());
+        dataUpdate.setCreateBy(profile.getCreateBy());
+        var result = mapper.toProfileDto(profileRepository.save(dataUpdate));
+        profileRedisManager.deleteByUserId(userId);
+        return result;
+    }
 
 	@Override
 	public List<ProfileAdminResponse> getProfiles() {
@@ -67,40 +65,24 @@ public class ProfileServiceImpl implements IProfileService {
 		return result;
 	}
 
-	@Override
-	@Transactional
-	public ProfileDto getProfileById(Long id) {
-		return profileRedisManager
-				.getById(id) // get in cache
-				.or(() -> cacheById(id)) // caching data
-				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND)); // throw exception
-	}
+    @Override
+    @Transactional
+    public ProfileDto getProfileByUserId(Long id) {
+        return profileRedisManager
+                .getByUserId(id) // get in cache
+                .or(() -> cacheByUserId(id)) // caching data
+                .orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND)); // throw exception
+    }
 
-	@Override
-	@Transactional
-	public ProfileDto getProfileByUserId(Long id) {
-		return profileRedisManager
-				.getByUserId(id) // get in cache
-				.or(() -> cacheByUserId(id)) // caching data
-				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND)); // throw exception
-	}
+    private Optional<ProfileDto> cacheByUserId(long id) {
+        var data = profileRepository.findByUserId(id).map(mapper::toProfileDto);
+        data.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND));
+        return profileRedisManager.cacheByUserId(id, () -> data, 60, TimeUnit.MINUTES);
+    }
 
-	private Optional<ProfileDto> cacheById(long id) {
-		var data = profileRepository.findById(id).map(mapper::toProfileDto);
-		data.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.USER_NOT_FOUND));
-		var addresses = addressService.getAddresses(id);
-		data.get().setShippingAddresses(addresses);
-		return profileRedisManager.cacheById(id, () -> data, 60, TimeUnit.MINUTES);
-	}
-
-	private Optional<ProfileDto> cacheByUserId(long id) {
-		var data = profileRepository.findByUserId(id).map(mapper::toProfileDto);
-		return profileRedisManager.cacheByUserId(id, () -> data, 60, TimeUnit.MINUTES);
-	}
-
-	@Override
-	@Transactional
-	public ProfileDto getProfile() {
-		return getProfileById(jwtTokenUtil.getUserId());
-	}
+    @Override
+    @Transactional
+    public ProfileDto getProfile() {
+        return getProfileByUserId(jwtTokenUtil.getUserId());
+    }
 }

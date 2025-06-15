@@ -6,11 +6,11 @@ import com.lamnguyen.profile_service.domain.dto.AddressDto;
 import java.util.List;
 
 public interface IAddressService {
-    AddressDto saveAddress(SaveAddressRequest request, Long addressId, Long userId);
+    AddressDto saveAddress(Long userId, Long addressId, SaveAddressRequest request);
 
-    AddressDto saveAddress(SaveAddressRequest request, Long addressId);
+    AddressDto saveAddress(Long addressId, SaveAddressRequest request);
 
-    AddressDto addAddress(SaveAddressRequest request, Long userId);
+    AddressDto addAddress(Long userId, SaveAddressRequest request);
 
     AddressDto addAddress(SaveAddressRequest request);
 
@@ -18,17 +18,19 @@ public interface IAddressService {
 
     List<AddressDto> getAddresses();
 
-    AddressDto getAddressById(Long id, Long userId);
+    AddressDto getAddressById(Long userId, Long addressId);
 
-    AddressDto getAddressById(Long id);
+    AddressDto getAddressById(Long addressId);
 
-    void deleteAddressById(Long id, Long userId);
+    void deleteAddressById(Long userId, Long addressId);
 
-    void deleteAddressById(Long id);
+    void deleteAddressById(Long addressId);
 
-    void setDefaultAddress(Long oldId, Long newId);
+    void setDefaultAddress(Long userId, Long addressId);
 
-    void setDefaultAddress(Long oldId, Long newId, Long userId);
+    void setDefaultAddress(Long addressId);
 
     AddressDto getDefaultAddress();
+
+    AddressDto getDefaultAddress(Long useId);
 }
