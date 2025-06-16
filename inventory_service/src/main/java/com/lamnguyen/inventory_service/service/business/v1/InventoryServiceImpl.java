@@ -57,18 +57,6 @@ public class InventoryServiceImpl implements IInventoryService {
     }
 
     @Override
-    public boolean updateInventoryQuantity(String productId, Map<OptionType, String> options, int quantity) {
-        return inventoryRepository
-                .findByProductIdAndOptions(productId, options)
-                .map(inventory -> {
-                    inventoryRepository.save(inventory);
-                    log.info("Updated inventory quantity for product {} with options {} to {}", productId, options, quantity);
-                    return true;
-                }).orElse(false);
-    }
-
-
-    @Override
     public List<VariantProduct> getAllInventoryByProductId(String productId) {
         return Arrays.stream(variantProductRedisManage.get(productId).or(() -> variantProductRedisManage
                         .cache(productId, () -> Optional.of(inventoryRepository

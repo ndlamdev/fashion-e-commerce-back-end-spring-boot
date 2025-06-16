@@ -93,13 +93,12 @@ public class ProductManageServiceImpl implements IProductManageService {
         var imagesExists = imagesChecked.entrySet().stream().filter(Map.Entry::getValue).map(Map.Entry::getKey).toList();
         product.setImages(imagesExists);
         if (product.getOptionsValues() != null) {
-            product.getOptionsValues().forEach(optionsValue -> {
-                optionsValue.getOptions().forEach(option -> {
-                    var imageOptionsChecked = mediaGrpcClient.existsByIds(option.getImages());
-                    var imageOptionsExists = imageOptionsChecked.entrySet().stream().filter(Map.Entry::getValue).map(Map.Entry::getKey).toList();
-                    option.setImages(imageOptionsExists);
-                });
-            });
+            product.getOptionsValues().forEach(optionsValue ->
+                    optionsValue.getOptions().forEach(option -> {
+                        var imageOptionsChecked = mediaGrpcClient.existsByIds(option.getImages());
+                        var imageOptionsExists = imageOptionsChecked.entrySet().stream().filter(Map.Entry::getValue).map(Map.Entry::getKey).toList();
+                        option.setImages(imageOptionsExists);
+                    }));
         }
         if (product.getIconThumbnail() != null) {
             var thumbnailExits = mediaGrpcClient.existsById(product.getIconThumbnail());
@@ -109,11 +108,9 @@ public class ProductManageServiceImpl implements IProductManageService {
 
     private void updateAllImageContain(Product product) {
         var allImage = new ArrayList<>(product.getImages());
-        product.getOptionsValues().forEach(imageOptionsValueDto -> {
-            imageOptionsValueDto.getOptions().forEach(optionItemDto -> {
-                allImage.addAll(optionItemDto.getImages());
-            });
-        });
+        product.getOptionsValues().forEach(imageOptionsValueDto ->
+                imageOptionsValueDto.getOptions().forEach(optionItemDto ->
+                        allImage.addAll(optionItemDto.getImages())));
         product.setAllImageContains(allImage);
     }
 

@@ -10,9 +10,9 @@ package com.lamnguyen.product_service.mapper;
 
 import com.lamnguyen.product_service.config.exception.ApplicationException;
 import com.lamnguyen.product_service.config.exception.ExceptionEnum;
-import com.lamnguyen.product_service.domain.response.AdminSubProductResponse;
 import com.lamnguyen.product_service.domain.dto.ProductDto;
 import com.lamnguyen.product_service.domain.request.DataProductRequest;
+import com.lamnguyen.product_service.domain.response.AdminSubProductResponse;
 import com.lamnguyen.product_service.domain.response.ImageResponse;
 import com.lamnguyen.product_service.domain.response.ProductResponse;
 import com.lamnguyen.product_service.domain.response.QuickProductResponse;
@@ -36,12 +36,6 @@ public interface IProductMapper {
     @Mapping(target = "variants", ignore = true)
     @Mapping(target = "review", ignore = true)
     ProductResponse toProductResponse(Product product);
-
-    @Mapping(source = "iconThumbnail", target = "iconThumbnail", ignore = true)
-    @Mapping(source = "images", target = "images", ignore = true)
-    @Mapping(target = "variants", ignore = true)
-    @Mapping(target = "review", ignore = true)
-    ProductResponse toProductResponse(ProductDto product);
 
     @Mapping(source = "collection.id", target = "collection")
     ProductDto toProductDto(Product product);
