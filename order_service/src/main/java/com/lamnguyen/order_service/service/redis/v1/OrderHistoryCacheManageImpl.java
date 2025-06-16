@@ -72,7 +72,7 @@ public class OrderHistoryCacheManageImpl extends ACacheManage<SubOrder> implemen
 			}
 
 			var dto = callDB.call();
-			if (dto.isEmpty()) return Optional.empty();
+			if (dto.isEmpty() || dto.get().isEmpty()) return Optional.empty();
 			this.template.opsForList().leftPushAll(key, dto.get());
 			this.template.expire(key, 60, TimeUnit.MINUTES);
 			return dto;
