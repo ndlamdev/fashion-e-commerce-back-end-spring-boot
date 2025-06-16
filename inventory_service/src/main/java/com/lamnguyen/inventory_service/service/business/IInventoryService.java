@@ -9,6 +9,7 @@ package com.lamnguyen.inventory_service.service.business;
 
 import com.lamnguyen.inventory_service.message.DataVariantEvent;
 import com.lamnguyen.inventory_service.model.VariantProduct;
+import com.lamnguyen.inventory_service.protos.VariantAndInventoryInfo;
 import com.lamnguyen.inventory_service.utils.enums.OptionType;
 
 import java.util.List;
@@ -30,4 +31,6 @@ public interface IInventoryService {
 	VariantProduct getVariantProductById(String variantId);
 
 	List<VariantProduct> updateVariantProducts(Map<String, Integer> quantities);
+
+	Map<String, VariantAndInventoryInfo> getVariantAndInventoryInfo(List<String> productIds);
 }
