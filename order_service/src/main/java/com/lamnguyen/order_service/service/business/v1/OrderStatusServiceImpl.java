@@ -45,4 +45,10 @@ public class OrderStatusServiceImpl implements IOrderStatusService {
 	public void deleteAllByOrderId(long orderId) {
 		orderStatusRepository.deleteAllByOrder_Id(orderId);
 	}
+
+	@Override
+	public void deleteOrderStatusByOrderIdAndId(long orderId, long orderStatusId) {
+		orderStatusRepository.deleteByOrder_IdAndId(orderId, orderStatusId);
+		orderCacheManage.delete(orderId);
+	}
 }

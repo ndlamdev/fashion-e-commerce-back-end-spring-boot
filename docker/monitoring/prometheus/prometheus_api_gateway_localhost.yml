@@ -14,86 +14,86 @@ scrape_configs:
         labels:
           application: Loki Service
 
-  #  - job_name: 'config_server_service'
-  #    metrics_path: /actuator/prometheus
-  #    static_configs:
-  #      - targets: [ 'host.docker.internal:1306' ]
-  #        labels:
-  #          application: Config Server Service
+#  - job_name: 'config_server_service'
+#    metrics_path: /actuator/prometheus
+#    static_configs:
+#      - targets: [ 'host.docker.internal:1306' ]
+#        labels:
+#          application: Config Server Service
 
   - job_name: 'api_gateway_service'
     metrics_path: /kimi-fashion/api/fashion-e-commerce-api-gateway-service/actuator/prometheus
     static_configs:
-      - targets: [ '10.0.239.136:8888' ]
+      - targets: [ 'host.docker.internal:8888' ]
         labels:
           application: Api Gateway Service
 
-  #  - job_name: 'eureka_server_service'
-  #    metrics_path:  /kimi-fashion/api/fashion-e-commerce-eureka-server/actuator/prometheus
-  #    static_configs:
-  #      - targets: [ 'host.docker.internal:8761' ]
-  #        labels:
-  #          application: Eureka Server Service
+#  - job_name: 'eureka_server_service'
+#    metrics_path:  /api/fashion-e-commerce-eureka-server/actuator/prometheus
+#    static_configs:
+#      - targets: [ 'host.docker.internal:8761' ]
+#        labels:
+#          application: Eureka Server Service
 
   - job_name: 'notification_service'
     metrics_path: /kimi-fashion/api/fashion-e-commerce-notification-service/actuator/prometheus
     static_configs:
-      - targets: [ '10.0.239.136:8888' ]
+      - targets: [ 'host.docker.internal:8888' ]
         labels:
           application: Notification Service
 
   - job_name: 'authentication_service'
     metrics_path:  /kimi-fashion/api/fashion-e-commerce-authentication-service/actuator/prometheus
     static_configs:
-      - targets: [ '10.0.239.136:8888' ]
+      - targets: [ 'host.docker.internal:8888' ]
         labels:
           application: Authentication Service
 
   - job_name: 'profile_service'
     metrics_path: /kimi-fashion/api/fashion-e-commerce-profile-service/actuator/prometheus
     static_configs:
-      - targets: [ '10.0.239.136:8888' ]
+      - targets: [ 'host.docker.internal:8888' ]
         labels:
           application: Profile Service
 
   - job_name: 'product_service'
     metrics_path: /kimi-fashion/api/fashion-e-commerce-product-service/actuator/prometheus
     static_configs:
-      - targets: [ '10.0.239.136:8888' ]
+      - targets: [ 'host.docker.internal:8888' ]
         labels:
           application: Product Service
 
   - job_name: 'media_service'
     metrics_path: /kimi-fashion/api/fashion-e-commerce-media-service/actuator/prometheus
     static_configs:
-      - targets: [ '10.0.239.136:8888' ]
+      - targets: [ 'host.docker.internal:8888' ]
         labels:
           application: Media Service
 
   - job_name: 'inventory_service'
     metrics_path: /kimi-fashion/api/fashion-e-commerce-inventory-service/actuator/prometheus
     static_configs:
-      - targets: [ '10.0.239.136:8888' ]
+      - targets: [ 'host.docker.internal:8888' ]
         labels:
           application: Inventory Service
 
   - job_name: 'cart_service'
     metrics_path: /kimi-fashion/api/fashion-e-commerce-cart-service/actuator/prometheus
     static_configs:
-      - targets: [ '10.0.239.136:8888' ]
+      - targets: [ 'host.docker.internal:8888' ]
         labels:
           application: Cart Service
 
   - job_name: 'order_service'
     metrics_path: /kimi-fashion/api/fashion-e-commerce-order-service/actuator/prometheus
     static_configs:
-      - targets: [ '10.0.239.136:8888' ]
+      - targets: [ 'host.docker.internal:8888' ]
         labels:
           application: Order Service
 
   - job_name: 'payment_service'
     metrics_path: /kimi-fashion/api/fashion-e-commerce-payment-service/actuator/prometheus
     static_configs:
-      - targets: [ '10.0.239.136:8888' ]
+      - targets: [ 'host.docker.internal:8888' ]
         labels:
           application: Payment Service

@@ -45,3 +45,4 @@
 **/monitoring/**/data/
 **/venv/
 **/*.exe
+**/*.bat

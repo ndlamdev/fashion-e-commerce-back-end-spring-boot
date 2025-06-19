@@ -8,11 +8,14 @@
 
 package com.lamnguyen.order_service.controller.admin;
 
+import com.lamnguyen.order_service.domain.request.AddOrderStausRequest;
 import com.lamnguyen.order_service.domain.request.OrderIdRequest;
 import com.lamnguyen.order_service.domain.response.OrderDetailResponse;
 import com.lamnguyen.order_service.domain.response.SubOrder;
 import com.lamnguyen.order_service.service.business.IOrderService;
+import com.lamnguyen.order_service.service.business.IOrderStatusService;
 import com.lamnguyen.order_service.utils.annotation.ApiMessageResponse;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -27,6 +30,7 @@ import java.util.List;
 @RequestMapping("/admin/order/v1")
 public class AdminOrderController {
 	IOrderService orderService;
+	IOrderStatusService orderStatusService;
 
 	@PostMapping("/cancel")
 	@ApiMessageResponse("Cancel order success")
@@ -68,5 +72,19 @@ public class AdminOrderController {
 	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ADMIN_DELETE_ORDER')")
 	public void lockOrder(@PathVariable long id, @RequestParam boolean lock) {
 		orderService.lockOrder(id, lock);
+	}
+
+	@PostMapping("/{id}")
+	@ApiMessageResponse("Update order status success")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ADMIN_DELETE_ORDER')")
+	public void updateStatus(@PathVariable long id, @RequestBody @Valid AddOrderStausRequest request) {
+		orderStatusService.addStatus(id, request.status(), request.note());
+	}
+
+	@DeleteMapping("/{id}/order-status/{order-status-id}")
+	@ApiMessageResponse("Delete order success")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ADMIN_DELETE_ORDER')")
+	public void deleteOrderStatus(@PathVariable("id") long orderId, @PathVariable("order-status-id") long orderStatusId) {
+		orderStatusService.deleteOrderStatusByOrderIdAndId(orderId, orderStatusId);
 	}
 }

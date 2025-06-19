@@ -33,4 +33,6 @@ public interface IInventoryService {
 	Map<String, VariantAndInventoryInfo> getVariantAndInventoryInfo(List<String> productIds);
 
     List<VariantResponse> getAll();
+
+	void updateQuantity(String id, int quantity);
 }

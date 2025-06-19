@@ -8,7 +8,6 @@
 
 package com.lamnguyen.order_service.service.business;
 
-import com.google.protobuf.ProtocolStringList;
 import com.lamnguyen.order_service.domain.request.CreateOrderRequest;
 import com.lamnguyen.order_service.domain.response.OrderDetailResponse;
 import com.lamnguyen.order_service.domain.response.SubOrder;

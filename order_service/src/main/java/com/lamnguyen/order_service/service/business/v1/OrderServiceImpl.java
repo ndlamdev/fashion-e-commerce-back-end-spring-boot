@@ -8,7 +8,6 @@
 
 package com.lamnguyen.order_service.service.business.v1;
 
-import com.google.protobuf.ProtocolStringList;
 import com.lamnguyen.order_service.config.exception.ApplicationException;
 import com.lamnguyen.order_service.config.exception.ExceptionEnum;
 import com.lamnguyen.order_service.domain.dto.GeneralInfoDto;
@@ -31,7 +30,6 @@ import com.lamnguyen.order_service.service.business.IOrderStatusService;
 import com.lamnguyen.order_service.service.grpc.IInventoryGrpcClient;
 import com.lamnguyen.order_service.service.grpc.IPaymentGrpcClient;
 import com.lamnguyen.order_service.service.grpc.IProductGrpcClient;
-import com.lamnguyen.order_service.service.grpc.v1.OrderGrpcServerImpl;
 import com.lamnguyen.order_service.service.kafka.producer.ICartKafkaService;
 import com.lamnguyen.order_service.service.redis.IOrderCacheManage;
 import com.lamnguyen.order_service.service.redis.IOrderHistoryCacheManage;
