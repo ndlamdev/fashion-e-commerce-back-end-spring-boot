@@ -16,5 +16,5 @@ import java.util.Optional;
 
 @Repository
 public interface IMediaRepository extends MongoRepository<Media, String> {
-	Optional<Media> findByFileName(String fileName);
+    Optional<Media> findByFileName(String fileName);
 }

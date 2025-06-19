@@ -10,6 +10,7 @@ package com.lamnguyen.inventory_service.service.business.v1;
 import com.lamnguyen.inventory_service.config.exception.ApplicationException;
 import com.lamnguyen.inventory_service.config.exception.ExceptionEnum;
 import com.lamnguyen.inventory_service.domain.dto.VariantAndInventoryInfoDto;
+import com.lamnguyen.inventory_service.domain.response.VariantResponse;
 import com.lamnguyen.inventory_service.mapper.IInventoryMapper;
 import com.lamnguyen.inventory_service.message.DataVariantEvent;
 import com.lamnguyen.inventory_service.model.VariantProduct;
@@ -203,5 +204,10 @@ public class InventoryServiceImpl implements IInventoryService {
 
         var result = mongoTemplate.aggregate(aggregation, VariantProduct.class, VariantAndInventoryInfoDto.class).getMappedResults();
         return result.stream().collect(Collectors.toMap(VariantAndInventoryInfoDto::getProductId, inventoryMapper::toVariantAndInventoryInfo));
+    }
+
+    @Override
+    public List<VariantResponse> getAll() {
+        return inventoryMapper.toVariantResponse(inventoryRepository.findAll());
     }
 }

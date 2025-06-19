@@ -7,6 +7,7 @@
  **/
 package com.lamnguyen.inventory_service.service.business;
 
+import com.lamnguyen.inventory_service.domain.response.VariantResponse;
 import com.lamnguyen.inventory_service.message.DataVariantEvent;
 import com.lamnguyen.inventory_service.model.VariantProduct;
 import com.lamnguyen.inventory_service.protos.VariantAndInventoryInfo;
@@ -30,4 +31,6 @@ public interface IInventoryService {
 	List<VariantProduct> updateVariantProducts(Map<String, Integer> quantities);
 
 	Map<String, VariantAndInventoryInfo> getVariantAndInventoryInfo(List<String> productIds);
+
+    List<VariantResponse> getAll();
 }

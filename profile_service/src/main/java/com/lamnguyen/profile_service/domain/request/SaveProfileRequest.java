@@ -24,24 +24,25 @@ import java.time.LocalDate;
 @ValidInternationalPhone(phoneField = "phone", countryField = "countryCode")
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class SaveProfileRequest {
-        @NotNull(message = "Require fullName is not null")
-        String fullName;
+    @NotNull(message = "Require fullName is not null")
+    String fullName;
 
-        @NotBlank
-        String countryCode;
+    @NotBlank
+    String countryCode;
 
-        @NotBlank(message = "Require phoneNumber is not blank")
-        String phone;
+    @NotBlank(message = "Require phoneNumber is not blank")
+    String phone;
 
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-        LocalDate birthday;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    LocalDate birthday;
 
-        @Range(min = 140, max = 190)
-        Double height;
+    @Range(min = 140, max = 190)
+    Double height;
 
-        @Range(min = 40, max = 90)
-        Double weight;
+    @Range(min = 40, max = 90)
+    Double weight;
 
-        @Enumerated
-        SexEnum gender;
+    @Enumerated
+    @NotNull
+    SexEnum gender;
 }

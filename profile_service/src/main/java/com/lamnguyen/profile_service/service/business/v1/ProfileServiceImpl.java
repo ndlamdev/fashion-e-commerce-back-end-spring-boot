@@ -10,6 +10,7 @@ import com.lamnguyen.profile_service.repository.IProfileRepository;
 import com.lamnguyen.profile_service.service.business.IProfileService;
 import com.lamnguyen.profile_service.service.grpc.IOrderServiceGrpcClient;
 import com.lamnguyen.profile_service.service.redis.IProfileRedisManager;
+import com.lamnguyen.profile_service.utils.enums.SexEnum;
 import com.lamnguyen.profile_service.utils.helper.JwtTokenUtil;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -45,25 +46,26 @@ public class ProfileServiceImpl implements IProfileService {
         dataUpdate.setEmail(profile.getEmail());
         dataUpdate.setCreateAt(profile.getCreateAt());
         dataUpdate.setCreateBy(profile.getCreateBy());
+        dataUpdate.setGender(saveProfileRequest.getGender());
         var result = mapper.toProfileDto(profileRepository.save(dataUpdate));
         profileRedisManager.deleteByUserId(userId);
         return result;
     }
 
-	@Override
-	public List<ProfileAdminResponse> getProfiles() {
-		var userId = jwtTokenUtil.getUserId();
-		var profiles = profileRepository.findAllByUserIdNot(userId);
-		var result = mapper.toProfileAdminResponses(profiles);
-		var generalInfos = orderServiceGrpcClient.getGeneralInfos(result.stream().map(ProfileDto::getUserId).collect(Collectors.toList()));
-		result.forEach(data -> {
-			var generalInfo = generalInfos.getOrDefault(data.getUserId(), null);
-			if(generalInfo == null) return;
-			data.setTotalOrders(generalInfo.getTotalOrder());
-			data.setTotalSpent(generalInfo.getTotalSpent());
-		});
-		return result;
-	}
+    @Override
+    public List<ProfileAdminResponse> getProfiles() {
+        var userId = jwtTokenUtil.getUserId();
+        var profiles = profileRepository.findAllByUserIdNot(userId);
+        var result = mapper.toProfileAdminResponses(profiles);
+        var generalInfos = orderServiceGrpcClient.getGeneralInfos(result.stream().map(ProfileDto::getUserId).collect(Collectors.toList()));
+        result.forEach(data -> {
+            var generalInfo = generalInfos.getOrDefault(data.getUserId(), null);
+            if (generalInfo == null) return;
+            data.setTotalOrders(generalInfo.getTotalOrder());
+            data.setTotalSpent(generalInfo.getTotalSpent());
+        });
+        return result;
+    }
 
     @Override
     @Transactional

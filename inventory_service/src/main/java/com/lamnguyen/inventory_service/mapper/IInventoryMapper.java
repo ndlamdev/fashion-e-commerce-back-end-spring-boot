@@ -9,6 +9,7 @@
 package com.lamnguyen.inventory_service.mapper;
 
 import com.lamnguyen.inventory_service.domain.dto.VariantAndInventoryInfoDto;
+import com.lamnguyen.inventory_service.domain.response.VariantResponse;
 import com.lamnguyen.inventory_service.model.VariantProduct;
 import com.lamnguyen.inventory_service.protos.VariantAndInventoryInfo;
 import com.lamnguyen.inventory_service.protos.VariantProductInfo;
@@ -25,6 +26,8 @@ public interface IInventoryMapper {
     VariantProductInfo toVariantProductInfo(VariantProduct products);
 
     List<VariantProductInfo> toVariantProductInfo(List<VariantProduct> products);
+
+    List<VariantResponse> toVariantResponse(List<VariantProduct> products);
 
     @AfterMapping
     default void handleOptions(VariantProduct product,

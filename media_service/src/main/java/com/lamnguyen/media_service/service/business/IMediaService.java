@@ -16,15 +16,17 @@ import java.util.List;
 import java.util.Map;
 
 public interface IMediaService {
-	String upload(MultipartFile file);
+    String upload(MultipartFile file);
 
-	boolean existsById(String id);
+    boolean existsById(String id);
 
-	MediaDto getById(String id);
+    MediaDto getById(String id);
 
-	List<MediaDto> getAllById(List<String> ids);
+    List<MediaDto> getAllById(List<String> ids);
 
-	Map<String, MediaInfo> getMediaByIds(List<String> ids);
+    Map<String, MediaInfo> getMediaByIds(List<String> ids);
 
-	Map<String, MediaInfo> getMediaByNames(List<String> names);
+    Map<String, MediaInfo> getMediaByNames(List<String> names);
+
+    List<MediaDto> getAll();
 }
