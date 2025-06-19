@@ -7,17 +7,16 @@
  **/
 package com.lamnguyen.inventory_service.service.business;
 
+import com.lamnguyen.inventory_service.domain.response.VariantResponse;
 import com.lamnguyen.inventory_service.message.DataVariantEvent;
 import com.lamnguyen.inventory_service.model.VariantProduct;
-import com.lamnguyen.inventory_service.utils.enums.OptionType;
+import com.lamnguyen.inventory_service.protos.VariantAndInventoryInfo;
 
 import java.util.List;
 import java.util.Map;
 
 public interface IInventoryService {
 	void createVariantProduct(DataVariantEvent event);
-
-	boolean updateInventoryQuantity(String productId, Map<OptionType, String> options, int quantity);
 
 	List<VariantProduct> getAllInventoryByProductId(String productId);
 
@@ -30,4 +29,8 @@ public interface IInventoryService {
 	VariantProduct getVariantProductById(String variantId);
 
 	List<VariantProduct> updateVariantProducts(Map<String, Integer> quantities);
+
+	Map<String, VariantAndInventoryInfo> getVariantAndInventoryInfo(List<String> productIds);
+
+    List<VariantResponse> getAll();
 }

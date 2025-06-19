@@ -8,11 +8,10 @@
 
 package com.lamnguyen.product_service.service.business;
 
-import com.lamnguyen.product_service.domain.dto.CollectionDto;
-import com.lamnguyen.product_service.domain.response.ProductResponse;
 import com.lamnguyen.product_service.domain.request.IdCollectionRequest;
 import com.lamnguyen.product_service.domain.request.TitleCollectionRequest;
-import com.lamnguyen.product_service.domain.request.UpdateCollectionRequest;
+import com.lamnguyen.product_service.domain.response.CollectionResponse;
+import com.lamnguyen.product_service.domain.response.ProductResponse;
 import com.lamnguyen.product_service.model.Collection;
 
 import java.util.List;
@@ -22,9 +21,7 @@ public interface ICollectionManageService {
 
 	void create(TitleCollectionRequest request);
 
-	List<CollectionDto> getAll();
-
-	void update(UpdateCollectionRequest request);
+	List<CollectionResponse> getAll();
 
 	void delete(IdCollectionRequest request);
 

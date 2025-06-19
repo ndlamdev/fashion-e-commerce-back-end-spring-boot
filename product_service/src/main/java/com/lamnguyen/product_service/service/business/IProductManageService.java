@@ -8,7 +8,10 @@
 
 package com.lamnguyen.product_service.service.business;
 
+import com.lamnguyen.product_service.domain.response.AdminSubProductResponse;
 import com.lamnguyen.product_service.domain.request.DataProductRequest;
+
+import java.util.List;
 
 public interface IProductManageService {
 	void create(DataProductRequest request);
@@ -16,4 +19,6 @@ public interface IProductManageService {
 	void update(String id, DataProductRequest request);
 
 	void lock(String id, boolean isLock);
+
+    List<AdminSubProductResponse> getAll();
 }

@@ -10,18 +10,25 @@ package com.lamnguyen.media_service.service.redis;
 
 import com.lamnguyen.media_service.domain.dto.MediaDto;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IMediaRedisManage extends ICacheManage<MediaDto> {
-	Optional<MediaDto> cacheById(String id, CallbackDB<MediaDto> callDB);
+    Optional<MediaDto> cacheById(String id, CallbackDB<MediaDto> callDB);
 
-	void deleteById(String id);
+    void deleteById(String id);
 
-	Optional<MediaDto> getById(String id);
+    Optional<MediaDto> getById(String id);
 
-	Optional<MediaDto> cacheByName(String name, CallbackDB<MediaDto> callDB);
+    Optional<MediaDto> cacheByName(String name, CallbackDB<MediaDto> callDB);
 
-	void deleteByName(String name);
+    void deleteByName(String name);
 
-	Optional<MediaDto> getByName(String name);
+    Optional<MediaDto> getByName(String name);
+
+    Optional<List<MediaDto>> getAll();
+
+    void cleanCacheGetAll();
+
+    Optional<List<MediaDto>> cacheAll(CallbackDB<List<MediaDto>> callDB);
 }

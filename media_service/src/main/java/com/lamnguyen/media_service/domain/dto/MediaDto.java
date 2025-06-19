@@ -8,6 +8,8 @@
 
 package com.lamnguyen.media_service.domain.dto;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.lamnguyen.media_service.model.MongoBaseDocument;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,10 +22,11 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class MediaDto extends MongoBaseDocument {
-	String path;
-	String displayName;
-	String parentPath;
-	String extend;
-	String fileName;
+    String path;
+    String displayName;
+    String parentPath;
+    String extend;
+    String fileName;
 }

@@ -14,10 +14,14 @@ import com.lamnguyen.media_service.protos.MediaInfo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface IMediaMapper {
-	MediaDto toDto(Media media);
+    MediaDto toDto(Media media);
 
-	@Mapping(target = "src", source = "path")
-	MediaInfo toMediaInfo(MediaDto media);
+    @Mapping(target = "src", source = "path")
+    MediaInfo toMediaInfo(MediaDto media);
+
+    List<MediaDto> toDtos(List<Media> media);
 }
