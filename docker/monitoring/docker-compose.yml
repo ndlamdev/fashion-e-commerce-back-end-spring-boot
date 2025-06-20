@@ -8,7 +8,7 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus/prometheus_api_gateway_localhost.yml:/etc/prometheus/prometheus.yml
-#      - ./prometheus/data:/prometheus
+      - ./prometheus/data:/prometheus
     restart: unless-stopped
     networks:
       - fashion_e_commerce_monitoring
@@ -19,7 +19,7 @@ services:
     ports:
       - "3000:3000"
     volumes:
-#      - ./grafana/data:/var/lib/grafana
+      - ./grafana/data:/var/lib/grafana
       - ./grafana/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
     environment:
       - GF_SECURITY_ADMIN_USER=admin
@@ -52,8 +52,8 @@ services:
       - ./opentelemetry/otel-collector.yml:/etc/otelcol-contrib/otel-collector.yml
     ports:
       - "1888:1888" # pprof extension
-      - "8888:8888" # Prometheus metrics exposed by the collector
-      - "8889:8889" # Prometheus exporter metrics
+      - "8898:8888" # Prometheus metrics exposed by the collector
+      - "8899:8889" # Prometheus exporter metrics
       - "13133:13133" # health_check extension
       - "4318:4318" # OTLP http receiver
       - "4317:4317" # OTLP grpc receiver
@@ -91,9 +91,9 @@ services:
       - 9990:9000
       - 9999:9999
     restart: unless-stopped
-#    volumes:
-#      - ./data/minio/shared:/home/shared
-#      - ./data/minio/data:/data
+    volumes:
+     - ./minio/shared:/home/shared
+     - ./minio/data:/data
     networks:
       - fashion_e_commerce_monitoring
     healthcheck:

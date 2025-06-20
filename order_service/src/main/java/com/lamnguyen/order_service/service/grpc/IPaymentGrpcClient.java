@@ -11,10 +11,15 @@ package com.lamnguyen.order_service.service.grpc;
 import com.lamnguyen.order_service.protos.PaymentRequest;
 import com.lamnguyen.order_service.protos.PaymentResponse;
 
+import java.util.List;
+import java.util.Map;
+
 public interface IPaymentGrpcClient {
 	PaymentResponse pay(PaymentRequest paymentRequest);
 
 	void cancelPay(long orderId);
 
 	PaymentResponse getPaymentStatus(long orderId);
+
+	Map<Long, PaymentResponse> getPaymentStatuses(List<Long> orderIds);
 }

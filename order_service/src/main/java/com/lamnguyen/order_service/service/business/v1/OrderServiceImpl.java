@@ -254,6 +254,16 @@ public class OrderServiceImpl implements IOrderService {
 		return orderRepository.findAllHistoryOrderByDeleteIsFalse();
 	}
 
+	public List<SubOrder> getSubOrderAbandonedCheckoutAllUser() {
+		var result = orderRepository.findAllHistoryOrderByDeleteIsFalse();
+		var orderIds = result.parallelStream()
+				.map(SubOrder::id)
+				.toList();
+		var statuses = paymentGrpcClient.getPaymentStatuses(orderIds);
+		var orderAbandonedCheckout = statuses.entrySet().parallelStream().filter(it -> it.getValue().getStatus() == PayStatus.PENDING).map(Map.Entry::getKey).toList();
+		return result.parallelStream().filter(it -> orderAbandonedCheckout.contains(it.id())).toList();
+	}
+
 	private OrderDetailResponse getOrderDetailHelper(OrderDto orderDto) {
 		var paymentStatus = paymentGrpcClient.getPaymentStatus(orderDto.getId());
 		var result = orderMapper.toOrderDetailResponse(orderDto, paymentStatus);

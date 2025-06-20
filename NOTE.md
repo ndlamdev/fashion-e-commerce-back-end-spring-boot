@@ -945,10 +945,10 @@ Cấu hình thêm VM options (Add VM options) trong phần cấu hình chạy d�
 
 ```VM options
 java -javaagent:path\opentelemetry-javaagent.jar \
+-jar target/your-application.jar \
 -Dotel.exporter.otlp.protocol=grpc \
 -Dotel.exporter.otlp.endpoint=http://localhost:4317 \
--Dotel.javaagent.debug=true \ //Bật chế độ debug
--jar target/your-application.jar
+-Dotel.javaagent.debug=true //Bật chế độ debug
 ```
 
 ---Bắt đầu: Cấu hình chạy kèm với logs---
@@ -957,6 +957,7 @@ java -javaagent:path\opentelemetry-javaagent.jar \
 
 ```Terminal
 java -javaagent:path\opentelemetry-javaagent.jar \
+-jar target/your-application.jar \
 -Dotel.exporter.otlp.protocol=grpc \
 -Dotel.exporter.otlp.endpoint=http://localhost:4317 \
 -Dotel.javaagent.debug=true \ //Bật chế độ debug
@@ -967,8 +968,7 @@ java -javaagent:path\opentelemetry-javaagent.jar \
 -Dotel.instrumentation.logback-appender.experimental.capture-marker-attribute=true \
 -Dotel.instrumentation.logback-appender.experimental.capture-key-value-pair-attributes=true \
 -Dotel.instrumentation.logback-appender.experimental.capture-logger-context-attributes=true \
--Dotel.instrumentation.logback-appender.experimental.capture-mdc-attributes=* \
--jar target/your-application.jar
+-Dotel.instrumentation.logback-appender.experimental.capture-mdc-attributes=*
 ```
 
 ---Kết thức: Cấu hình chạy kèm với logs---

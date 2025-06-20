@@ -53,6 +53,13 @@ public class AdminOrderController {
 		return orderService.getSubOrderAllUser();
 	}
 
+	@GetMapping("/abandoned-checkout")
+	@ApiMessageResponse("Get order history success")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ADMIN_GET_HISTORY_ORDER_ABANDONED_CHECKOUT')")
+	public List<SubOrder> getOrderHistoryAbandonedCheckout() {
+		return orderService.getSubOrderAbandonedCheckoutAllUser();
+	}
+
 	@GetMapping("/order-detail/{id}")
 	@ApiMessageResponse("Get order history success")
 	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ADMIN_GET_ORDER_DETAIL')")

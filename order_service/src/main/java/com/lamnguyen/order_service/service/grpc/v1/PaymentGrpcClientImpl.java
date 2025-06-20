@@ -8,15 +8,15 @@
 
 package com.lamnguyen.order_service.service.grpc.v1;
 
+import com.lamnguyen.order_service.protos.*;
 import org.springframework.stereotype.Service;
 
-import com.lamnguyen.order_service.protos.OrderIdRequest;
-import com.lamnguyen.order_service.protos.PaymentRequest;
-import com.lamnguyen.order_service.protos.PaymentResponse;
-import com.lamnguyen.order_service.protos.PaymentServiceGrpc;
 import com.lamnguyen.order_service.service.grpc.IPaymentGrpcClient;
 
 import net.devh.boot.grpc.client.inject.GrpcClient;
+
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class PaymentGrpcClientImpl implements IPaymentGrpcClient {
@@ -42,5 +42,13 @@ public class PaymentGrpcClientImpl implements IPaymentGrpcClient {
 				.setId(orderId)
 				.build();
 		return paymentServiceBlockingStub.getPaymentStatus(request);
+	}
+
+	@Override
+	public Map<Long, PaymentResponse> getPaymentStatuses(List<Long> orderIds) {
+		var request = OrderIdsRequest.newBuilder()
+				.addAllId(orderIds)
+				.build();
+		return paymentServiceBlockingStub.getPaymentStatuses(request).getPaymentsMap();
 	}
 }

@@ -42,4 +42,6 @@ public interface IOrderService {
 	void softDeleteOrder(long orderId, boolean delete);
 
 	Map<Long, GeneralInfo> getGeneralInfoByUserId(List<Long> userIdList);
+
+	List<SubOrder> getSubOrderAbandonedCheckoutAllUser();
 }
