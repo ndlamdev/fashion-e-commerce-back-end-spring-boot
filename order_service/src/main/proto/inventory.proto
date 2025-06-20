@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.lamnguyen.order_service.protos";
+option java_outer_classname = "InventoryProto";
+
+service InventoryService {
+  rpc UpdateQuantityByVariantIdsIdsNotDelete (UpdateQuantityVariantRequest) returns (VariantProductByVariantIdsResponse);
+  rpc GetVariantProductByVariantIdsIdsNotDeleteAndProductNotLock (VariantIdsRequest) returns (VariantProductByVariantIdsResponse);
+}
+
+message VariantProductInfo {
+  string id = 1;
+  string product_id = 2; // mã sản phẩm
+  string title = 3; // tiêu đề sản phẩm
+  float regular_price = 4; // giá sản phẩm
+  float compare_price = 5; // giá so sánh
+  string sku = 6; // mã SKU
+  int32 quantity = 7; // số lượng
+  map<string, string> options = 8; // danh sách tùy chọn
+  bool product_allow_buy_when_clocked = 9; // cho phép mua sản phẩm ẩn
+  bool product_exclude_discount = 10; // loại trừ giảm giá
+  bool product_apply_allowance_inventory = 11; // cho phép bán khi biến thể không còn hàng nữa
+  int32 pending = 12; // Số lượng biến thể cho phép bán khi product_apply_allowance_inventory = true và số lượng biến thể = 0
+  bool product_visibility = 13; // hiển thị sản phẩm
+  bool delete = 14;
+  bool lock = 15;
+}
+
+message VariantProductByVariantIdsResponse {
+  map<string, VariantProductInfo> variants = 1;
+}
+
+message UpdateQuantityVariantRequest {
+  map<string, int32> quantities = 1;
+}
+
+message VariantIdsRequest {
+  repeated string variant_ids = 1;
+}

@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: fashion-e-commerce-media-service
+  profiles:
+    active: ${PROFILE:dev,local}
+  config:
+    import: ${CONFIG_SERVER:configserver:https://config-server.ndlamdev.website/fashion-e-commerce-config-server}
+  cloud:
+    refresh:
+      enabled: false
+    config:
+      username: ${CONFIG_USERNAME:}
+      password: ${CONFIG_PASSWORD:}
+      name: fashion-e-commerce-media-service,eureka-config

@@ -1,0 +1,123 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.lamnguyen.product_service.protos";
+option java_outer_classname = "ProductProto";
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+
+// Service definition for ProductService
+service ProductService {
+  rpc GetProductById (ProductRequest) returns (ProductResponseGrpc);
+  rpc GetProductInCartById (ProductRequest) returns (ProductInCartDto);
+  rpc GetTitleProductById (ProductRequest) returns (TitleProduct);
+}
+
+// Request message for GetProductById
+message ProductRequest {
+  string product_id = 1;
+}
+
+// Enum for GenderType
+enum GenderType {
+  MALE = 0;
+  FEMALE = 1;
+  UNISEX = 2;
+}
+
+// Enum for ProductTag
+enum ProductTag {
+  BEST_SELLER = 0;
+  WORTH_BUYING = 1;
+  CLEARANCE_SALE = 2;
+  OUTLET = 3;
+  SAVING_PACKS = 4;
+  BAN_CHAY = 5;
+  DANG_MUA = 6;
+  NEW = 7;
+  LIMITED = 8;
+  HOT = 9;
+}
+
+// Enum for OptionType
+enum OptionType {
+  SIZE = 0;
+  COLOR = 1;
+}
+
+// Message for OptionItemDto
+message OptionItemResponseGrpc {
+  google.protobuf.StringValue title = 1;
+  google.protobuf.StringValue slug = 2;
+  google.protobuf.StringValue label = 3;
+  repeated Image images = 4;
+}
+
+// Message for OptionDto
+message OptionDto {
+  OptionType type = 1;
+  google.protobuf.StringValue title = 2;
+  repeated google.protobuf.StringValue values = 3;
+}
+
+// Message for ImageOptionsValueDto
+message ImageOptionsValueDto {
+  google.protobuf.StringValue title = 1;
+  OptionType type = 2;
+  repeated OptionItemResponseGrpc options = 3;
+}
+
+// Message for Discount
+message Discount {
+  int32 percent = 1;
+  google.protobuf.Timestamp  start = 2; // Using string for LocalDateTime
+  google.protobuf.Timestamp  end = 3;   // Using string for LocalDateTime
+}
+
+message Image {
+  google.protobuf.StringValue id = 1;
+  google.protobuf.StringValue src = 2;
+  bool lock = 3;
+}
+
+// Message for ProductDto
+message ProductResponseGrpc {
+  string id = 1;
+  google.protobuf.StringValue title = 2;
+  google.protobuf.StringValue seo_alias = 3;
+  google.protobuf.StringValue vendor = 4;
+  repeated ProductTag tags = 5;
+  repeated OptionDto options = 6;
+  repeated ImageOptionsValueDto options_values = 7;
+  repeated Image images = 8;
+  bool available = 9;
+  google.protobuf.StringValue collection_id = 10;
+  int32 display_order = 11;
+  google.protobuf.StringValue youtube_video = 12;
+  bool coming_soon = 13;
+  google.protobuf.StringValue display_name_open = 14;
+  Discount discount = 15;
+  GenderType gender_type = 16;
+  Image icon_thumbnail = 17;
+  google.protobuf.Timestamp created_at = 18;
+  google.protobuf.Timestamp updated_at = 19;
+  google.protobuf.StringValue created_by = 20;
+  google.protobuf.StringValue updated_by = 21;
+  bool lock = 22;
+}
+
+message ProductInCartDto {
+  string id = 1;
+  google.protobuf.StringValue title = 2;
+  google.protobuf.StringValue seo_alias = 3;
+  Image image = 4;
+  bool available = 5;
+  bool lock = 6;
+}
+
+message TitleProduct {
+  string id = 1;
+  google.protobuf.StringValue title = 2;
+}
+
