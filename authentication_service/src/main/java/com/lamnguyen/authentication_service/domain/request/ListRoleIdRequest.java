@@ -8,14 +8,21 @@
 
 package com.lamnguyen.authentication_service.domain.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import reactor.util.annotation.NonNull;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 
-public record ListRoleIdRequest(
-		@JsonProperty("role-ids")
-		@NonNull
-		List<Long> roleIds
-) {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PROTECTED)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+public class ListRoleIdRequest {
+		@NotNull
+		List<Long> roleIds;
 }

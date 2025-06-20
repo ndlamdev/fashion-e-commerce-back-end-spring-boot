@@ -62,7 +62,6 @@ public class RedisConfig {
 		return template;
 	}
 
-
 	@Bean
 	public RedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
 		return RedisCacheManager.builder(redisConnectionFactory).build();

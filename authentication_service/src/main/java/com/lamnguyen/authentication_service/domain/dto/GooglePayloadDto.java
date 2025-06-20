@@ -9,14 +9,25 @@
 package com.lamnguyen.authentication_service.domain.dto;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-public record GooglePayloadDto(
-		String fullName,
-		String avatar,
-		String email
-) {
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class GooglePayloadDto {
+		String fullName;
+		String avatar;
+		String email;
 
 	public static GooglePayloadDto newInstance(GoogleIdToken.Payload payload) {
-		return new GooglePayloadDto(payload.get("name").toString(), payload.get("picture").toString(), payload.getEmail());
+		return GooglePayloadDto.builder()
+				.fullName(payload.get("name").toString())
+				.avatar(payload.get("picture").toString())
+				.email(payload.getEmail())
+				.build();
 	}
 }

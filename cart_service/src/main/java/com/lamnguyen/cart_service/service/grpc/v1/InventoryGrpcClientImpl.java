@@ -13,21 +13,15 @@ import com.lamnguyen.cart_service.protos.ProductIdOfVariantRequest;
 import com.lamnguyen.cart_service.protos.VariantIdsRequest;
 import com.lamnguyen.cart_service.protos.VariantProductInfo;
 import com.lamnguyen.cart_service.service.grpc.IInventoryGrpcClient;
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Service
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class InventoryGrpcClientImpl implements IInventoryGrpcClient {
 	@GrpcClient("fashion-e-commerce-inventory-service")
-	@NonFinal
 	public InventoryServiceGrpc.InventoryServiceBlockingStub inventoryServiceStub;
 
 	@Override

@@ -8,12 +8,19 @@
 
 package com.lamnguyen.authentication_service.domain.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.validation.constraints.NotNull;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-public record GoogleAuthRequest(
-		@JsonProperty("auth-code")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PROTECTED)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+public class GoogleAuthRequest {
 		@NotNull
-		String authCode
-) {
+		String authCode;
 }

@@ -35,7 +35,6 @@ public interface IProfileUserMapper {
 	@Mapping(target = "phone", ignore = true)
 	SaveProfileUserEvent toSaveProfileUserEvent(GooglePayloadDto request);
 
-	@Mapping(target = "width", ignore = true)
 	ProfileUserDto toProfileUserDto(ProfileUserResponse request);
 
 	@Mapping(source = "avatar.data", target = "avatar", qualifiedByName = "convertPictureObjectToUrl")

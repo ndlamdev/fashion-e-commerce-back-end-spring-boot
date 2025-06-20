@@ -8,7 +8,8 @@
 
 package com.lamnguyen.cart_service.domain.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -20,14 +21,13 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CartItemDto {
 	long id;
 	String variantId;
 	String productId;
 	int quantity;
 	boolean lock;
-	@JsonProperty("create_at")
 	LocalDateTime createAt;
-	@JsonProperty("update_at")
 	LocalDateTime updateAt;
 }

@@ -9,9 +9,13 @@
 package com.lamnguyen.product_service.service.grpc;
 
 import com.lamnguyen.product_service.domain.response.VariantResponse;
+import com.lamnguyen.product_service.protos.VariantAndInventoryInfo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IVariantGrpcClient {
-	List<VariantResponse> getVariantsByProductId(String productId);
+    List<VariantResponse> getVariantsByProductId(String productId);
+
+    Map<String, VariantAndInventoryInfo> getVariantAndInventoryInfo(List<String> productIdList);
 }

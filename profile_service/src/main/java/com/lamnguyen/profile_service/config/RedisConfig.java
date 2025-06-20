@@ -9,7 +9,7 @@
 package com.lamnguyen.profile_service.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lamnguyen.profile_service.domain.dto.CustomerDto;
+import com.lamnguyen.profile_service.domain.dto.ProfileDto;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -40,12 +40,12 @@ public class RedisConfig {
     }
 
     @Bean
-    RedisTemplate<String, CustomerDto> redisCustomerTemplate(RedisConnectionFactory connectionFactory) {
-        RedisTemplate<String, CustomerDto> template = new RedisTemplate<>();
+    RedisTemplate<String, ProfileDto> redisCustomerTemplate(RedisConnectionFactory connectionFactory) {
+        RedisTemplate<String, ProfileDto> template = new RedisTemplate<>();
         template.setKeySerializer(new StringRedisSerializer());
-        template.setValueSerializer(new Jackson2JsonRedisSerializer<>(objectMapper, CustomerDto.class));
+        template.setValueSerializer(new Jackson2JsonRedisSerializer<>(objectMapper, ProfileDto.class));
         template.setHashKeySerializer(new StringRedisSerializer());
-        template.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(objectMapper, CustomerDto.class));
+        template.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(objectMapper, ProfileDto.class));
         template.setConnectionFactory(connectionFactory);
         return template;
     }

@@ -10,6 +10,8 @@ import "google/protobuf/empty.proto";
 service PaymentService {
   rpc pay (PaymentRequest) returns (PaymentResponse);
   rpc CancelOrder (OrderIdRequest) returns (google.protobuf.Empty);
+  rpc GetPaymentStatus (OrderIdRequest) returns (PaymentResponse);
+  rpc GetPaymentStatuses (OrderIdsRequest) returns (PaymentsResponse);
 }
 enum PaymentMethod {
   PAY_OS = 0;
@@ -54,4 +56,12 @@ message PaymentResponse {
 
 message OrderIdRequest {
   int64 id = 1;
+}
+
+message OrderIdsRequest {
+  repeated int64 id = 1;
+}
+
+message PaymentsResponse {
+  map<int64, PaymentResponse> payments = 1;
 }

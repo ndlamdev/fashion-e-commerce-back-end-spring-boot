@@ -305,7 +305,8 @@ public class YourApplication {
 #### Tạo FeignClients
 
 ```java
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -322,54 +323,46 @@ public interface IFacebookGraphClient {
 	@GetMapping(value = "/me?fields=id%2Cname%2Cemail%2Cfirst_name%2Clast_name%2Cpicture%2Clocale%2Ctimezone")
 	ProfileUserFacebookResponse getProfile(@RequestParam("access_token") String accessToken);
 
+	@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 	record DebugTokenResponse(
 			DataDebugTokenResponse data
 	) {
 		public record DataDebugTokenResponse(
-				@JsonProperty("app_id")
 				String appId,
 				String type,
 				String application,
-				@JsonProperty("data_access_expires_at")
 				long dataAccessExpiresAt,
-				@JsonProperty("expires_at")
 				long expiresAt,
-				@JsonProperty("is_valid")
 				boolean valid,
-				@JsonProperty("user_id")
 				String userId,
 				String[] scopes
 		) {
 		}
 	}
 
+	@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 	record ExchangeTokenResponse(
-			@JsonProperty("access_token")
 			String accessToken,
-			@JsonProperty("token_type")
 			String tokenType,
-			@JsonProperty("expires_in")
 			long expiresIn
 	) {
 	}
 
+	@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 	record ProfileUserFacebookResponse(
 			String id,
 			String name,
-			@JsonProperty("first_name")
 			String firstName,
-			@JsonProperty("last_name")
 			String lastName,
-			@JsonProperty("picture")
 			Picture avatar
 	) {
 		public record Picture(
 				PictureData data
 		) {
+			@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 			public record PictureData(
 					double height,
 					double width,
-					@JsonProperty("is_silhouette")
 					boolean isSilhouette,
 					String url
 			) {
@@ -545,108 +538,108 @@ monitoring/
 version: '3.8'
 
 services:
-   prometheus:
-      image: prom/prometheus:latest
-      container_name: prometheus_container
-      ports:
-         - "9090:9090"
-      volumes:
-         - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-         - ./prometheus/data:/prometheus
-      restart: unless-stopped
-      networks:
-         - fashion_e_commerce_monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus_container
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/data:/prometheus
+    restart: unless-stopped
+    networks:
+      - fashion_e_commerce_monitoring
 
-   grafana:
-      image: grafana/grafana:latest
-      container_name: grafana_container
-      ports:
-         - "3000:3000"
-      volumes:
-         - ./grafana/data:/var/lib/grafana
-         - ./grafana/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
-      environment:
-         - GF_SECURITY_ADMIN_USER=admin
-         - GF_SECURITY_ADMIN_PASSWORD=admin
-      depends_on:
-         - prometheus
-         - loki
-         - tempo
-      restart: unless-stopped
-      networks:
-         - fashion_e_commerce_monitoring
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana_container
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana/data:/var/lib/grafana
+      - ./grafana/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - prometheus
+      - loki
+      - tempo
+    restart: unless-stopped
+    networks:
+      - fashion_e_commerce_monitoring
 
-   loki:
-      image: grafana/loki:latest
-      container_name: loki_container
-      ports:
-         - "3100:3100"
-      command: -config.file=/etc/loki/local-config.yaml
-      restart: unless-stopped
-      networks:
-         - fashion_e_commerce_monitoring
+  loki:
+    image: grafana/loki:latest
+    container_name: loki_container
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    restart: unless-stopped
+    networks:
+      - fashion_e_commerce_monitoring
 
-   otel-collector:
-      image: otel/opentelemetry-collector-contrib:0.82.0
-      container_name: otel_container
-      restart: always
-      command:
-         - --config=/etc/otelcol-contrib/otel-collector.yml
-      volumes:
-         - ./opentelemetry/otel-collector.yml:/etc/otelcol-contrib/otel-collector.yml
-      ports:
-         - "1888:1888" # pprof extension
-         - "8888:8888" # Prometheus metrics exposed by the collector
-         - "8889:8889" # Prometheus exporter metrics
-         - "13133:13133" # health_check extension
-         - "4318:4318" # OTLP http receiver
-         - "4317:4317" # OTLP grpc receiver
-         - "55679:55679" # zpages extension
-      depends_on:
-         - tempo
-      networks:
-         - fashion_e_commerce_monitoring
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.82.0
+    container_name: otel_container
+    restart: always
+    command:
+      - --config=/etc/otelcol-contrib/otel-collector.yml
+    volumes:
+      - ./opentelemetry/otel-collector.yml:/etc/otelcol-contrib/otel-collector.yml
+    ports:
+      - "1888:1888" # pprof extension
+      - "8888:8888" # Prometheus metrics exposed by the collector
+      - "8889:8889" # Prometheus exporter metrics
+      - "13133:13133" # health_check extension
+      - "4318:4318" # OTLP http receiver
+      - "4317:4317" # OTLP grpc receiver
+      - "55679:55679" # zpages extension
+    depends_on:
+      - tempo
+    networks:
+      - fashion_e_commerce_monitoring
 
-   tempo:
-      image: grafana/tempo:latest
-      container_name: tempo_container
-      volumes:
-         - ./tempo/tempo.yaml:/etc/tempo.yaml
-      command: [ "-config.file=/etc/tempo.yaml" ]
-      ports:
-         - "3200:3200" # tempo
-         - "9095:9095" # tempo
-         - "4317" # otlp grpc
-         - "4318" # otlp grpc
-      networks:
-         - fashion_e_commerce_monitoring
-      depends_on:
-         - minio
+  tempo:
+    image: grafana/tempo:latest
+    container_name: tempo_container
+    volumes:
+      - ./tempo/tempo.yaml:/etc/tempo.yaml
+    command: [ "-config.file=/etc/tempo.yaml" ]
+    ports:
+      - "3200:3200" # tempo
+      - "9095:9095" # tempo
+      - "4317" # otlp grpc
+      - "4318" # otlp grpc
+    networks:
+      - fashion_e_commerce_monitoring
+    depends_on:
+      - minio
 
-   minio:
-      image: quay.io/minio/minio:latest
-      container_name: minio_container
-      environment:
-         - MINIO_ROOT_USER=admin
-         - MINIO_ROOT_PASSWORD=LamNguyen@1305
-      command: server /home/shared --console-address ":9999"
-      ports:
-         - 9990:9000
-         - 9999:9999
-      restart: unless-stopped
-      volumes:
-         - ./minio/data:/home/shared
-      networks:
-         - fashion_e_commerce_monitoring
-      healthcheck:
-         test: [ "CMD", "curl", "-f", "http://localhost:9990/minio/health/live" ]
-         interval: 1m30s
-         timeout: 30s
-         retries: 5
+  minio:
+    image: quay.io/minio/minio:latest
+    container_name: minio_container
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=LamNguyen@1305
+    command: server /home/shared --console-address ":9999"
+    ports:
+      - 9990:9000
+      - 9999:9999
+    restart: unless-stopped
+    volumes:
+      - ./minio/data:/home/shared
+    networks:
+      - fashion_e_commerce_monitoring
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9990/minio/health/live" ]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
 
 networks:
-   fashion_e_commerce_monitoring:
-      driver: bridge
+  fashion_e_commerce_monitoring:
+    driver: bridge
 ```
 
 ### Cấu hình file `grafana/grafana-datasources.yml`
@@ -655,75 +648,75 @@ networks:
 apiVersion: 1
 
 datasources:
-   - name: Prometheus
-     type: prometheus
-     uid: prometheus
-     access: proxy
-     orgId: 1
-     url: http://prometheus:9090
-     basicAuth: false
-     isDefault: false
-     version: 1
-     editable: false
-     jsonData:
-        httpMethod: GET
+  - name: Prometheus
+    type: prometheus
+    uid: prometheus
+    access: proxy
+    orgId: 1
+    url: http://prometheus:9090
+    basicAuth: false
+    isDefault: false
+    version: 1
+    editable: false
+    jsonData:
+      httpMethod: GET
 
-   - name: Loki
-     type: loki
-     uid: loki
-     access: proxy
-     orgId: 1
-     url: http://loki:3100
-     basicAuth: false
-     isDefault: false
-     version: 1
-     editable: false
+  - name: Loki
+    type: loki
+    uid: loki
+    access: proxy
+    orgId: 1
+    url: http://loki:3100
+    basicAuth: false
+    isDefault: false
+    version: 1
+    editable: false
 
-   - name: Tempo
-     type: tempo
-     uid: tempo
-     access: proxy
-     orgId: 1
-     url: http://tempo:3200
-     basicAuth: false
-     isDefault: true
-     version: 1
-     editable: false
-     apiVersion: 1
-     jsonData:
-        httpMethod: GET
-        tracesToLogsV2:
-           datasourceUid: loki
-           spanStartTimeShift: '-1h'
-           spanEndTimeShift: '1h'
-           filterByTraceID: true
-           filterBySpanID: true
-           tags:
-              - key: 'service.name'
-                value: 'job'
-        tracesToMetrics:
-           datasourceUid: 'prometheus'
-           spanStartTimeShift: '-1h'
-           spanEndTimeShift: '1h'
-           tags:
-              - key: 'service.name'
-                value: 'job'
-        serviceMap:
-           datasourceUid: 'prometheus'
-        nodeGraph:
-           enabled: true
-        search:
-           hide: false
-        traceQuery:
-           timeShiftEnabled: true
-           spanStartTimeShift: '-1h'
-           spanEndTimeShift: '1h'
-        spanBar:
-           type: 'Tag'
-           tag: 'http.path'
-        streamingEnabled:
-           search: false
-           metrics: false
+  - name: Tempo
+    type: tempo
+    uid: tempo
+    access: proxy
+    orgId: 1
+    url: http://tempo:3200
+    basicAuth: false
+    isDefault: true
+    version: 1
+    editable: false
+    apiVersion: 1
+    jsonData:
+      httpMethod: GET
+      tracesToLogsV2:
+        datasourceUid: loki
+        spanStartTimeShift: '-1h'
+        spanEndTimeShift: '1h'
+        filterByTraceID: true
+        filterBySpanID: true
+        tags:
+          - key: 'service.name'
+            value: 'job'
+      tracesToMetrics:
+        datasourceUid: 'prometheus'
+        spanStartTimeShift: '-1h'
+        spanEndTimeShift: '1h'
+        tags:
+          - key: 'service.name'
+            value: 'job'
+      serviceMap:
+        datasourceUid: 'prometheus'
+      nodeGraph:
+        enabled: true
+      search:
+        hide: false
+      traceQuery:
+        timeShiftEnabled: true
+        spanStartTimeShift: '-1h'
+        spanEndTimeShift: '1h'
+      spanBar:
+        type: 'Tag'
+        tag: 'http.path'
+      streamingEnabled:
+        search: false
+        metrics: false
 ```
 
 ### Cấu hình file `prometheus/prometheus.yml`
@@ -810,7 +803,6 @@ scrape_configs:
 
 ```
 
-
 ### Cấu hình file `tempo/tempo.yml`
 
 ```yml
@@ -885,32 +877,32 @@ curl -L https://github.com/open-telemetry/opentelemetry-java-instrumentation/rel
 
 ```yml
 receivers:
-   otlp:
-      protocols:
-         grpc:
-         http:
+  otlp:
+    protocols:
+      grpc:
+      http:
 
 exporters:
-   otlp:
-      endpoint: tempo:4317
-      tls:
-         insecure: true
-   logging:
-      loglevel: debug
-   loki:
-      endpoint: http://loki:3100/loki/api/v1/push
+  otlp:
+    endpoint: tempo:4317
+    tls:
+      insecure: true
+  logging:
+    loglevel: debug
+  loki:
+    endpoint: http://loki:3100/loki/api/v1/push
 
 service:
-   pipelines:
-      traces:
-         receivers: [ otlp ]
-         exporters: [ otlp ]
-      metrics:
-         receivers: [ otlp ]
-         exporters: [ logging ]
-      logs:
-         receivers: [ otlp ]
-         exporters: [ loki, logging ]
+  pipelines:
+    traces:
+      receivers: [ otlp ]
+      exporters: [ otlp ]
+    metrics:
+      receivers: [ otlp ]
+      exporters: [ logging ]
+    logs:
+      receivers: [ otlp ]
+      exporters: [ loki, logging ]
 ```
 
 3. **Chạy OpenTelemetry Java Agent**
@@ -923,7 +915,7 @@ Cấu hình thêm VM options (Add VM options) trong phần cấu hình chạy d�
 
 ```VM options
 -javaagent:path\opentelemetry-javaagent.jar
--Dotel.exporter.otlp.protocol=grpc
+-Dotel.exporter.otlp.protocol=grpc  || http/protobuf
 -Dotel.exporter.otlp.endpoint=http://localhost:4317
 -Dotel.javaagent.debug=true //Bật chế độ debug
 ```
@@ -934,7 +926,7 @@ Cấu hình thêm VM options (Add VM options) trong phần cấu hình chạy d�
 
 ```VM options
 -javaagent:path\opentelemetry-javaagent.jar
--Dotel.exporter.otlp.protocol=grpc
+-Dotel.exporter.otlp.protocol=grpc || http/protobuf
 -Dotel.exporter.otlp.endpoint=http://localhost:4317
 -Dotel.javaagent.debug=true //Bật chế độ debug
 -Dotel.logs.exporter=otlp
@@ -953,18 +945,19 @@ Cấu hình thêm VM options (Add VM options) trong phần cấu hình chạy d�
 
 ```VM options
 java -javaagent:path\opentelemetry-javaagent.jar \
+-jar target/your-application.jar \
 -Dotel.exporter.otlp.protocol=grpc \
 -Dotel.exporter.otlp.endpoint=http://localhost:4317 \
--Dotel.javaagent.debug=true \ //Bật chế độ debug
--jar target/your-application.jar
+-Dotel.javaagent.debug=true //Bật chế độ debug
 ```
 
 ---Bắt đầu: Cấu hình chạy kèm với logs---
 
 [Link tìm hiểu các thông số logback](https://github.com/open-telemetry/opentelemetry-java-instrumentation/blob/main/instrumentation/logback/logback-appender-1.0/javaagent/README.md)
 
-```VM options
+```Terminal
 java -javaagent:path\opentelemetry-javaagent.jar \
+-jar target/your-application.jar \
 -Dotel.exporter.otlp.protocol=grpc \
 -Dotel.exporter.otlp.endpoint=http://localhost:4317 \
 -Dotel.javaagent.debug=true \ //Bật chế độ debug
@@ -975,8 +968,7 @@ java -javaagent:path\opentelemetry-javaagent.jar \
 -Dotel.instrumentation.logback-appender.experimental.capture-marker-attribute=true \
 -Dotel.instrumentation.logback-appender.experimental.capture-key-value-pair-attributes=true \
 -Dotel.instrumentation.logback-appender.experimental.capture-logger-context-attributes=true \
--Dotel.instrumentation.logback-appender.experimental.capture-mdc-attributes=* \
--jar target/your-application.jar
+-Dotel.instrumentation.logback-appender.experimental.capture-mdc-attributes=*
 ```
 
 ---Kết thức: Cấu hình chạy kèm với logs---

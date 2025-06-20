@@ -8,10 +8,18 @@
 
 package com.lamnguyen.authentication_service.domain.reponse;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-public record RegisterTokenResponse(
-		@JsonProperty("register-token")
-		String registerToken
-) {
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+public class RegisterTokenResponse {
+		String registerToken;
 }

@@ -8,21 +8,22 @@
 
 package com.lamnguyen.order_service.domain.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.lamnguyen.order_service.protos.ProductInCartDto;
+import lombok.*;
 
 @Builder
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class OrderItemResponse {
 	long id;
-	String productId;
-	String variantId;
+	ProductResponse product;
+	VariantProductResponse variant;
 	int quantity;
-	@JsonProperty("compare_price")
 	double comparePrice;
-	@JsonProperty("discount_price")
 	double regularPrice;
 }

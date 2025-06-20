@@ -10,13 +10,19 @@ package com.lamnguyen.authentication_service.domain.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-public record VerifyAccountRequest(
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class VerifyAccountRequest {
         @NotBlank
         @Email
-        String email,
+        String email;
         @NotBlank
-        String code
-) {
-
+        String code;
 }

@@ -9,7 +9,7 @@
 package com.lamnguyen.product_service.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.lamnguyen.product_service.model.Discount;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;import com.fasterxml.jackson.databind.annotation.JsonNaming;import com.lamnguyen.product_service.model.Discount;
 import com.lamnguyen.product_service.model.MongoBaseDocument;
 import com.lamnguyen.product_service.utils.enums.GenderType;
 import com.lamnguyen.product_service.utils.enums.ProductTag;
@@ -25,10 +25,10 @@ import java.util.List;
 @Getter
 @Setter
 @SuperBuilder
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ProductDto extends MongoBaseDocument implements Serializable {
 	String title;
 
-	@JsonProperty("seo_alias")
 	String seoAlias; // path in url: product/seoAlias
 
 	String vendor; // người bán
@@ -37,7 +37,6 @@ public class ProductDto extends MongoBaseDocument implements Serializable {
 
 	List<OptionDto> options; // Các option để tạo ra biến thể
 
-	@JsonProperty("options_value")
 	List<ImageOptionsValueDto> optionsValues; // Các option có giá trị riêng thì dùng trường này.
 
 	List<String> images; // Hình ảnh để show card
@@ -48,23 +47,17 @@ public class ProductDto extends MongoBaseDocument implements Serializable {
 	@JsonProperty("collection_id")
 	String collection; // Thuộc danh sách nào
 
-	@JsonProperty("display_order")
 	Integer displayOrder; // Thứ tự hiển thị
 
-	@JsonProperty("youtube_video")
 	String youtubeVideo; // Link video trên youtube cho chi tiết sản phẩm
 
-	@JsonProperty("coming_soon")
 	boolean comingSoon; // Đánh dấu sản phẩm có phải mẫu sẽ xuất hiện sớm không
 
-	@JsonProperty("display_name_open")
 	String displayNameOpen; // Subtitle, hiển thị ở dưới title trong chi tiết sản phẩm
 
 	Discount discount; // Khuyến mãi
 
-	@JsonProperty("gender_type")
 	GenderType genderType; // Dòng sản phẩm của nam hay nữ
 
-	@JsonProperty("icon_thumbnail")
 	String iconThumbnail; // Hình minh họa khuyến mãi
 }

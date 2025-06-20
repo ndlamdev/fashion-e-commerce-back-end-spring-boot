@@ -8,9 +8,17 @@
 
 package com.lamnguyen.authentication_service.domain.dto;
 
-public record FacebookPayloadDto(
-		String id,
-		String name,
-		String avatar
-) {
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class FacebookPayloadDto {
+		String id;
+		String name;
+		String avatar;
 }

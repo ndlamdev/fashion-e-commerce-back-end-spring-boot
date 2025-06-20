@@ -9,8 +9,9 @@ import "google/protobuf/timestamp.proto";
 
 // Service definition for ProductService
 service ProductService {
-  rpc GetProductById (ProductRequest) returns (ProductDto);
+  rpc GetProductById (ProductRequest) returns (ProductResponseGrpc);
   rpc GetProductInCartById (ProductRequest) returns (ProductInCartDto);
+  rpc GetTitleProductById (ProductRequest) returns (TitleProduct);
 }
 
 // Request message for GetProductById
@@ -46,7 +47,7 @@ enum OptionType {
 }
 
 // Message for OptionItemDto
-message OptionItemDto {
+message OptionItemResponseGrpc {
   google.protobuf.StringValue title = 1;
   google.protobuf.StringValue slug = 2;
   google.protobuf.StringValue label = 3;
@@ -64,7 +65,7 @@ message OptionDto {
 message ImageOptionsValueDto {
   google.protobuf.StringValue title = 1;
   OptionType type = 2;
-  repeated OptionItemDto options = 3;
+  repeated OptionItemResponseGrpc options = 3;
 }
 
 // Message for Discount
@@ -81,7 +82,7 @@ message Image {
 }
 
 // Message for ProductDto
-message ProductDto {
+message ProductResponseGrpc {
   string id = 1;
   google.protobuf.StringValue title = 2;
   google.protobuf.StringValue seo_alias = 3;
@@ -113,5 +114,10 @@ message ProductInCartDto {
   Image image = 4;
   bool available = 5;
   bool lock = 6;
+}
+
+message TitleProduct {
+  string id = 1;
+  google.protobuf.StringValue title = 2;
 }
 

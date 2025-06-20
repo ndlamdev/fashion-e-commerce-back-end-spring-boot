@@ -8,8 +8,15 @@
 
 package com.lamnguyen.authentication_service.domain.request;
 
-public record UsernamePasswordAuthenticationRequest(
-        String email,
-        String password
-) {
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PROTECTED)
+public class UsernamePasswordAuthenticationRequest {
+        String email;
+        String password;
 }

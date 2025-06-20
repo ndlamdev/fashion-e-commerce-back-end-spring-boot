@@ -90,16 +90,16 @@ public class GoogleAuthServiceImpl implements IGoogleAuthService {
 
     @Override
     public void register(RegisterAccountWithGoogleRequest request) {
-        var payload = jwtTokenUtil.getGooglePayloadDto(request.token());
-        if (!checkRegisterToken(payload, request.token())) {
+        var payload = jwtTokenUtil.getGooglePayloadDto(request.getToken());
+        if (!checkRegisterToken(payload, request.getToken())) {
             return;
         }
 
-        var jwt = jwtTokenUtil.decodeTokenNotVerify(request.token());
+        var jwt = jwtTokenUtil.decodeTokenNotVerify(request.getToken());
 
         var user = userMapper.toUser(request);
-        user.setEmail(payload.email());
-        user.setPassword(passwordEncoder.encode(request.password()));
+        user.setEmail(payload.getEmail());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setActive(true);
         var userSaved = userService.save(user);
         // this code use for test
@@ -107,7 +107,7 @@ public class GoogleAuthServiceImpl implements IGoogleAuthService {
         //this code use for test
         var userDetail = profileUserMapper.toSaveProfileUserEvent(payload);
         userDetail.setUserId(userSaved.getId());
-        userDetail.setPhone(request.phone());
+        userDetail.setPhone(request.getPhone());
         profileUserService.save(userDetail);
         cartService.createCart(userSaved.getId());
         tokenManager.setRegisterTokenIdUsingGoogle(jwt.getId());
@@ -121,7 +121,7 @@ public class GoogleAuthServiceImpl implements IGoogleAuthService {
         }
         User oldUser = null;
         try {
-            oldUser = userService.findUserByEmail(payload.email());
+            oldUser = userService.findUserByEmail(payload.getEmail());
         } catch (ApplicationException ignored) {
             return true;
         }

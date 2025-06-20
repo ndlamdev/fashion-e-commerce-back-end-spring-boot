@@ -9,9 +9,15 @@
 package com.lamnguyen.authentication_service.domain.request;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
-public record EmailRequest(
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PROTECTED)
+public class EmailRequest {
         @NotNull
-        String email
-) {
+        String email;
 }

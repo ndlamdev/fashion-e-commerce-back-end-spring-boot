@@ -7,10 +7,11 @@
  **/
 package com.lamnguyen.order_service.domain.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record OrderIdRequest(
-		@JsonProperty("order_id")
 		long orderId
 ) {
 }

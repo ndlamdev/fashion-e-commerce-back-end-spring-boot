@@ -8,22 +8,19 @@
 
 package com.lamnguyen.order_service.service.grpc.v1;
 
-import com.lamnguyen.order_service.protos.OrderIdRequest;
-import com.lamnguyen.order_service.protos.PaymentRequest;
-import com.lamnguyen.order_service.protos.PaymentResponse;
-import com.lamnguyen.order_service.protos.PaymentServiceGrpc;
-import com.lamnguyen.order_service.service.grpc.IPaymentGrpcClient;
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
-import net.devh.boot.grpc.client.inject.GrpcClient;
+import com.lamnguyen.order_service.protos.*;
 import org.springframework.stereotype.Service;
 
+import com.lamnguyen.order_service.service.grpc.IPaymentGrpcClient;
+
+import net.devh.boot.grpc.client.inject.GrpcClient;
+
+import java.util.List;
+import java.util.Map;
+
 @Service
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class PaymentGrpcClientImpl implements IPaymentGrpcClient {
 	@GrpcClient("fashion-e-commerce-payment-service")
-	@NonFinal
 	public PaymentServiceGrpc.PaymentServiceBlockingStub paymentServiceBlockingStub;
 
 	@Override
@@ -37,5 +34,21 @@ public class PaymentGrpcClientImpl implements IPaymentGrpcClient {
 				.setId(orderId)
 				.build();
 		var ignored = paymentServiceBlockingStub.cancelOrder(request);
+	}
+
+	@Override
+	public PaymentResponse getPaymentStatus(long orderId) {
+		var request = OrderIdRequest.newBuilder()
+				.setId(orderId)
+				.build();
+		return paymentServiceBlockingStub.getPaymentStatus(request);
+	}
+
+	@Override
+	public Map<Long, PaymentResponse> getPaymentStatuses(List<Long> orderIds) {
+		var request = OrderIdsRequest.newBuilder()
+				.addAllId(orderIds)
+				.build();
+		return paymentServiceBlockingStub.getPaymentStatuses(request).getPaymentsMap();
 	}
 }

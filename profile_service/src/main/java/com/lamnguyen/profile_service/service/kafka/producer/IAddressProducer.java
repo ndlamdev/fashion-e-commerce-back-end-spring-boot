@@ -8,8 +8,8 @@
 
 package com.lamnguyen.profile_service.service.kafka.producer;
 
-import com.lamnguyen.profile_service.message.InfoAddressShipping;
+import com.lamnguyen.profile_service.event.InfoAddressShippingEvent;
 
 public interface IAddressProducer {
-	void sendInfoAddressShipping(InfoAddressShipping infoCustomer);
+	void sendInfoAddressShipping(InfoAddressShippingEvent infoCustomer);
 }

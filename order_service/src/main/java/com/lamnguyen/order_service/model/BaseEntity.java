@@ -8,7 +8,8 @@
 
 package com.lamnguyen.order_service.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -31,6 +32,7 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 @RequiredArgsConstructor
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,19 +41,18 @@ public class BaseEntity {
 	@Column(name = "is_lock", columnDefinition = "bit set default false not null")
 	boolean lock;
 
+	@Column(name = "is_delete", columnDefinition = "bit set default false not null")
+	boolean delete;
+
 	@CreatedBy
-	@JsonProperty("create_by")
 	String createBy;
 
 	@CreatedDate
-	@JsonProperty("create_at")
 	LocalDateTime createAt;
 
 	@LastModifiedBy
-	@JsonProperty("update_by")
 	String updateBy;
 
 	@LastModifiedDate
-	@JsonProperty("update_at")
 	LocalDateTime updateAt;
 }

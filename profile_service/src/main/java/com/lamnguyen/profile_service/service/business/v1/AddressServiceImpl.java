@@ -2,14 +2,13 @@ package com.lamnguyen.profile_service.service.business.v1;
 
 import com.lamnguyen.profile_service.config.exception.ApplicationException;
 import com.lamnguyen.profile_service.config.exception.ExceptionEnum;
+import com.lamnguyen.profile_service.domain.dto.AddressDto;
 import com.lamnguyen.profile_service.domain.request.SaveAddressRequest;
-import com.lamnguyen.profile_service.domain.response.AddressResponse;
 import com.lamnguyen.profile_service.mapper.IAddressMapper;
-import com.lamnguyen.profile_service.model.entity.Address;
-import com.lamnguyen.profile_service.model.entity.Customer;
 import com.lamnguyen.profile_service.repository.IAddressRepository;
 import com.lamnguyen.profile_service.service.business.IAddressService;
-import com.lamnguyen.profile_service.service.kafka.producer.v1.AddressProducerImpl;
+import com.lamnguyen.profile_service.service.kafka.producer.IAddressProducer;
+import com.lamnguyen.profile_service.service.redis.IProfileRedisManager;
 import com.lamnguyen.profile_service.utils.helper.JwtTokenUtil;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,107 +26,117 @@ public class AddressServiceImpl implements IAddressService {
     IAddressMapper mapper;
     IAddressRepository repository;
     JwtTokenUtil jwtTokenUtil;
-    AddressProducerImpl customerProducer;
+    IAddressProducer addressProducer;
 
     @Override
-    public AddressResponse saveAddress(SaveAddressRequest request, Long id, Long customerId) {
-        var address = Optional.ofNullable(repository.findAddressByIdAndLockAndCustomer_Id(id, false, customerId)).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
+    public AddressDto saveAddress(Long userId, Long addressId, SaveAddressRequest request) {
+        var address = repository.findAddressByUserIdAndIdAndLockIsFalse(userId, addressId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
         address = mapper.toAddress(request);
-        address.setId(id);
-        address.setCustomer(Customer.builder().id(customerId).build());
-        if(request.active()) {
-            repository.activeAddress(customerId, id);
-            customerProducer.sendInfoAddressShipping(mapper.toInfoAddressShipping(address)); // send info-address-topic
-        }
-        return mapper.toAddressResponse(repository.save(address));
+        address.setId(addressId);
+        address.setUserId(userId);
+        var result = mapper.toAddressDto(repository.save(address));
+        if (request.getActive())
+            setDefaultAddress(userId, result.getId());
+
+        return result;
     }
 
     @Override
-    public AddressResponse saveAddress(SaveAddressRequest request, Long addressId) {
-        return saveAddress(request, addressId, jwtTokenUtil.getUserId());
+    public AddressDto saveAddress(Long addressId, SaveAddressRequest request) {
+        return saveAddress(jwtTokenUtil.getUserId(), addressId, request);
     }
 
     @Override
-    public AddressResponse addAddress(SaveAddressRequest request, Long customerId) {
-        var addresses = getAddresses(customerId);
+    public AddressDto addAddress(Long userId, SaveAddressRequest request) {
+        var addresses = getAddresses(userId);
         var addressDefault = addresses.stream()
-                .filter(AddressResponse::active)
+                .filter(AddressDto::getActive)
                 .findFirst()
                 .orElse(null);
         if (addresses.size() >= 5)
             throw ApplicationException.createException(ExceptionEnum.ADDRESS_LARGER_LIMITED);
         var address = mapper.toAddress(request);
-        if (addresses.isEmpty())  address.setActive(true);
-        if(addressDefault != null && address.getActive()) repository.inactiveAddress(addressDefault.id(), customerId);
-        if(address.getActive()) customerProducer.sendInfoAddressShipping(mapper.toInfoAddressShipping(address)); // send info-address-topic
-        address.setCustomer(Customer.builder().id(customerId).build());
-        return mapper.toAddressResponse(repository.save(address));
+        if (addresses.isEmpty()) address.setActive(true);
+        if (addressDefault != null && address.getActive()) repository.inactiveAddress(addressDefault.getId(), userId);
+        if (address.getActive())
+            addressProducer.sendInfoAddressShipping(mapper.toInfoAddressShipping(address)); // send info-address-topic
+
+        address.setUserId(userId);
+        return mapper.toAddressDto(repository.save(address));
     }
 
     @Override
-    public AddressResponse addAddress(SaveAddressRequest request) {
-        return addAddress(request, jwtTokenUtil.getUserId());
+    public AddressDto addAddress(SaveAddressRequest request) {
+        return addAddress(jwtTokenUtil.getUserId(), request);
     }
 
 
     @Override
-    public List<AddressResponse> getAddresses(Long customerId) {
-        var addresses = repository.findAllByLockAndCustomer_Id(false, customerId);
-        return mapper.toAddressResponseList(addresses);
+    public List<AddressDto> getAddresses(Long userId) {
+        var addresses = repository.findAllByUserIdAndLockIsFalse(userId);
+        return mapper.toAddressDtoList(addresses);
     }
 
     @Override
-    public List<AddressResponse> getAddresses() {
+    public List<AddressDto> getAddresses() {
         return getAddresses(jwtTokenUtil.getUserId());
     }
 
     @Override
-    public AddressResponse getAddressById(Long id, Long customerId) {
-        var address = Optional.ofNullable(repository.findAddressByIdAndLockAndCustomer_Id(id, false, customerId)).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
-        return mapper.toAddressResponse(address);
+    public AddressDto getAddressById(Long userId, Long addressId) {
+        var address = repository.findAddressByUserIdAndIdAndLockIsFalse(userId, addressId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
+        return mapper.toAddressDto(address);
     }
 
     @Override
-    public AddressResponse getAddressById(Long id) {
-        return getAddressById(id, jwtTokenUtil.getUserId());
+    public AddressDto getAddressById(Long addressId) {
+        return getAddressById(jwtTokenUtil.getUserId(), addressId);
     }
 
     @Override
-    public void deleteAddressById(Long id, Long customerId) {
-        var address = Optional.ofNullable(repository.findAddressByIdAndLockAndCustomer_Id(id, false, customerId)).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
+    public void deleteAddressById(Long userId, Long addressId) {
+        var address = repository.findAddressByUserIdAndIdAndLockIsFalse(userId, addressId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
         address.setLock(true);
         repository.save(address);
 
-        Address first = null;
-        if (address.getActive()) {
-            first = repository.findDistinctFirstByLockAndCustomer_Id(false, customerId);
-        }
-        if (first != null) {
-            first.setActive(true);
-            repository.save(first);
-            customerProducer.sendInfoAddressShipping(mapper.toInfoAddressShipping(address)); // send info-address-topic
-        }
+        if (!address.getActive()) return;
+        repository.findFirstByUserIdAndLockIsFalse(userId).ifPresent(it -> {
+            it.setActive(true);
+            repository.save(it);
+            addressProducer.sendInfoAddressShipping(mapper.toInfoAddressShipping(address));
+        });
     }
 
     @Override
-    public void deleteAddressById(Long id) {
-        deleteAddressById(id, jwtTokenUtil.getUserId());
+    public void deleteAddressById(Long addressId) {
+        deleteAddressById(jwtTokenUtil.getUserId(), addressId);
     }
 
     @Override
-    public void setCountAddressLimited(Integer limit) {
-
+    public void setDefaultAddress(Long addressId) {
+        setDefaultAddress(jwtTokenUtil.getUserId(), addressId);
     }
 
     @Override
-    public void setDefaultAddress(Long oldId, Long newId) {
-        setDefaultAddress(oldId, newId, jwtTokenUtil.getUserId());
+    public void setDefaultAddress(Long userId, Long addressId) {
+        repository.findByUserIdAndLockIsFalseAndActiveIsTrue(userId).ifPresent(address -> {
+            address.setActive(false);
+            repository.save(address);
+        });
+        var newAddressDefault = repository.findAddressByUserIdAndIdAndLockIsFalse(userId, addressId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
+        newAddressDefault.setActive(true);
+        repository.save(newAddressDefault);
     }
 
     @Override
-    public void setDefaultAddress(Long oldId, Long newId, Long customerId) {
-        Optional.ofNullable(repository.findAddressByIdAndLockAndCustomer_Id(oldId, false, customerId)).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
-        Optional.ofNullable(repository.findAddressByIdAndLockAndCustomer_Id(newId, false, customerId)).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
-        repository.setDefaultAddress(oldId, newId, customerId);
+    public AddressDto getDefaultAddress() {
+        var userId = jwtTokenUtil.getUserId();
+        return getDefaultAddress(userId);
+    }
+
+    @Override
+    public AddressDto getDefaultAddress(Long userId) {
+        var address = repository.findByUserIdAndLockIsFalseAndActiveIsTrue(userId).orElseThrow(() -> ApplicationException.createException(ExceptionEnum.ADDRESS_NOT_FOUND));
+        return mapper.toAddressDto(address);
     }
 }

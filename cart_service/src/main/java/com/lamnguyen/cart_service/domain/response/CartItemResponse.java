@@ -8,7 +8,8 @@
 
 package com.lamnguyen.cart_service.domain.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.lamnguyen.cart_service.domain.dto.ProductDto;
 import com.lamnguyen.cart_service.domain.dto.VariantProductDto;
 import lombok.*;
@@ -22,14 +23,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class CartItemResponse {
 	long id;
 	VariantProductDto variant;
 	ProductDto product;
 	int quantity;
 	boolean lock;
-	@JsonProperty("create_at")
 	LocalDateTime createAt;
-	@JsonProperty("update_at")
 	LocalDateTime updateAt;
 }

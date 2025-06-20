@@ -8,10 +8,11 @@
 
 package com.lamnguyen.order_service.mapper;
 
+import com.lamnguyen.order_service.domain.dto.OrderItemDto;
 import com.lamnguyen.order_service.domain.response.OrderItemResponse;
 import com.lamnguyen.order_service.model.OrderItemEntity;
 import com.lamnguyen.order_service.protos.OrderItemRequest;
-import com.lamnguyen.order_service.protos.ProductInCartDto;
+import com.lamnguyen.order_service.protos.TitleProduct;
 import com.lamnguyen.order_service.protos.VariantProductInfo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -24,10 +25,9 @@ public interface IOrderItemMapper {
 	@Mapping(target = "quantity", source = "quantity")
 	OrderItemEntity toOrderItemEntity(VariantProductInfo data, int quantity);
 
+	OrderItemDto toOrderStatusResponse(OrderItemEntity item);
 
-	OrderItemResponse toOrderStatusResponse(OrderItemEntity item);
-
-	default OrderItemRequest toItemData(int quantity, VariantProductInfo variantInfo, ProductInCartDto product) {
+	default OrderItemRequest toItemData(int quantity, VariantProductInfo variantInfo, TitleProduct product) {
 		var builder = OrderItemRequest.newBuilder();
 		builder.setPrice((int) variantInfo.getRegularPrice());
 		String title = product.getTitle().getValue() + " / " + variantInfo.getTitle();
@@ -35,4 +35,12 @@ public interface IOrderItemMapper {
 		builder.setQuantity(quantity);
 		return builder.build();
 	}
+
+	@Mapping(target = "product.id", source = "productId")
+	@Mapping(target = "variant.id", source = "variantId")
+	OrderItemResponse toResponse(OrderItemDto dto);
+
+	@Mapping(target = "product.id", source = "productId")
+	@Mapping(target = "variant.id", source = "variantId")
+	OrderItemResponse toResponse(OrderItemEntity dto);
 }

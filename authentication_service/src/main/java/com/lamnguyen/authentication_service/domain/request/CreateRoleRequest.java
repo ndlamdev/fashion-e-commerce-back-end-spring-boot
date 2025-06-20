@@ -8,7 +8,14 @@
 
 package com.lamnguyen.authentication_service.domain.request;
 
-public record CreateRoleRequest(
-        String name
-) {
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PROTECTED)
+public class CreateRoleRequest {
+        String name;
 }

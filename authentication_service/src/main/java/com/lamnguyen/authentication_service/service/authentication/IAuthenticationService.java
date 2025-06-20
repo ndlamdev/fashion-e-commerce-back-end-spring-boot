@@ -9,8 +9,10 @@
 package com.lamnguyen.authentication_service.service.authentication;
 
 import com.lamnguyen.authentication_service.domain.dto.ProfileUserDto;
+import com.lamnguyen.authentication_service.domain.request.ChangePasswordRequest;
 import com.lamnguyen.authentication_service.domain.request.RegisterAccountRequest;
 import com.lamnguyen.authentication_service.domain.request.SetNewPasswordRequest;
+import jakarta.validation.Valid;
 import org.springframework.security.oauth2.jwt.Jwt;
 
 public interface IAuthenticationService {
@@ -33,4 +35,6 @@ public interface IAuthenticationService {
     Jwt renewAccessToken(String refreshToken);
 
     Jwt validate(String token);
+
+	void changePassword(@Valid ChangePasswordRequest request);
 }

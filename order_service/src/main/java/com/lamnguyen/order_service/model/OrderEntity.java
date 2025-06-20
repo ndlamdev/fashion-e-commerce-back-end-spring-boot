@@ -24,8 +24,8 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 public class OrderEntity extends BaseEntity {
-	@Column(name = "customer_id", nullable = false)
-	Long customerId;
+	@Column(name = "user_id", nullable = false)
+	Long userId;
 	String name;
 	String phone;
 	String email;

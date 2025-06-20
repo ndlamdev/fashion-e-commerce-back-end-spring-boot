@@ -17,4 +17,6 @@ public interface IOrderStatusService {
 	                            String note);
 
 	void deleteAllByOrderId(long orderId);
+
+	void deleteOrderStatusByOrderIdAndId(long id, long orderStatusId);
 }

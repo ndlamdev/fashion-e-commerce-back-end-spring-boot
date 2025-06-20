@@ -1,7 +1,7 @@
 package com.lamnguyen.profile_service.controller.admin;
 
 import com.lamnguyen.profile_service.domain.request.SaveAddressRequest;
-import com.lamnguyen.profile_service.domain.response.AddressResponse;
+import com.lamnguyen.profile_service.domain.dto.AddressDto;
 import com.lamnguyen.profile_service.service.business.IAddressService;
 import com.lamnguyen.profile_service.utils.annotation.ApiMessageResponse;
 import jakarta.validation.Valid;
@@ -20,53 +20,61 @@ import java.util.List;
 public class AddressAdminController {
     IAddressService service;
 
-    @GetMapping("/user/{customer-id}")
+    @GetMapping("/user/{user-id}")
     @PreAuthorize("hasAnyAuthority('ADMIN_GET_CUSTOMERS', 'ROLE_ADMIN')")
     @ApiMessageResponse("get addresses")
-    public List<AddressResponse> getAll(@PathVariable("customer-id") Long customerId) {
-        return service.getAddresses(customerId);
+    public List<AddressDto> getAll(@PathVariable("user-id") Long userId) {
+
+        return service.getAddresses(userId);
     }
 
-    @GetMapping("/user/{customer-id}/address/{id}")
+    @GetMapping("/user/{user-id}/address/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN_GET_CUSTOMER_BY_ID', 'ROLE_ADMIN')")
     @ApiMessageResponse("Get address by id")
-    public AddressResponse getAddressById(@PathVariable("id") Long id, @PathVariable("customer-id") Long CustomerId) {
-        return service.getAddressById(id, CustomerId);
+    public AddressDto getAddressById(@PathVariable("id") Long addressId, @PathVariable("user-id") Long userId) {
+        return service.getAddressById(userId, addressId);
     }
 
-    @PatchMapping("/user/{customer-id}/address/{id}")
+    @GetMapping("/user/{user-id}/default")
+    @PreAuthorize("hasAnyAuthority('USER_GET_BY_ADDRESS_ID', 'ROLE_BASE', 'ROLE_ADMIN')")
+    @ApiMessageResponse("Get address default")
+    public AddressDto getDefaultAddress(@PathVariable("user-id") Long userId) {
+        return service.getDefaultAddress(userId);
+    }
+
+    @PutMapping("/user/{user-id}/address/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN_SAVE_ADDRESS', 'ROLE_ADMIN')")
-    @ApiMessageResponse("save address")
-    public AddressResponse saveAddress(
+    @ApiMessageResponse("Update address")
+    public AddressDto saveAddress(
             @RequestBody @Valid SaveAddressRequest request,
-            @PathVariable("id") Long id,
-            @PathVariable("customer-id") Long CustomerId
+            @PathVariable("id") Long addressId,
+            @PathVariable("user-id") Long userId
     ) {
-        return service.saveAddress(request, id, CustomerId);
+        return service.saveAddress(userId, addressId, request);
     }
 
-    @PostMapping("/user/{customer-id}/address")
+    @PostMapping("/user/{user-id}")
     @PreAuthorize("hasAnyAuthority('ADMIN_SAVE_ADDRESS', 'ROLE_ADMIN')")
-    @ApiMessageResponse("save address")
-    public AddressResponse addAddress(
+    @ApiMessageResponse("Add address")
+    public AddressDto addAddress(
             @RequestBody @Valid SaveAddressRequest request,
-            @PathVariable("customer-id") Long customerId
+            @PathVariable("user-id") Long userId
     ) {
-        return service.addAddress(request, customerId);
+        return service.addAddress(userId, request);
     }
 
 
-    @DeleteMapping("/user/{customer-id}/{id}")
+    @DeleteMapping("/user/{user-id}/address/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN_DELETE_ADDRESS', 'ROLE_ADMIN')")
     @ApiMessageResponse("delete address")
-    public void deleteAddress(@PathVariable Long id, @PathVariable("customer-id") Long CustomerId) {
-        service.deleteAddressById(id, CustomerId);
+    public void deleteAddress(@PathVariable("id") Long addressId, @PathVariable("user-id") Long userId) {
+        service.deleteAddressById(userId, addressId);
     }
 
-    @PatchMapping("/user/{customer-id}/default/{id}")
+    @PatchMapping("/user/{user-id}/set-default/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN_SET_DEFAULT_ADDRESS', 'ROLE_ADMIN')")
-    @ApiMessageResponse("delete address")
-    public void setDefaultAddress(@PathVariable Long id, @PathVariable("customer-id") Long CustomerId) {
-        service.setDefaultAddress(id, CustomerId);
+    @ApiMessageResponse("set default address")
+    public void setDefaultAddress(@PathVariable("id") Long addressId, @PathVariable("user-id") Long userId) {
+        service.setDefaultAddress(userId, addressId);
     }
 }

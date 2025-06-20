@@ -29,6 +29,6 @@ public class CartServiceImpl implements ICartService {
 
 	@Override
 	public void createCart(long userId) {
-		template.send(createCartTopic, CreateCartEvent.builder().userId(userId).build());
+		template.send(createCartTopic, new CreateCartEvent(userId));
 	}
 }

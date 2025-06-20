@@ -19,6 +19,7 @@ public enum ExceptionEnum {
 	NOT_FAIL_VARIANT(60002, "Not Fail Variant"),
 	PAY_FAIL(60003, "Pay Fail"),
 	NOT_FOUND(60004, "Order not Found"),
+	CREATE_ORDER_FAIL(60005, "Create Order Fail"),
 	;
 
 	int code;

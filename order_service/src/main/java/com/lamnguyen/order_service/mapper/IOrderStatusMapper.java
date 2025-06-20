@@ -8,11 +8,11 @@
 
 package com.lamnguyen.order_service.mapper;
 
-import com.lamnguyen.order_service.domain.response.OrderStatusResponse;
+import com.lamnguyen.order_service.domain.dto.OrderStatusDto;
 import com.lamnguyen.order_service.model.OrderStatusEntity;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface IOrderStatusMapper {
-	OrderStatusResponse toOrderStatusResponse(OrderStatusEntity status);
+	OrderStatusDto toOrderStatusResponse(OrderStatusEntity status);
 }

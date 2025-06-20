@@ -8,28 +8,36 @@
 
 package com.lamnguyen.order_service.service.grpc.v1;
 
+import com.lamnguyen.order_service.domain.response.ProductResponse;
+import com.lamnguyen.order_service.mapper.IProductMapper;
+import org.springframework.stereotype.Service;
+
 import com.lamnguyen.order_service.protos.ProductInCartDto;
 import com.lamnguyen.order_service.protos.ProductRequest;
 import com.lamnguyen.order_service.protos.ProductServiceGrpc;
+import com.lamnguyen.order_service.protos.TitleProduct;
 import com.lamnguyen.order_service.service.grpc.IProductGrpcClient;
-import lombok.AccessLevel;
+
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
 import net.devh.boot.grpc.client.inject.GrpcClient;
-import org.springframework.stereotype.Service;
 
 @Service
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
 public class ProductGrpcClientImpl implements IProductGrpcClient {
 	@GrpcClient("fashion-e-commerce-product-service")
-	@NonFinal
 	public ProductServiceGrpc.ProductServiceBlockingStub productServiceBlockingStub;
+	private final IProductMapper productMapper;
 
 	@Override
-	public ProductInCartDto getProductDto(String id) {
+	public ProductResponse getProductDto(String id) {
 		var request = ProductRequest.newBuilder().setProductId(id).build();
-		return productServiceBlockingStub.getProductInCartById(request);
+		var response = productServiceBlockingStub.getProductInCartById(request);
+		return productMapper.toProductResponse(response);
+	}
+
+	@Override
+	public TitleProduct getTitleProduct(String id) {
+		var request = ProductRequest.newBuilder().setProductId(id).build();
+		return productServiceBlockingStub.getTitleProductById(request);
 	}
 }

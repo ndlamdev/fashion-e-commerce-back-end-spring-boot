@@ -3,7 +3,7 @@ name: "fashion-e-commerce-message-queue"
 services:
   # Confluent Kafka broker
   kafka_1:
-    image: confluentinc/cp-kafka:latest
+    image: confluentinc/cp-kafka:7.4.3
     container_name: kafka_broker_1_container
     environment:
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:29092,PLAINTEXT_HOST://0.0.0.0:9092
@@ -17,6 +17,8 @@ services:
     ports:
       - "9092:9092"
       - "29092:29092"
+    networks:
+      - fashion_e_commerce_message_queue
     depends_on:
       - zookeeper
 
@@ -26,8 +28,14 @@ services:
     container_name: zookeeper_container
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
+    networks:
+      - fashion_e_commerce_message_queue
     ports:
       - "2181:2181"
+    volumes:
+      - ./data/zookeeper/secrets:/etc/zookeeper/secrets
+      - ./data/zookeeper/data:/var/lib/zookeeper/data
+      - ./data/zookeeper/log:/var/lib/zookeeper/log
 
   # Kafka UI for monitoring topics, brokers, etc.
   kafka-ui:
@@ -39,5 +47,11 @@ services:
     ports:
       - "8080:8080"
       - "9000:9000"
+    networks:
+      - fashion_e_commerce_message_queue
     depends_on:
       - kafka_1
+
+networks:
+  fashion_e_commerce_message_queue:
+    driver: bridge

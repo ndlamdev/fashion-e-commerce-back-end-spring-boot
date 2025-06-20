@@ -46,13 +46,13 @@ public class AuthorizationController {
 	@ApiMessageResponse("Get all role by user not contain success!")
 	@PreAuthorize("hasAnyAuthority('ADD_ROLE_FOR_USER', 'ROLE_ADMIN')")
 	public List<RoleDto> addRoleForUser(@PathVariable("user-id") long userId, @Valid @RequestBody ListRoleIdRequest request) {
-		return iAuthorizationService.assignRole(userId, request.roleIds());
+		return iAuthorizationService.assignRole(userId, request.getRoleIds());
 	}
 
 	@DeleteMapping("/{user-id}")
 	@ApiMessageResponse("Get all role by user not contain success!")
 	@PreAuthorize("hasAnyAuthority('REMOVE_ROLE_OF_USER', 'ROLE_ADMIN')")
 	public List<RoleDto> removeRoleOfUser(@PathVariable("user-id") long userId, @Valid @RequestBody ListRoleIdRequest request) {
-		return iAuthorizationService.removeRole(userId, request.roleIds());
+		return iAuthorizationService.removeRole(userId, request.getRoleIds());
 	}
 }

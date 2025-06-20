@@ -9,8 +9,12 @@ package com.lamnguyen.inventory_service.service.business.v1;
 
 import com.lamnguyen.inventory_service.config.exception.ApplicationException;
 import com.lamnguyen.inventory_service.config.exception.ExceptionEnum;
+import com.lamnguyen.inventory_service.domain.dto.VariantAndInventoryInfoDto;
+import com.lamnguyen.inventory_service.domain.response.VariantResponse;
+import com.lamnguyen.inventory_service.mapper.IInventoryMapper;
 import com.lamnguyen.inventory_service.message.DataVariantEvent;
 import com.lamnguyen.inventory_service.model.VariantProduct;
+import com.lamnguyen.inventory_service.protos.VariantAndInventoryInfo;
 import com.lamnguyen.inventory_service.repository.InventoryRepository;
 import com.lamnguyen.inventory_service.service.business.IInventoryService;
 import com.lamnguyen.inventory_service.service.redis.IVariantByProductIdRedisManage;
@@ -20,7 +24,10 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -37,6 +44,8 @@ public class InventoryServiceImpl implements IInventoryService {
 	InventoryRepository inventoryRepository;
 	IVariantByProductIdRedisManage variantProductRedisManage;
 	IVariantRedisManage variantRedisManage;
+	MongoTemplate mongoTemplate;
+	IInventoryMapper inventoryMapper;
 
 	@Override
 	public void createVariantProduct(DataVariantEvent event) {
@@ -48,18 +57,6 @@ public class InventoryServiceImpl implements IInventoryService {
 		// Create inventory records for each combination
 		optionCombinations.forEach(optionCombination -> insertNewVariant(event.id(), event.comparePrice(), event.regularPrice(), optionCombination));
 	}
-
-	@Override
-	public boolean updateInventoryQuantity(String productId, Map<OptionType, String> options, int quantity) {
-		return inventoryRepository
-				.findByProductIdAndOptions(productId, options)
-				.map(inventory -> {
-					inventoryRepository.save(inventory);
-					log.info("Updated inventory quantity for product {} with options {} to {}", productId, options, quantity);
-					return true;
-				}).orElse(false);
-	}
-
 
 	@Override
 	public List<VariantProduct> getAllInventoryByProductId(String productId) {
@@ -193,5 +190,34 @@ public class InventoryServiceImpl implements IInventoryService {
 		})));
 		CompletableFuture.allOf(listTask.toArray(CompletableFuture[]::new)).join();
 		return result;
+	}
+
+	@Override
+	public Map<String, VariantAndInventoryInfo> getVariantAndInventoryInfo(List<String> productIds) {
+		var aggregation = Aggregation.newAggregation(
+				Aggregation.group("product_id")
+						.count().as("totalVariants")
+						.sum("quantity").as("totalInventories"),
+				Aggregation.project("totalVariants", "totalInventories")
+						.and("_id").as("productId")
+						.andExclude("_id")
+		);
+
+		var result = mongoTemplate.aggregate(aggregation, VariantProduct.class, VariantAndInventoryInfoDto.class).getMappedResults();
+		return result.stream().collect(Collectors.toMap(VariantAndInventoryInfoDto::getProductId, inventoryMapper::toVariantAndInventoryInfo));
+	}
+
+	@Override
+	public List<VariantResponse> getAll() {
+		return inventoryMapper.toVariantResponse(inventoryRepository.findAll());
+	}
+
+	@Override
+	@Transactional
+	public void updateQuantity(String id, int quantity) {
+		var variant = getVariantProductById(id);
+		variant.setQuantity(quantity);
+		inventoryRepository.save(variant);
+		variantRedisManage.delete(variant.getProductId());
 	}
 }

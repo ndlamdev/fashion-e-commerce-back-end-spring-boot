@@ -101,7 +101,7 @@ public class FacebookAuthServiceImpl implements IFacebookAuthService {
         var user = userMapper.toUser(request);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setActive(true);
-        user.setFacebookUserId(payload.id());
+        user.setFacebookUserId(payload.getId());
         User userSaved = userService.save(user);
 
         var userId = userSaved.getId();
@@ -111,8 +111,8 @@ public class FacebookAuthServiceImpl implements IFacebookAuthService {
 
         var profileUser = profileUserMapper.toSaveProfileUserEvent(request);
         profileUser.setUserId(userId);
-        profileUser.setFullName(payload.name());
-        profileUser.setAvatar(payload.avatar());
+        profileUser.setFullName(payload.getName());
+        profileUser.setAvatar(payload.getAvatar());
         profileUserService.save(profileUser);
         cartService.createCart(userId);
         tokenManager.setRegisterTokenIdUsingFacebook(jwt.getId());
@@ -125,7 +125,7 @@ public class FacebookAuthServiceImpl implements IFacebookAuthService {
         }
 
         var payload = jwtTokenUtil.getFacebookPayloadDto(token);
-        if (userService.existsUserByFacebookUserId(payload.id()))
+        if (userService.existsUserByFacebookUserId(payload.getId()))
             throw ApplicationException.createException(ExceptionEnum.USER_EXIST);
         User oldUser;
         try {
@@ -135,9 +135,9 @@ public class FacebookAuthServiceImpl implements IFacebookAuthService {
         }
 
         oldUser.setActive(true);
-        oldUser.setFacebookUserId(payload.id());
+        oldUser.setFacebookUserId(payload.getId());
         userService.save(oldUser);
-        var updateAvatarUserEvent = UpdateAvatarUserEvent.builder().avatar(payload.avatar()).userId(oldUser.getId()).build();
+        var updateAvatarUserEvent = UpdateAvatarUserEvent.builder().avatar(payload.getAvatar()).userId(oldUser.getId()).build();
         profileUserService.updateAvatar(updateAvatarUserEvent);
         tokenManager.setRegisterTokenIdUsingFacebook(jwt.getId());
         throw ApplicationException.createException(ExceptionEnum.ACCOUNT_NOT_LINK, "Your account has been linked to email " + email);

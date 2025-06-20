@@ -8,9 +8,17 @@
 
 package com.lamnguyen.authentication_service.domain.dto;
 
-public record LoginSuccessDto(
-		String email,
-		String accessToken,
-		String refreshToken
-) {
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class LoginSuccessDto {
+		String email;
+		String accessToken;
+		String refreshToken;
 }

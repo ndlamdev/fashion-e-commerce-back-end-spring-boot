@@ -43,3 +43,6 @@
 **/__pycache__/
 **/*.py[cod]
 **/monitoring/**/data/
+**/venv/
+**/*.exe
+**/*.bat

@@ -8,18 +8,12 @@
 
 package com.lamnguyen.payment_service.mapper;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.lamnguyen.payment_service.model.Payment;
 import com.lamnguyen.payment_service.protos.PaymentRequest;
 import com.lamnguyen.payment_service.protos.PaymentResponse;
 import com.lamnguyen.payment_service.utils.enums.PaymentMethod;
-import com.lamnguyen.payment_service.utils.helper.SignAndVerifyDataHelper;
 import org.mapstruct.*;
 import vn.payos.type.PaymentData;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 
 @Mapper(componentModel = "spring", uses = {IGrpcMapper.class, IOrderItemMapper.class})
 public interface IPaymentMapper {
@@ -32,7 +26,7 @@ public interface IPaymentMapper {
 	PaymentData toPaymentData(PaymentRequest data, long orderCode) throws Exception;
 
 	@AfterMapping
-	default void afterMapping(PaymentRequest data, @MappingTarget PaymentData.PaymentDataBuilder paymentData) throws JsonProcessingException {
+	default void afterMapping(PaymentRequest data, @MappingTarget PaymentData.PaymentDataBuilder paymentData) {
 		var amount = data.getItemsList()
 				.stream()
 				.map(it -> it.getPrice() * it.getQuantity()).reduce(Integer::sum)
@@ -58,7 +52,7 @@ public interface IPaymentMapper {
 	}
 
 	@AfterMapping
-	default void afterMapping(PaymentRequest orderRequest, @MappingTarget Payment payment) {
+	default void afterMapping(@MappingTarget Payment payment) {
 		payment.setOrderCode(System.currentTimeMillis());
 	}
 }

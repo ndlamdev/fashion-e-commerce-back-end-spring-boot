@@ -28,8 +28,8 @@ storage:
       endpoint: minio:9000
       insecure: true
       bucket: tempo-trace
-      access_key: Tempo
-      secret_key: TempoTest
+      access_key: P2uTcz0JKfMv4pKEIFkV
+      secret_key: RrsWrXGjF4NbrpjT54n0xsrJYpOSSRuTK5TzRb1j
       region: us-east-1
 
 metrics_generator:

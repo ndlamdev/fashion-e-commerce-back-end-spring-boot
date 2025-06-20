@@ -7,6 +7,7 @@ option java_outer_classname = "InventoryProto";
 service InventoryService {
   rpc GetVariantProductByProductIdNotDeleteAndProductNotLock (ProductIdRequest) returns (VariantProductResponse);
   rpc GetVariantProductByIdNotDeleteAndProductNotLock (VariantIdRequest) returns (VariantProductInfo);
+  rpc getVariantAndInventoryInfos (ProductIdsRequest) returns (VariantAndInventoriesResponse);
 }
 
 message VariantIdRequest {
@@ -37,4 +38,17 @@ message VariantProductInfo {
 
 message VariantProductResponse {
   repeated VariantProductInfo variants = 1; // danh sách mã biến thể
+}
+
+message ProductIdsRequest {
+  repeated string product_id = 1;
+}
+
+message VariantAndInventoryInfo {
+  int32 total_variants = 1;
+  int32 total_inventories = 2;
+}
+
+message VariantAndInventoriesResponse  {
+  map<string, VariantAndInventoryInfo> infos = 1;
 }

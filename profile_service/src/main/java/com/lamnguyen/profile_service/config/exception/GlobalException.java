@@ -81,5 +81,13 @@ public class GlobalException {
 				.build());
 	}
 
-
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<ApiResponseError<Object>> handleException(Exception exception) {
+		return ResponseEntity.badRequest().body(ApiResponseError.builder()
+				.code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+				.error(HttpStatus.INTERNAL_SERVER_ERROR.name())
+				.detail(exception.getMessage())
+				.trace(exception.getStackTrace())
+				.build());
+	}
 }

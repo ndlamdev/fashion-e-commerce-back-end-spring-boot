@@ -16,7 +16,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface IProductRepository extends MongoRepository<Product, String> {
+public interface IProductRepository extends MongoRepository<Product, String>, IProductMongoTemplate {
 	List<Product> findByCollection(Collection collection);
 
 	Page<Product> findByAllImageContainsContains(List<String> ids, Pageable pageable);

@@ -11,6 +11,8 @@ package com.lamnguyen.product_service.domain.unformat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.lamnguyen.product_service.domain.dto.OptionDto;
 import com.lamnguyen.product_service.model.Discount;
 import com.lamnguyen.product_service.utils.enums.GenderType;
@@ -33,11 +35,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class DataProductUnformat implements Serializable {
 	@NotBlank
 	String title;
 
-	@JsonProperty("seo_alias")
 	String seoAlias;
 
 	@NotBlank
@@ -51,7 +53,6 @@ public class DataProductUnformat implements Serializable {
 	@NotEmpty
 	List<OptionDto> options; // Các option để tạo ra biến thể
 
-	@JsonProperty("options_values")
 	List<ImageOptionsValueUnformat> optionsValues;// Các giá trị bổ xung thêm cho option. Như detail của option.
 
 	@JsonIgnore
@@ -61,31 +62,23 @@ public class DataProductUnformat implements Serializable {
 	@JsonIgnore
 	String collection; // Thuộc danh sách nào
 
-	@JsonProperty("display_order")
 	Integer displayOrder; // Thứ tự hiển thị
 
-	@JsonProperty("youtube_video")
 	String youtubeVideo; // Link video trên youtube cho chi tiết sản phẩm
 
-	@JsonProperty("coming_soon")
 	boolean comingSoon; // Đánh dấu sản phẩm có phải mẫu sẽ xuất hiện sớm không
 
-	@JsonProperty("display_name_open")
 	String displayNameOpen; // Subtitle; hiển thị ở dưới title trong chi tiết sản phẩm
 
 	@NotNull
 	Discount discount; // Khuyến mãi
 
-	@JsonProperty("gender_type")
 	GenderType genderType;// Dòng sản phẩm của nam hay nữ
 
-	@JsonProperty("icon_thumbnail")
 	@JsonIgnore
 	String iconThumbnail; // Hình minh họa khuyến mãi
 
-	@JsonProperty("compare_price")
 	double comparePrice; // Giá so sánh
 
-	@JsonProperty("regular_price")
 	double regularPrice; // Giá thông thường
 }

@@ -2,7 +2,7 @@ spring:
   application:
     name: fashion-e-commerce-inventory-service
   profiles:
-    active: ${PROFILE:dev}
+    active: ${PROFILE:dev,local}
   config:
     import: ${CONFIG_SERVER:configserver:https://config-server.ndlamdev.website/fashion-e-commerce-config-server}
   cloud:

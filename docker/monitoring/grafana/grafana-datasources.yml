@@ -10,7 +10,7 @@ datasources:
     basicAuth: false
     isDefault: false
     version: 1
-    editable: false
+    editable: true
     jsonData:
       httpMethod: GET
 
@@ -23,7 +23,7 @@ datasources:
     basicAuth: false
     isDefault: false
     version: 1
-    editable: false
+    editable: true
 
   - name: Tempo
     type: tempo
@@ -34,7 +34,7 @@ datasources:
     basicAuth: false
     isDefault: true
     version: 1
-    editable: false
+    editable: true
     apiVersion: 1
     jsonData:
       httpMethod: GET

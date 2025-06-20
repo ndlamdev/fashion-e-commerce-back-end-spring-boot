@@ -8,6 +8,7 @@
 
 package com.lamnguyen.product_service.service.business.v1;
 
+import com.google.protobuf.StringValue;
 import com.lamnguyen.product_service.config.exception.ApplicationException;
 import com.lamnguyen.product_service.config.exception.ExceptionEnum;
 import com.lamnguyen.product_service.domain.response.ImageOptionsValueResponse;
@@ -17,13 +18,15 @@ import com.lamnguyen.product_service.domain.response.QuickProductResponse;
 import com.lamnguyen.product_service.mapper.*;
 import com.lamnguyen.product_service.model.Product;
 import com.lamnguyen.product_service.model.ProductFilterAndSort;
-import com.lamnguyen.product_service.protos.ProductDto;
+import com.lamnguyen.product_service.protos.ProductResponseGrpc;
 import com.lamnguyen.product_service.protos.ProductInCartDto;
+import com.lamnguyen.product_service.protos.TitleProduct;
 import com.lamnguyen.product_service.repository.IProductRepository;
 import com.lamnguyen.product_service.service.business.IProductService;
 import com.lamnguyen.product_service.service.grpc.IFileSearchGrpcClient;
 import com.lamnguyen.product_service.service.grpc.IMediaGrpcClient;
 import com.lamnguyen.product_service.service.grpc.IVariantGrpcClient;
+import com.lamnguyen.product_service.service.redis.IProductDtoRedisManager;
 import com.lamnguyen.product_service.service.redis.IProductResponseRedisManager;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -62,6 +65,7 @@ public class ProductServiceImpl implements IProductService {
 	IOptionItemMapper optionItemMapper;
 	IFileSearchGrpcClient fileSearchGrpcClient;
 	MongoTemplate mongoTemplate;
+	IProductDtoRedisManager productDtoRedisManager;
 
 	@Override
 	public ProductResponse getProductById(String id) {
@@ -133,9 +137,9 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	@Override
-	public ProductDto getProductProtoById(String id) {
+	public ProductResponseGrpc getProductResponseGrpcById(String id) {
 		var response = getProductById(id);
-		return productMapper.toProductDto(
+		return productMapper.toProductResponseGrpc(
 				response,
 				imageMapper,
 				imageOptionsValueMapper,
@@ -162,10 +166,10 @@ public class ProductServiceImpl implements IProductService {
 		var listTask = new ArrayList<CompletableFuture<Void>>();
 		ids.forEach(id ->
 				listTask.add(CompletableFuture.runAsync(() -> {
-				try {
-					result.add(getProductById(id));
-				} catch (Exception ignored) {
-				}
+					try {
+						result.add(getProductById(id));
+					} catch (Exception ignored) {
+					}
 				}))
 		);
 		CompletableFuture.allOf(listTask.toArray(CompletableFuture[]::new)).join();
@@ -309,5 +313,25 @@ public class ProductServiceImpl implements IProductService {
 		}
 
 		return query;
+	}
+
+	@Override
+	public TitleProduct getTitleProductById(String productId) {
+		var productDto = productDtoRedisManager
+				.get(productId)
+				.or(() -> productDtoRedisManager
+						.cache(
+								productId,
+								productId,
+								() -> productRepository
+										.findById(productId)
+										.map(productMapper::toProductDto)
+						)
+				)
+				.orElseThrow(() -> ApplicationException.createException(ExceptionEnum.PRODUCT_NOT_FOUND));
+		return TitleProduct.newBuilder()
+				.setTitle(StringValue.newBuilder().setValue(productDto.getTitle()).build())
+				.setId(productDto.getId())
+				.build();
 	}
 }
